@@ -6,7 +6,8 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 
 | File | Audience | What it is |
 |---|---|---|
-| `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. |
+| `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
+| `simple2.html` | Non-technical | Same page, closing section + footer replaced by `<ticket-stub-footer>`. |
 | `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
@@ -34,6 +35,32 @@ Site footer with a giant wordmark printed as halftone dots, cropped by the botto
 - **Attributes:** `wordmark`, `label`, `meta`, `back-to-top="false"`, `dot-gap`, `radius`, `crop`, `grain`, `interactive="false"`.
 - **Theming:** CSS custom properties `--hwf-bg`, `--hwf-ink`, `--hwf-warm`, `--hwf-font`, `--hwf-weight`, `--hwf-height` (`auto` by default).
 - Respects `prefers-reduced-motion`, sleeps when idle or off-screen.
+
+### `<ticket-stub-footer>`
+
+Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. Used on `simple2.html`.
+
+```html
+<link rel="stylesheet" href="components/ticket-stub-footer.css" />
+<script src="components/ticket-stub-footer.js" defer></script>
+
+<ticket-stub-footer id="start" wordmark="pramaan" copyright="&copy; 2026 Pramaan">
+  <nav data-slot="sections"><a href="#how">How it works</a><a href="#pricing">Pricing</a></nav>
+  <p data-slot="eyebrow">First phrase|Second phrase</p>
+  <h2 data-slot="headline">Line one<br>Line two</h2>
+  <p data-slot="description">Short line.</p>
+  <a data-slot="cta" href="#start">Get early access</a>
+  <nav data-slot="links" data-title="Product"><a href="#how">How it works</a></nav>
+  <span data-slot="status" data-caption="Early access">Open</span>
+  <span data-slot="count" data-value="300">Things you can ask for</span>
+  <p data-slot="blurb">Mono paragraph on the ticket.</p>
+  <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
+</ticket-stub-footer>
+```
+
+- Section links point at element ids on the page; the index highlights whichever section is in view.
+- Theming: `--tsf-bg`, `--tsf-ink`, `--tsf-ticket`, `--tsf-deep`, `--tsf-accent`, `--tsf-cta`, `--tsf-serif`, `--tsf-mono`. `halftone="false"` prints the wordmark solid.
+- Respects `prefers-reduced-motion`; animation only runs while on screen.
 
 ## Run locally
 

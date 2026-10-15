@@ -28,7 +28,8 @@
  *   back-to-top   "false" to hide the back-to-top button
  *   dot-gap       max distance between dot centres in px (default 6; scales down to 3 on narrow screens)
  *   radius        pointer push radius in px (default 80)
- *   crop          share of the word's height hanging below the edge, 0–0.6 (default 0.2)
+ *   crop          share of the word's full height (incl. descenders) hidden below
+ *                 the edge, 0–0.6 (default 0.2 = 4/5 visible; 0.25 = 3/4 visible)
  *   grain         print grain 0–1 (default 0.5)
  *   interactive   "false" to disable pointer/click response
  *
@@ -223,14 +224,18 @@
         const size = fitSize(m.measureText(word).width, w * 1.02);
         m.font = `${o.weight} ${size}px ${o.font}`;
         const probe = m.measureText(word);
-        const cap = probe.actualBoundingBoxAscent || size * 0.72;
+        const asc = probe.actualBoundingBoxAscent || size * 0.72;
+        const desc = probe.actualBoundingBoxDescent || 0;
+        // Crop is a share of the word's full ink height (descenders included),
+        // so crop 0.2 shows 4/5 of the word and 0.25 shows 3/4.
+        const visible = (asc + desc) * (1 - o.crop);
 
         // Auto height: the links block, a breath of space, then the visible
         // part of the word. A fixed --hwf-height (e.g. 560px) skips this.
         if (o.height === "auto") {
           const rule = root.querySelector(".hwf__rule");
           const above = rule ? rule.getBoundingClientRect().bottom - rect.top : 0;
-          const want = Math.round(above + Math.max(24, cap * 0.18) + cap * (1 - o.crop) + 2);
+          const want = Math.round(above + Math.max(24, asc * 0.18) + visible + 2);
           if (Math.abs(want - rect.height) > 1) root.style.height = want + "px";
           h = want;
         } else {
@@ -247,7 +252,7 @@
         const box = m.measureText(word);
         m.fillStyle = "#000";
         m.textBaseline = "alphabetic";
-        m.fillText(word, (w - box.width) / 2, h + cap * o.crop);
+        m.fillText(word, (w - box.width) / 2, h - visible + asc);
         const img = m.getImageData(0, 0, w, h).data;
 
         // Finer dots on narrow screens so a small word stays legible.
