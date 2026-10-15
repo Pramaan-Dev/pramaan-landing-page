@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <title>Pramaan — Approval</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Newsreader";
+        src: url("assets/fonts/newsreader-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+        font-weight: 400 500;
+        font-style: normal;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: #f6f3f1;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f6f3f1;
+        color: #242424;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- background washes ---------- */
+      .wash {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        will-change: transform;
+      }
+      #wash-coral { width: 552px; height: 456px; left: -166px; top: -148px; background: radial-gradient(closest-side, rgba(255, 148, 115, 1), rgba(255, 148, 115, 0)); opacity: 0.42; }
+      #wash-sky { width: 624px; height: 504px; right: -202px; top: -102px; background: radial-gradient(closest-side, rgba(160, 181, 235, 1), rgba(160, 181, 235, 0)); opacity: 0.55; }
+      #wash-mint { width: 624px; height: 480px; left: 28px; bottom: -260px; background: radial-gradient(closest-side, rgba(167, 252, 205, 1), rgba(167, 252, 205, 0)); opacity: 0.6; }
+      #wash-gold { width: 528px; height: 432px; right: -84px; bottom: -236px; background: radial-gradient(closest-side, rgba(236, 218, 152, 1), rgba(236, 218, 152, 0)); opacity: 0.55; }
+
+      /* ---------- ask (small, top) ---------- */
+      #ask-stage {
+        display: flex;
+        justify-content: center;
+        padding-top: 30px;
+      }
+      #ask-pill {
+        width: 920px;
+        height: 72px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: rgba(251, 250, 249, 0.86);
+        display: flex;
+        align-items: center;
+        padding: 0 12px 0 30px;
+        gap: 16px;
+      }
+      .ask-mark {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+      }
+      #ask-text {
+        flex: 1 1 auto;
+        white-space: nowrap;
+        font-size: 23px;
+        letter-spacing: -0.01em;
+        color: #242424;
+      }
+      #ask-send {
+        width: 50px;
+        height: 50px;
+        border-radius: 9999px;
+        background: #242424;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      #ask-send svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 102px;
+      }
+
+      /* ---------- approval card ---------- */
+      #approve-card {
+        width: 820px;
+        border-radius: 40px;
+        background: #cfdaf5;
+        padding: 36px 52px 40px;
+        display: flex;
+        flex-direction: column;
+      }
+      #approve-kicker {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #3d3c3c;
+      }
+      #approve-title {
+        margin-top: 12px;
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 46px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: #242424;
+      }
+      #approve-rows {
+        margin-top: 16px;
+        border-top: 1px dashed rgba(36, 36, 36, 0.28);
+      }
+      .a-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 0;
+        border-bottom: 1px dashed rgba(36, 36, 36, 0.28);
+        font-size: 26px;
+        color: #242424;
+      }
+      .a-row svg {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+        display: block;
+      }
+      .a-row svg * {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      #approve-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 24px;
+      }
+      .btn {
+        height: 62px;
+        padding: 0 32px;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      #btn-no {
+        border: 1px solid #8f8c8a;
+        color: #242424;
+        background: transparent;
+      }
+      #btn-yes {
+        background: #2b59d1;
+        color: #ffffff;
+        border: 1px solid #2b59d1;
+        min-width: 140px;
+      }
+      #tap-ripple {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: -32px 0 0 -32px;
+        border-radius: 50%;
+        border: 1.5px solid #242424;
+        opacity: 0;
+        pointer-events: none;
+      }
+      #pointer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 34px;
+        height: 41px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 20;
+      }
+
+      /* ---------- invites sent ---------- */
+      #sent-pill {
+        height: 88px;
+        padding: 0 40px 0 30px;
+        border-radius: 9999px;
+        border: 1px solid #242424;
+        background: #d6fde7;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 32px;
+        color: #242424;
+        opacity: 0;
+      }
+      .check {
+        width: 38px;
+        height: 38px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .check circle {
+        fill: #a7fccd;
+        stroke: #242424;
+        stroke-width: 1;
+      }
+      .check path {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ---------- later: results ---------- */
+      #later-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      #later-label {
+        font-family: "Newsreader", serif;
+        font-size: 44px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: #242424;
+        opacity: 0;
+      }
+      #results {
+        width: 760px;
+        border-radius: 24px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        padding: 22px 40px 18px;
+        opacity: 0;
+      }
+      #results-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #242424;
+        padding-bottom: 12px;
+        border-bottom: 1px dashed #cecac8;
+      }
+      .r-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #3ccf86;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .s-row {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        padding: 11px 0;
+        border-bottom: 1px dashed #e2dedc;
+        font-size: 27px;
+      }
+      .s-row .name {
+        width: 104px;
+        flex: 0 0 auto;
+      }
+      .s-row .track {
+        position: relative;
+        flex: 1 1 auto;
+        height: 10px;
+        border-radius: 9999px;
+        background: #ebe7e4;
+        overflow: hidden;
+      }
+      .s-row .fill {
+        display: block;
+        height: 100%;
+        border-radius: 9999px;
+        background: #242424;
+      }
+      .s-row .score {
+        width: 50px;
+        flex: 0 0 auto;
+        text-align: right;
+      }
+      #flag-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 13px 0;
+        border-bottom: 1px dashed #e2dedc;
+        font-size: 24px;
+        color: #242424;
+      }
+      #flag-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff9473;
+        border: 1px solid #c2573a;
+        display: block;
+        flex: 0 0 auto;
+      }
+      #results-foot {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 13px;
+        font-size: 22px;
+        color: #242424;
+      }
+      #results-foot .check {
+        width: 28px;
+        height: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-rz4q"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1280"
+      data-height="720"
+    >
+      <section data-hf-id="hf-itn3" id="scene" class="layer">
+        <div data-hf-id="hf-qawk" class="layer" id="bg">
+          <div data-hf-id="hf-jhub" class="wash" id="wash-coral" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-f6zn" class="wash" id="wash-sky" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-533g" class="wash" id="wash-mint" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-qwwu" class="wash" id="wash-gold" data-layout-allow-overflow></div>
+        </div>
+
+        <!-- approval -->
+        <div data-hf-id="hf-o98r" class="layer stage" id="approve-stage">
+          <div data-hf-id="hf-89gf" id="approve-card">
+            <div data-hf-id="hf-iyfk" id="approve-kicker">Needs your OK</div>
+            <div data-hf-id="hf-kc3i" id="approve-title">Send the Sales Skills test to 3 people?</div>
+            <div data-hf-id="hf-4zle" id="approve-rows">
+              <div data-hf-id="hf-18be" class="a-row">
+                <svg data-hf-id="hf-neyx" viewBox="0 0 26 26"><circle data-hf-id="hf-i67e" cx="9" cy="9" r="4" /><path data-hf-id="hf-3e7m" d="M 2 22 C 2 16, 16 16, 16 22" /><circle data-hf-id="hf-y56h" cx="18.5" cy="9.5" r="3.2" /><path data-hf-id="hf-1udc" d="M 18 16 C 21.5 16, 24 17.5, 24 21.5" /></svg>
+                <span data-hf-id="hf-ivzn">Arjun · Mei · Sara</span>
+              </div>
+              <div data-hf-id="hf-oy2m" class="a-row">
+                <svg data-hf-id="hf-pr3x" viewBox="0 0 26 26"><circle data-hf-id="hf-p081" cx="13" cy="13" r="10" /><path data-hf-id="hf-q0t0" d="M 13 7.5 L 13 13 L 17 15.5" /></svg>
+                <span data-hf-id="hf-u1kp">Camera on · 45 min</span>
+              </div>
+            </div>
+            <div data-hf-id="hf-ovbu" id="approve-actions">
+              <div data-hf-id="hf-f0yn" class="btn" id="btn-no">Not now</div>
+              <div data-hf-id="hf-zh4f" class="btn" id="btn-yes">Yes</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- invites sent -->
+        <div data-hf-id="hf-8mgc" class="layer stage" id="sent-stage">
+          <div data-hf-id="hf-noq5" id="sent-pill">
+            <svg data-hf-id="hf-bqwu" class="check" viewBox="0 0 24 24"><circle data-hf-id="hf-l9xo" cx="12" cy="12" r="11" /><path data-hf-id="hf-bx7s" d="M 7 12.5 L 10.5 16 L 17 9" /></svg>
+            <span data-hf-id="hf-nafl">Invites sent</span>
+          </div>
+        </div>
+
+        <!-- later: results -->
+        <div data-hf-id="hf-b5h6" class="layer stage" id="later-stage">
+          <div data-hf-id="hf-sjlz" id="later-group">
+            <div data-hf-id="hf-4lks" id="later-label">Later…</div>
+            <div data-hf-id="hf-609x" id="results">
+              <div data-hf-id="hf-1my8" id="results-head"><span data-hf-id="hf-fq5r" class="r-dot"></span><span data-hf-id="hf-ulgf">Sales Skills test · Scores</span></div>
+              <div data-hf-id="hf-trxk" class="s-row"><span data-hf-id="hf-pedk" class="name">Arjun</span><span data-hf-id="hf-ms6a" class="track"><span data-hf-id="hf-0cdr" class="fill" style="width: 82%"></span></span><span data-hf-id="hf-weq3" class="score">82</span></div>
+              <div data-hf-id="hf-hin4" class="s-row"><span data-hf-id="hf-1wwp" class="name">Mei</span><span data-hf-id="hf-en7q" class="track"><span data-hf-id="hf-lk8y" class="fill" style="width: 74%"></span></span><span data-hf-id="hf-6l42" class="score">74</span></div>
+              <div data-hf-id="hf-gbq1" class="s-row"><span data-hf-id="hf-c2up" class="name">Sara</span><span data-hf-id="hf-f1ir" class="track"><span data-hf-id="hf-kysf" class="fill" style="width: 91%"></span></span><span data-hf-id="hf-ug57" class="score">91</span></div>
+              <div data-hf-id="hf-eep4" id="flag-row"><span data-hf-id="hf-dfga" id="flag-dot"></span><span data-hf-id="hf-abt3">1 moment flagged for review</span></div>
+              <div data-hf-id="hf-6q7u" id="results-foot">
+                <svg data-hf-id="hf-lzoi" class="check" viewBox="0 0 24 24"><circle data-hf-id="hf-0yp0" cx="12" cy="12" r="11" /><path data-hf-id="hf-lalc" d="M 7 12.5 L 10.5 16 L 17 9" /></svg>
+                <span data-hf-id="hf-ukls">Saved to your history</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ask header -->
+        <div data-hf-id="hf-07od" class="layer" id="ask-stage">
+          <div data-hf-id="hf-3cqk" id="ask-pill">
+            <svg data-hf-id="hf-pizj" class="ask-mark" viewBox="0 0 26 26">
+              <circle data-hf-id="hf-f53n" cx="13" cy="13" r="11.5" fill="none" stroke="#242424" stroke-width="1.5" />
+              <circle data-hf-id="hf-g0zv" cx="13" cy="13" r="3.5" fill="#242424" />
+            </svg>
+            <div data-hf-id="hf-6ftu" id="ask-text">Send a proctored test to my 3 shortlisted candidates</div>
+            <div data-hf-id="hf-ocrf" id="ask-send">
+              <svg data-hf-id="hf-q5y9" viewBox="0 0 22 22">
+                <path data-hf-id="hf-636k" d="M 11 18 L 11 4 M 5 10 L 11 4 L 17 10" fill="none" stroke="#f6f3f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-ih5z" id="tap-ripple"></div>
+        <svg data-hf-id="hf-ka5k" id="pointer" viewBox="0 0 30 36">
+          <path data-hf-id="hf-cn0e" d="M 2 2 L 2 28 L 9 21.5 L 13.5 32 L 18 30 L 13.5 19.8 L 23 19.8 Z" fill="#242424" stroke="#f6f3f1" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        const D = 10;
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+
+          // ---- measure layout once, before any tween ----
+          const rootBox = document.getElementById("root").getBoundingClientRect();
+          const yesBox = document.getElementById("btn-yes").getBoundingClientRect();
+          const YES_X = yesBox.left - rootBox.left + yesBox.width * 0.78;
+          const YES_Y = yesBox.top - rootBox.top + yesBox.height * 0.62;
+          const ripple = document.getElementById("tap-ripple");
+          ripple.style.left = YES_X + "px";
+          ripple.style.top = YES_Y + "px";
+
+          document.querySelectorAll(".check path").forEach((p) => {
+            const len = p.getTotalLength() * 1.05;
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
+          });
+
+          // ---- background drift (periodic over D -> seamless) ----
+          const washes = [
+            { el: document.getElementById("wash-coral"), ax: 36, ay: 22, cx: 1, cy: 2, ph: 0.0 },
+            { el: document.getElementById("wash-sky"), ax: 30, ay: 26, cx: 2, cy: 1, ph: 1.3 },
+            { el: document.getElementById("wash-mint"), ax: 40, ay: 18, cx: 1, cy: 1, ph: 2.4 },
+            { el: document.getElementById("wash-gold"), ax: 28, ay: 24, cx: 1, cy: 2, ph: 3.7 },
+          ];
+          const driver = { t: 0 };
+          tl.to(
+            driver,
+            {
+              t: D,
+              duration: D,
+              ease: "none",
+              onUpdate: () => {
+                const w = (2 * Math.PI * driver.t) / D;
+                for (const s of washes) {
+                  const x = Math.sin(w * s.cx + s.ph) * s.ax - Math.sin(s.ph) * s.ax;
+                  const y = Math.cos(w * s.cy + s.ph) * s.ay - Math.cos(s.ph) * s.ay;
+                  s.el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
+                }
+              },
+            },
+            0,
+          );
+
+          // approval card is on screen at frame 0 (poster) and returns at loop end
+
+          // ---- pointer taps Yes ----
+          tl.fromTo("#pointer", { opacity: 0, x: YES_X + 170, y: YES_Y + 120 }, { opacity: 1, duration: 0.25, ease: "power1.out" }, 1.25);
+          tl.to("#pointer", { x: YES_X - 2, y: YES_Y - 2, duration: 0.75, ease: "back.out(1.25)" }, 1.3);
+          const CLICK = 2.35;
+          tl.fromTo("#pointer", { scale: 1 }, { scale: 0.85, duration: 0.09, ease: "power2.in", yoyo: true, repeat: 1, transformOrigin: "0% 0%" }, CLICK);
+          tl.fromTo("#btn-yes", { scale: 1 }, { scale: 0.95, duration: 0.09, ease: "power2.in", yoyo: true, repeat: 1 }, CLICK);
+          [[CLICK + 0.02, 0.55], [CLICK + 0.5, 0.35]].forEach(([at, peak], i) => {
+            tl.fromTo("#tap-ripple", { scale: 0.4 }, { scale: 2.6, duration: 0.8, ease: "power2.out", immediateRender: i === 0 }, at);
+            tl.fromTo("#tap-ripple", { opacity: 0 }, { opacity: peak, duration: 0.12, ease: "power1.out", immediateRender: i === 0 }, at);
+            tl.to("#tap-ripple", { opacity: 0, duration: 0.42, ease: "power1.in" }, at + 0.14);
+          });
+          tl.to("#pointer", { opacity: 0, duration: 0.3, ease: "power1.in" }, 2.9);
+          tl.to("#approve-card", { opacity: 0, y: -36, duration: 0.45, ease: "power2.in" }, 3.0);
+
+          // ---- invites sent ----
+          tl.fromTo("#sent-pill", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 3.45);
+          tl.fromTo("#sent-pill .check", { scale: 0.6, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 3.55);
+          tl.to("#sent-pill .check path", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 3.65);
+          tl.to("#sent-pill", { opacity: 0, y: -24, duration: 0.4, ease: "power2.in" }, 4.75);
+
+          // ---- later: results ----
+          tl.fromTo("#later-label", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 5.15);
+          tl.fromTo("#results", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 5.3);
+          tl.fromTo("#results .s-row", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.14 }, 5.55);
+          tl.fromTo("#results .fill", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power3.out", stagger: 0.14 }, 5.65);
+          tl.fromTo("#flag-row", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, 6.3);
+          tl.fromTo("#flag-dot", { scale: 1 }, { scale: 1.35, duration: 0.3, ease: "power1.inOut", yoyo: true, repeat: 3 }, 6.5);
+          tl.fromTo("#results-foot", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 6.75);
+          tl.to("#results-foot .check path", { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 6.85);
+
+          // ---- loop return: results out, approval card back (matches frame 0) ----
+          tl.to("#later-group", { opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 8.85);
+          tl.fromTo("#approve-card", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", immediateRender: false }, 9.35);
+
+          window.__timelines["main"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+
+        document.fonts.ready.then(build);
+      })();
+    </script>
+  </body>
+</html>

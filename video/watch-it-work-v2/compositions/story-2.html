@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+      <div data-hf-id="hf-j6ng" id="root" data-composition-id="story-2" data-width="1280" data-height="720">
+        <div data-hf-id="hf-axqk" class="layer stage" id="s2">
+          <div data-hf-id="hf-ws6k" class="result-pill" id="s2-pill"><svg data-hf-id="hf-kijf" class="big-check" viewBox="0 0 40 40"><circle data-hf-id="hf-yqby" cx="20" cy="20" r="18.5" /><path data-hf-id="hf-denj" pathLength="1" d="M 12 20.5 L 17.5 26 L 28 14.5" /></svg><span data-hf-id="hf-17y4">Valid · safe to send</span></div>
+          <div data-hf-id="hf-exmb" class="sub" id="s2-sub">jane@acme.com · checked in e.g. 2 seconds</div>
+          <div data-hf-id="hf-ax2a" class="saved" id="s2-saved"><svg data-hf-id="hf-0n2h" viewBox="0 0 20 20"><path data-hf-id="hf-evgv" pathLength="1" d="M 4 10.5 L 8 14.5 L 16 6" /></svg><span data-hf-id="hf-ukls">Saved to your history</span></div>
+        </div>
+      </div>
+      <script>
+      (function () {
+        const H = (tl) => {
+          const h = {
+            popIn: (s, at, y = 40) => tl.fromTo(s, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at),
+            popOut: (s, at) => tl.to(s, { opacity: 0, y: -24, duration: 0.4, ease: "power2.in" }, at),
+            fadeUp: (s, at) => tl.fromTo(s, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, at),
+            rows: (s, at) => tl.fromTo(s, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.12 }, at),
+            tagIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, at),
+            draw: (s, at) => tl.fromTo(s, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, at),
+            pillIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, at),
+          };
+          h.saved = (s, at) => { h.fadeUp(s, at); h.draw(s + " path", at + 0.1); };
+          return h;
+        };
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const h = H(tl);
+          h.pillIn("#s2-pill", 0.35);
+          h.draw("#s2-pill path", 0.55);
+          h.fadeUp("#s2-sub", 0.75);
+          h.saved("#s2-saved", 1.35);
+          ["#s2-pill", "#s2-sub", "#s2-saved"].forEach((s, i) => h.popOut(s, 3.75 + i * 0.03));
+          window.__timelines["story-2"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+        document.fonts.ready.then(build);
+      })();
+      </script>
+    </template>
+  </body>
+</html>

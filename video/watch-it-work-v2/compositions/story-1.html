@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+      <div data-hf-id="hf-1hdj" id="root" data-composition-id="story-1" data-width="1280" data-height="720">
+        <div data-hf-id="hf-lt87" class="layer stage" id="s1">
+          <div data-hf-id="hf-gkqd" class="rcard" id="s1-card">
+            <div data-hf-id="hf-1fmb" class="rcard-head"><span data-hf-id="hf-fq5r" class="r-dot"></span><span data-hf-id="hf-zkoa">Your brief</span></div>
+            <div data-hf-id="hf-4sa1" class="rcard-title">Acme Corp</div>
+            <div data-hf-id="hf-thy4" class="row"><span data-hf-id="hf-qi8x" class="k">What they do</span><span data-hf-id="hf-bgrx" class="v">Packaging for food brands</span></div>
+            <div data-hf-id="hf-lt04" class="row"><span data-hf-id="hf-goam" class="k">Recent news</span><span data-hf-id="hf-xzi1" class="v">Opened a plant in Pune</span></div>
+            <div data-hf-id="hf-km31" class="row"><span data-hf-id="hf-a7s2" class="k">Key people</span><span data-hf-id="hf-tsiv" class="v">Jane Doe, VP Marketing</span></div>
+            <div data-hf-id="hf-roi8" class="rcard-foot saved" id="s1-saved"><svg data-hf-id="hf-0n2h" viewBox="0 0 20 20"><path data-hf-id="hf-evgv" pathLength="1" d="M 4 10.5 L 8 14.5 L 16 6" /></svg><span data-hf-id="hf-ukls">Saved to your history</span></div>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function () {
+        const H = (tl) => {
+          const h = {
+            popIn: (s, at, y = 40) => tl.fromTo(s, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at),
+            popOut: (s, at) => tl.to(s, { opacity: 0, y: -24, duration: 0.4, ease: "power2.in" }, at),
+            fadeUp: (s, at) => tl.fromTo(s, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, at),
+            rows: (s, at) => tl.fromTo(s, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.12 }, at),
+            tagIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, at),
+            draw: (s, at) => tl.fromTo(s, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, at),
+            pillIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, at),
+          };
+          h.saved = (s, at) => { h.fadeUp(s, at); h.draw(s + " path", at + 0.1); };
+          return h;
+        };
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const h = H(tl);
+          // local 0 = the moment the ask is sent (header rises in the host)
+          h.popIn("#s1-card", 0.95);
+          h.rows("#s1-card .row", 1.25);
+          h.saved("#s1-saved", 2.2);
+          h.popOut("#s1-card", 4.89);
+          window.__timelines["story-1"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+        document.fonts.ready.then(build);
+      })();
+      </script>
+    </template>
+  </body>
+</html>

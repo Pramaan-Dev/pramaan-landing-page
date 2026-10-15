@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <title>Pramaan — Say what you need. Keep the proof.</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Newsreader";
+        src: url("assets/fonts/newsreader-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+        font-weight: 400 500;
+        font-style: normal;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: #f6f3f1;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      #app {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f6f3f1;
+        color: #242424;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- background washes ---------- */
+      .wash {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        will-change: transform;
+      }
+      #wash-coral {
+        width: 552px;
+        height: 456px;
+        left: -166px;
+        top: -148px;
+        background: radial-gradient(closest-side, rgba(255, 148, 115, 1), rgba(255, 148, 115, 0));
+        opacity: 0.42;
+      }
+      #wash-sky {
+        width: 624px;
+        height: 504px;
+        right: -202px;
+        top: -102px;
+        background: radial-gradient(closest-side, rgba(160, 181, 235, 1), rgba(160, 181, 235, 0));
+        opacity: 0.55;
+      }
+      #wash-mint {
+        width: 624px;
+        height: 480px;
+        left: 28px;
+        bottom: -260px;
+        background: radial-gradient(closest-side, rgba(167, 252, 205, 1), rgba(167, 252, 205, 0));
+        opacity: 0.6;
+      }
+      #wash-gold {
+        width: 528px;
+        height: 432px;
+        right: -84px;
+        bottom: -236px;
+        background: radial-gradient(closest-side, rgba(236, 218, 152, 1), rgba(236, 218, 152, 0));
+        opacity: 0.55;
+      }
+
+      /* ---------- ask pill ---------- */
+      #ask-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+      }
+      #ask-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        width: 940px;
+      }
+      #ask-label {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        color: #4e4d4d;
+        text-transform: uppercase;
+      }
+      #ask-pill {
+        width: 940px;
+        height: 88px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: rgba(251, 250, 249, 0.86);
+        display: flex;
+        align-items: center;
+        padding: 0 14px 0 36px;
+        gap: 18px;
+      }
+      .ask-mark {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 auto;
+        display: block;
+      }
+      #ask-textwrap {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        white-space: pre;
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        color: #242424;
+        min-width: 0;
+      }
+      #ask-text {
+        white-space: pre;
+      }
+      #ask-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 30px;
+        margin-left: 3px;
+        background: #242424;
+      }
+      #ask-send {
+        width: 60px;
+        height: 60px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: #f6f3f1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      #ask-send svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+      #send-arrow {
+        stroke: #242424;
+      }
+
+      /* ---------- shared content stage ---------- */
+      .stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding-top: 150px;
+        padding-bottom: 16px;
+      }
+      .saved {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        color: #242424;
+        opacity: 0;
+      }
+      .saved svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .saved svg path {
+        fill: none;
+        stroke: #1c8f57;
+        stroke-width: 2.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* receipt-style card */
+      .rcard {
+        width: 640px;
+        border-radius: 24px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        padding: 26px 36px 22px;
+        opacity: 0;
+      }
+      .rcard-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #242424;
+        padding-bottom: 14px;
+        border-bottom: 1px dashed #cecac8;
+      }
+      .r-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #3ccf86;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .rcard-title {
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 38px;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: #242424;
+        padding: 14px 0 6px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 24px;
+        padding: 11px 0;
+        border-bottom: 1px dashed #e2dedc;
+      }
+      .row .k {
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #4e4d4d;
+        flex: 0 0 auto;
+      }
+      .row .v {
+        font-size: 18px;
+        color: #242424;
+        text-align: right;
+      }
+      .rcard-foot {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 14px;
+        font-size: 16px;
+        color: #242424;
+      }
+      .flag-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #ff9473;
+        border: 1px solid #c4532f;
+        display: block;
+        flex: 0 0 auto;
+      }
+
+      /* result pill (lookup + post-approval status) */
+      .result-pill {
+        height: 78px;
+        padding: 0 36px 0 22px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 26px;
+        letter-spacing: -0.01em;
+        color: #242424;
+        opacity: 0;
+      }
+      .big-check {
+        width: 40px;
+        height: 40px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .big-check circle {
+        fill: #a7fccd;
+        stroke: #242424;
+        stroke-width: 1;
+      }
+      .big-check path {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 2.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .sub {
+        font-size: 16px;
+        color: #4e4d4d;
+        letter-spacing: 0.02em;
+        opacity: 0;
+      }
+      .later {
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #4e4d4d;
+        opacity: 0;
+      }
+
+      /* approval card */
+      .approve {
+        width: 740px;
+        border-radius: 40px;
+        background: #cfdaf5;
+        padding: 36px 48px 38px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0;
+      }
+      .approve-kicker {
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #3d3c3c;
+      }
+      .approve-title {
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 38px;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        color: #242424;
+      }
+      .chips {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 9999px;
+        border: 1px solid #8e95a8;
+        background: rgba(251, 250, 249, 0.6);
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        color: #242424;
+      }
+      .chip-more {
+        border-style: dashed;
+        background: transparent;
+      }
+      .meta {
+        font-size: 16px;
+        color: #3d3c3c;
+        letter-spacing: 0.02em;
+        margin-left: 6px;
+      }
+      .preview-row {
+        min-height: 58px;
+        padding: 0 20px;
+        border-radius: 18px;
+        border: 1px solid #8e95a8;
+        background: rgba(251, 250, 249, 0.7);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .preview-row svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .preview-row svg path {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .pr-k {
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #3d3c3c;
+        flex: 0 0 auto;
+      }
+      .pr-v {
+        font-size: 17px;
+        color: #242424;
+        flex: 1 1 auto;
+      }
+      .pr-amt {
+        font-size: 19px;
+        color: #242424;
+        flex: 0 0 auto;
+      }
+      .pr-quote {
+        font-family: "Newsreader", serif;
+        font-size: 21px;
+        letter-spacing: -0.01em;
+        color: #242424;
+        flex: 1 1 auto;
+      }
+      .actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 6px;
+      }
+      .btn {
+        height: 56px;
+        padding: 0 30px;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .btn-no {
+        border: 1px solid #a9a6a4;
+        color: #242424;
+        background: transparent;
+      }
+      .btn-yes {
+        position: relative;
+        background: #2b59d1;
+        color: #ffffff;
+        border: 1px solid #2b59d1;
+        min-width: 132px;
+      }
+      .ripple {
+        position: absolute;
+        left: 78%;
+        top: 62%;
+        width: 64px;
+        height: 64px;
+        margin: -32px 0 0 -32px;
+        border-radius: 50%;
+        border: 1.5px solid #242424;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 19;
+      }
+      .pointer {
+        position: absolute;
+        left: 78%;
+        top: 62%;
+        width: 30px;
+        height: 36px;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 20;
+      }
+
+      /* ---------- end: history + sign-off ---------- */
+      #history {
+        width: 800px;
+        border-radius: 24px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        padding: 26px 36px 18px;
+        opacity: 0;
+      }
+      #end-stage {
+        padding-top: 16px;
+      }
+      .hrow {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 13px 0;
+        border-bottom: 1px dashed #e2dedc;
+        font-size: 17px;
+        color: #242424;
+      }
+      .hrow:last-child {
+        border-bottom: none;
+      }
+      .h-job {
+        flex: 1 1 auto;
+      }
+      .h-status {
+        width: 170px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #3d3c3c;
+        flex: 0 0 auto;
+      }
+      .s-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        flex: 0 0 auto;
+        border: 1px solid #242424;
+      }
+      .s-look {
+        background: #a7fccd;
+      }
+      .s-ok {
+        background: #cfdaf5;
+      }
+      .h-cost {
+        width: 120px;
+        text-align: right;
+        color: #4e4d4d;
+        flex: 0 0 auto;
+      }
+      #signoff {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+      }
+      #signoff-line {
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 60px;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        color: #242424;
+        opacity: 0;
+      }
+      #wordmark {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0;
+      }
+      #wordmark svg {
+        width: 30px;
+        height: 30px;
+        display: block;
+      }
+      #wordmark span {
+        font-family: "Newsreader", serif;
+        font-size: 32px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        color: #242424;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-lm69" id="app" data-composition-id="main" data-start="0" data-duration="51.5" data-width="1280" data-height="720">
+      <div data-hf-id="hf-qawk" class="layer" id="bg">
+        <div data-hf-id="hf-jhub" class="wash" id="wash-coral" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-f6zn" class="wash" id="wash-sky" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-533g" class="wash" id="wash-mint" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-qwwu" class="wash" id="wash-gold" data-layout-allow-overflow></div>
+      </div>
+
+      <!-- one slot per story; data-start = the moment that ask is sent -->
+      <div data-hf-id="hf-7cst" id="story-1" class="clip" data-composition-id="story-1" data-composition-src="compositions/story-1.html" data-start="2.29" data-duration="5.35" data-track-index="1" data-width="1280" data-height="720"></div>
+      <div data-hf-id="hf-05zs" id="story-2" class="clip" data-composition-id="story-2" data-composition-src="compositions/story-2.html" data-start="9.49" data-duration="4.3" data-track-index="2" data-width="1280" data-height="720"></div>
+      <div data-hf-id="hf-p9yy" id="story-3" class="clip" data-composition-id="story-3" data-composition-src="compositions/story-3.html" data-start="16.76" data-duration="10.4" data-track-index="3" data-width="1280" data-height="720"></div>
+      <div data-hf-id="hf-lbpp" id="story-4" class="clip" data-composition-id="story-4" data-composition-src="compositions/story-4.html" data-start="29.23" data-duration="5.65" data-track-index="4" data-width="1280" data-height="720"></div>
+      <div data-hf-id="hf-5gpl" id="story-5" class="clip" data-composition-id="story-5" data-composition-src="compositions/story-5.html" data-start="37.16" data-duration="6.05" data-track-index="5" data-width="1280" data-height="720"></div>
+      <div data-hf-id="hf-4n5z" id="ending" class="clip" data-composition-id="ending" data-composition-src="compositions/ending.html" data-start="43.21" data-duration="7.39" data-track-index="6" data-width="1280" data-height="720"></div>
+
+      <!-- ask pill: centred at rest, becomes the header while jobs run -->
+      <div data-hf-id="hf-07od" class="layer" id="ask-stage">
+        <div data-hf-id="hf-uu2q" id="ask-group">
+          <div data-hf-id="hf-alga" id="ask-label">Just ask</div>
+          <div data-hf-id="hf-3cqk" id="ask-pill">
+            <svg data-hf-id="hf-pizj" class="ask-mark" viewBox="0 0 26 26">
+              <circle data-hf-id="hf-f53n" cx="13" cy="13" r="11.5" fill="none" stroke="#242424" stroke-width="1.5" />
+              <circle data-hf-id="hf-g0zv" cx="13" cy="13" r="3.5" fill="#242424" />
+            </svg>
+            <div data-hf-id="hf-rx1w" id="ask-textwrap"><span data-hf-id="hf-4esn" id="ask-text"></span><span data-hf-id="hf-z7kc" id="ask-cursor"></span></div>
+            <div data-hf-id="hf-ocrf" id="ask-send">
+              <svg data-hf-id="hf-q5y9" viewBox="0 0 22 22">
+                <path data-hf-id="hf-wnao" id="send-arrow" d="M 11 18 L 11 4 M 5 10 L 11 4 L 17 10" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const D = 51.5; // = root data-duration
+        const HEADER_Y = 86; // header pill centre (px from top)
+        const HEADER_S = 0.8;
+        const ASKS = [
+          "Research Acme before my meeting",
+          "Is jane@acme.com a real email?",
+          "Send a proctored test to my 3 shortlisted candidates",
+          "Send Priya a payment link for $200",
+          "Email everyone who signed up this week",
+        ];
+        const TYPE_START = [0.5, 7.74, 13.89, 27.21, 34.98];
+        const SEND = [2.29, 9.49, 16.76, 29.23, 37.16]; // = story slot data-start
+        const HEADER_OUT = 42.71; // story 5 status leaves
+        const RESET_AT = D - 0.9; // ending slot fades out just before this
+
+        const stories = ASKS.map((text, i) => {
+          const sch = [];
+          let t = TYPE_START[i];
+          for (let k = 1; k <= text.length; k++) {
+            t += text[k - 2] === " " ? 0.09 : 0.042;
+            sch.push({ t: +t.toFixed(3), text: text.slice(0, k) });
+          }
+          return { clearAt: TYPE_START[i] - 0.2, sch, send: SEND[i] };
+        });
+        const changeTimes = stories.flatMap((s) => s.sch.map((x) => x.t));
+        function stateAt(t) {
+          if (t >= RESET_AT) return { text: "", sent: false };
+          for (let i = stories.length - 1; i >= 0; i--) {
+            const s = stories[i];
+            if (t < s.clearAt) continue;
+            let text = "";
+            for (let j = s.sch.length - 1; j >= 0; j--) if (t >= s.sch[j].t) { text = s.sch[j].text; break; }
+            return { text, sent: t >= s.send };
+          }
+          return { text: "", sent: false };
+        }
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const rootTop = document.getElementById("app").getBoundingClientRect().top;
+          const g = document.getElementById("ask-group").getBoundingClientRect();
+          const p = document.getElementById("ask-pill").getBoundingClientRect();
+          const gC = g.top - rootTop + g.height / 2;
+          const pC = p.top - rootTop + p.height / 2;
+          const RISE_Y = HEADER_Y - gC - HEADER_S * (pC - gC);
+
+          SEND.forEach((at, i) =>
+            tl.fromTo("#ask-send", { scale: 1 }, { scale: 0.9, duration: 0.09, ease: "power2.in", yoyo: true, repeat: 1, immediateRender: i === 0 }, at),
+          );
+          tl.fromTo("#ask-label", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.out" }, SEND[0] + 0.2);
+          tl.fromTo("#ask-group", { y: 0, scale: 1 }, { y: RISE_Y, scale: HEADER_S, duration: 0.75, ease: "power3.inOut" }, SEND[0] + 0.25);
+          tl.to("#ask-group", { opacity: 0, duration: 0.4, ease: "power2.in" }, HEADER_OUT);
+          tl.set("#ask-group", { y: 0, scale: 1 }, RESET_AT);
+          tl.fromTo("#ask-group", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, RESET_AT + 0.02);
+          tl.fromTo("#ask-label", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, RESET_AT + 0.02);
+
+          // master driver: typing, cursor, send-button state, background drift
+          const textEl = document.getElementById("ask-text");
+          const cursorEl = document.getElementById("ask-cursor");
+          const sendEl = document.getElementById("ask-send");
+          const arrowEl = document.getElementById("send-arrow");
+          const washes = [
+            ["wash-coral", 36, 22, 2, 3, 0.0],
+            ["wash-sky", 30, 26, 3, 2, 1.3],
+            ["wash-mint", 40, 18, 2, 2, 2.4],
+            ["wash-gold", 28, 24, 2, 3, 3.7],
+          ].map(([id, ax, ay, cx, cy, ph]) => ({ el: document.getElementById(id), ax, ay, cx, cy, ph }));
+          const BLINK = D / 60; // whole blink cycles per loop -> seamless
+          const driver = { t: 0 };
+          tl.to(driver, {
+            t: D,
+            duration: D,
+            ease: "none",
+            onUpdate: () => {
+              const t = driver.t;
+              const s = stateAt(t);
+              textEl.textContent = s.text;
+              const typing = changeTimes.some((c) => c <= t && t - c < 0.22);
+              const blinkOn = Math.cos((2 * Math.PI * t) / BLINK) > -0.05;
+              cursorEl.style.opacity = !s.sent && (typing || blinkOn) ? "1" : "0";
+              sendEl.style.backgroundColor = s.sent ? "#242424" : "#f6f3f1";
+              sendEl.style.borderColor = s.sent ? "#242424" : "#cecac8";
+              arrowEl.style.stroke = s.sent ? "#f6f3f1" : "#242424";
+              const w = (2 * Math.PI * t) / D;
+              for (const o of washes) {
+                const x = Math.sin(w * o.cx + o.ph) * o.ax - Math.sin(o.ph) * o.ax;
+                const y = Math.cos(w * o.cy + o.ph) * o.ay - Math.cos(o.ph) * o.ay;
+                o.el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
+              }
+            },
+          }, 0);
+
+          window.__timelines["main"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+        document.fonts.ready.then(build);
+      })();
+    </script>
+  </body>
+</html>

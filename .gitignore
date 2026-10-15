@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+
+# local tool caches (contain machine-specific paths)
+.gstack/
+.hyperframes/
+.thumbnails/
+.media/

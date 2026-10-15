@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <title>Pramaan — Research</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Newsreader";
+        src: url("assets/fonts/newsreader-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+        font-weight: 400 500;
+        font-style: normal;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: #f6f3f1;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f6f3f1;
+        color: #242424;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- background washes ---------- */
+      .wash {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        will-change: transform;
+      }
+      #wash-coral { width: 552px; height: 456px; left: -166px; top: -148px; background: radial-gradient(closest-side, rgba(255, 148, 115, 1), rgba(255, 148, 115, 0)); opacity: 0.42; }
+      #wash-sky { width: 624px; height: 504px; right: -202px; top: -102px; background: radial-gradient(closest-side, rgba(160, 181, 235, 1), rgba(160, 181, 235, 0)); opacity: 0.55; }
+      #wash-mint { width: 624px; height: 480px; left: 28px; bottom: -260px; background: radial-gradient(closest-side, rgba(167, 252, 205, 1), rgba(167, 252, 205, 0)); opacity: 0.6; }
+      #wash-gold { width: 528px; height: 432px; right: -84px; bottom: -236px; background: radial-gradient(closest-side, rgba(236, 218, 152, 1), rgba(236, 218, 152, 0)); opacity: 0.55; }
+
+      /* ---------- ask ---------- */
+      #ask-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #ask-group {
+        position: relative;
+        width: 840px;
+        height: 96px;
+      }
+      #ask-label {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -52px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        color: #4e4d4d;
+        text-transform: uppercase;
+      }
+      #ask-pill {
+        width: 840px;
+        height: 96px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: rgba(251, 250, 249, 0.86);
+        display: flex;
+        align-items: center;
+        padding: 0 16px 0 38px;
+        gap: 18px;
+      }
+      .ask-mark {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+      }
+      #ask-textwrap {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        white-space: pre;
+        font-size: 30px;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        color: #242424;
+      }
+      #ask-text {
+        white-space: pre;
+      }
+      #ask-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 36px;
+        margin-left: 3px;
+        background: #242424;
+      }
+      #ask-send {
+        width: 64px;
+        height: 64px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: #f6f3f1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      #ask-send svg {
+        width: 24px;
+        height: 24px;
+      }
+      #send-arrow {
+        stroke: #242424;
+      }
+
+      /* ---------- brief card ---------- */
+      #brief-stage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 122px;
+      }
+      #brief {
+        width: 860px;
+        border-radius: 24px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        padding: 26px 44px 22px;
+        opacity: 0;
+      }
+      #brief-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 16px;
+        border-bottom: 1px dashed #cecac8;
+      }
+      #brief-title {
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 52px;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        color: #242424;
+      }
+      .row {
+        display: flex;
+        align-items: baseline;
+        padding: 15px 0;
+        border-bottom: 1px dashed #e2dedc;
+      }
+      .row .k {
+        width: 236px;
+        flex: 0 0 auto;
+        font-size: 22px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #4e4d4d;
+      }
+      .row .v {
+        font-size: 27px;
+        color: #242424;
+      }
+      #brief-foot {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-top: 18px;
+        font-size: 24px;
+        color: #242424;
+        opacity: 0;
+      }
+      .check {
+        width: 32px;
+        height: 32px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .check circle {
+        fill: #a7fccd;
+        stroke: #242424;
+        stroke-width: 1;
+      }
+      .check path {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-rz4q"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1280"
+      data-height="720"
+    >
+      <section data-hf-id="hf-itn3" id="scene" class="layer">
+        <div data-hf-id="hf-qawk" class="layer" id="bg">
+          <div data-hf-id="hf-jhub" class="wash" id="wash-coral" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-f6zn" class="wash" id="wash-sky" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-533g" class="wash" id="wash-mint" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-qwwu" class="wash" id="wash-gold" data-layout-allow-overflow></div>
+        </div>
+
+        <!-- brief card -->
+        <div data-hf-id="hf-hz9e" class="layer" id="brief-stage">
+          <div data-hf-id="hf-9iuj" id="brief">
+            <div data-hf-id="hf-ok9e" id="brief-head">
+              <div data-hf-id="hf-j3yg" id="brief-title">Acme Corp</div>
+            </div>
+            <div data-hf-id="hf-thy4" class="row"><span data-hf-id="hf-qi8x" class="k">What they do</span><span data-hf-id="hf-bgrx" class="v">Packaging for food brands</span></div>
+            <div data-hf-id="hf-lt04" class="row"><span data-hf-id="hf-goam" class="k">Recent news</span><span data-hf-id="hf-xzi1" class="v">Opened a plant in Pune</span></div>
+            <div data-hf-id="hf-km31" class="row"><span data-hf-id="hf-a7s2" class="k">Key people</span><span data-hf-id="hf-tsiv" class="v">Jane Doe, VP Marketing</span></div>
+            <div data-hf-id="hf-ukmo" id="brief-foot">
+              <svg data-hf-id="hf-bqwu" class="check" viewBox="0 0 24 24"><circle data-hf-id="hf-l9xo" cx="12" cy="12" r="11" /><path data-hf-id="hf-bx7s" d="M 7 12.5 L 10.5 16 L 17 9" /></svg>
+              <span data-hf-id="hf-ukls">Saved to your history</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ask (on top so it stays the header) -->
+        <div data-hf-id="hf-07od" class="layer" id="ask-stage">
+          <div data-hf-id="hf-uu2q" id="ask-group">
+            <div data-hf-id="hf-alga" id="ask-label">Just ask</div>
+            <div data-hf-id="hf-3cqk" id="ask-pill">
+              <svg data-hf-id="hf-pizj" class="ask-mark" viewBox="0 0 26 26">
+                <circle data-hf-id="hf-f53n" cx="13" cy="13" r="11.5" fill="none" stroke="#242424" stroke-width="1.5" />
+                <circle data-hf-id="hf-g0zv" cx="13" cy="13" r="3.5" fill="#242424" />
+              </svg>
+              <div data-hf-id="hf-rx1w" id="ask-textwrap"><span data-hf-id="hf-4esn" id="ask-text"></span><span data-hf-id="hf-z7kc" id="ask-cursor"></span></div>
+              <div data-hf-id="hf-ocrf" id="ask-send">
+                <svg data-hf-id="hf-q5y9" viewBox="0 0 22 22">
+                  <path data-hf-id="hf-wnao" id="send-arrow" d="M 11 18 L 11 4 M 5 10 L 11 4 L 17 10" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        const D = 10;
+        const ASK = "Research Acme before my meeting";
+        const TYPE_START = 0.4;
+        const SCHEDULE = [];
+        {
+          let t = TYPE_START;
+          for (let i = 1; i <= ASK.length; i++) {
+            const prev = ASK[i - 2];
+            t += prev === " " ? 0.1 : 0.045;
+            SCHEDULE.push({ t: +t.toFixed(3), text: ASK.slice(0, i) });
+          }
+        }
+        const SEND_AT = 2.25;
+        const RESET_AT = 9.2;
+        const CHANGE_TIMES = SCHEDULE.map((s) => s.t);
+
+        function askTextAt(t) {
+          if (t >= RESET_AT) return "";
+          for (let i = SCHEDULE.length - 1; i >= 0; i--) if (t >= SCHEDULE[i].t) return SCHEDULE[i].text;
+          return "";
+        }
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+
+          const checkPath = document.querySelector("#brief-foot .check path");
+          const cLen = checkPath.getTotalLength() * 1.05;
+          checkPath.style.strokeDasharray = cLen;
+          checkPath.style.strokeDashoffset = cLen;
+
+          // ---- master driver: typing, cursor blink, background drift ----
+          const textEl = document.getElementById("ask-text");
+          const cursorEl = document.getElementById("ask-cursor");
+          const washes = [
+            { el: document.getElementById("wash-coral"), ax: 36, ay: 22, cx: 1, cy: 2, ph: 0.0 },
+            { el: document.getElementById("wash-sky"), ax: 30, ay: 26, cx: 2, cy: 1, ph: 1.3 },
+            { el: document.getElementById("wash-mint"), ax: 40, ay: 18, cx: 1, cy: 1, ph: 2.4 },
+            { el: document.getElementById("wash-gold"), ax: 28, ay: 24, cx: 1, cy: 2, ph: 3.7 },
+          ];
+          const BLINK = 1.0; // 10 whole cycles over 10s -> seamless loop
+          const driver = { t: 0 };
+          tl.to(
+            driver,
+            {
+              t: D,
+              duration: D,
+              ease: "none",
+              onUpdate: () => {
+                const t = driver.t;
+                textEl.textContent = askTextAt(t);
+                const inputMode = t < SEND_AT || t >= RESET_AT;
+                const typing = CHANGE_TIMES.some((c) => c <= t && t - c < 0.22);
+                const blinkOn = Math.cos((2 * Math.PI * t) / BLINK) > -0.05;
+                cursorEl.style.opacity = inputMode && (typing || blinkOn) ? "1" : "0";
+                const w = (2 * Math.PI * t) / D;
+                for (const s of washes) {
+                  const x = Math.sin(w * s.cx + s.ph) * s.ax - Math.sin(s.ph) * s.ax;
+                  const y = Math.cos(w * s.cy + s.ph) * s.ay - Math.cos(s.ph) * s.ay;
+                  s.el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
+                }
+              },
+            },
+            0,
+          );
+
+          // ---- send ----
+          tl.fromTo("#ask-send", { scale: 1 }, { scale: 0.9, duration: 0.09, ease: "power2.in", yoyo: true, repeat: 1 }, SEND_AT);
+          tl.fromTo("#ask-send", { backgroundColor: "#f6f3f1", borderColor: "#cecac8" }, { backgroundColor: "#242424", borderColor: "#242424", duration: 0.2, ease: "power1.out" }, SEND_AT);
+          tl.fromTo("#send-arrow", { stroke: "#242424" }, { stroke: "#f6f3f1", duration: 0.2, ease: "power1.out" }, SEND_AT);
+
+          // ask rises to become the header (pill centre 360 -> 64)
+          tl.fromTo("#ask-label", { opacity: 1 }, { opacity: 0, duration: 0.3, ease: "power1.out" }, 2.5);
+          tl.fromTo("#ask-group", { y: 0, scale: 1 }, { y: -296, scale: 0.75, duration: 0.75, ease: "power3.inOut" }, 2.55);
+
+          // ---- brief card ----
+          tl.fromTo("#brief", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 3.15);
+          tl.fromTo("#brief-title", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 3.35);
+          tl.fromTo("#brief .row", { opacity: 0, x: -12 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out", stagger: 0.28 }, 3.7);
+          tl.fromTo("#brief-foot", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 5.7);
+          tl.fromTo("#brief-foot .check", { scale: 0.6, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.4, ease: "back.out(2)" }, 5.7);
+          tl.to(checkPath, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, 5.8);
+
+          // ---- loop return: fade to the empty ask box ----
+          tl.to("#brief", { opacity: 0, y: -20, duration: 0.5, ease: "power2.in" }, 8.6);
+          tl.to("#ask-group", { opacity: 0, duration: 0.4, ease: "power2.in" }, 8.7);
+          tl.set("#ask-group", { y: 0, scale: 1 }, RESET_AT);
+          tl.set("#ask-send", { backgroundColor: "#f6f3f1", borderColor: "#cecac8" }, RESET_AT);
+          tl.set("#send-arrow", { stroke: "#242424" }, RESET_AT);
+          tl.fromTo("#ask-group", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", immediateRender: false }, RESET_AT + 0.02);
+          tl.fromTo("#ask-label", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out", immediateRender: false }, RESET_AT + 0.02);
+
+          window.__timelines["main"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+
+        document.fonts.ready.then(build);
+      })();
+    </script>
+  </body>
+</html>

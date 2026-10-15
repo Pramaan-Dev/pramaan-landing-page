@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1280, height=720" />
+    <title>Pramaan — More jobs</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Newsreader";
+        src: url("assets/fonts/newsreader-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+        font-weight: 400 500;
+        font-style: normal;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        background: #f6f3f1;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f6f3f1;
+        color: #242424;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ---------- background washes ---------- */
+      .wash {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(40px);
+        will-change: transform;
+      }
+      #wash-coral { width: 552px; height: 456px; left: -166px; top: -148px; background: radial-gradient(closest-side, rgba(255, 148, 115, 1), rgba(255, 148, 115, 0)); opacity: 0.42; }
+      #wash-sky { width: 624px; height: 504px; right: -202px; top: -102px; background: radial-gradient(closest-side, rgba(160, 181, 235, 1), rgba(160, 181, 235, 0)); opacity: 0.55; }
+      #wash-mint { width: 624px; height: 480px; left: 28px; bottom: -260px; background: radial-gradient(closest-side, rgba(167, 252, 205, 1), rgba(167, 252, 205, 0)); opacity: 0.6; }
+      #wash-gold { width: 528px; height: 432px; right: -84px; bottom: -236px; background: radial-gradient(closest-side, rgba(236, 218, 152, 1), rgba(236, 218, 152, 0)); opacity: 0.55; }
+
+      /* ---------- ask ---------- */
+      #ask-stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 56px;
+        gap: 18px;
+      }
+      #ask-label {
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        color: #4e4d4d;
+        text-transform: uppercase;
+      }
+      #ask-pill {
+        width: 880px;
+        height: 92px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: rgba(251, 250, 249, 0.86);
+        display: flex;
+        align-items: center;
+        padding: 0 14px 0 36px;
+        gap: 18px;
+      }
+      .ask-mark {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 auto;
+      }
+      #ask-textwrap {
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        white-space: pre;
+        font-size: 29px;
+        letter-spacing: -0.01em;
+        color: #242424;
+      }
+      #ask-text {
+        white-space: pre;
+      }
+      #ask-cursor {
+        display: inline-block;
+        width: 3px;
+        height: 36px;
+        margin-left: 3px;
+        background: #242424;
+      }
+      #ask-send {
+        width: 62px;
+        height: 62px;
+        border-radius: 9999px;
+        border: 1px solid #cecac8;
+        background: #f6f3f1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+      }
+      #ask-send svg {
+        width: 22px;
+        height: 22px;
+      }
+      #send-arrow {
+        stroke: #242424;
+      }
+
+      /* ---------- preview cards (stacked in one grid cell) ---------- */
+      #card-stage {
+        display: grid;
+        place-items: center;
+        padding-top: 222px;
+        padding-bottom: 30px;
+      }
+      .card {
+        grid-area: 1 / 1;
+        width: 780px;
+        border-radius: 24px;
+        border: 1px solid #cecac8;
+        background: #fbfaf9;
+        padding: 24px 40px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0;
+      }
+      .tag {
+        align-self: flex-start;
+        height: 40px;
+        padding: 0 16px;
+        border-radius: 9999px;
+        border: 1px solid #242424;
+        background: #f3e8bf;
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #242424;
+      }
+      .title {
+        font-family: "Newsreader", serif;
+        font-weight: 400;
+        font-size: 46px;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        color: #242424;
+      }
+      .line {
+        font-size: 24px;
+        color: #3d3c3c;
+      }
+      .line b {
+        font-weight: 500;
+        color: #242424;
+      }
+      .dots {
+        display: flex;
+        gap: 12px;
+      }
+      .dots span {
+        display: block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1.5px solid #8f8c8a;
+      }
+      .dots span.on {
+        background: #242424;
+        border-color: #242424;
+      }
+      .key {
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #4e4d4d;
+      }
+      .quote {
+        font-family: "Newsreader", serif;
+        font-size: 36px;
+        line-height: 1.18;
+        letter-spacing: -0.015em;
+        color: #242424;
+        padding-left: 22px;
+        border-left: 1px solid #cecac8;
+      }
+      .chip {
+        align-self: flex-start;
+        height: 44px;
+        padding: 0 18px;
+        border-radius: 9999px;
+        background: #cfdaf5;
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        color: #242424;
+      }
+      .claim {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 6px 0 12px;
+        border-bottom: 1px dashed #e2dedc;
+        font-size: 28px;
+      }
+      .claim:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .claim .grow {
+        flex: 1 1 auto;
+      }
+      .mini {
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 9999px;
+        border: 1px solid #242424;
+        background: #f3e8bf;
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .ico {
+        width: 34px;
+        height: 34px;
+        display: block;
+        flex: 0 0 auto;
+      }
+      .ico circle.bg {
+        stroke: #242424;
+        stroke-width: 1;
+      }
+      .ico.ok circle.bg {
+        fill: #a7fccd;
+      }
+      .ico.ask circle.bg {
+        fill: #ecda98;
+      }
+      .ico path {
+        fill: none;
+        stroke: #242424;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .ico circle.pt {
+        fill: #242424;
+      }
+      .bar {
+        display: flex;
+        gap: 6px;
+      }
+      .bar span {
+        display: block;
+        flex: 1 1 0;
+        height: 18px;
+        border-radius: 4px;
+        background: #242424;
+      }
+      .bar span.miss {
+        background: #ff9473;
+        border: 1px solid #c2573a;
+      }
+      .flag {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 26px;
+        color: #242424;
+      }
+      .flag i {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ff9473;
+        border: 1px solid #c2573a;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-w6n6"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="18"
+      data-width="1280"
+      data-height="720"
+    >
+      <section data-hf-id="hf-itn3" id="scene" class="layer">
+        <div data-hf-id="hf-qawk" class="layer" id="bg">
+          <div data-hf-id="hf-jhub" class="wash" id="wash-coral" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-f6zn" class="wash" id="wash-sky" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-533g" class="wash" id="wash-mint" data-layout-allow-overflow></div>
+          <div data-hf-id="hf-qwwu" class="wash" id="wash-gold" data-layout-allow-overflow></div>
+        </div>
+
+        <div data-hf-id="hf-5d6a" class="layer" id="card-stage">
+          <!-- a) AI answers -->
+          <div data-hf-id="hf-7cz4" class="card" id="card-a">
+            <div data-hf-id="hf-e4fa" class="tag">Coming soon</div>
+            <div data-hf-id="hf-wzlo" class="title">Mentioned in 3 of 10 answers</div>
+            <div data-hf-id="hf-zx1w" class="dots"><span data-hf-id="hf-nury" class="on"></span><span data-hf-id="hf-lcwi" class="on"></span><span data-hf-id="hf-lr7j" class="on"></span><span data-hf-id="hf-uckh"></span><span data-hf-id="hf-l73p"></span><span data-hf-id="hf-me0s"></span><span data-hf-id="hf-lzpr"></span><span data-hf-id="hf-n6mu"></span><span data-hf-id="hf-msbt"></span><span data-hf-id="hf-nz8w"></span></div>
+            <div data-hf-id="hf-1ary" class="line">Who they mention instead: <b data-hf-id="hf-h33m">2 competitors</b></div>
+          </div>
+
+          <!-- b) review replies -->
+          <div data-hf-id="hf-g0uz" class="card" id="card-b">
+            <div data-hf-id="hf-eve2" class="tag">Coming soon</div>
+            <div data-hf-id="hf-ymtc" class="key">Draft reply</div>
+            <div data-hf-id="hf-v7s1" class="quote">“Thank you, Priya! So glad you liked the new menu. See you again soon.”</div>
+            <div data-hf-id="hf-9t2k" class="chip">Posts after your OK</div>
+          </div>
+
+          <!-- c) résumé check -->
+          <div data-hf-id="hf-c2qy" class="card" id="card-c">
+            <div data-hf-id="hf-f9p3" class="tag">Coming soon</div>
+            <div data-hf-id="hf-b3s4" class="claim">
+              <svg data-hf-id="hf-yb9n" class="ico ok" viewBox="0 0 24 24"><circle data-hf-id="hf-3clg" class="bg" cx="12" cy="12" r="11" /><path data-hf-id="hf-0mqx" class="draw" d="M 7 12.5 L 10.5 16 L 17 9" /></svg>
+              <span data-hf-id="hf-y0el" class="grow">Worked at Acme</span>
+            </div>
+            <div data-hf-id="hf-5zfg" class="claim">
+              <svg data-hf-id="hf-s0rv" class="ico ok" viewBox="0 0 24 24"><circle data-hf-id="hf-cddo" class="bg" cx="12" cy="12" r="11" /><path data-hf-id="hf-944d" class="draw" d="M 7 12.5 L 10.5 16 L 17 9" /></svg>
+              <span data-hf-id="hf-pojw" class="grow">Degree</span>
+            </div>
+            <div data-hf-id="hf-4sid" class="claim">
+              <svg data-hf-id="hf-flnm" class="ico ask" viewBox="0 0 24 24"><circle data-hf-id="hf-b6gl" class="bg" cx="12" cy="12" r="11" /><path data-hf-id="hf-qkgp" d="M 9.2 9.4 C 9.2 6.6, 14.8 6.6, 14.8 9.4 C 14.8 11.6, 12 11.6, 12 14" /><circle data-hf-id="hf-djuq" class="pt" cx="12" cy="17.3" r="1.15" /></svg>
+              <span data-hf-id="hf-mkte" class="grow">Title</span>
+              <span data-hf-id="hf-3g9k" class="mini">Check</span>
+            </div>
+          </div>
+
+          <!-- d) payments to invoices -->
+          <div data-hf-id="hf-tb19" class="card" id="card-d">
+            <div data-hf-id="hf-fo04" class="tag">Coming soon</div>
+            <div data-hf-id="hf-bf6q" class="title">18 of 20 matched</div>
+            <div data-hf-id="hf-ufsv" class="bar"><span data-hf-id="hf-nkxv"></span><span data-hf-id="hf-ieyi"></span><span data-hf-id="hf-i0nh"></span><span data-hf-id="hf-1qzj"></span><span data-hf-id="hf-25ak"></span><span data-hf-id="hf-0ydh"></span><span data-hf-id="hf-1coi"></span><span data-hf-id="hf-3c7n"></span><span data-hf-id="hf-3qio"></span><span data-hf-id="hf-2jll"></span><span data-hf-id="hf-2xwm"></span><span data-hf-id="hf-ykjb"></span><span data-hf-id="hf-yyuc"></span><span data-hf-id="hf-1les"></span><span data-hf-id="hf-173r"></span><span data-hf-id="hf-0ssq"></span><span data-hf-id="hf-0ehp"></span><span data-hf-id="hf-36mw"></span><span data-hf-id="hf-r2u1" class="miss"></span><span data-hf-id="hf-nj71" class="miss"></span></div>
+            <div data-hf-id="hf-7you" class="flag"><i data-hf-id="hf-wt6k"></i><span data-hf-id="hf-bzef">2 need a look</span></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-07od" class="layer" id="ask-stage">
+          <div data-hf-id="hf-alga" id="ask-label">Just ask</div>
+          <div data-hf-id="hf-3cqk" id="ask-pill">
+            <svg data-hf-id="hf-pizj" class="ask-mark" viewBox="0 0 26 26">
+              <circle data-hf-id="hf-f53n" cx="13" cy="13" r="11.5" fill="none" stroke="#242424" stroke-width="1.5" />
+              <circle data-hf-id="hf-g0zv" cx="13" cy="13" r="3.5" fill="#242424" />
+            </svg>
+            <div data-hf-id="hf-rx1w" id="ask-textwrap"><span data-hf-id="hf-4esn" id="ask-text"></span><span data-hf-id="hf-z7kc" id="ask-cursor"></span></div>
+            <div data-hf-id="hf-ocrf" id="ask-send">
+              <svg data-hf-id="hf-q5y9" viewBox="0 0 22 22">
+                <path data-hf-id="hf-wnao" id="send-arrow" d="M 11 18 L 11 4 M 5 10 L 11 4 L 17 10" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        const D = 18;
+        const SEG = 4.5;
+        const ASKS = [
+          { text: "Does ChatGPT recommend my business?", card: "#card-a" },
+          { text: "Reply to my Google reviews", card: "#card-b" },
+          { text: "Is this résumé true?", card: "#card-c" },
+          { text: "Match my bank payments to invoices", card: "#card-d" },
+        ];
+        // per-ask timing (relative to segment start s)
+        const SEND = 1.4; // send tap (typing runs ~0.15-1.3)
+        const OUT = 4.2; // card + text leave (card readable ~1.75-4.2)
+        const CLEAR = 4.42; // text cleared; ~0.08s of empty ask before the next ask / loop point
+
+        // baked keystroke schedule per ask
+        const SEGS = ASKS.map((a, k) => {
+          const s = +(k * SEG).toFixed(3);
+          const sched = [];
+          let t = s + 0.15;
+          for (let i = 1; i <= a.text.length; i++) {
+            const prev = a.text[i - 2];
+            t += prev === " " ? 0.065 : 0.028;
+            sched.push({ t: +t.toFixed(3), text: a.text.slice(0, i) });
+          }
+          return { s, sched, ...a };
+        });
+        const CHANGE_TIMES = SEGS.flatMap((g) => g.sched.map((x) => x.t));
+
+        function askTextAt(t) {
+          for (const g of SEGS) {
+            if (t >= g.s && t < g.s + CLEAR) {
+              for (let i = g.sched.length - 1; i >= 0; i--) if (t >= g.sched[i].t) return g.sched[i].text;
+              return "";
+            }
+          }
+          return "";
+        }
+        function inputMode(t) {
+          for (const g of SEGS) if (t >= g.s + SEND && t < g.s + CLEAR) return false;
+          return true;
+        }
+
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+
+          document.querySelectorAll(".ico path.draw").forEach((p) => {
+            const len = p.getTotalLength() * 1.05;
+            p.style.strokeDasharray = len;
+            p.style.strokeDashoffset = len;
+          });
+
+          // ---- master driver: typing, cursor blink, background drift ----
+          const textEl = document.getElementById("ask-text");
+          const cursorEl = document.getElementById("ask-cursor");
+          const washes = [
+            { el: document.getElementById("wash-coral"), ax: 36, ay: 22, cx: 1, cy: 2, ph: 0.0 },
+            { el: document.getElementById("wash-sky"), ax: 30, ay: 26, cx: 2, cy: 1, ph: 1.3 },
+            { el: document.getElementById("wash-mint"), ax: 40, ay: 18, cx: 1, cy: 1, ph: 2.4 },
+            { el: document.getElementById("wash-gold"), ax: 28, ay: 24, cx: 1, cy: 2, ph: 3.7 },
+          ];
+          const BLINK = 1.0; // 18 whole cycles over 18s -> seamless loop
+          const driver = { t: 0 };
+          tl.to(
+            driver,
+            {
+              t: D,
+              duration: D,
+              ease: "none",
+              onUpdate: () => {
+                const t = driver.t;
+                textEl.textContent = askTextAt(t);
+                const typing = CHANGE_TIMES.some((c) => c <= t && t - c < 0.2);
+                const blinkOn = Math.cos((2 * Math.PI * t) / BLINK) > -0.05;
+                cursorEl.style.opacity = inputMode(t) && (typing || blinkOn) ? "1" : "0";
+                const w = (2 * Math.PI * t) / D;
+                for (const s of washes) {
+                  const x = Math.sin(w * s.cx + s.ph) * s.ax - Math.sin(s.ph) * s.ax;
+                  const y = Math.cos(w * s.cy + s.ph) * s.ay - Math.cos(s.ph) * s.ay;
+                  s.el.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`;
+                }
+              },
+            },
+            0,
+          );
+
+          SEGS.forEach((g, k) => {
+            const s = g.s;
+            const first = k === 0;
+            // text visible again for this ask
+            tl.set("#ask-text", { opacity: 1 }, s);
+            // send tap
+            tl.fromTo("#ask-send", { scale: 1 }, { scale: 0.9, duration: 0.08, ease: "power2.in", yoyo: true, repeat: 1, immediateRender: first }, s + SEND);
+            tl.to("#ask-send", { backgroundColor: "#242424", borderColor: "#242424", duration: 0.18, ease: "power1.out" }, s + SEND);
+            tl.to("#send-arrow", { stroke: "#f6f3f1", duration: 0.18, ease: "power1.out" }, s + SEND);
+
+            // preview card
+            const c = g.card;
+            tl.fromTo(c, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, s + SEND + 0.08);
+            tl.fromTo(`${c} .tag`, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)", transformOrigin: "0% 50%" }, s + SEND + 0.22);
+            tl.fromTo(`${c} > :not(.tag)`, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.32, ease: "power2.out", stagger: 0.08 }, s + SEND + 0.2);
+
+            // leave
+            tl.to(c, { opacity: 0, y: -18, duration: 0.22, ease: "power2.in" }, s + OUT);
+            tl.to("#ask-text", { opacity: 0, duration: 0.2, ease: "power1.in" }, s + OUT);
+            tl.to("#ask-send", { backgroundColor: "#f6f3f1", borderColor: "#cecac8", duration: 0.22, ease: "power1.inOut" }, s + OUT);
+            tl.to("#send-arrow", { stroke: "#242424", duration: 0.22, ease: "power1.inOut" }, s + OUT);
+          });
+
+          // card-specific accents
+          const sA = SEGS[0].s + SEND;
+          tl.fromTo("#card-a .dots span", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)", stagger: 0.035 }, sA + 0.3);
+          const sC = SEGS[2].s + SEND;
+          document.querySelectorAll("#card-c .ico path.draw").forEach((p, i) => {
+            tl.to(p, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, sC + 0.35 + i * 0.1);
+          });
+          const sD = SEGS[3].s + SEND;
+          tl.fromTo("#card-d .bar span", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.22, ease: "power2.out", stagger: 0.022 }, sD + 0.3);
+
+          window.__timelines["main"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+
+        document.fonts.ready.then(build);
+      })();
+    </script>
+  </body>
+</html>

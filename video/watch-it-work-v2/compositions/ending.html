@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+      <div data-hf-id="hf-tzgd" id="root" data-composition-id="ending" data-width="1280" data-height="720">
+        <div data-hf-id="hf-0tzv" class="layer stage" id="end-stage">
+          <div data-hf-id="hf-8jir" id="history">
+            <div data-hf-id="hf-1fmb" class="rcard-head"><span data-hf-id="hf-fq5r" class="r-dot"></span><span data-hf-id="hf-vmfm">Your history</span></div>
+            <div data-hf-id="hf-xhto" class="hrow"><span data-hf-id="hf-bovq" class="h-job">Research Acme</span><span data-hf-id="hf-hivq" class="h-status"><span data-hf-id="hf-ui0b" class="s-dot s-look"></span>Done</span><span data-hf-id="hf-1zxp" class="h-cost">e.g. 4¢</span></div>
+            <div data-hf-id="hf-zlro" class="hrow"><span data-hf-id="hf-et5m" class="h-job">Check jane@acme.com</span><span data-hf-id="hf-4ybe" class="h-status"><span data-hf-id="hf-5v2j" class="s-dot s-look"></span>Done</span><span data-hf-id="hf-ktg4" class="h-cost">e.g. 1¢</span></div>
+            <div data-hf-id="hf-yeul" class="hrow"><span data-hf-id="hf-r3th" class="h-job">Sales Skills test · 3</span><span data-hf-id="hf-s7pk" class="h-status"><span data-hf-id="hf-83po" class="s-dot s-ok"></span>You OK’d</span><span data-hf-id="hf-v0v5" class="h-cost">e.g. $6</span></div>
+            <div data-hf-id="hf-yt5m" class="hrow"><span data-hf-id="hf-xkzp" class="h-job">Payment link · Priya</span><span data-hf-id="hf-krk0" class="h-status"><span data-hf-id="hf-jnxg" class="s-dot s-ok"></span>You OK’d</span><span data-hf-id="hf-yz6z" class="h-cost">e.g. 2¢</span></div>
+            <div data-hf-id="hf-0sor" class="hrow"><span data-hf-id="hf-at5w" class="h-job">Welcome email · 24</span><span data-hf-id="hf-jkmx" class="h-status"><span data-hf-id="hf-ih0d" class="s-dot s-ok"></span>You OK’d</span><span data-hf-id="hf-eo5o" class="h-cost">e.g. 9¢</span></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-3thx" id="signoff">
+          <div data-hf-id="hf-u6vk" id="signoff-line">Say what you need. Keep the proof.</div>
+          <div data-hf-id="hf-64rm" id="wordmark">
+            <svg data-hf-id="hf-u3w7" viewBox="0 0 30 30"><circle data-hf-id="hf-rwqe" cx="15" cy="15" r="13.5" fill="none" stroke="#242424" stroke-width="1.6" /><circle data-hf-id="hf-m6br" cx="15" cy="15" r="4" fill="#242424" /></svg>
+            <span data-hf-id="hf-0htj">pramaan</span>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function () {
+        const H = (tl) => {
+          const h = {
+            popIn: (s, at, y = 40) => tl.fromTo(s, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at),
+            popOut: (s, at) => tl.to(s, { opacity: 0, y: -24, duration: 0.4, ease: "power2.in" }, at),
+            fadeUp: (s, at) => tl.fromTo(s, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, at),
+            rows: (s, at) => tl.fromTo(s, { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out", stagger: 0.12 }, at),
+            tagIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, at),
+            draw: (s, at) => tl.fromTo(s, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, at),
+            pillIn: (s, at) => tl.fromTo(s, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, at),
+          };
+          h.saved = (s, at) => { h.fadeUp(s, at); h.draw(s + " path", at + 0.1); };
+          return h;
+        };
+        function build() {
+          const tl = gsap.timeline({ paused: true });
+          const h = H(tl);
+          // slot = 7.39s; host resets to the empty ask box at slot end + 0.0
+          h.popIn("#history", 0);
+          h.rows("#history .hrow", 0.3);
+          h.popOut("#history", 3.3);
+          tl.fromTo("#signoff-line", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 3.8);
+          tl.fromTo("#wordmark", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 4.2);
+          tl.to(["#signoff-line", "#wordmark"], { opacity: 0, duration: 0.45, ease: "power2.in" }, 6.89);
+          window.__timelines["ending"] = tl;
+          if (window.__hfForceTimelineRebind) window.__hfForceTimelineRebind();
+        }
+        document.fonts.ready.then(build);
+      })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pramaan — Say what you need. Get it done, with proof.</title>
+  <meta name="description" content="Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed." />
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="announce" id="announce">
+    <div class="announce__inner">
+      <p>Early access is open. Start with $1 of free credit.</p>
+      <a class="announce__pill" href="#start">Join now</a>
+      <button class="announce__close" aria-label="Dismiss announcement" data-dismiss="announce">&times;</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#tasks">What you can do</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="#login" class="btn btn--ghost">Log in</a>
+        <a href="#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <span class="tag"><span class="tag__dot"></span>No code needed</span>
+        <h1 class="display">Say what you need.<br />Get it done, with proof.</h1>
+        <p class="lead">No juggling apps. No tech skills. Tell Pramaan what you want in plain words. It does the work and shows you what happened.</p>
+
+        <div class="install" role="group" aria-label="Example request">
+          <span class="install__label">Just ask, like this</span>
+          <div class="install__box ask">
+            <span class="ask__text" data-typer='["Research this company before my meeting","Find the email for the head of sales at Acme","Compare prices for this product on Amazon","Send my client a payment link for $200","Turn this script into a voice-over"]'>Research this company before my meeting</span>
+            <a href="#start" class="install__copy">Try it</a>
+          </div>
+        </div>
+
+        <div class="hero__ctas">
+          <a href="#start" class="btn btn--blue">Get early access <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+          <a href="#how" class="btn btn--ghost">See how it works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Watch it work (HyperFrames clip) -->
+    <section class="watch" aria-label="Watch Pramaan do a job">
+      <div class="container">
+        <figure class="watch__frame" data-reveal>
+          <video class="watch__video" autoplay muted loop playsinline preload="metadata" poster="media/watch-it-work-v2.jpg" aria-label="Five everyday jobs: research a company, check an email, send a proctored test, send a payment link and email new sign-ups. Lookups happen straight away; the three actions wait for approval. Everything is saved to your history.">
+            <source src="media/watch-it-work-v2.webm" type="video/webm" />
+            <source src="media/watch-it-work-v2.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="caption">Watch it work</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Familiar names -->
+    <section class="logos" aria-label="Services Pramaan works with">
+      <div class="container logos__inner">
+        <p class="caption">Works with names you know</p>
+        <ul class="logos__row">
+          <li>Google</li>
+          <li>Instagram</li>
+          <li>YouTube</li>
+          <li>Amazon</li>
+          <li>Stripe</li>
+        </ul>
+        <span class="link-arrow">and 60+ more</span>
+      </div>
+    </section>
+
+    <!-- How it works: bento -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">How it works</span>
+          <h2 class="h-lg">You ask. Pramaan does the rest.</h2>
+        </div>
+
+        <div class="bento">
+          <!-- Tall card: vertical flow -->
+          <article class="bento__card bento__card--tall" data-reveal>
+            <span class="card__icon-line" aria-hidden="true">&#8645;</span>
+            <h3 class="h-card">From ask to done</h3>
+            <p>One request becomes a few small steps. You see each one happen.</p>
+            <div class="vflow" aria-hidden="true">
+              <div class="vflow__wash"></div>
+              <div class="vflow__step" style="--i:0"><span class="vflow__k">You ask</span><span class="vflow__v">Send Priya a payment link for $200</span></div>
+              <span class="vflow__then">then</span>
+              <div class="vflow__step" style="--i:1"><span class="vflow__k">Pramaan plans</span><span class="vflow__v">3 small steps</span></div>
+              <span class="vflow__then">then</span>
+              <div class="vflow__step" style="--i:2"><span class="vflow__k">Picks the tools</span><span class="vflow__v">Find Priya &middot; Make the link &middot; Ready to send</span></div>
+              <span class="vflow__then">then</span>
+              <div class="vflow__step" style="--i:3"><span class="vflow__k">Asks your OK</span><span class="vflow__v">Send Priya the $200 link?</span></div>
+              <span class="vflow__then">then</span>
+              <div class="vflow__step" style="--i:4"><span class="vflow__k">Done, with proof</span><span class="vflow__v">&#10003; Sent &middot; saved to your history</span></div>
+            </div>
+          </article>
+
+          <!-- Ask in plain words -->
+          <article class="bento__card bento__card--media" data-reveal>
+            <div class="bento__copy">
+              <span class="card__icon-line" aria-hidden="true">&ldquo;</span>
+              <h3 class="h-card">Ask in plain words</h3>
+              <p>Type it the way you'd say it to a friend.</p>
+            </div>
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-research.jpg" aria-label="Asking Pramaan to research a company and getting a short brief">
+              <source src="media/clip-research.webm" type="video/webm" />
+              <source src="media/clip-research.mp4" type="video/mp4" />
+            </video>
+          </article>
+
+          <!-- Approve -->
+          <article class="bento__card bento__card--media" data-reveal>
+            <div class="bento__copy">
+              <span class="card__icon-line" aria-hidden="true">&#10003;</span>
+              <h3 class="h-card">Nothing happens without your OK</h3>
+              <p>Contacting people or moving money? Pramaan shows you first and waits.</p>
+            </div>
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-approval.jpg" aria-label="Pramaan asks for approval before sending a proctored test to three candidates">
+              <source src="media/clip-approval.webm" type="video/webm" />
+              <source src="media/clip-approval.mp4" type="video/mp4" />
+            </video>
+          </article>
+
+          <!-- Right tool -->
+          <article class="bento__card" data-reveal>
+            <div class="bento__copy">
+              <span class="card__icon-line" aria-hidden="true">&#8634;</span>
+              <h3 class="h-card">Always the right tool</h3>
+              <p>Pramaan picks the best tool for each job. If one is down, it switches for you.</p>
+            </div>
+            <div class="mock mock--switch" aria-hidden="true">
+              <div class="mock__wash mock__wash--coral"></div>
+              <div class="switch">
+                <span class="switch__label">Web search</span>
+                <div class="switch__row switch__row--down"><i></i>Tool A<span>busy</span></div>
+                <div class="switch__row switch__row--up"><i></i>Tool B<span>&#10003; used</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- What you can do: periwinkle band with scrolling jobs -->
+    <section class="band" id="tasks">
+      <div class="container band__inner">
+        <div class="band__copy" data-reveal>
+          <span class="eyebrow">What you can do</span>
+          <h2 class="h-lg">One place for the jobs you keep putting off.</h2>
+          <p>No sign-ups for dozens of apps. No passwords to juggle. One account does it all.</p>
+          <a href="#start" class="btn btn--black">See what's possible</a>
+        </div>
+        <div class="band__list" aria-label="Example jobs">
+          <div class="band__lines" aria-hidden="true"></div>
+          <ul class="marquee">
+            <li><i>&#8981;</i>Research a company</li>
+            <li><i>&#9993;</i>Find a work email</li>
+            <li><i>&#9825;</i>Check an Instagram profile</li>
+            <li><i>$</i>Compare prices on Amazon</li>
+            <li><i>&#8599;</i>Send a payment link</li>
+            <li><i>&#9993;</i>Email new sign-ups</li>
+            <li><i>&#10003;</i>Is this email real?</li>
+            <li><i>&#9998;</i>Send a proctored test</li>
+            <li><i>&#9835;</i>Turn text into a voice-over</li>
+            <li><i>&#8801;</i>Summarise an article</li>
+            <li><i>&#9678;</i>Track competitor news</li>
+            <li><i>&#9634;</i>Make a product image</li>
+            <li><i>&#8981;</i>Read a web page for me</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container band__clip" data-reveal>
+        <span class="eyebrow">And more on the way</span>
+        <video class="clip clip--wide" autoplay muted loop playsinline preload="metadata" poster="media/clip-more.jpg" aria-label="Coming soon: AI visibility checks, review replies, résumé checks and invoice matching">
+          <source src="media/clip-more.webm" type="video/webm" />
+          <source src="media/clip-more.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </section>
+
+    <!-- Why Pramaan -->
+    <section class="section features">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Why Pramaan</span>
+          <h2 class="h-lg">Pramaan (प्रमाण), n. &mdash; proof.</h2>
+          <p class="section__sub">You shouldn't have to take a machine's word for it.</p>
+        </div>
+
+        <article class="card card--elevated" data-reveal>
+          <div class="card--elevated__copy">
+            <span class="card__num">01</span>
+            <h3 class="h-card">See exactly what happened</h3>
+            <p>Every job comes with a simple record. What was done, how long it took and what it cost. Nothing hidden.</p>
+            <ul class="ticks">
+              <li>Every step written down</li>
+              <li>Clean results, no clutter</li>
+              <li>Pay only for what was used</li>
+            </ul>
+          </div>
+          <div class="card--elevated__art" aria-hidden="true">
+            <div class="art__blob art__blob--coral"></div>
+            <div class="art__blob art__blob--sky"></div>
+            <div class="art__blob art__blob--mint"></div>
+            <div class="receipt">
+              <div class="receipt__head"><span>Your job</span><span>Done</span></div>
+              <dl>
+                <div><dt>asked</dt><dd>Research Acme</dd></div>
+                <div><dt>steps</dt><dd>4 of 4 done</dd></div>
+                <div><dt>checked</dt><dd>yes</dd></div>
+                <div><dt>time</dt><dd>18 seconds</dd></div>
+                <div><dt>cost</dt><dd>4 cents</dd></div>
+              </dl>
+              <div class="receipt__foot">&#10003; Saved to your history</div>
+            </div>
+          </div>
+        </article>
+
+        <div class="features__grid">
+          <article class="card" data-reveal>
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <circle cx="70" cy="52" r="34" fill="#ff9473" fill-opacity=".55" />
+                <circle cx="58" cy="112" r="26" fill="#a0b5eb" fill-opacity=".7" />
+                <circle cx="262" cy="46" r="28" fill="#a7fccd" fill-opacity=".8" />
+                <circle cx="258" cy="114" r="32" fill="#ecda98" fill-opacity=".75" />
+                <g fill="none" stroke="#cecac8">
+                  <path d="M100 60 C 130 60, 130 80, 140 80" /><path d="M82 108 C 120 108, 120 80, 140 80" />
+                  <path d="M234 50 C 200 50, 200 80, 180 80" /><path d="M226 112 C 200 112, 200 80, 180 80" />
+                </g>
+                <circle cx="160" cy="80" r="30" fill="#f6f3f1" stroke="#242424" />
+                <circle cx="160" cy="80" r="12" fill="#242424" class="art-pulse" />
+              </svg>
+            </div>
+            <span class="card__num">02</span>
+            <h3 class="h-card">One account, not fifty</h3>
+            <p>Forget signing up for a new app for every job. One login covers it all.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <rect x="40" y="70" width="56" height="78" rx="28" fill="#a0b5eb" fill-opacity=".7" class="art-bar" />
+                <rect x="84" y="38" width="56" height="110" rx="28" fill="#a7fccd" fill-opacity=".75" class="art-bar" style="animation-delay:.2s" />
+                <rect x="128" y="92" width="56" height="56" rx="28" fill="#ff9473" fill-opacity=".55" class="art-bar" style="animation-delay:.4s" />
+                <rect x="172" y="16" width="56" height="132" rx="28" fill="#ecda98" fill-opacity=".75" class="art-bar" style="animation-delay:.6s" />
+                <rect x="216" y="58" width="56" height="90" rx="28" fill="#a0b5eb" fill-opacity=".5" class="art-bar" style="animation-delay:.8s" />
+                <path d="M30 112 C 80 104, 100 60, 150 70 S 230 26, 290 40" fill="none" stroke="#242424" stroke-dasharray="3 6" />
+                <circle cx="200" cy="46" r="5" fill="#242424" />
+              </svg>
+            </div>
+            <span class="card__num">03</span>
+            <h3 class="h-card">Always the right tool</h3>
+            <p>Pramaan picks the best tool for each job. If one is down, it switches for you.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <ellipse cx="130" cy="124" rx="70" ry="20" fill="#ecda98" fill-opacity=".8" />
+                <ellipse cx="130" cy="104" rx="70" ry="20" fill="#ff9473" fill-opacity=".5" />
+                <ellipse cx="130" cy="84" rx="70" ry="20" fill="#a0b5eb" fill-opacity=".6" />
+                <ellipse cx="130" cy="64" rx="70" ry="20" fill="#a7fccd" fill-opacity=".75" class="art-float" />
+                <circle cx="236" cy="58" r="34" fill="#f6f3f1" stroke="#242424" />
+                <path d="M222 58 l10 10 l18 -20" fill="none" stroke="#242424" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="art-check" />
+              </svg>
+            </div>
+            <span class="card__num">04</span>
+            <h3 class="h-card">Nothing happens without your OK</h3>
+            <p>Sending a message or moving money? Pramaan shows you first and waits for a yes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get started in three steps -->
+    <section class="section getstarted">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Get started</span>
+          <h2 class="h-lg">Set up once. Then just ask.</h2>
+          <p class="section__sub">A short setup, and we help you through it.</p>
+        </div>
+        <ol class="gs">
+          <li class="gs__step" data-reveal>
+            <div class="gs__art mock" aria-hidden="true">
+              <div class="mock__wash mock__wash--sky"></div>
+              <div class="form">
+                <span class="form__label">Your email</span>
+                <span class="form__input"><span class="form__typed">you@yourcompany.com</span></span>
+                <span class="mini-btn mini-btn--dark">Continue</span>
+              </div>
+            </div>
+            <span class="step__num">01</span>
+            <h3 class="h-card">Create your account</h3>
+            <p>Ask for an invite. We set up your account with you.</p>
+          </li>
+          <li class="gs__step" data-reveal>
+            <div class="gs__art mock" aria-hidden="true">
+              <div class="mock__wash mock__wash--gold"></div>
+              <div class="credit">
+                <span class="credit__amt">$1.00</span>
+                <span class="credit__chip">&#10003; free credit added</span>
+                <span class="credit__cap">Daily limit &middot; $5</span>
+              </div>
+            </div>
+            <span class="step__num">02</span>
+            <h3 class="h-card">Add credit, set a limit</h3>
+            <p>Start with $1 free. Choose a daily limit so there are no surprises.</p>
+          </li>
+          <li class="gs__step" data-reveal>
+            <div class="gs__art mock" aria-hidden="true">
+              <div class="mock__wash mock__wash--mint"></div>
+              <div class="toggles">
+                <div class="toggle-row"><span>Email</span><i class="toggle" style="--d:.4s"></i></div>
+                <div class="toggle-row"><span>Payments</span><i class="toggle" style="--d:1.1s"></i></div>
+                <div class="toggle-row"><span>Social</span><i class="toggle toggle--off"></i></div>
+              </div>
+            </div>
+            <span class="step__num">03</span>
+            <h3 class="h-card">Connect what you use</h3>
+            <p>Optional. Link tools you already pay for and use them at no extra cost.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Pricing</span>
+          <h2 class="h-lg">Pay only for what you use.</h2>
+          <p class="section__sub">No monthly fee. Most jobs cost a few cents.</p>
+        </div>
+
+        <div class="equation" data-reveal aria-label="Tool cost plus our thirty percent equals what you pay">
+          <div class="equation__term">
+            <span class="caption">What the tool charges</span>
+            <span class="equation__value">Tool cost</span>
+          </div>
+          <span class="equation__op">+</span>
+          <div class="equation__term">
+            <span class="caption">Our share</span>
+            <span class="equation__value">30%</span>
+          </div>
+          <span class="equation__op">=</span>
+          <div class="equation__term equation__term--result">
+            <span class="caption">What you pay</span>
+            <span class="equation__value">That's it</span>
+          </div>
+        </div>
+
+        <div class="pricing__notes">
+          <p><strong>$1 free</strong> to get started.</p>
+          <p><strong>No subscription.</strong> Top up when you need to.</p>
+          <p><strong>A daily limit</strong> so you never get a surprise bill.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+      <div class="container faq__inner">
+        <div class="section__head">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="h-lg">Common questions</h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary>Do I need to know how to code?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>No. If you can write a text message, you can use Pramaan.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Do I need accounts with other apps?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>No. Your Pramaan account covers everything. Already pay for a tool? You can connect it and use it at no extra cost.</p>
+          </details>
+          <details class="faq__item">
+            <summary>What does &ldquo;with proof&rdquo; mean?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>Every job leaves a record. You can see what was done, how long it took and what it cost.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Will it do things without asking me?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>Sending messages or moving money always waits for your OK.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How much will it cost me?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>Most jobs cost a few cents. You start with $1 free and set a daily limit.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How do I start?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>We're in early access. Ask for an invite, and we'll help you set up your account.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="section closing" id="start">
+      <div class="wash wash--closing" aria-hidden="true"></div>
+      <div class="container closing__inner">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <path id="seal-ring" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" />
+              <radialGradient id="seal-fill" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#a7fccd" />
+                <stop offset=".5" stop-color="#a0b5eb" />
+                <stop offset="1" stop-color="#ff9473" />
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="92" fill="#f6f3f1" stroke="#cecac8" />
+            <g class="seal__ring">
+              <text><textPath href="#seal-ring" textLength="462" lengthAdjust="spacing">ASK &#183; APPROVE &#183; DONE &#183; WITH PROOF &#183;</textPath></text>
+            </g>
+            <circle cx="100" cy="100" r="52" fill="url(#seal-fill)" fill-opacity=".85" />
+            <circle cx="100" cy="100" r="22" fill="none" stroke="#242424" stroke-width="2" />
+            <circle cx="100" cy="100" r="9" fill="#242424" />
+          </svg>
+        </div>
+        <h2 class="display display--md">Say what you need.<br />Keep the proof.</h2>
+        <p class="lead">$1 free to start. No code. No monthly fee.</p>
+        <div class="hero__ctas">
+          <a href="#start" class="btn btn--blue">Get early access <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__band">
+        <div><span class="caption">Easy</span><p>No code needed</p></div>
+        <div><span class="caption">Fair</span><p>Pay per job, no subscription</p></div>
+        <div><span class="caption">Safe</span><p>Asks before it acts</p></div>
+      </div>
+      <div class="footer__main">
+        <div class="footer__brand">
+          <a href="#" class="logo"><span class="logo__mark" aria-hidden="true"></span><span class="logo__word">pramaan</span></a>
+          <p>Say what you need. Get it done, with proof.</p>
+        </div>
+        <div class="footer__cols">
+          <div><span class="caption">Product</span><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a></div>
+          <div><span class="caption">Help</span><a href="#faq">FAQ</a><a href="#">Contact</a><a href="index.html">For developers</a></div>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Pramaan</span>
+        <span><a href="#">Privacy</a> &middot; <a href="#">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
