@@ -8,6 +8,7 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 |---|---|---|
 | `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
 | `simple2.html` | Non-technical | Same page, closing section + footer replaced by `<ticket-stub-footer>`. |
+| `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
 | `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
@@ -61,6 +62,23 @@ Closing section + footer: numbered section index (follows your scroll), typewrit
 - Section links point at element ids on the page; the index highlights whichever section is in view.
 - Theming: `--tsf-bg`, `--tsf-ink`, `--tsf-ticket`, `--tsf-deep`, `--tsf-accent`, `--tsf-cta`, `--tsf-serif`, `--tsf-mono`. `halftone="false"` prints the wordmark solid.
 - Respects `prefers-reduced-motion`; animation only runs while on screen.
+
+### `<lanyard-badge>`
+
+A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html`.
+
+```html
+<link rel="stylesheet" href="components/lanyard-badge.css" />
+<script src="components/lanyard-badge.js" defer></script>
+
+<lanyard-badge heading="Founding Member" name="Asha Rao" role="Product"
+               number="7" year="2026" wash="gold,coral" ink="gold" ornament="seal"></lanyard-badge>
+```
+
+- **Attributes (live):** `heading`, `name`, `role`, `number`, `year`, `strap-text`, `strap-label`, `wash` (palette token names), `ink` (strap print token), `ornament` (`seal` = halftone Pramaan mark, `mandala` = line-art mandala), `card-width`, `flip-button="false"`.
+- **Methods:** `flip()`, `badgeId()`, `toBlob(face, scale)`, `download(face, filename)`. **Event:** `badgeflip`.
+- **Badge ID** (`PRM-XXXX-XXXX`) is a checksum of tier, name, number and year. Anyone can recompute it; it is not stored or signed.
+- Stage height: `--lyd-height` (default 640px).
 
 ## Run locally
 

@@ -622,6 +622,77 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 /* Footer: see components/halftone-footer.css */
 
+/* ---------- Badge page ---------- */
+
+.badge-hero { position: relative; overflow: hidden; padding: 96px 0 48px; }
+.badge-hero .container { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; max-width: 1000px; margin-left: 0; }
+.badge-hero .eyebrow { margin-bottom: 0; }
+.badge-hero__title { font-size: var(--text-heading-lg); max-width: 18ch; }
+
+.mint { padding: 0 0 96px; }
+.mint__inner { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: var(--element-gap); align-items: stretch; }
+.mint__panel {
+  display: flex; flex-direction: column; gap: 24px;
+  padding: var(--card-padding);
+  border: 1px solid var(--color-ash);
+  border-radius: var(--radius-cards);
+}
+.mint__stage {
+  position: relative;
+  border: 1px solid var(--color-ash);
+  border-radius: var(--radius-cards);
+  overflow: hidden;
+  background: radial-gradient(60% 50% at 50% 70%, rgba(207, 218, 245, .55), rgba(246, 243, 241, 0));
+}
+.mint__stage lanyard-badge { --lyd-height: 680px; }
+.mint__hint { padding: 0 24px 24px; text-align: center; }
+
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 0; padding: 0; margin: 0; }
+.field__label { font-size: var(--text-caption); text-transform: uppercase; letter-spacing: -0.033em; color: var(--color-smoke); padding: 0; }
+.field__row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 1px solid var(--color-ash);
+  border-radius: var(--radius-pills);
+  background: transparent;
+  color: var(--color-off-black);
+  font: inherit;
+  font-size: var(--text-body);
+  letter-spacing: -0.025em;
+  transition: border-color .2s;
+}
+.input::placeholder { color: var(--color-smoke); }
+.input:hover { border-color: var(--color-smoke); }
+.input:focus { outline: none; border-color: var(--color-off-black); }
+
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg .chip { position: relative; cursor: pointer; }
+.seg .chip input { position: absolute; opacity: 0; pointer-events: none; }
+.seg .chip:has(input:checked) { background: var(--color-off-black); border-color: var(--color-off-black); color: var(--color-parchment); }
+.seg .chip:has(input:focus-visible) { outline: 2px solid var(--color-lake-blue); outline-offset: 3px; }
+
+.mint__id { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-top: 1px dashed var(--color-ash); border-bottom: 1px dashed var(--color-ash); }
+.mint__id code { font-size: var(--text-body); letter-spacing: 0.02em; }
+.mint__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.mint__note { font-size: var(--text-body-sm); color: var(--color-graphite); }
+
+.tiers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--element-gap); }
+.tier { gap: 12px; }
+.tier__swatch { width: 48px; height: 48px; border-radius: 50%; margin-bottom: 16px; background: radial-gradient(circle at 30% 30%, var(--a), var(--b)); border: 1px solid var(--color-ash); }
+
+@media (max-width: 1100px) {
+  .mint__inner { grid-template-columns: 1fr; }
+  .mint__stage { order: -1; }
+  .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .badge-hero { padding: 64px 0 32px; }
+  .badge-hero__title { font-size: var(--text-heading-sm); }
+  .mint__stage lanyard-badge { --lyd-height: 600px; }
+  .tiers { grid-template-columns: 1fr; }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1100px) {
