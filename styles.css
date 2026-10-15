@@ -617,20 +617,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .provider p code { font-family: var(--font-mono); color: var(--color-off-black); }
 .code--block { margin: 0; flex: 1; max-width: 520px; padding: 28px 32px; border-radius: 24px; background: rgba(207, 218, 245, .35); line-height: 1.5; }
 
-/* ---------- Footer ---------- */
-
-.footer { border-top: 1px solid var(--color-ash); padding: 64px 0 40px; }
-.footer__band { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; padding-bottom: 64px; border-bottom: 1px solid var(--color-ash); }
-.footer__band p { margin-top: 8px; font-size: var(--text-label); }
-.footer__main { display: flex; justify-content: space-between; gap: 64px; padding: 64px 0; }
-.footer__brand { display: flex; flex-direction: column; gap: 16px; max-width: 360px; }
-.footer__brand p { color: var(--color-graphite); }
-.footer__cols { display: flex; gap: 80px; }
-.footer__cols div { display: flex; flex-direction: column; gap: 12px; }
-.footer__cols a { font-size: var(--text-body-sm); transition: color .2s; }
-.footer__cols a:hover,
-.footer__legal a:hover { color: var(--color-smoke); }
-.footer__legal { display: flex; justify-content: space-between; font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); }
+/* Footer: see components/halftone-footer.css */
 
 /* ---------- Responsive ---------- */
 
@@ -686,8 +673,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .steps,
   .features__grid,
   .connect__grid,
-  .pricing__notes,
-  .footer__band { grid-template-columns: 1fr; }
+  .pricing__notes { grid-template-columns: 1fr; }
 
   .catalog__grid { grid-template-columns: 1fr; }
   .logos__inner { gap: 16px; }
@@ -707,9 +693,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .provider { flex-direction: column; align-items: flex-start; }
   .provider--feature { align-items: stretch; gap: 32px; }
   .code--block { max-width: none; padding: 24px; }
-  .footer__main { flex-direction: column; gap: 40px; }
-  .footer__cols { gap: 40px; flex-wrap: wrap; }
-  .footer__legal { flex-direction: column; gap: 8px; }
 }
 
 /* =========================================================

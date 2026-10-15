@@ -11,6 +11,30 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
 
+## Components
+
+Reusable, dependency-free web components live in `components/` (one `.js` + one `.css` each). Include both files on any page, then use the tag.
+
+### `<halftone-footer>`
+
+Site footer with a giant wordmark printed as halftone dots, cropped by the bottom edge. Dots part around the pointer and warm in colour; a click sends a shock ring through the word. Structure and animation are adapted from the "Halftone Wordmark Footer" React reference; colours and fonts come from the design tokens.
+
+```html
+<link rel="stylesheet" href="components/halftone-footer.css" />
+<script src="components/halftone-footer.js" defer></script>
+
+<halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
+  <nav data-title="Product"><a href="#how">How it works</a><a href="#pricing">Pricing</a></nav>
+  <nav data-title="Help"><a href="#faq">FAQ</a></nav>
+  <p data-legal>&copy; 2026 Pramaan &middot; <a href="#">Privacy</a></p>
+</halftone-footer>
+```
+
+- **Columns:** one `<nav data-title>` per column, with real links inside. Without JS they still render as a plain footer.
+- **Attributes:** `wordmark`, `label`, `meta`, `back-to-top="false"`, `dot-gap`, `radius`, `crop`, `grain`, `interactive="false"`.
+- **Theming:** CSS custom properties `--hwf-bg`, `--hwf-ink`, `--hwf-warm`, `--hwf-font`, `--hwf-weight`, `--hwf-height` (`auto` by default).
+- Respects `prefers-reduced-motion`, sleeps when idle or off-screen.
+
 ## Run locally
 
 ```bash

@@ -11,6 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components/halftone-footer.css" />
+  <script src="components/halftone-footer.js" defer></script>
 </head>
 <body>
 
@@ -486,31 +488,13 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__band">
-        <div><span class="caption">Results</span><p>Neutral shape, provider traces stripped</p></div>
-        <div><span class="caption">Billing</span><p>Provider cost + 30%, metered per call</p></div>
-        <div><span class="caption">Safety</span><p>A yes before irreversible actions</p></div>
-      </div>
-      <div class="footer__main">
-        <div class="footer__brand">
-          <a href="#" class="logo"><span class="logo__mark" aria-hidden="true"></span><span class="logo__word">pramaan</span></a>
-          <p>Every capability your agent needs &mdash; one API, one key, one bill.</p>
-        </div>
-        <div class="footer__cols">
-          <div><span class="caption">Product</span><a href="#catalog">Capabilities</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></div>
-          <div><span class="caption">Developers</span><a href="#docs">Docs</a><a href="#docs">API reference</a><a href="#docs">OpenAPI</a></div>
-          <div><span class="caption">Company</span><a href="#">About</a><a href="#">Blog</a><a href="#">Contact</a></div>
-        </div>
-      </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 Pramaan</span>
-        <span><a href="#">Privacy</a> &middot; <a href="#">Terms</a></span>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer (component: components/halftone-footer.*) -->
+  <halftone-footer wordmark="pramaan" label="Pramaan" meta="One API, one key, one bill.">
+    <nav data-title="Product"><a href="#catalog">Capabilities</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></nav>
+    <nav data-title="Developers"><a href="#docs">Docs</a><a href="#docs">API reference</a><a href="#docs">OpenAPI</a></nav>
+    <nav data-title="Company"><a href="simple.html">Pramaan for everyone</a><a href="#">Blog</a><a href="#">Contact</a></nav>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </halftone-footer>
 
   <script src="script.js"></script>
 </body>

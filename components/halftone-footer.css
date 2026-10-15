@@ -1,0 +1,128 @@
+/* <halftone-footer> — styles. Pair with components/halftone-footer.js.
+   Every rule is scoped to the element or .hwf__ classes. Theme via the
+   custom properties below; defaults come from the Pramaan design tokens. */
+
+halftone-footer {
+  --hwf-bg: var(--color-parchment, #f6f3f1);
+  --hwf-ink: var(--color-off-black, #242424);
+  --hwf-warm: var(--color-coral, #ff9473);
+  --hwf-muted: var(--color-smoke, #797776);
+  --hwf-line: var(--color-ash, #cecac8);
+  --hwf-font: var(--font-serif, Georgia, serif);
+  --hwf-weight: 400;
+  --hwf-mono: var(--font-mono, ui-monospace, monospace);
+  --hwf-height: auto;
+  --hwf-gutter: var(--gutter, 40px);
+  --hwf-max: var(--page-max-width, 1432px);
+
+  display: block;
+  position: relative;
+  height: var(--hwf-height);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--hwf-bg);
+  color: var(--hwf-ink);
+  border-top: 1px solid var(--hwf-line);
+  font-family: var(--hwf-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Before the script upgrades the element: a plain, usable footer. */
+halftone-footer:not(:defined) {
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 64px;
+  padding: 40px var(--hwf-gutter);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+halftone-footer:not(:defined) nav { display: flex; flex-direction: column; gap: 6px; }
+halftone-footer:not(:defined) nav::before { content: attr(data-title); color: var(--hwf-muted); }
+
+.hwf__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.hwf__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.hwf__top,
+.hwf__rule {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 2 * var(--hwf-gutter));
+  max-width: calc(var(--hwf-max) - 2 * var(--hwf-gutter));
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px;
+  line-height: 1.75;
+  letter-spacing: -0.033em;
+  text-transform: uppercase;
+}
+
+.hwf__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) repeat(var(--hwf-cols, 3), minmax(0, 1fr));
+  gap: 24px;
+  padding-top: 48px;
+}
+
+.hwf__brand strong { display: block; font-weight: 500; }
+.hwf__brand span { color: var(--hwf-muted); }
+
+.hwf__col h3 { margin: 0; font: inherit; color: var(--hwf-muted); }
+.hwf__col ul { list-style: none; margin: 0; padding: 0; }
+
+.hwf__rule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 12px;
+  border-top: 1px solid var(--hwf-line);
+}
+.hwf__legal { color: var(--hwf-muted); }
+.hwf__legal p { margin: 0; }
+
+.hwf__link {
+  color: inherit;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size .35s cubic-bezier(.2, .7, .1, 1);
+}
+.hwf__link:hover { background-size: 100% 1px; }
+.hwf__link:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
+@media (max-width: 720px) {
+  halftone-footer { --hwf-gutter: 24px; }
+  .hwf__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); row-gap: 18px; padding-top: 32px; }
+  .hwf__brand { grid-column: 1 / -1; }
+  .hwf__rule { flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hwf__link { transition: none; }
+}

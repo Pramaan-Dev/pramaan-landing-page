@@ -11,6 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components/halftone-footer.css" />
+  <script src="components/halftone-footer.js" defer></script>
 </head>
 <body>
 
@@ -459,30 +461,13 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__band">
-        <div><span class="caption">Easy</span><p>No code needed</p></div>
-        <div><span class="caption">Fair</span><p>Pay per job, no subscription</p></div>
-        <div><span class="caption">Safe</span><p>Asks before it acts</p></div>
-      </div>
-      <div class="footer__main">
-        <div class="footer__brand">
-          <a href="#" class="logo"><span class="logo__mark" aria-hidden="true"></span><span class="logo__word">pramaan</span></a>
-          <p>Say what you need. Get it done, with proof.</p>
-        </div>
-        <div class="footer__cols">
-          <div><span class="caption">Product</span><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a></div>
-          <div><span class="caption">Help</span><a href="#faq">FAQ</a><a href="#">Contact</a><a href="index.html">For developers</a></div>
-        </div>
-      </div>
-      <div class="footer__legal">
-        <span>&copy; 2026 Pramaan</span>
-        <span><a href="#">Privacy</a> &middot; <a href="#">Terms</a></span>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer (component: components/halftone-footer.*) -->
+  <halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
+    <nav data-title="Product"><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a></nav>
+    <nav data-title="Help"><a href="#faq">FAQ</a><a href="#">Contact</a><a href="index.html">For developers</a></nav>
+    <nav data-title="Start"><a href="#start">Get early access</a><a href="#login">Log in</a></nav>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </halftone-footer>
 
   <script src="script.js"></script>
 </body>
