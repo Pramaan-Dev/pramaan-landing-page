@@ -70,6 +70,8 @@ img, svg { display: block; }
 h1, h2, h3, p, ul, ol, dl, dd, pre { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 button { font: inherit; color: inherit; cursor: pointer; }
+/* Browsers give code/pre their own monospace; keep the design-system mono. */
+code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 :focus-visible { outline: 2px solid var(--color-lake-blue); outline-offset: 3px; }
 
