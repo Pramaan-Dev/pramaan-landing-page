@@ -7,7 +7,7 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | File | Audience | What it is |
 |---|---|---|
 | `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
-| `simple2.html` | Non-technical | Same page, closing section + footer replaced by `<ticket-stub-footer>`. |
+| `simple2.html` | Non-technical | **Final landing page.** Closing section + footer is plain HTML in the page, styled like the `simple.html` footer: `<halftone-footer layout="static">` wrapping a real `<footer>` with the closing headline + CTA, the Founding Member `<lanyard-badge>` with a `Get badge` CTA to `badge.html?tier=founding`, link columns, early-access facts, legal row and the giant dotted "pramaan" wordmark. Reads as a plain footer without JS. |
 | `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
 | `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
@@ -37,9 +37,31 @@ Site footer with a giant wordmark printed as halftone dots, cropped by the botto
 - **Theming:** CSS custom properties `--hwf-bg`, `--hwf-ink`, `--hwf-warm`, `--hwf-font`, `--hwf-weight`, `--hwf-height` (`auto` by default).
 - Respects `prefers-reduced-motion`, sleeps when idle or off-screen.
 
+- **`layout="static"` (opt-in, used on `simple2.html`):** write the whole footer as HTML yourself; the script then leaves the markup alone and only paints the dotted wordmark behind it (so the content is server-delivered, and without JS it still lays out as the same footer). Structure:
+
+```html
+<halftone-footer id="start" layout="static" wordmark="pramaan">
+  <footer class="hwf__inner">
+    <div class="hwf__close">                       <!-- optional closing block -->
+      <div class="hwf__close-copy"><h2 class="display display--md">…</h2><p class="lead">…</p><a class="btn btn--blue" href="#start">…</a></div>
+      <div class="hwf__badge"><lanyard-badge …></lanyard-badge><a class="btn btn--ghost" href="badge.html?tier=founding">Get badge</a></div>
+    </div>
+    <div class="hwf__top" style="--hwf-cols: 3">
+      <div class="hwf__brand"><strong>Pramaan</strong><p>…</p></div>
+      <nav class="hwf__col" aria-labelledby="x"><h3 id="x">Product</h3><ul><li><a class="hwf__link" href="#how">…</a></li></ul></nav>
+      <dl class="hwf__facts"><div><dt>Early access</dt><dd><span class="hwf__dot" aria-hidden="true"></span>Open</dd></div></dl>
+    </div>
+    <div class="hwf__rule"><p class="hwf__legal">&copy; 2026 Pramaan &middot; <a class="hwf__link" href="#">Privacy</a></p><a class="hwf__link hwf__up" href="#">Back to top &uarr;</a></div>
+    <p class="hwf__fallback">pramaan</p>          <!-- plain large word without JS; screen-reader-only once the dots draw -->
+  </footer>
+</halftone-footer>
+```
+
+  The badge strap hangs from the footer's top edge beside the headline (stacked under it below 720px; stage height `--hwf-badge-stage`, 440px / 420px). Without JS the badge column shows only its link. Small captions use graphite (`--hwf-muted` is overridden for contrast). The script also re-fits the height when the content changes size (fonts, the badge upgrading). Without the attribute the component behaves exactly as before.
+
 ### `<ticket-stub-footer>`
 
-Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. Used on `simple2.html`.
+Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. No longer used on `simple2.html` (kept for reuse).
 
 ```html
 <link rel="stylesheet" href="components/ticket-stub-footer.css" />
@@ -65,7 +87,7 @@ Closing section + footer: numbered section index (follows your scroll), typewrit
 
 ### `<lanyard-badge>`
 
-A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html`.
+A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html` and in the footer of `simple2.html`.
 
 ```html
 <link rel="stylesheet" href="components/lanyard-badge.css" />

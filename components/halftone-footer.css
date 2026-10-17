@@ -27,8 +27,9 @@ halftone-footer {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Before the script upgrades the element: a plain, usable footer. */
-halftone-footer:not(:defined) {
+/* Before the script upgrades the element: a plain, usable footer.
+   (layout="static" footers are already laid out in HTML; see the end of this file.) */
+halftone-footer:not(:defined):not([layout="static"]) {
   height: auto;
   display: flex;
   flex-wrap: wrap;
@@ -37,8 +38,8 @@ halftone-footer:not(:defined) {
   font-size: 12px;
   text-transform: uppercase;
 }
-halftone-footer:not(:defined) nav { display: flex; flex-direction: column; gap: 6px; }
-halftone-footer:not(:defined) nav::before { content: attr(data-title); color: var(--hwf-muted); }
+halftone-footer:not(:defined):not([layout="static"]) nav { display: flex; flex-direction: column; gap: 6px; }
+halftone-footer:not(:defined):not([layout="static"]) nav::before { content: attr(data-title); color: var(--hwf-muted); }
 
 .hwf__canvas {
   position: absolute;
@@ -142,4 +143,143 @@ halftone-footer:not(:defined) nav::before { content: attr(data-title); color: va
 
 @media (prefers-reduced-motion: reduce) {
   .hwf__link { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   layout="static" (opt-in): the whole footer is written as HTML in the page
+   (<footer class="hwf__inner"> with an optional .hwf__close closing block,
+   .hwf__top columns, .hwf__rule legal row and a .hwf__fallback word). The
+   script only paints the dotted wordmark behind it. Without JS this still
+   lays out as the same footer, with the word printed as plain large type.
+   Nothing here applies to the default (JS-built) footer.
+   --------------------------------------------------------------------------- */
+
+halftone-footer[layout="static"] {
+  /* Small caption text needs 4.5:1 on parchment; smoke is ~4:1, graphite ~8:1. */
+  --hwf-muted: var(--color-graphite, #4e4d4d);
+  --hwf-badge-stage: 440px;
+}
+
+.hwf__inner { position: relative; z-index: 1; display: block; }
+
+/* Closing block: headline, line, primary CTA; optional hanging badge beside it. */
+.hwf__close {
+  position: relative;
+  width: calc(100% - 2 * var(--hwf-gutter));
+  max-width: calc(var(--hwf-max) - 2 * var(--hwf-gutter));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  column-gap: 40px;
+  border-bottom: 1px solid var(--hwf-line);
+}
+.hwf__close-copy {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 72px 0;
+  min-width: 0;
+}
+.hwf__close-copy .lead { margin-top: 24px; }
+.hwf__close-copy .btn { margin-top: 32px; }
+
+/* Hanging badge: the strap comes down from the footer's top edge. The stage
+   is wider than its column (and may overflow it) so a swung card is not cut;
+   only the card and the CTA take the pointer. */
+.hwf__badge {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 32px;
+  pointer-events: none;
+  min-width: 0;
+}
+.hwf__badge lanyard-badge {
+  --lyd-height: var(--hwf-badge-stage);
+  flex: none;
+  width: calc(100% + 260px);
+  margin: 0 -130px;
+  overflow: visible;
+  pointer-events: none;
+}
+.hwf__badge lanyard-badge:not(:defined) { display: none; } /* no JS: just the link */
+.hwf__badge .lyd-card,
+.hwf__badge > a { pointer-events: auto; }
+.hwf__badge > a { margin-top: 4px; }
+/* No JS (badge not upgraded): just the link, centred beside the headline. */
+.hwf__badge:has(> lanyard-badge:not(:defined)) { align-self: center; padding: 24px 0; }
+
+/* Brand column with a paragraph instead of the one-line meta. */
+.hwf__brand p { margin: 0; color: var(--color-graphite, #4e4d4d); max-width: 40ch; }
+
+/* Facts column: caption on top (like the column titles), serif value under it. */
+.hwf__facts { margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.hwf__facts div { display: flex; flex-direction: column; gap: 6px; }
+.hwf__facts dt {
+  font-size: var(--text-caption, 12px);
+  letter-spacing: -0.033em;
+  text-transform: uppercase;
+  color: var(--hwf-muted);
+}
+.hwf__facts dd {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--hwf-font);
+  font-size: var(--text-subheading, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.hwf__dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-mint, #a7fccd);
+  box-shadow: inset 0 0 0 1px var(--hwf-ink);
+}
+
+/* The word as plain type (no JS, or before the dots are drawn): enormous,
+   centred and cropped by the bottom edge like the dotted one. */
+.hwf__fallback {
+  display: block;
+  margin: 16px 0 -0.2em;
+  font-family: var(--hwf-font);
+  font-weight: var(--hwf-weight);
+  font-size: 26vw;
+  line-height: .78;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: nowrap;
+}
+halftone-footer[data-enhanced] .hwf__fallback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 1100px) {
+  .hwf__close { grid-template-columns: minmax(0, 1fr) 260px; column-gap: 24px; }
+}
+
+@media (max-width: 720px) {
+  halftone-footer[layout="static"] { --hwf-badge-stage: 420px; }
+  .hwf__close { grid-template-columns: minmax(0, 1fr); }
+  .hwf__close-copy { padding: 56px 0 40px; }
+  .hwf__badge { border-top: 1px solid var(--hwf-line); }
+  .hwf__badge lanyard-badge { width: 100%; margin: 0; }
+  halftone-footer[layout="static"] .hwf__facts { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; gap: 18px 24px; }
+  halftone-footer[layout="static"] .hwf__facts div { flex: 1 1 140px; }
+  /* Comfortable tap targets for the text links. */
+  halftone-footer[layout="static"] .hwf__col ul { gap: 2px; }
+  halftone-footer[layout="static"] .hwf__col .hwf__link,
+  halftone-footer[layout="static"] .hwf__rule .hwf__link { display: inline-flex; align-items: center; min-height: 36px; }
+  halftone-footer[layout="static"] .hwf__rule { gap: 0 16px; }
 }

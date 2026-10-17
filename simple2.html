@@ -11,8 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="components/ticket-stub-footer.css" />
-  <script src="components/ticket-stub-footer.js" defer></script>
+  <link rel="stylesheet" href="components/halftone-footer.css" />
+  <link rel="stylesheet" href="components/lanyard-badge.css" />
+  <script src="components/halftone-footer.js" defer></script>
+  <script src="components/lanyard-badge.js" defer></script>
 </head>
 <body>
 
@@ -430,28 +432,60 @@
 
   </main>
 
-  <!-- Closing section + footer (component: components/ticket-stub-footer.*) -->
-  <ticket-stub-footer id="start" wordmark="pramaan" copyright="&copy; 2026 Pramaan">
-    <nav data-slot="sections">
-      <a href="#watch">Watch it work</a>
-      <a href="#how">How it works</a>
-      <a href="#tasks">What you can do</a>
-      <a href="#why">Why Pramaan</a>
-      <a href="#get-started">Get started</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <p data-slot="eyebrow">Research Acme before my meeting|Send a proctored test to 3 candidates|Send Priya a payment link for $200</p>
-    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
-    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
-    <a data-slot="cta" href="#start">Get early access</a>
-    <nav data-slot="links" data-title="Product"><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-    <nav data-slot="links" data-title="More"><a href="index.html">For developers</a><a href="#login">Log in</a><a href="#">Contact</a></nav>
-    <span data-slot="status" data-caption="Early access">Open</span>
-    <span data-slot="count" data-value="300">Things you can ask for</span>
-    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
-    <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
-  </ticket-stub-footer>
+  <!-- Closing section + footer: plain HTML, laid out by components/halftone-footer.css.
+       components/halftone-footer.js (layout="static") only paints the dotted wordmark;
+       components/lanyard-badge.js hangs the badge. Without JS both read as a plain footer. -->
+  <halftone-footer id="start" layout="static" wordmark="pramaan">
+    <footer class="hwf__inner">
+
+      <div class="hwf__close">
+        <div class="hwf__close-copy">
+          <h2 class="display display--md">Say what you need.<br />Keep the proof.</h2>
+          <p class="lead">$1 free to start. No code. No monthly fee.</p>
+          <a href="#start" class="btn btn--blue">Get early access <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+        </div>
+        <div class="hwf__badge">
+          <lanyard-badge heading="Founding Member" year="2026" wash="gold,coral" ink="gold" ornament="seal" card-width="168" flip-button="false"></lanyard-badge>
+          <a class="btn btn--ghost" href="badge.html?tier=founding">Get badge <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+        </div>
+      </div>
+
+      <div class="hwf__top" style="--hwf-cols: 3">
+        <div class="hwf__brand">
+          <strong>Pramaan</strong>
+          <p>Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+        </div>
+        <nav class="hwf__col" aria-labelledby="hwf-product">
+          <h3 id="hwf-product">Product</h3>
+          <ul>
+            <li><a class="hwf__link" href="#how">How it works</a></li>
+            <li><a class="hwf__link" href="#tasks">What you can do</a></li>
+            <li><a class="hwf__link" href="#pricing">Pricing</a></li>
+            <li><a class="hwf__link" href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <nav class="hwf__col" aria-labelledby="hwf-more">
+          <h3 id="hwf-more">More</h3>
+          <ul>
+            <li><a class="hwf__link" href="index.html">For developers</a></li>
+            <li><a class="hwf__link" href="#login">Log in</a></li>
+            <li><a class="hwf__link" href="#">Contact</a></li>
+          </ul>
+        </nav>
+        <dl class="hwf__facts">
+          <div><dt>Early access</dt><dd><span class="hwf__dot" aria-hidden="true"></span>Open</dd></div>
+          <div><dt>Things you can ask for</dt><dd>300</dd></div>
+        </dl>
+      </div>
+
+      <div class="hwf__rule">
+        <p class="hwf__legal">&copy; 2026 Pramaan &middot; <a class="hwf__link" href="#">Privacy</a> &middot; <a class="hwf__link" href="#">Terms</a></p>
+        <a class="hwf__link hwf__up" href="#">Back to top &uarr;</a>
+      </div>
+
+      <p class="hwf__fallback">pramaan</p>
+    </footer>
+  </halftone-footer>
 
   <script src="script.js"></script>
 </body>

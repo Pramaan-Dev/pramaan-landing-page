@@ -115,6 +115,7 @@ lanyard-badge {
   cursor: pointer;
   transition: background-color .2s, color .2s;
 }
+.lyd-flip[hidden] { display: none; } /* flip-button="false" */
 .lyd-flip:hover { background: var(--color-off-black, #242424); color: var(--color-parchment, #f6f3f1); }
 .lyd-flip svg { transition: transform .5s; }
 .lyd-flip[aria-pressed="true"] svg { transform: scaleX(-1); }
