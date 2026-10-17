@@ -7,7 +7,7 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | File | Audience | What it is |
 |---|---|---|
 | `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
-| `simple2.html` | Non-technical | **Final landing page.** Closing section + footer is plain HTML in the page, styled like the `simple.html` footer: `<halftone-footer layout="static">` wrapping a real `<footer>` with the closing headline + CTA, the Founding Member `<lanyard-badge>` with a `Get badge` CTA to `badge.html?tier=founding`, link columns, early-access facts, legal row and the giant dotted "pramaan" wordmark. Reads as a plain footer without JS. |
+| `simple2.html` | Non-technical | **Final landing page.** Same page; the closing section + footer is `<ticket-stub-footer>` with the coloured ticket removed (`ticket-surface="plain"`), the "pramaan" wordmark drawn as the all-dots halftone word from `simple.html` (`wordmark-style="dots"`), and the Founding Member badge with a `Get badge` CTA to `badge.html?tier=founding`. |
 | `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
 | `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
@@ -37,31 +37,9 @@ Site footer with a giant wordmark printed as halftone dots, cropped by the botto
 - **Theming:** CSS custom properties `--hwf-bg`, `--hwf-ink`, `--hwf-warm`, `--hwf-font`, `--hwf-weight`, `--hwf-height` (`auto` by default).
 - Respects `prefers-reduced-motion`, sleeps when idle or off-screen.
 
-- **`layout="static"` (opt-in, used on `simple2.html`):** write the whole footer as HTML yourself; the script then leaves the markup alone and only paints the dotted wordmark behind it (so the content is server-delivered, and without JS it still lays out as the same footer). Structure:
-
-```html
-<halftone-footer id="start" layout="static" wordmark="pramaan">
-  <footer class="hwf__inner">
-    <div class="hwf__close">                       <!-- optional closing block -->
-      <div class="hwf__close-copy"><h2 class="display display--md">…</h2><p class="lead">…</p><a class="btn btn--blue" href="#start">…</a></div>
-      <div class="hwf__badge"><lanyard-badge …></lanyard-badge><a class="btn btn--ghost" href="badge.html?tier=founding">Get badge</a></div>
-    </div>
-    <div class="hwf__top" style="--hwf-cols: 3">
-      <div class="hwf__brand"><strong>Pramaan</strong><p>…</p></div>
-      <nav class="hwf__col" aria-labelledby="x"><h3 id="x">Product</h3><ul><li><a class="hwf__link" href="#how">…</a></li></ul></nav>
-      <dl class="hwf__facts"><div><dt>Early access</dt><dd><span class="hwf__dot" aria-hidden="true"></span>Open</dd></div></dl>
-    </div>
-    <div class="hwf__rule"><p class="hwf__legal">&copy; 2026 Pramaan &middot; <a class="hwf__link" href="#">Privacy</a></p><a class="hwf__link hwf__up" href="#">Back to top &uarr;</a></div>
-    <p class="hwf__fallback">pramaan</p>          <!-- plain large word without JS; screen-reader-only once the dots draw -->
-  </footer>
-</halftone-footer>
-```
-
-  The badge strap hangs from the footer's top edge beside the headline (stacked under it below 720px; stage height `--hwf-badge-stage`, 440px / 420px). Without JS the badge column shows only its link. Small captions use graphite (`--hwf-muted` is overridden for contrast). The script also re-fits the height when the content changes size (fonts, the badge upgrading). Without the attribute the component behaves exactly as before.
-
 ### `<ticket-stub-footer>`
 
-Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. No longer used on `simple2.html` (kept for reuse).
+Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. Used on `simple2.html`.
 
 ```html
 <link rel="stylesheet" href="components/ticket-stub-footer.css" />
@@ -84,6 +62,10 @@ Closing section + footer: numbered section index (follows your scroll), typewrit
 - Section links point at element ids on the page; the index highlights whichever section is in view.
 - Theming: `--tsf-bg`, `--tsf-ink`, `--tsf-ticket`, `--tsf-deep`, `--tsf-accent`, `--tsf-cta`, `--tsf-serif`, `--tsf-mono`. `halftone="false"` prints the wordmark solid.
 - Respects `prefers-reduced-motion`; animation only runs while on screen.
+- `wordmark-style="dots"` (opt-in): the ticket's wordmark is printed entirely as halftone dots, like `<halftone-footer>`: dots part around the pointer and warm in colour, a press sends a shock ring through the word, the foot is cropped by the ticket edge. Optional `dot-gap` (px, default 6) and `dot-crop` (0–0.6, default 0.2). Colours: `--tsf-dot-ink` (default `--tsf-aink`), `--tsf-dot-warm` (default `--tsf-accent`). Without the attribute the default solid-serif wordmark with the halftone foot is unchanged.
+- `data-slot="badge"` (optional): a hanging badge and its CTA, e.g. `<div data-slot="badge"><lanyard-badge heading="Founding Member" card-width="168" flip-button="false" …></lanyard-badge><a class="btn btn--ghost" href="badge.html?tier=founding">Get badge …</a></div>`. Wide: the strap comes down from the footer's top edge on the right, the card hangs beside the link columns (which tighten to make room). Mid widths: a band of its own above the ticket. Stacked: right after the headline block. Stage height: `--tsf-badge-stage` (480px wide / 440px mid / 420px stacked).
+- Respects `prefers-reduced-motion`; animation only runs while on screen.
+- `ticket-surface="plain"` (opt-in): no coloured ticket. The ticket row keeps its layout, hairlines, stub hatch and text but sits directly on the footer surface. Without the attribute the periwinkle ticket is unchanged.
 
 ### `<lanyard-badge>`
 

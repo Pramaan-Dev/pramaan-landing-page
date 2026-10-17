@@ -32,12 +32,6 @@
  *                 the edge, 0–0.6 (default 0.2 = 4/5 visible; 0.25 = 3/4 visible)
  *   grain         print grain 0–1 (default 0.5)
  *   interactive   "false" to disable pointer/click response
- *   layout        "static" (opt-in): the footer's markup is already written in
- *                 the page (a <footer> with .hwf__top / .hwf__rule etc., see
- *                 README), so the script does not touch it and only adds the
- *                 dotted wordmark canvas behind it. A .hwf__fallback element
- *                 (plain large word for no-JS) becomes screen-reader-only once
- *                 the canvas is drawing.
  *
  * Theming (CSS custom properties on the element):
  *   --hwf-bg, --hwf-ink, --hwf-warm, --hwf-font, --hwf-weight,
@@ -103,19 +97,6 @@
     /** Turn the light-DOM <nav data-title> / [data-legal] children into the footer layout. */
     _build() {
       this._built = true;
-      this._static = this.getAttribute("layout") === "static";
-
-      // Static layout: server-delivered markup stays as written (its own
-      // <footer> is the landmark); the script only adds the dots canvas.
-      if (this._static) {
-        const canvas = document.createElement("canvas");
-        canvas.className = "hwf__canvas";
-        canvas.setAttribute("aria-hidden", "true");
-        this.prepend(canvas);
-        this._canvas = canvas;
-        return;
-      }
-
       this.setAttribute("role", "contentinfo");
 
       const wordmark = this.getAttribute("wordmark") || "pramaan";
@@ -214,7 +195,6 @@
       const canvas = this._canvas;
       const ctx = canvas && canvas.getContext("2d");
       if (!ctx) return;
-      this.setAttribute("data-enhanced", "");
 
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       let o = this._options();
@@ -399,7 +379,7 @@
       };
       const onDown = (e) => {
         if (!o.interactive || reduced) return;
-        if (e.target.closest("a,button,lanyard-badge")) return;
+        if (e.target.closest("a,button")) return;
         const [x, y] = local(e);
         ring = { x, y, t: performance.now() };
         wake();
@@ -412,18 +392,8 @@
       root.addEventListener("pointermove", onMove);
       root.addEventListener("pointerleave", onLeave);
       root.addEventListener("pointerdown", onDown);
-      // Static layout: the page's own content can change height (web fonts,
-      // a badge that upgrades late) while the root height is pinned, so it is
-      // watched too, and the re-fit waits for the next frame (re-sizing the
-      // root inside the observer callback would trip a ResizeObserver loop).
-      let refit = 0;
-      const ro = new ResizeObserver(this._static
-        ? () => { if (!refit) refit = requestAnimationFrame(() => { refit = 0; layout(); wake(); }); }
-        : () => { layout(); wake(); });
+      const ro = new ResizeObserver(() => { layout(); wake(); });
       ro.observe(root);
-      if (this._static) {
-        for (const el of root.children) if (el !== canvas) ro.observe(el);
-      }
       const io = new IntersectionObserver((entries) => {
         visible = entries[0] ? entries[0].isIntersecting : true;
         if (visible) wake();
@@ -443,7 +413,6 @@
       this._stop = () => {
         alive = false;
         cancelAnimationFrame(raf);
-        cancelAnimationFrame(refit);
         ro.disconnect();
         io.disconnect();
         root.removeEventListener("pointermove", onMove);
