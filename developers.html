@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pramaan — Every capability your agent needs, with proof</title>
+  <meta name="description" content="Pramaan puts 300 capabilities from 67 providers behind one API, one key and one bill. Name the capability; Pramaan picks the provider and returns a neutral result." />
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="components/halftone-footer.css" />
+  <script src="components/halftone-footer.js" defer></script>
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="announce" id="announce">
+    <div class="announce__inner">
+      <p>Early access is open. API keys are issued by the Pramaan team, with $1.00 starter credit.</p>
+      <a class="announce__pill" href="#start">Request a key</a>
+      <button class="announce__close" aria-label="Dismiss announcement" data-dismiss="announce">&times;</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#catalog">Capabilities</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#docs">Docs</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="#login" class="btn btn--ghost">Login</a>
+        <a href="#start" class="btn btn--black">Request access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <span class="tag"><span class="tag__dot"></span>API live &middot; 300 capabilities &middot; 67 providers</span>
+        <h1 class="display">Every capability your agent needs.<br />With proof.</h1>
+        <p class="lead">Search, enrichment, social, media, email, auth and payments &mdash; behind one API, one key and one bill. Name the capability. Pramaan picks the provider and hands back a clean, neutral result.</p>
+
+        <div class="install" role="group" aria-label="Example call">
+          <span class="install__label">One call, any provider</span>
+          <div class="install__box">
+            <code><span class="install__prompt">&gt;</span> p.run("companies.enrich", { domain: "stripe.com" })</code>
+            <button class="install__copy" data-copy='p.run("companies.enrich", { domain: "stripe.com" })'>Copy</button>
+          </div>
+          <span class="install__agents">Built for Claude Code &middot; Codex &middot; Cursor &middot; any MCP client &middot; your own app</span>
+        </div>
+
+        <div class="hero__ctas">
+          <a href="#start" class="btn btn--blue">Request access <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+          <a href="#catalog" class="btn btn--ghost">Browse capabilities</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logo strip -->
+    <section class="logos" aria-label="Providers on Pramaan">
+      <div class="container logos__inner">
+        <p class="caption">Routing calls to providers <em>and</em> aggregators</p>
+        <ul class="logos__row">
+          <li>Exa</li>
+          <li>Firecrawl</li>
+          <li>Tavily</li>
+          <li>treg</li>
+          <li>Monid</li>
+          <li>Stripe</li>
+          <li>Twilio</li>
+          <li>ElevenLabs</li>
+        </ul>
+        <a href="#catalog" class="link-arrow">See all 67 providers <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+
+    <!-- Pipeline diagram -->
+    <section class="section pipeline" id="how">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">How it works</span>
+          <h2 class="h-lg">Name the capability.<br />Never the vendor.</h2>
+        </div>
+
+        <div class="diagram" aria-label="Agents and apps call Pramaan, which routes each capability to a provider and returns a neutral result">
+          <svg class="diagram__lines" viewBox="0 0 1200 440" preserveAspectRatio="none" aria-hidden="true">
+            <g class="diagram__base">
+              <path d="M250 55 C 400 55, 420 220, 520 220" />
+              <path d="M250 165 C 400 165, 420 220, 520 220" />
+              <path d="M250 275 C 400 275, 420 220, 520 220" />
+              <path d="M250 385 C 400 385, 420 220, 520 220" />
+              <path d="M680 220 C 780 220, 800 55, 950 55" />
+              <path d="M680 220 C 780 220, 800 165, 950 165" />
+              <path d="M680 220 C 780 220, 800 275, 950 275" />
+              <path d="M680 220 C 780 220, 800 385, 950 385" />
+            </g>
+            <g class="diagram__flow">
+              <path d="M250 55 C 400 55, 420 220, 520 220" />
+              <path d="M250 385 C 400 385, 420 220, 520 220" />
+              <path d="M680 220 C 780 220, 800 165, 950 165" />
+              <path d="M680 220 C 780 220, 800 385, 950 385" />
+            </g>
+          </svg>
+
+          <div class="diagram__col diagram__col--left">
+            <span class="node"><span class="node__icon">&gt;_</span>Claude Code</span>
+            <span class="node"><span class="node__icon">&gt;_</span>Codex</span>
+            <span class="node"><span class="node__icon">&#9671;</span>Cursor</span>
+            <span class="node"><span class="node__icon">{ }</span>Your app</span>
+          </div>
+
+          <div class="diagram__hub">
+            <div class="hub__glow" aria-hidden="true"></div>
+            <div class="hub">
+              <span class="logo__mark logo__mark--lg" aria-hidden="true"></span>
+              <span class="hub__name">pramaan</span>
+              <span class="hub__sub">route &middot; clean &middot; meter</span>
+            </div>
+          </div>
+
+          <div class="diagram__col diagram__col--right">
+            <span class="node"><span class="node__icon">&#8981;</span>Web &amp; research</span>
+            <span class="node"><span class="node__icon">&#9678;</span>Data enrichment</span>
+            <span class="node"><span class="node__icon">&#9993;</span>Communication</span>
+            <span class="node"><span class="node__icon">&#8862;</span>treg &middot; Monid</span>
+          </div>
+        </div>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">01</span>
+            <h3 class="h-card">Find &amp; describe</h3>
+            <p>Your agent lists capabilities by namespace and reads the exact request schema and example. No guessing fields.</p>
+            <pre class="code"><code>list_capabilities({ namespace: "web" })</code></pre>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <h3 class="h-card">Run one call</h3>
+            <p>Pramaan picks the source, fails over if it has to, strips provider traces and returns the same shape every time.</p>
+            <pre class="code"><code>p.run("web.search", { query: "..." })</code></pre>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <h3 class="h-card">Approve what acts</h3>
+            <p>Anything that reaches the outside world &mdash; an email, a payment &mdash; declares its effect and waits for an explicit yes.</p>
+            <pre class="code"><code>effectClass: "external_irreversible"</code></pre>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Catalog -->
+    <section class="section catalog" id="catalog">
+      <div class="container">
+        <div class="section__head section__head--split">
+          <div>
+            <span class="eyebrow">The catalogue &middot; 300 capabilities &middot; one key</span>
+            <h2 class="h-lg">Replace the provider sprawl.</h2>
+          </div>
+          <p class="section__aside">Aggregators like treg and Monid are providers too. Pramaan sits one layer above them, so a single capability can draw on thousands of upstream endpoints &mdash; and you never sign up for any of them.</p>
+        </div>
+
+        <div class="filters" role="tablist" aria-label="Filter capabilities">
+          <button class="chip is-active" role="tab" aria-selected="true" data-filter="all">All</button>
+          <button class="chip" role="tab" aria-selected="false" data-filter="read">Read</button>
+          <button class="chip" role="tab" aria-selected="false" data-filter="act">Act</button>
+          <button class="chip" role="tab" aria-selected="false" data-filter="build">Build</button>
+        </div>
+
+        <ul class="catalog__grid">
+          <li class="cat" data-group="read">
+            <span class="cat__name">Web &amp; research</span>
+            <span class="cat__count">Read</span>
+            <span class="cat__replaces">web.search &middot; web.read &middot; web.crawl</span>
+          </li>
+          <li class="cat" data-group="read">
+            <span class="cat__name">Data enrichment</span>
+            <span class="cat__count">Read</span>
+            <span class="cat__replaces">companies.enrich &middot; people.email.verify</span>
+          </li>
+          <li class="cat" data-group="read">
+            <span class="cat__name">Social</span>
+            <span class="cat__count">Read</span>
+            <span class="cat__replaces">instagram.user.profile &middot; youtube.video.detail</span>
+          </li>
+          <li class="cat" data-group="read">
+            <span class="cat__name">Commerce</span>
+            <span class="cat__count">Read</span>
+            <span class="cat__replaces">amazon.product.detail &middot; amazon.search.products</span>
+          </li>
+          <li class="cat" data-group="act">
+            <span class="cat__name">Communication</span>
+            <span class="cat__count">Act</span>
+            <span class="cat__replaces">email.send &middot; sms &middot; voice</span>
+          </li>
+          <li class="cat" data-group="act">
+            <span class="cat__name">Money</span>
+            <span class="cat__count">Act</span>
+            <span class="cat__replaces">payments.checkout.create &middot; refunds</span>
+          </li>
+          <li class="cat" data-group="act">
+            <span class="cat__name">Identity &amp; trust</span>
+            <span class="cat__count">Act</span>
+            <span class="cat__replaces">identity verification &middot; email checks</span>
+          </li>
+          <li class="cat" data-group="build">
+            <span class="cat__name">AI &amp; media</span>
+            <span class="cat__count">Build</span>
+            <span class="cat__replaces">llm.complete &middot; image &middot; speech</span>
+          </li>
+          <li class="cat" data-group="build">
+            <span class="cat__name">App infrastructure</span>
+            <span class="cat__count">Build</span>
+            <span class="cat__replaces">auth &middot; database &middot; file storage</span>
+          </li>
+        </ul>
+
+        <a href="#catalog" class="link-arrow">Open the full catalogue <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section features">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Why Pramaan</span>
+          <h2 class="h-lg">Pramaan (प्रमाण), n. &mdash; proof.</h2>
+          <p class="section__sub">Agents shouldn't take a provider's word for it. Neither should you.</p>
+        </div>
+
+        <article class="card card--elevated">
+          <div class="card--elevated__copy">
+            <span class="card__num">01</span>
+            <h3 class="h-card">Live-verified, not just listed</h3>
+            <p>Every capability moves through three stages: built, spec-checked, live-verified. It only counts as live once a real call has returned the expected shape &mdash; and the log is kept, cost and all.</p>
+            <ul class="ticks">
+              <li>Status published per capability</li>
+              <li>Every call logged and metered</li>
+              <li>Provider traces stripped from results</li>
+            </ul>
+          </div>
+          <div class="card--elevated__art" aria-hidden="true">
+            <div class="art__blob art__blob--coral"></div>
+            <div class="art__blob art__blob--sky"></div>
+            <div class="art__blob art__blob--mint"></div>
+            <div class="receipt">
+              <div class="receipt__head"><span>Verification log</span><span>web.search</span></div>
+              <dl>
+                <div><dt>provider</dt><dd>exa</dd></div>
+                <div><dt>stage</dt><dd>live-verified</dd></div>
+                <div><dt>result</dt><dd>expected shape</dd></div>
+                <div><dt>cost</dt><dd>$0.0070</dd></div>
+                <div><dt>fallback</dt><dd>tavily &middot; firecrawl</dd></div>
+                <div><dt>traces</dt><dd>stripped</dd></div>
+              </dl>
+              <div class="receipt__foot">&#10003; built &rarr; spec-checked &rarr; live</div>
+            </div>
+          </div>
+        </article>
+
+        <div class="features__grid">
+          <article class="card">
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <circle cx="70" cy="52" r="34" fill="#ff9473" fill-opacity=".55" />
+                <circle cx="58" cy="112" r="26" fill="#a0b5eb" fill-opacity=".7" />
+                <circle cx="262" cy="46" r="28" fill="#a7fccd" fill-opacity=".8" />
+                <circle cx="258" cy="114" r="32" fill="#ecda98" fill-opacity=".75" />
+                <g fill="none" stroke="#cecac8">
+                  <path d="M100 60 C 130 60, 130 80, 140 80" /><path d="M82 108 C 120 108, 120 80, 140 80" />
+                  <path d="M234 50 C 200 50, 200 80, 180 80" /><path d="M226 112 C 200 112, 200 80, 180 80" />
+                </g>
+                <circle cx="160" cy="80" r="30" fill="#f6f3f1" stroke="#242424" />
+                <circle cx="160" cy="80" r="12" fill="#242424" class="art-pulse" />
+              </svg>
+            </div>
+            <span class="card__num">02</span>
+            <h3 class="h-card">One key, one bill</h3>
+            <p>One API key and one prepaid balance across 67 providers. Connect your own provider accounts and those calls cost nothing extra.</p>
+          </article>
+          <article class="card">
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <rect x="40" y="70" width="56" height="78" rx="28" fill="#a0b5eb" fill-opacity=".7" class="art-bar" />
+                <rect x="84" y="38" width="56" height="110" rx="28" fill="#a7fccd" fill-opacity=".75" class="art-bar" style="animation-delay:.2s" />
+                <rect x="128" y="92" width="56" height="56" rx="28" fill="#ff9473" fill-opacity=".55" class="art-bar" style="animation-delay:.4s" />
+                <rect x="172" y="16" width="56" height="132" rx="28" fill="#ecda98" fill-opacity=".75" class="art-bar" style="animation-delay:.6s" />
+                <rect x="216" y="58" width="56" height="90" rx="28" fill="#a0b5eb" fill-opacity=".5" class="art-bar" style="animation-delay:.8s" />
+                <path d="M30 112 C 80 104, 100 60, 150 70 S 230 26, 290 40" fill="none" stroke="#242424" stroke-dasharray="3 6" />
+                <circle cx="200" cy="46" r="5" fill="#242424" />
+              </svg>
+            </div>
+            <span class="card__num">03</span>
+            <h3 class="h-card">Provider-neutral results</h3>
+            <p>Whether Exa, treg or Monid answers, you get the same clean shape. Swap or fail over sources without touching a line of your code.</p>
+          </article>
+          <article class="card">
+            <div class="card__art" aria-hidden="true">
+              <svg viewBox="0 0 320 160">
+                <ellipse cx="130" cy="124" rx="70" ry="20" fill="#ecda98" fill-opacity=".8" />
+                <ellipse cx="130" cy="104" rx="70" ry="20" fill="#ff9473" fill-opacity=".5" />
+                <ellipse cx="130" cy="84" rx="70" ry="20" fill="#a0b5eb" fill-opacity=".6" />
+                <ellipse cx="130" cy="64" rx="70" ry="20" fill="#a7fccd" fill-opacity=".75" class="art-float" />
+                <circle cx="236" cy="58" r="34" fill="#f6f3f1" stroke="#242424" />
+                <path d="M222 58 l10 10 l18 -20" fill="none" stroke="#242424" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="art-check" />
+              </svg>
+            </div>
+            <span class="card__num">04</span>
+            <h3 class="h-card">Governed actions</h3>
+            <p>Each capability declares its effect &mdash; read-only, reversible or irreversible. Irreversible ones wait for a yes, and idempotency keys stop double sends.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outcomes -->
+    <section class="section outcomes">
+      <div class="container">
+        <div class="provider provider--feature">
+          <div>
+            <span class="eyebrow">Outcomes &middot; 271 recipes</span>
+            <h3 class="h-lg">Want the result, not the steps?</h3>
+            <p>An outcome is a fixed recipe of capability steps under one business name. Ask for <code>company.research</code> and get the answer &mdash; Pramaan shows the plan before anything acts.</p>
+          </div>
+          <pre class="code code--block"><code>p.outcomes.run("company.research", {
+  domain: "stripe.com"
+})
+
+→ plan: web.search, web.read,
+        companies.enrich, companies.news
+→ approve? yes
+→ job done · 1 result</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Pricing</span>
+          <h2 class="h-lg">Provider cost, plus 30%.</h2>
+          <p class="section__sub">No subscriptions, no seats. You see what the provider charges and what we add. Minimum $0.001 per call.</p>
+        </div>
+
+        <div class="equation" aria-label="Provider rate plus thirty percent equals your price">
+          <div class="equation__term">
+            <span class="caption">Provider rate &middot; exa web.search</span>
+            <span class="equation__value">$0.0070</span>
+          </div>
+          <span class="equation__op">+</span>
+          <div class="equation__term">
+            <span class="caption">Pramaan 30%</span>
+            <span class="equation__value">$0.0021</span>
+          </div>
+          <span class="equation__op">=</span>
+          <div class="equation__term equation__term--result">
+            <span class="caption">Your price</span>
+            <span class="equation__value">$0.0091</span>
+          </div>
+        </div>
+
+        <div class="pricing__notes">
+          <p><strong>$1.00 starter credit</strong>, once per organisation.</p>
+          <p><strong>Your own accounts are free</strong> &mdash; connect a provider you already pay and route through it.</p>
+          <p><strong>Daily spend caps</strong> so a looping agent can't run up a bill.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Connect -->
+    <section class="section connect" id="docs">
+      <div class="container">
+        <div class="section__head">
+          <span class="eyebrow">Three ways in</span>
+          <h2 class="h-lg">Same key. Same balance.</h2>
+        </div>
+        <div class="connect__grid">
+          <article class="card">
+            <span class="tag tag--plain"><span class="tag__dot"></span>HTTP &middot; live</span>
+            <h3 class="h-card">Plain HTTP</h3>
+            <p>A REST API with an OpenAPI spec. Capabilities, outcomes, jobs, balance and usage.</p>
+            <pre class="code"><code>GET https://api.pramaan.dev/v1/capabilities</code></pre>
+          </article>
+          <article class="card">
+            <span class="tag tag--plain">SDK &middot; coming soon</span>
+            <h3 class="h-card">TypeScript SDK</h3>
+            <p>Fetch-only, so it runs in Node, Next.js, Bun and Workers. Jobs, idempotency and errors built in.</p>
+            <pre class="code"><code>npm i @pramaan/sdk</code></pre>
+          </article>
+          <article class="card">
+            <span class="tag tag--plain">MCP &middot; coming soon</span>
+            <h3 class="h-card">MCP server</h3>
+            <p>Any MCP client can list, describe and run capabilities and outcomes &mdash; with approval prompts for actions.</p>
+            <pre class="code"><code>npx @pramaan/mcp</code></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" id="faq">
+      <div class="container faq__inner">
+        <div class="section__head">
+          <span class="eyebrow">FAQ</span>
+          <h2 class="h-lg">Common questions</h2>
+        </div>
+        <div class="faq__list">
+          <details class="faq__item">
+            <summary>Do I need an account with each provider?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>No. One Pramaan key covers every provider. If you already pay one, connect your own account and calls through it are free.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How is this different from treg or Monid?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>They're providers inside Pramaan. Aggregators hand you thousands of raw endpoints; Pramaan turns them, and direct providers, into typed capabilities with neutral results, failover, approvals and verification status.</p>
+          </details>
+          <details class="faq__item">
+            <summary>What does live-verified mean?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>A real call to that provider returned the expected shape, and we logged it with its cost. Capabilities that are only built or spec-checked are labelled as such.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How is a call priced?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>The provider's cost plus 30%, with a $0.001 minimum, drawn from a prepaid balance. Every new organisation gets $1.00 to start.</p>
+          </details>
+          <details class="faq__item">
+            <summary>Can my agent send an email or take a payment on its own?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>Not without a yes. Capabilities that act outside are classed as reversible or irreversible, and the ones that need it ask for explicit approval first.</p>
+          </details>
+          <details class="faq__item">
+            <summary>How do I get a key?<span class="faq__chev" aria-hidden="true">&darr;</span></summary>
+            <p>During early access, keys are issued by the Pramaan team. Request access and we'll set up your organisation.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="section closing" id="start">
+      <div class="wash wash--closing" aria-hidden="true"></div>
+      <div class="container closing__inner">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <path id="seal-ring" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" />
+              <radialGradient id="seal-fill" cx="35%" cy="30%" r="80%">
+                <stop offset="0" stop-color="#a7fccd" />
+                <stop offset=".5" stop-color="#a0b5eb" />
+                <stop offset="1" stop-color="#ff9473" />
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="92" fill="#f6f3f1" stroke="#cecac8" />
+            <g class="seal__ring">
+              <text><textPath href="#seal-ring" textLength="462" lengthAdjust="spacing">BUILT &#183; SPEC-CHECKED &#183; LIVE-VERIFIED &#183;</textPath></text>
+            </g>
+            <circle cx="100" cy="100" r="52" fill="url(#seal-fill)" fill-opacity=".85" />
+            <circle cx="100" cy="100" r="22" fill="none" stroke="#242424" stroke-width="2" />
+            <circle cx="100" cy="100" r="9" fill="#242424" />
+          </svg>
+        </div>
+        <h2 class="display display--md">Name the capability.<br />Keep the proof.</h2>
+        <p class="lead">$1.00 starter credit. No subscription. Keys issued during early access.</p>
+        <div class="hero__ctas">
+          <a href="#start" class="btn btn--blue">Request access <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+          <a href="#docs" class="btn btn--ghost">Read the docs</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer (component: components/halftone-footer.*) -->
+  <halftone-footer wordmark="pramaan" label="Pramaan" meta="One API, one key, one bill.">
+    <nav data-title="Product"><a href="#catalog">Capabilities</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></nav>
+    <nav data-title="Developers"><a href="#docs">Docs</a><a href="#docs">API reference</a><a href="#docs">OpenAPI</a></nav>
+    <nav data-title="Company"><a href="index.html">Pramaan for everyone</a><a href="#">Blog</a><a href="#">Contact</a></nav>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </halftone-footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

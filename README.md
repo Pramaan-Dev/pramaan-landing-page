@@ -7,9 +7,9 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | File | Audience | What it is |
 |---|---|---|
 | `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
-| `simple2.html` | Non-technical | **Final landing page.** Same page; the closing section + footer is `<ticket-stub-footer>` with the coloured ticket removed (`ticket-surface="plain"`), the "pramaan" wordmark drawn as the all-dots halftone word from `simple.html` (`wordmark-style="dots"`), and the Founding Member badge with a `Get badge` CTA to `badge.html?tier=founding`. |
+| `index.html` | Non-technical | **Final landing page (home).** Formerly `simple2.html`. Same page; the closing section + footer is `<ticket-stub-footer>` with the coloured ticket removed (`ticket-surface="plain"`), the "pramaan" wordmark drawn as the all-dots halftone word from `simple.html` (`wordmark-style="dots"`), and the Founding Member badge with a `Get badge` CTA to `badge.html?tier=founding`. |
 | `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
-| `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
+| `developers.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
 
@@ -39,7 +39,7 @@ Site footer with a giant wordmark printed as halftone dots, cropped by the botto
 
 ### `<ticket-stub-footer>`
 
-Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. Used on `simple2.html`.
+Closing section + footer: numbered section index (follows your scroll), typewriter eyebrow, serif headline, pill CTA, a turning globe you can drag, link columns, and a periwinkle ticket with a punchable stub, a live status, a rolling odometer, a self-decoding blurb and a serif wordmark whose foot dissolves into halftone (pointer lens + click ripple). Adapted from the "Ticket Stub Footer" React reference; colours and fonts come from the design tokens. Used on `index.html`.
 
 ```html
 <link rel="stylesheet" href="components/ticket-stub-footer.css" />
@@ -69,7 +69,7 @@ Closing section + footer: numbered section index (follows your scroll), typewrit
 
 ### `<lanyard-badge>`
 
-A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html` and in the footer of `simple2.html`.
+A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html` and in the footer of `index.html`.
 
 ```html
 <link rel="stylesheet" href="components/lanyard-badge.css" />
@@ -90,7 +90,7 @@ A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, 
 npx serve .        # or: python3 -m http.server 8000
 ```
 
-Open `/simple.html` or `/index.html`. Any static host works (e.g. `vercel --prod` from this folder).
+Open `/` (home), `/simple.html` or `/developers.html`. Any static host works (e.g. `vercel --prod` from this folder).
 
 ## Videos
 
