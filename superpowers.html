@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Superpowers | Pramaan</title>
+  <meta name="description" content="Every superpower Pramaan can rent you per use: search, data, social, messaging, payments, AI and more, each routed to the cheapest source that can do the job." />
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="catalogue.css" />
+  <link rel="stylesheet" href="components/ticket-stub-footer.css" />
+  <script src="components/ticket-stub-footer.js" defer></script>
+</head>
+<body data-kind="superpowers">
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#how">How it works</a>
+        <a href="superpowers.html" aria-current="page">Superpowers</a>
+        <a href="missions.html">Missions</a>
+        <a href="index.html#pricing">Pricing</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="index.html#login" class="btn btn--ghost">Log in</a>
+        <a href="index.html#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cat-hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Superpowers</span>
+        <h1 class="display display--md">Superpowers on demand.</h1>
+        <p class="lead">Each superpower is one thing Pramaan can do for you: find a company, read a page, send a text, take a payment. Rent any of them per use. Pramaan picks the cheapest source that can do the job.</p>
+        <label class="cat-search">
+          <span aria-hidden="true">&#9906;</span>
+          <input type="search" placeholder="Search superpowers, e.g. TikTok, invoice, weather" aria-label="Search superpowers" data-search />
+        </label>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Categories">
+        <p class="eyebrow cat-side__title">Categories</p>
+        <ul data-cats></ul>
+      </aside>
+      <div data-groups></div>
+    </div>
+  </main>
+
+  <div class="panel-scrim" hidden data-scrim></div>
+  <aside class="panel" hidden data-panel role="dialog" aria-modal="true" aria-label="Superpower details">
+    <div class="panel__top">
+      <span class="caption">Superpowers</span>
+      <button type="button" class="panel__close" aria-label="Close" data-close>&times;</button>
+    </div>
+    <div class="panel__body" data-panel-body></div>
+  </aside>
+
+  <ticket-stub-footer id="start" wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+    <nav data-slot="sections">
+      <a href="index.html">Home</a>
+      <a href="superpowers.html">Superpowers</a>
+      <a href="missions.html">Missions</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
+    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+    <a data-slot="cta" href="index.html#start">Get early access</a>
+    <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
+    <nav data-slot="links" data-title="More"><a href="developers.html">For developers</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
+    <span data-slot="status" data-caption="Early access">Open</span>
+    <span data-slot="count" data-value="3483">Superpowers</span>
+    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+    <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
+  </ticket-stub-footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="catalogue.js"></script>
+</body>
+</html>
