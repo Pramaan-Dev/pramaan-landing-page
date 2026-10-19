@@ -242,22 +242,12 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 .logo__word { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1; }
 
 .logo__mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 2px solid var(--color-off-black);
-  position: relative;
+  width: 32px;
+  height: 32px;
+  background: url(logo.svg) center / contain no-repeat;
   flex: none;
 }
-.logo__mark::after {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border-radius: 50%;
-  background: var(--color-off-black);
-}
-.logo__mark--lg { width: 36px; height: 36px; }
-.logo__mark--lg::after { inset: 7px; }
+.logo__mark--lg { width: 48px; height: 48px; }
 
 .nav__links { display: flex; gap: 32px; margin-right: auto; }
 .nav__links a {

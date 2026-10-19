@@ -220,9 +220,9 @@
     return e;
   };
 
-  // Pramaan mark: ring + dot.
+  // Pramaan mark: red braces around a node graph (same drawing as logo.svg).
   const MARK =
-    '<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="24" cy="24" r="7" fill="currentColor"/></svg>';
+    '<svg viewBox="110 110 1034 1034" aria-hidden="true" focusable="false"><g fill="#e40532"><path id="tsf-brace" d="M425 178H345C270 178 220 235 220 300V490C220 545 180 585 135 588V660C180 663 220 700 220 750V950C220 1015 270 1075 345 1075H427V1005H385C357 1005 337 980 337 955V745C337 690 295 640 238 622C295 600 335 555 335 495V295C335 268 357 245 385 245H425Z"/><use href="#tsf-brace" transform="translate(1254 0) scale(-1 1)"/></g><path d="M742 263L573 362L415 666L573 820L753 1007L573 362M742 263L750 583L573 820" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round"/><g fill="currentColor"><circle cx="742" cy="263" r="52"/><circle cx="573" cy="362" r="36"/><circle cx="750" cy="583" r="36"/><circle cx="415" cy="666" r="56"/><circle cx="573" cy="820" r="36"/><circle cx="753" cy="1007" r="40"/></g></svg>';
   const ARROW =
     '<svg viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 7h11M7.5 2.5 12 7l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
 
