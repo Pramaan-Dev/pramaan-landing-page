@@ -3,6 +3,7 @@
 // Ids, descriptions and steps come from capabilities-lab. Categories and families come from
 // data/sorting.json, where every id was sorted by hand into one category (and, for a
 // superpower, one family). An id missing from it stops the build so nothing is guessed.
+// Mission card titles come from data/mission-names.json; a missing one falls back to the id.
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
@@ -13,6 +14,7 @@ const lab = resolve(process.argv[2] ?? resolve(root, "../capabilities-lab"));
 const { CATALOG } = await import(`${lab}/packages/sdk/src/generated/catalog.ts`);
 const { OUTCOMES } = await import(`${lab}/packages/sdk/src/generated/outcomes.ts`);
 const sorting = JSON.parse(readFileSync(`${root}/data/sorting.json`, "utf8"));
+const missionNames = JSON.parse(readFileSync(`${root}/data/mission-names.json`, "utf8"));
 
 export const CATEGORIES = [
   ["Data", "Companies, people and contacts: research, lead lists, work emails and company signals."],
@@ -77,7 +79,7 @@ for (const line of readFileSync(`${lab}/docs/OUTCOMES.md`, "utf8").split("\n")) 
 }
 const missions = Object.values(OUTCOMES).map((o) => ({
   id: o.id,
-  name: nameOf(o.id),
+  name: missionNames[o.id] ?? nameOf(o.id),
   category: place(o.id).c,
   description: o.description,
   mode: o.mode,
