@@ -141,16 +141,15 @@
     ctx.scale(-1, 1);
     ctx.fill(paths.brace);
     ctx.restore();
-    // Lines and dots get heavier when the mark is small so it still reads.
-    const thin = Math.max(1, 1.4 / s / 22);
+    // Lines never thinner than 1 canvas pixel; dots keep the logo's proportions.
     ctx.strokeStyle = ctx.fillStyle = color;
-    ctx.lineWidth = 22 * thin;
+    ctx.lineWidth = Math.max(14, 1 / s);
     ctx.lineCap = "round";
     ctx.stroke(paths.graph);
     ctx.beginPath();
     for (const [x, y, rr] of NODES) {
-      ctx.moveTo(x + rr * Math.min(thin, 1.6), y);
-      ctx.arc(x, y, rr * Math.min(thin, 1.6), 0, Math.PI * 2);
+      ctx.moveTo(x + rr, y);
+      ctx.arc(x, y, rr, 0, Math.PI * 2);
     }
     ctx.fill();
     ctx.restore();
@@ -326,11 +325,11 @@
 
     // header: mark + wordmark, number
     const hy = h * 0.135;
-    seal(ctx, pad + w * 0.03, hy, w * 0.034, col.ink, "#e40532");
+    seal(ctx, pad + w * 0.04, hy, w * 0.04, col.ink, "#e40532");
     ctx.fillStyle = col.ink;
     ctx.textBaseline = "middle";
     ctx.font = "400 " + w * 0.068 + "px " + f.serif;
-    ctx.fillText("pramaan", pad + w * 0.075, hy + w * 0.002);
+    ctx.fillText("pramaan", pad + w * 0.1, hy + w * 0.002);
     ctx.font = "500 " + w * 0.04 + "px " + f.mono;
     ctx.textAlign = "right";
     ctx.fillText(d.number ? "NO. " + d.number : "", w - pad, hy);
