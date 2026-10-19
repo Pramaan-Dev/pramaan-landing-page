@@ -12,7 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="components/ticket-stub-footer.css" />
+  <link rel="stylesheet" href="components/lanyard-badge.css" />
   <script src="components/ticket-stub-footer.js" defer></script>
+  <script src="components/lanyard-badge.js" defer></script>
 </head>
 <body>
 
@@ -431,7 +433,7 @@
   </main>
 
   <!-- Closing section + footer (component: components/ticket-stub-footer.*) -->
-  <ticket-stub-footer id="start" wordmark="pramaan" copyright="&copy; 2026 Pramaan">
+  <ticket-stub-footer id="start" wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
     <nav data-slot="sections">
       <a href="#watch">Watch it work</a>
       <a href="#how">How it works</a>
@@ -445,6 +447,10 @@
     <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
     <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
     <a data-slot="cta" href="#start">Get early access</a>
+    <div data-slot="badge">
+      <lanyard-badge heading="Founding Member" year="2026" wash="gold,coral" ink="gold" ornament="seal" card-width="168" flip-button="false"></lanyard-badge>
+      <a class="btn btn--ghost" href="badge.html?tier=founding">Get badge <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+    </div>
     <nav data-slot="links" data-title="Product"><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
     <nav data-slot="links" data-title="More"><a href="index.html">For developers</a><a href="#login">Log in</a><a href="#">Contact</a></nav>
     <span data-slot="status" data-caption="Early access">Open</span>

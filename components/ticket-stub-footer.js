@@ -26,9 +26,17 @@
  *     <span data-slot="count" data-value="300">Things you can ask for</span>
  *     <p data-slot="blurb">...</p>
  *     <p data-slot="legal"><a href="#">Privacy</a> <a href="#">Terms</a></p>
+ *     <figure data-slot="art">...</figure>   (optional: full-width band above the grid, or add
+ *                                            data-mode="background" to run it behind the whole footer)
+ *     <div data-slot="badge">...</div>       (optional: e.g. a <lanyard-badge> + its CTA, hung from the
+ *                                            top edge of the footer to the right of the link columns)
  *   </ticket-stub-footer>
  *
- * Attributes: wordmark, copyright, halftone="false" (solid wordmark).
+ * Attributes: wordmark, copyright, halftone="false" (solid wordmark),
+ *   wordmark-style="dots" (opt-in: the ticket's wordmark is printed entirely as
+ *   halftone dots, as in <halftone-footer>: dots part around the pointer and warm
+ *   in colour, a click sends a shock ring through the word), with optional
+ *   dot-gap (px, default 6) and dot-crop (share hidden below the edge, default 0.2).
  */
 (() => {
   if (customElements.get("ticket-stub-footer")) return;
@@ -153,6 +161,47 @@
     return { size, extra };
   };
 
+  // ---- dot-field wordmark (wordmark-style="dots"), after <halftone-footer> ----
+
+  /** "#rgb" / "#rrggbb" / "rgb(r, g, b)" → [r, g, b], or null. */
+  const toRgb = (s) => {
+    const v = (s || "").trim();
+    const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(v);
+    if (m) {
+      const h = m[1].length === 3 ? m[1].replace(/./g, (c) => c + c) : m[1];
+      return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+    }
+    const r = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(v);
+    return r ? [+r[1], +r[2], +r[3]] : null;
+  };
+
+  /** Dot radius for a cell coverage in [0, 1]; area-true so tone stays even. */
+  const fieldDot = (c, gap) => Math.sqrt(clamp01(c)) * gap * 0.56;
+
+  /** One spring step home, plus the push from a pointer at (px, py) within r. */
+  const springStep = (x, y, vx, vy, hx, hy, px, py, r) => {
+    const dx = x - px;
+    const dy = y - py;
+    const d2 = dx * dx + dy * dy;
+    if (r > 0 && d2 < r * r) {
+      const d = Math.sqrt(d2) + 0.001;
+      const f = (1 - d / r) * 2.6;
+      vx += (dx / d) * f;
+      vy += (dy / d) * f;
+    }
+    vx = (vx + (hx - x) * 0.05) * 0.84;
+    vy = (vy + (hy - y) * 0.05) * 0.84;
+    return [x + vx, y + vy, vx, vy];
+  };
+
+  /** 0 at home, 1 once a dot is `span` px or more away. */
+  const warmth = (x, y, hx, hy, span) => (span > 0 ? Math.min(1, Math.hypot(x - hx, y - hy) / span) : 0);
+
+  const numAttr = (node, name, fallback) => {
+    const v = parseFloat(node.getAttribute(name));
+    return Number.isFinite(v) ? v : fallback;
+  };
+
   const MAX_CAP = 0.2;
   const MERIDIANS = 12;
   const TILT = 0.34;
@@ -208,6 +257,7 @@
       const countEl = slot("count");
       const blurbEl = slot("blurb");
       const legalEl = slot("legal");
+      const badgeEl = slot("badge");
 
       const grid = el("div", "tsf-grid");
       for (const c of [2, 3, 4, 5, 6, 7]) {
@@ -389,8 +439,29 @@
       );
       foot.append(copy, footL, footR, top);
 
-      grid.append(nav, hero, side, ticket, foot);
-      this.replaceChildren(grid);
+      // Optional hanging badge: its own grid cell, after the hero so it follows
+      // the headline when the layout stacks (placement lives in the CSS).
+      if (badgeEl) {
+        badgeEl.classList.add("tsf-badge");
+        this.toggleAttribute("data-badge", true);
+        grid.append(nav, hero, badgeEl, side, ticket, foot);
+      } else {
+        grid.append(nav, hero, side, ticket, foot);
+      }
+      const artEl = slot("art");
+      if (artEl) {
+        // data-mode="background": the art sits behind the whole footer instead of forming a band above it
+        const asBg = artEl.dataset.mode === "background";
+        const band = el("div", asBg ? "tsf-art tsf-art--bg" : "tsf-art");
+        if (asBg) {
+          band.setAttribute("aria-hidden", "true");
+          this.setAttribute("data-art", "background");
+        }
+        band.append(artEl);
+        this.replaceChildren(band, grid);
+      } else {
+        this.replaceChildren(grid);
+      }
       this.classList.add("tsf");
       this.dataset.seen = "0";
       this._pick(0, true);
@@ -474,6 +545,7 @@
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       this._reduced = reduced;
       const halftone = this.getAttribute("halftone") !== "false";
+      const dotMode = this.getAttribute("wordmark-style") === "dots";
       let visible = false;
       let raf = 0;
       let alive = true;
@@ -604,6 +676,163 @@
         ctx.globalCompositeOperation = "source-over";
       };
 
+      // ---- dot-field wordmark (wordmark-style="dots"): the word sampled into
+      // halftone dots on springs, as in <halftone-footer>, on a transparent
+      // canvas so the ticket shows through. Off unless the attribute is set.
+      const dm = {
+        w: 1, h: 1, dpr: 1, dots: new Float32Array(0), count: 0,
+        px: -1e5, py: -1e5, ring: { x: 0, y: 0, t: -1 },
+        ink: [36, 36, 36], warm: [255, 148, 115], inkCss: "#242424", grain: null,
+      };
+
+      const measureDots = () => {
+        const w = Math.round(this._wordBox.clientWidth);
+        if (!w) return;
+        const style = cs();
+        const prop = (n, f) => style.getPropertyValue(n).trim() || f;
+        const font = prop("--tsf-serif", "Georgia, serif");
+        const weight = prop("--tsf-serif-weight", "400");
+        dm.inkCss = prop("--tsf-dot-ink", "#242424");
+        dm.ink = toRgb(dm.inkCss) || dm.ink;
+        dm.warm = toRgb(prop("--tsf-dot-warm", "#ff9473")) || dm.warm;
+        const crop = Math.min(0.6, Math.max(0, numAttr(this, "dot-crop", 0.2)));
+
+        // Set the word to fill the width, then crop its foot at the ticket edge.
+        const mask = document.createElement("canvas");
+        const m = mask.getContext("2d", { willReadFrequently: true });
+        if (!m) return;
+        m.font = weight + " 100px " + font;
+        const adv = m.measureText(word).width;
+        // Inside the ticket the whole word stays on the card (the page-wide
+        // <halftone-footer> lets it bleed at 1.02).
+        const size = adv > 0 ? (w * 0.97 * 100) / adv : 1;
+        m.font = weight + " " + size + "px " + font;
+        const probe = m.measureText(word);
+        const asc = probe.actualBoundingBoxAscent || size * 0.72;
+        const desc = probe.actualBoundingBoxDescent || 0;
+        const shown = (asc + desc) * (1 - crop);
+        const h = Math.max(1, Math.round(Math.max(14, asc * 0.14) + shown));
+        mask.width = w;
+        mask.height = h;
+        m.font = weight + " " + size + "px " + font;
+        m.fillStyle = "#000";
+        m.textBaseline = "alphabetic";
+        m.fillText(word, (w - m.measureText(word).width) / 2, h - shown + asc);
+        const img = m.getImageData(0, 0, w, h).data;
+
+        // Finer dots on narrow screens so a small word stays legible.
+        const gap = Math.max(3, Math.min(Math.max(3, numAttr(this, "dot-gap", 6)), w / 130));
+        const cols = Math.ceil(w / gap);
+        const rows = Math.ceil(h / gap);
+        const tmp = [];
+        for (let gy = 0; gy < rows; gy++) {
+          for (let gx = 0; gx < cols; gx++) {
+            let sum = 0;
+            for (let sy = 0; sy < 3; sy++) {
+              for (let sx = 0; sx < 3; sx++) {
+                const x = Math.min(w - 1, Math.floor(gx * gap + ((sx + 0.5) * gap) / 3));
+                const y = Math.min(h - 1, Math.floor(gy * gap + ((sy + 0.5) * gap) / 3));
+                sum += img[(y * w + x) * 4 + 3];
+              }
+            }
+            const cov = sum / (9 * 255);
+            if (cov < 0.06) continue;
+            const hx = gx * gap + gap / 2;
+            const hy = gy * gap + gap / 2;
+            tmp.push(hx, hy, 0, 0, hx, hy, fieldDot(cov, gap));
+          }
+        }
+        dm.dots = new Float32Array(tmp);
+        dm.count = tmp.length / 7;
+        dm.w = w;
+        dm.h = h;
+        dm.dpr = Math.min(2, window.devicePixelRatio || 1);
+
+        // A fixed tile of print grain, laid over the dots only.
+        const tile = document.createElement("canvas");
+        tile.width = tile.height = 128;
+        const tg = tile.getContext("2d");
+        if (tg) {
+          const id = tg.createImageData(128, 128);
+          for (let i = 0; i < id.data.length; i += 4) {
+            const v = Math.random() * 255;
+            id.data[i] = id.data[i + 1] = id.data[i + 2] = v;
+            id.data[i + 3] = Math.random() < 0.5 ? 0 : 255;
+          }
+          tg.putImageData(id, 0, 0);
+          dm.grain = ctx.createPattern(tile, "repeat");
+        }
+        canvas.width = Math.round(w * dm.dpr);
+        canvas.height = Math.round(h * dm.dpr);
+        this._wordBox.style.height = h + "px";
+        drawDots();
+      };
+
+      const drawDots = () => {
+        const { w, h, dpr, dots, count, ink, warm } = dm;
+        const now = performance.now();
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalAlpha = 1;
+        ctx.clearRect(0, 0, w, h);
+        const r = reduced ? 0 : Math.min(80, w * 0.16);
+        const ringAge = dm.ring.t < 0 ? 1e9 : now - dm.ring.t;
+        const ringR = ringAge * 0.9;
+        const hot = [];
+        ctx.beginPath();
+        for (let i = 0; i < count; i++) {
+          const j = i * 7;
+          let x = dots[j], y = dots[j + 1], vx = dots[j + 2], vy = dots[j + 3];
+          const hx = dots[j + 4], hy = dots[j + 5], rad = dots[j + 6];
+          if (!reduced) {
+            if (ringAge < 900) {
+              const dx = hx - dm.ring.x;
+              const dy = hy - dm.ring.y;
+              const d = Math.sqrt(dx * dx + dy * dy) + 0.001;
+              const band = 1 - Math.min(1, Math.abs(d - ringR) / 26);
+              if (band > 0) {
+                const f = band * 3.2 * (1 - ringAge / 900);
+                vx += (dx / d) * f;
+                vy += (dy / d) * f;
+              }
+            }
+            [x, y, vx, vy] = springStep(x, y, vx, vy, hx, hy, dm.px, dm.py, r);
+            if (!(Math.abs(vx) + Math.abs(vy) > 0.02 || Math.abs(x - hx) + Math.abs(y - hy) > 0.05)) {
+              x = hx; y = hy; vx = 0; vy = 0;
+            }
+            dots[j] = x; dots[j + 1] = y; dots[j + 2] = vx; dots[j + 3] = vy;
+          }
+          const k = warmth(x, y, hx, hy, 28);
+          if (k > 0.02) {
+            hot.push(x, y, rad, k);
+            continue;
+          }
+          ctx.moveTo(x + rad, y);
+          ctx.arc(x, y, rad, 0, Math.PI * 2);
+        }
+        ctx.fillStyle = dm.inkCss;
+        ctx.fill();
+        // Pushed dots warm towards the accent, one by one.
+        for (let i = 0; i < hot.length; i += 4) {
+          const k = hot[i + 3];
+          ctx.fillStyle = "rgb(" + Math.round(ink[0] + (warm[0] - ink[0]) * k) + "," + Math.round(ink[1] + (warm[1] - ink[1]) * k) + "," + Math.round(ink[2] + (warm[2] - ink[2]) * k) + ")";
+          ctx.beginPath();
+          ctx.arc(hot[i], hot[i + 1], hot[i + 2], 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (dm.grain) {
+          ctx.globalAlpha = 0.06;
+          ctx.globalCompositeOperation = "source-atop";
+          ctx.fillStyle = dm.grain;
+          ctx.fillRect(0, 0, w, h);
+          ctx.globalAlpha = 1;
+          ctx.globalCompositeOperation = "source-over";
+        }
+      };
+
+      const measureMark = dotMode ? measureDots : measureWord;
+      const drawMark = dotMode ? drawDots : drawWord;
+
       // ---- one loop for globe + wordmark while on screen
       let last = 0;
       const loop = (now) => {
@@ -631,12 +860,12 @@
           }
           ws.rings = ws.rings.filter((r) => r.a > 0.02);
         }
-        drawWord();
+        drawMark();
         if (visible && alive) raf = requestAnimationFrame(loop);
         else last = 0;
       };
       const wake = () => {
-        if (reduced) { paintOrbit(); drawWord(); return; }
+        if (reduced) { paintOrbit(); drawMark(); return; }
         if (!raf && visible && alive) raf = requestAnimationFrame(loop);
       };
       this._wake = wake;
@@ -769,19 +998,36 @@
         }
         wake();
       };
-      box.addEventListener("pointermove", onWordMove);
-      box.addEventListener("pointerleave", onWordLeave);
-      box.addEventListener("click", onWordClick);
+      // dots mode: push dots around the pointer; a press sends a shock ring
+      const onDotMove = (e) => {
+        if (reduced) return;
+        [dm.px, dm.py] = local(e);
+        wake();
+      };
+      const onDotLeave = () => {
+        dm.px = dm.py = -1e5;
+        wake();
+      };
+      const onDotDown = (e) => {
+        if (reduced) return;
+        const [x, y] = local(e);
+        dm.ring = { x, y, t: performance.now() };
+        wake();
+      };
+      const wordEvents = dotMode
+        ? [["pointermove", onDotMove], ["pointerleave", onDotLeave], ["pointerdown", onDotDown]]
+        : [["pointermove", onWordMove], ["pointerleave", onWordLeave], ["click", onWordClick]];
+      for (const [type, fn] of wordEvents) box.addEventListener(type, fn);
 
       const ro = new ResizeObserver(() => {
         measureOrbit();
-        measureWord();
+        measureMark();
       });
       ro.observe(this._svg);
       ro.observe(box);
       measureOrbit();
-      measureWord();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => alive && measureWord());
+      measureMark();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => alive && measureMark());
 
       this._stop = () => {
         alive = false;
@@ -795,9 +1041,7 @@
         orbit.removeEventListener("pointermove", onMove);
         orbit.removeEventListener("pointerup", onUp);
         orbit.removeEventListener("pointercancel", onUp);
-        box.removeEventListener("pointermove", onWordMove);
-        box.removeEventListener("pointerleave", onWordLeave);
-        box.removeEventListener("click", onWordClick);
+        for (const [type, fn] of wordEvents) box.removeEventListener(type, fn);
         this._wake = null;
         this._stop = null;
       };

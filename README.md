@@ -7,7 +7,7 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | File | Audience | What it is |
 |---|---|---|
 | `simple.html` | Non-technical | Plain-language page. Each section has an animated mockup or a rendered video. Footer: `<halftone-footer>`. |
-| `simple2.html` | Non-technical | Same page, closing section + footer replaced by `<ticket-stub-footer>`. |
+| `simple2.html` | Non-technical | **Final landing page.** Same page; the closing section + footer is `<ticket-stub-footer>` with the coloured ticket removed (`ticket-surface="plain"`), the "pramaan" wordmark drawn as the all-dots halftone word from `simple.html` (`wordmark-style="dots"`), and the Founding Member badge with a `Get badge` CTA to `badge.html?tier=founding`. |
 | `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
 | `index.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 
@@ -62,10 +62,14 @@ Closing section + footer: numbered section index (follows your scroll), typewrit
 - Section links point at element ids on the page; the index highlights whichever section is in view.
 - Theming: `--tsf-bg`, `--tsf-ink`, `--tsf-ticket`, `--tsf-deep`, `--tsf-accent`, `--tsf-cta`, `--tsf-serif`, `--tsf-mono`. `halftone="false"` prints the wordmark solid.
 - Respects `prefers-reduced-motion`; animation only runs while on screen.
+- `wordmark-style="dots"` (opt-in): the ticket's wordmark is printed entirely as halftone dots, like `<halftone-footer>`: dots part around the pointer and warm in colour, a press sends a shock ring through the word, the foot is cropped by the ticket edge. Optional `dot-gap` (px, default 6) and `dot-crop` (0–0.6, default 0.2). Colours: `--tsf-dot-ink` (default `--tsf-aink`), `--tsf-dot-warm` (default `--tsf-accent`). Without the attribute the default solid-serif wordmark with the halftone foot is unchanged.
+- `data-slot="badge"` (optional): a hanging badge and its CTA, e.g. `<div data-slot="badge"><lanyard-badge heading="Founding Member" card-width="168" flip-button="false" …></lanyard-badge><a class="btn btn--ghost" href="badge.html?tier=founding">Get badge …</a></div>`. Wide: the strap comes down from the footer's top edge on the right, the card hangs beside the link columns (which tighten to make room). Mid widths: a band of its own above the ticket. Stacked: right after the headline block. Stage height: `--tsf-badge-stage` (480px wide / 440px mid / 420px stacked).
+- Respects `prefers-reduced-motion`; animation only runs while on screen.
+- `ticket-surface="plain"` (opt-in): no coloured ticket. The ticket row keeps its layout, hairlines, stub hatch and text but sits directly on the footer surface. Without the attribute the periwinkle ticket is unchanged.
 
 ### `<lanyard-badge>`
 
-A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html`.
+A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, split ring). Drag to swing, flick to spin, tap or press Enter to flip. Both faces are drawn on canvas from the badge details, so the PNG export matches the screen exactly. Adapted from the "Lanyard Badge" React reference; colours and fonts come from the design tokens. Used on `badge.html` and in the footer of `simple2.html`.
 
 ```html
 <link rel="stylesheet" href="components/lanyard-badge.css" />
