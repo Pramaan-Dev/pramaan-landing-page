@@ -12,7 +12,7 @@
  *
  * Structure/physics adapted from the "Lanyard Badge" React reference, ported
  * to a dependency-free custom element. Colours and fonts come from the
- * Pramaan design tokens; the ornament is the Pramaan ring-and-dot mark.
+ * Pramaan design tokens; the ornament is the Pramaan mark (braces around a node graph).
  *
  * Usage:
  *   <link rel="stylesheet" href="components/lanyard-badge.css">
@@ -122,16 +122,36 @@
     return lines;
   };
 
-  /** The Pramaan mark: ring + dot. */
-  const seal = (ctx, cx, cy, r, color) => {
+  /** The Pramaan mark: braces around a node graph (same drawing as logo.svg), fitted in a 2r square. */
+  const BRACE = "M425 178H345C270 178 220 235 220 300V490C220 545 180 585 135 588V660C180 663 220 700 220 750V950C220 1015 270 1075 345 1075H427V1005H385C357 1005 337 980 337 955V745C337 690 295 640 238 622C295 600 335 555 335 495V295C335 268 357 245 385 245H425Z";
+  const GRAPH = "M742 263L573 362L415 666L573 820L753 1007L573 362M742 263L750 583L573 820";
+  const NODES = [[742, 263, 47], [573, 362, 30], [750, 583, 30], [415, 666, 50], [573, 820, 30], [753, 1007, 33]];
+  let paths = null;
+  const seal = (ctx, cx, cy, r, color, braceColor = color) => {
+    paths ??= { brace: new Path2D(BRACE), graph: new Path2D(GRAPH) };
+    const s = (2 * r) / 1034;
     ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(s, s);
+    ctx.translate(-627, -627);
+    ctx.fillStyle = braceColor;
+    ctx.fill(paths.brace);
+    ctx.save();
+    ctx.translate(1254, 0);
+    ctx.scale(-1, 1);
+    ctx.fill(paths.brace);
+    ctx.restore();
+    // Lines and dots get heavier when the mark is small so it still reads.
+    const thin = Math.max(1, 1.4 / s / 22);
     ctx.strokeStyle = ctx.fillStyle = color;
-    ctx.lineWidth = r * 0.22;
+    ctx.lineWidth = 22 * thin;
+    ctx.lineCap = "round";
+    ctx.stroke(paths.graph);
     ctx.beginPath();
-    ctx.arc(cx, cy, r * 0.89, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r * 0.36, 0, Math.PI * 2);
+    for (const [x, y, rr] of NODES) {
+      ctx.moveTo(x + rr * Math.min(thin, 1.6), y);
+      ctx.arc(x, y, rr * Math.min(thin, 1.6), 0, Math.PI * 2);
+    }
     ctx.fill();
     ctx.restore();
   };
@@ -306,7 +326,7 @@
 
     // header: mark + wordmark, number
     const hy = h * 0.135;
-    seal(ctx, pad + w * 0.03, hy, w * 0.03, col.ink);
+    seal(ctx, pad + w * 0.03, hy, w * 0.034, col.ink, "#e40532");
     ctx.fillStyle = col.ink;
     ctx.textBaseline = "middle";
     ctx.font = "400 " + w * 0.068 + "px " + f.serif;
