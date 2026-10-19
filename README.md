@@ -10,6 +10,10 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | `index.html` | Non-technical | **Final landing page (home).** Formerly `simple2.html`. Same page; the closing section + footer is `<ticket-stub-footer>` with the coloured ticket removed (`ticket-surface="plain"`), the "pramaan" wordmark drawn as the all-dots halftone word from `simple.html` (`wordmark-style="dots"`), and the Founding Member badge with a `Get badge` CTA to `badge.html?tier=founding`. |
 | `badge.html` | Community | Mint a badge (founding member, contributor, provider partner, early tester): live editor, `<lanyard-badge>`, PNG download, share link. |
 | `developers.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
+| `superpowers.html` | Everyone | Every superpower (capability), one card per family, grouped into 18 categories with search and a Featured row. A card opens a side panel listing that family's superpowers. `#<Family>` in the URL opens it directly. |
+| `missions.html` | Everyone | Every mission (outcome), one card each, same categories. The side panel shows the price cap, approvals and the superpowers it runs, in order. `#<mission.id>` opens it directly. |
+
+The two catalogue pages share `catalogue.css` and `catalogue.js` and load `data/superpowers.json` and `data/missions.json`. Rebuild those after the lists change in capabilities-lab: `node scripts/build-catalogue.mjs` (expects `../capabilities-lab`; pass another path as the first argument). Categories and families live in `data/sorting.json`, sorted by hand per id; the build stops on any id that is not in it, so new ids must be sorted there first.
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
 
