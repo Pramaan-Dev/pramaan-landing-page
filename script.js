@@ -18,8 +18,8 @@ if ('IntersectionObserver' in window) {
   revealEls.forEach((el) => el.classList.add('is-in'));
 }
 
-// Seamless vertical marquee: duplicate the list once
-document.querySelectorAll('.marquee').forEach((list) => {
+// Seamless marquees: duplicate the list once
+document.querySelectorAll('.marquee, [data-loop]').forEach((list) => {
   [...list.children].forEach((li) => {
     const copy = li.cloneNode(true);
     copy.setAttribute('aria-hidden', 'true');
