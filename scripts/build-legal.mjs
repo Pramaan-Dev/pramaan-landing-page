@@ -12,6 +12,7 @@ const PAGES = [
   { md: "PRIVACY.md", slug: "privacy", nav: "Privacy Policy" },
   { md: "ACCEPTABLE-USE.md", slug: "acceptable-use", nav: "Acceptable Use" },
   { md: "SMS-POLICY.md", slug: "messaging", nav: "Messaging and SMS" },
+  { md: "BACKGROUND-CHECKS-ADDENDUM.md", slug: "background-checks", nav: "Background checks" },
   { md: "REFUNDS.md", slug: "refunds", nav: "Credit and refunds" },
   { md: "SUBPROCESSORS.md", slug: "subprocessors", nav: "Subprocessors" },
   { md: "COOKIES.md", slug: "cookies", nav: "Cookies" },
