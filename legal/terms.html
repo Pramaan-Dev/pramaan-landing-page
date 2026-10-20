@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pramaan Terms of Service | Pramaan</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../catalogue.css" />
+  <link rel="stylesheet" href="../legal.css" />
+  <link rel="stylesheet" href="../components/ticket-stub-footer.css" />
+  <script src="../components/ticket-stub-footer.js" defer></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="../index.html#how">How it works</a>
+        <a href="../superpowers.html">Superpowers</a>
+        <a href="../missions.html">Missions</a>
+        <a href="../index.html#pricing">Pricing</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="../index.html#login" class="btn btn--ghost">Log in</a>
+        <a href="../index.html#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cat-hero">
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Legal</span>
+        <h1 class="display display--md">Terms of Service</h1>
+        <p class="legal-draft">Draft for legal review. Not in force.</p>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Legal pages">
+        <p class="eyebrow cat-side__title">Legal</p>
+        <ul>
+          <li><a href="terms.html" aria-current="page">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="acceptable-use.html">Acceptable Use</a></li>
+          <li><a href="messaging.html">Messaging and SMS</a></li>
+          <li><a href="background-checks.html">Background checks</a></li>
+          <li><a href="refunds.html">Credit and refunds</a></li>
+          <li><a href="subprocessors.html">Subprocessors</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="security.html">Security</a></li>
+        </ul>
+      </aside>
+      <article class="legal">
+<p><strong>Effective date:</strong> 19 October 2026</p>
+<p>These terms are an agreement between you and <mark>[COMPANY LEGAL NAME]</mark>, <mark>[REGISTERED ADDRESS]</mark> ("Pramaan", "we", "us"). They cover the Pramaan API, SDKs, MCP server, CLI, web app and docs (together, the "Service").</p>
+<h2>1. What Pramaan is</h2>
+<ul><li>Pramaan is one API, SDK and MCP server for builders and their AI agents.</li><li>A <strong>superpower</strong> (<code>capability</code> in the API) is one action, such as finding a company's details or sending a message.</li><li>A <strong>mission</strong> (<code>outcome</code> in the API) is a multi-step job made of superpowers.</li><li>For each call, Pramaan picks a source: data it already holds, an aggregator, or a direct provider. It checks the answer, prices it, and returns a result that does not name the source.</li><li>A product builder, where AI agents build apps for founders, is coming. Until it launches it is marked "Coming soon", and these terms do not promise it. When it launches, a separate Product builder addendum will cover code ownership, hosting of built apps, previews and going live.</li></ul>
+<h2>2. Who can use it</h2>
+<ul><li>You must be at least 18 and able to form a binding contract.</li><li>If you use the Service for a company, you accept these terms for that company, and "you" means the company.</li><li>You must not use the Service if the law or sanctions forbid it (see <a href="acceptable-use.html">Acceptable Use</a>).</li></ul>
+<h2>3. Accounts and workspaces</h2>
+<ul><li>You sign in through our sign-in provider and must verify your email.</li><li>Your work lives in a <strong>workspace</strong> (an organisation). Each workspace has one <strong>owner</strong>. It may also have <strong>admins</strong>, <strong>members</strong> and <strong>viewers</strong>:<ul><li>the owner controls billing, keys, members and settings, and can transfer ownership;</li><li>admins can do everything except transfer ownership;</li><li>members can run superpowers and missions within the limits set for them;</li><li>viewers can only read.</li></ul></li><li>Owners and admins can invite people. An invite works once, for a limited time, and only for the invited email address.</li><li>The workspace owner is responsible for everyone they let into the workspace, and for every call made with the workspace's keys.</li><li>Owners and admins can see each member's keys, credit use and calls.</li><li>Keep your account details accurate.</li></ul>
+<h2>4. API keys and security</h2>
+<ul><li>A key is shown in full only once. We keep only a part of it for display.</li><li>There are three kinds of key:<ul><li><strong>read-only keys</strong> can only read;</li><li><strong>member keys</strong> act as one member, with that member's role, limits and approvals;</li><li><strong>workspace keys</strong> act for the whole workspace, with every right.</li></ul></li><li>Anyone who holds a key can spend the workspace's credit. Keep keys secret. Do not put them in public code or in browsers, and do not share them outside your workspace.</li><li>If a key leaks, revoke it at once in Settings and tell us at security@pramaan.dev. You pay for calls made with a key until it is revoked, unless the misuse was our fault.</li><li><strong>Approval rules.</strong> Some calls need a person's approval before they run, for example calls that cannot be undone or that cost more than a limit you set. Whoever sends a call that names an approver vouches that the approver really approved it.</li><li>Do not share one login between several people. Invite them instead.</li></ul>
+<h2>5. Credit, prices and charges</h2>
+<h3>5.1 Prepaid credit</h3>
+<ul><li>The Service runs on prepaid credit in US dollars. There are no plans or seats.</li><li>New accounts get a one-time <strong>$1 starter credit</strong>, once per person. People who join by invite get none. Starter credit has no cash value. It cannot be refunded or transferred.</li><li>You buy credit by card from Dodo Payments, which sells it to you as merchant of record and handles tax and receipts. Its own terms apply to the purchase and are shown at checkout.</li><li><strong>Credit does not expire.</strong></li></ul>
+<h3>5.2 Prices</h3>
+<ul><li>Every superpower shows its price, or how its price is worked out, before you call it. Checking a price is free.</li><li>When we hold credit for a call, the quoted amount is the most you pay for it. If the source costs us more than we quoted, we cover the difference.</li><li>We may change prices. A new price applies to calls made after the change. <mark>[Notice period: OPEN QUESTION]</mark></li></ul>
+<h3>5.3 How calls are charged</h3>
+<ul><li><strong>A call that fails before doing any work is not charged.</strong></li><li><strong>A long job that the source could not confirm is charged at most its estimate.</strong></li><li><strong>A mission is charged for the steps that ran.</strong> Steps that did not run are not charged.</li><li>A call that succeeds is charged even if the answer is empty, for example a search that finds nothing. It is not charged when the source reports nothing to charge, or when a superpower says it returns an empty list at no charge when nothing is found.</li><li>A repeat of a call with the same idempotency key is not charged twice.</li><li>Calls made on <strong>your own provider accounts</strong> ("own keys") are not charged by Pramaan. The provider bills you directly.</li></ul>
+<h3>5.4 Spending limits</h3>
+<ul><li>The owner or an admin can set a daily spending cap for the workspace, and a daily or monthly limit for each member.</li><li>With no cap set, your balance is the limit.</li><li>Rental renewals and one-off registration fees do not count toward the daily cap.</li><li>A call that would go over a cap or limit is refused, not charged.</li></ul>
+<h3>5.5 Rentals</h3>
+<ul><li>Some things are rented by the month: phone numbers, registered texting campaigns, email inboxes, custom email domains and connected app accounts.</li><li>The first month is charged when the thing is bought or filed. It is charged even if a later step of the same call fails.</li><li><strong>A rental renews monthly from your credit until you release it.</strong></li><li>If your credit cannot pay a renewal, the rental becomes past due:<ul><li>a past-due rental cannot be used to send;</li><li>we retry every day;</li><li>we email you when the renewal fails, and again 2 days before release;</li><li>after 7 days, we release it. For a number, that means the number is gone. For a registered campaign, the campaign is withdrawn. For an inbox, the inbox and its mail are deleted.</li></ul></li><li>A released number or inbox may not be recoverable.</li><li>One-off fees, such as texting brand and campaign registration fees, are charged once, when the filing is confirmed. They are not refunded if a carrier or registry later rejects the filing.</li></ul>
+<h3>5.6 Refunds</h3>
+<p>See <a href="refunds.html">Credit and refunds</a>. In short: starter credit is never refunded, and purchased credit is not refundable, except where the law requires it. Dodo Payments' refund rules, as merchant of record, also apply.</p>
+<h3>5.7 Errors and disputes</h3>
+<ul><li>If we charge you wrongly, tell us within <mark>[60 days]</mark> and we will correct it, usually by putting the credit back.</li><li>If you dispute a card payment with your bank without contacting us first, we may suspend the workspace while the dispute is open.</li></ul>
+<h2>6. Third-party providers, own keys and connections</h2>
+<ul><li>Superpowers are carried out by third-party providers. A provider can change, limit or stop a service, and when it does we may change or remove a superpower. We do not promise any particular provider.</li><li><strong>Own keys.</strong> You may connect your own provider accounts. You must have the right to use them. Your use is also governed by that provider's terms, and the provider bills you. We store the credentials encrypted, never show them back, and use them only for calls you or your members make.</li><li><strong>Connections.</strong> You may connect third-party apps (for example a CRM or a calendar) through our integrations provider. You authorise us to act in those apps when you or your agents ask. Disconnecting stops future access.</li><li><strong>Phone numbers and SMS.</strong> Numbers (US and Canada) come from our telephony provider, through a sub-account for your workspace. You must follow <a href="messaging.html">Messaging and SMS</a> and carrier rules. Carriers can block messages or numbers, and we cannot reverse that.</li><li>We are not responsible for a third party's own acts, outages or data practices. We are still responsible for choosing and instructing the providers we use for you.</li></ul>
+<h2>7. Acceptable use</h2>
+<p>You must follow the Acceptable Use Policy (<a href="acceptable-use.html">Acceptable Use</a>) and the SMS and Messaging Policy (<a href="messaging.html">Messaging and SMS</a>). You are responsible for what your agents, apps and end users do with the Service.</p>
+<h2>8. Personal data you handle</h2>
+<ul><li>When you call superpowers about people (people and company lookups, identity and fraud checks, hiring and court checks), or send messages to people, you decide why and how that data is used. For that data you are the <strong>controller</strong> (or business), and we act as your <strong>processor</strong> (or service provider). The exception is Pramaan Data (section 9).</li><li>You must:<ul><li>have a lawful basis for every lookup and every message;</li><li>give people the notices the law requires;</li><li>honour opt-outs, and access, correction and deletion requests, for the data you hold;</li><li><strong>pass a real consent record id</strong> for superpowers that ask for one (hiring and court checks). Passing an id means you hold that person's valid consent, can show it to us on request, and are using the check only for the purpose consented to;</li><li>before using hiring or court checks, accept the <strong>Background Checks Addendum</strong>: you use them only for a lawful purpose, with consent, never as the only basis for a decision, and you meet your own legal duties as the user of the check;</li><li>not use any result to make decisions about credit, insurance, housing or similar eligibility <mark>[unless a superpower is expressly offered for that purpose under the laws that govern it: OPEN QUESTION]</mark>.</li></ul></li><li>Our Data Processing Addendum (DPA.md) applies when we process personal data for you.</li></ul>
+<h2>9. Where results come from</h2>
+<ul><li>Results may come from Pramaan's own data or from third-party sources.</li><li>For the data Pramaan keeps itself, Pramaan is the controller (see <a href="privacy.html">Privacy Policy</a>).</li></ul>
+<h2>10. Your content and our rights</h2>
+<ul><li>You keep your rights in what you send us ("your content") and in the results we return to you.</li><li>You give us a licence to use your content only to run, secure and support the Service for you.</li><li>We may use usage data, and aggregated, de-identified information, to run and improve the Service.</li><li><strong>We never train AI models on your inputs or outputs.</strong></li><li>We keep all rights in the Service, the catalogue and our software. You must not copy, resell or rebuild the Service, except by building your own products on top of it as these terms allow.</li><li>If you send us feedback, we may use it freely.</li></ul>
+<h2>11. Results, accuracy and AI output</h2>
+<ul><li>Results come from third-party and public sources. They can be incomplete, out of date or wrong. We check answers, but we do not promise they are accurate or complete.</li><li>Some superpowers call AI models. AI output can be wrong, biased or made up. Check it before you rely on it, and before an agent acts on it.</li><li>The web app's Home screen uses an AI model to suggest superpowers. What you type there is sent to a model provider (see <a href="privacy.html">Privacy Policy</a>). Suggestions are not advice.</li><li>Provider output is data, not instructions. Treat it as untrusted.</li><li><strong>You are responsible for what your agents do.</strong> That includes sends, purchases and other actions that cannot be undone. Use approval rules for those.</li></ul>
+<h2>12. Availability and changes to the Service</h2>
+<ul><li>We aim to keep the Service running, but we offer no uptime commitment (no SLA) unless we sign one with you.</li><li>We may add, change or remove superpowers, missions and features. When a change will make you lose data or a rental, we will try to give notice first.</li></ul>
+<h2>13. Suspension and ending</h2>
+<ul><li>You can stop using the Service at any time. To close a workspace, the owner emails support@pramaan.dev. We then revoke its keys, release its rentals and delete its data as <a href="privacy.html">Privacy Policy</a> describes. Unused credit is forfeited, unless the law requires otherwise.</li><li>We may suspend a key, a member, a sending channel, or the whole workspace, at once if needed:<ul><li>to stop a breach of these terms or the AUP;</li><li>to stop fraud, abuse, spam or a security risk;</li><li>when a provider or carrier requires it;</li><li>when the law requires it;</li><li>while a payment dispute is open.</li></ul></li><li>Where we can, we will tell you why and give you a chance to fix it.</li><li>When we end the Service for you:<ul><li>rentals stop renewing and are released;</li><li>unused purchased credit is forfeited, unless we end the Service for you without cause or the law requires otherwise;</li><li>we delete your data as <a href="privacy.html">Privacy Policy</a> describes.</li></ul></li></ul>
+<h2>14. Disclaimers</h2>
+<p>Apart from what these terms promise, the Service is provided "as is" and "as available", as far as the law allows.</p>
+<h2>15. Limits on liability</h2>
+<ul><li>Neither party is liable for indirect or consequential losses, lost profits or lost data, as far as the law allows.</li><li>Our total liability is capped at the greater of the fees you paid us in the 12 months before the claim, or US$100.</li><li>These limits do not apply where the law does not allow them.</li></ul>
+<h2>16. Indemnity</h2>
+<p>You will defend us against third-party claims, and cover the resulting costs, where the claim arises from:</p>
+<ul><li>your content;</li><li>your use of own keys or connections;</li><li>messages you or your agents send;</li><li>your use of personal data;</li><li>your breach of these terms or the law.</li></ul>
+<h2>17. Changes to these terms</h2>
+<p>We will give at least <mark>[30 days']</mark> notice of material changes, by email or in the app. If you keep using the Service after a change takes effect, you accept the new terms.</p>
+<h2>18. Law and disputes</h2>
+<ul><li>The laws of the State of Delaware, USA, govern these terms.</li><li>Any dispute is settled by binding individual arbitration, not in court. <mark>[Arbitration body, rules and seat: lawyer to fill.]</mark></li><li><strong>Class-action waiver:</strong> claims may be brought only individually, not as a plaintiff or class member in any class or representative action.</li><li>Either party may still bring an individual claim in small-claims court, or seek an urgent injunction to protect its intellectual property.</li></ul>
+<h2>19. General</h2>
+<ul><li>These terms, together with the policies they link to, are the whole agreement.</li><li>If one part is unenforceable, the rest still applies.</li><li>You may not transfer these terms without our consent. We may transfer them in a merger or sale.</li><li>Notices to us: legal@pramaan.dev, and <mark>[REGISTERED ADDRESS]</mark>.</li></ul>
+      </article>
+    </div>
+  </main>
+
+  <ticket-stub-footer wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+    <nav data-slot="sections">
+      <a href="../index.html">Home</a>
+      <a href="../superpowers.html">Superpowers</a>
+      <a href="../missions.html">Missions</a>
+      <a href="../index.html#pricing">Pricing</a>
+      <a href="../index.html#faq">FAQ</a>
+    </nav>
+    <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
+    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+    <a data-slot="cta" href="../index.html#start">Get early access</a>
+    <nav data-slot="links" data-title="Product"><a href="../superpowers.html">Superpowers</a><a href="../missions.html">Missions</a><a href="../index.html#pricing">Pricing</a><a href="../index.html#faq">FAQ</a></nav>
+    <nav data-slot="links" data-title="More"><a href="../developers.html">For developers</a><a href="../index.html#login">Log in</a><a href="security.html">Security</a></nav>
+    <span data-slot="status" data-caption="Early access">Open</span>
+    <span data-slot="count" data-value="3483">Superpowers</span>
+    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+    <p data-slot="legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></p>
+  </ticket-stub-footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
