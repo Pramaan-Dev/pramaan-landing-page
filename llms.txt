@@ -1,0 +1,31 @@
+# Pramaan
+
+> One API, one key and one bill for the actions AI agents and apps need: web search, people and
+> company data, email, texting, calls, payments, documents, media, connected apps and more.
+> Pramaan picks the source, checks the answer and charges once.
+
+Tell your agent: set up https://www.pramaan.dev/skill.md. It walks through getting a key and connecting by MCP, SDK or HTTP.
+
+Agents: read the skill file first. It covers finding an action, building a valid request,
+running it safely (approval, idempotency, jobs), reading errors and the three ways in.
+
+## Start here
+
+- [Agent skill](https://www.pramaan.dev/skill.md): how an agent uses Pramaan, end to end
+- [Developers](https://www.pramaan.dev/developers.html): overview for people building with Pramaan
+- [API reference (OpenAPI)](https://api.pramaan.dev/openapi.json): every endpoint, request and response
+
+## Ways in
+
+- MCP server: `PRAMAAN_API_KEY=... npx @pramaan/mcp` ([npm](https://www.npmjs.com/package/@pramaan/mcp))
+- TypeScript SDK: `npm install @pramaan/sdk` ([npm](https://www.npmjs.com/package/@pramaan/sdk))
+- HTTP: base URL `https://api.pramaan.dev`, header `Authorization: Bearer <key>`
+
+## Account
+
+- [Join the waitlist](https://app.pramaan.dev): accounts open by approval; approved people make keys in the app
+
+## Optional
+
+- [Superpowers](https://www.pramaan.dev/superpowers.html): the catalogue of single actions
+- [Missions](https://www.pramaan.dev/missions.html): multi-step jobs that return one result
