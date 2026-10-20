@@ -64,7 +64,7 @@
         </ul>
       </aside>
       <article class="legal">
-<p><strong>Effective date:</strong> <mark>[EFFECTIVE DATE]</mark></p>
+<p><strong>Effective date:</strong> 19 October 2026</p>
 <p>This page describes only the security measures built today.</p>
 <h2>How we protect your data</h2>
 <ul><li><strong>Keys.</strong> An API key is shown once. Only a prefix and its last four characters are displayed after that. Keys can be revoked at once.</li><li><strong>Credentials.</strong> Your own provider credentials and connection tokens are encrypted, each tied to its workspace. They are never logged or shown back.</li><li><strong>Separate workspaces.</strong> Every stored record is scoped to its workspace, project and environment. Tests check that one workspace cannot read another's data.</li><li><strong>Provider-neutral results.</strong> Results leave out provider names, ids and account details. Sources receive a hash of your workspace id, not your name.</li><li><strong>Logs.</strong> Server logs carry request ids, key prefixes and a fingerprint of the input. They never carry request bodies or credentials.</li><li><strong>Outbound calls.</strong> Web addresses that builders supply are checked, and private network addresses are blocked.</li><li><strong>Inbound webhooks.</strong> Signatures are checked and repeats ignored before anything runs.</li><li><strong>Sending limits.</strong> Each workspace has a daily send cap and a kill switch on Pramaan-owned SMS, email and social channels.</li><li><strong>Approvals.</strong> Calls that cannot be undone, or that cost more than your limit, can require a named approver.</li><li><strong>Software supply chain.</strong> Dependency versions are pinned, and new package releases are held for a day before use.</li></ul>
