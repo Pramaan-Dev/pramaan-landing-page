@@ -439,6 +439,7 @@
 "license.check":"Check a software licence is valid",
 "linkedin.company.digest":"Summarise a company's LinkedIn posts",
 "linkedin.inbox.digest":"Summarise your LinkedIn inbox",
+"linkedin.jobs.watch":"Watch LinkedIn for new matching jobs",
 "linkedin.person.digest":"Summarise a person's LinkedIn posts",
 "links.anchor.report":"Report on anchor text pointing at your site",
 "links.audit":"Audit a domain's backlinks",
