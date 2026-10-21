@@ -17950,6 +17950,13 @@
   "weibo.user.videos": {
    "c": "Social media",
    "f": "Weibo"
+  },
+  "linkedin.relation.get": {
+   "c": "Social media",
+   "f": "LinkedIn"
+  },
+  "linkedin.outreach.run": {
+   "c": "Social media"
   }
  }
 }
