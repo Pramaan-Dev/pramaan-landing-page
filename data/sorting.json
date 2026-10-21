@@ -3113,15 +3113,6 @@
   "campaign.posts.report": {
    "c": "Social media"
   },
-  "candidate.background.check": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.dev.profile": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.employment.verify": {
-   "c": "Hiring & assessments"
-  },
   "candidate.lookalikes.find": {
    "c": "Hiring & assessments"
   },
@@ -3132,9 +3123,6 @@
    "c": "Hiring & assessments"
   },
   "candidate.pool.size": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.profile.authenticity": {
    "c": "Hiring & assessments"
   },
   "candidate.source": {
@@ -17019,9 +17007,6 @@
   },
   "whatsapp.user.block-review": {
    "c": "Phone & messaging"
-  },
-  "worker.registration.verify": {
-   "c": "Hiring & assessments"
   },
   "workflow.activate": {
    "c": "Developer tools",
