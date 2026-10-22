@@ -1558,10 +1558,13 @@ const CHECKS = [
   ['Button text', 'primaryFg', 'primary', 4.5], ['Primary on cards', 'primary', 'card', 3],
   ['Error text on cards', 'danger', 'card', 4.5], ['Success on cards', 'ok', 'card', 3],
 ];
+// The readability list starts closed (the red dot and "6 of 7 pass" flag a problem) and keeps the visitor's open/closed choice across redraws
+let guardOpen = false;
+$('#guard').addEventListener('toggle', e => { guardOpen = e.target.open; }, true);   // toggle does not bubble: listen in the capture phase
 function drawGuard(){
   const T = theme(S.mode), res = CHECKS.map(([label, fg, bg, min], i) => ({i, label, min, cr:contrast(T[fg], T[bg])}));
   const bad = res.filter(r => r.cr < r.min), dot = ok => `<i style="background:${ok ? 'var(--c-ok)' : 'var(--c-bad)'}"></i>`;
-  $('#guard').innerHTML = `<details class="read"${bad.length ? ' open' : ''}><summary>${dot(!bad.length)}Readability (${S.mode}): ${res.length - bad.length} of ${res.length} pass</summary>`
+  $('#guard').innerHTML = `<details class="read"${guardOpen ? ' open' : ''}><summary>${dot(!bad.length)}Readability (${S.mode}): ${res.length - bad.length} of ${res.length} pass</summary>`
     + `<div class="list">${res.map(r => { const plans = r.cr < r.min ? fixPlans(CHECKS[r.i]) : [];
       return `<div class="ck">${dot(r.cr >= r.min)}<span>${r.label} · ${r.cr.toFixed(1)}:1${plans.length > 1 ? ` (needs ${r.min})` : ''}</span>`
         + `${plans.length === 1 ? `<button data-fix="${r.i}">Fix</button>` : ''}</div>`
