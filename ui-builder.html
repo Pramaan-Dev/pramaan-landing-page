@@ -734,7 +734,8 @@ function drawRows(){
     if (g !== 'Look') h += `<div class="grp">${g}${badge?`<em>${badge}</em>`:''}</div>`;
     for (const [key,label,opts] of rows){
       const color = opts==='color';
-      const val = color ? theme('light').primary.toUpperCase() : labelOf(opts,S[key]);
+      // a font from an imported file is a whole stack ('Plus Jakarta Sans', Inter, ...): show its first name, like the built-in ones
+      const val = color ? theme('light').primary.toUpperCase() : key==='font' && !opts.some(o => o[0]===S.font) ? fontName() : labelOf(opts,S[key]);
       const icon = color || key==='preset' ? `<span class="chip" style="background:${theme('light').primary}"></span>`
         : key==='font' ? `<span class="glyph" style="font-family:${S.font.replace(/"/g,'')};font-size:15px;color:var(--c-text)">Aa</span>`
         : key==='radius' ? `<span style="width:16px;height:16px;border:2px solid var(--c-muted);border-right:0;border-bottom:0;border-top-left-radius:${Math.min(S.radius,12)}px"></span>`
