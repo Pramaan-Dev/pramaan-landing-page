@@ -748,7 +748,8 @@ function drawRows(){
       const ctl = color ? `<input type="color" data-k="primary" value="${S.primary}" aria-label="${label}">`
         : `<select data-k="${key}" aria-label="${label}">${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(S[key])?'selected':''}>${l}</option>`).join('')}</select>`;
       h += `<label class="row"><span class="t"><small>${label}</small><b>${val}</b></span>${icon}${ctl}</label>`;
-      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
+      if (key==='font') h += `<div class="urlrow"><input id="gfont" placeholder="Any Google font" title="Type a Google Fonts name, for example Manrope" aria-label="Google font name" autocomplete="off" spellcheck="false"><button class="ghost" id="useGfont" style="height:32px">Use</button></div>`
+        + `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
         + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
     }
     if (g==='Look') { const T = theme(S.mode);
@@ -769,6 +770,8 @@ function drawRows(){
   $('#rows').innerHTML = h; dress($('#rows'));
   if ($('#extract')) $('#extract').onclick = extract;
   $('#pickFont').onclick = () => $('#fontFile').click();
+  $('#useGfont').onclick = () => useGoogleFont($('#gfont').value);
+  $('#gfont').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); useGoogleFont(e.target.value); } };
   $('#fontFile').onchange = e => useFontFile(e.target.files[0]);
   document.querySelectorAll('#rows [data-open-gallery]').forEach(b => b.onclick = openGallery);
   wireDesign();
@@ -1802,6 +1805,20 @@ function checkFont(){
       if (S.fontNote) notify(`Font not available: ${esc(font)}`, alt && !/^system/.test(alt) ? `Showing ${esc(alt)}, the closest free match.` : 'Showing the system font.',
         'warn', [['Upload your font', () => $('#fontFile')?.click()]], true); } };
   setTimeout(run, 1500); setTimeout(run, 4000);   // after the Google Fonts stylesheet and files arrive
+}
+// A font typed by name: asked of Google Fonts directly (not through loadFont, whose paid-font list would block names it
+// merely contains), so any family Google has today works. Unknown names are refused with the fix.
+async function useGoogleFont(raw){
+  const typed = String(raw || '').replace(/['";]/g, '').trim(); if (!typed) return;
+  const name = GF_ALIAS[typed] || typed, id = 'gf-' + name.replace(/\W/g, '');
+  const css = await fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
+    .then(r => r.ok ? r.text() : '').catch(() => '');
+  if (!css) return notify(`Font not found: ${esc(typed)}`, 'Google Fonts has no font by that name. Check the spelling, or upload the font file.', 'err',
+    [['Upload your font', () => $('#fontFile')?.click()]]);
+  if (!document.getElementById(id)) document.head.appendChild(Object.assign(document.createElement('style'), {id, textContent:css}));
+  Object.assign(S, {font:`'${name}', system-ui, sans-serif`, fontNote:'', preset:'custom'});
+  render(); checkFont();
+  notify(`Font: ${esc(name)}`, 'Loaded from Google Fonts.', 'ok');
 }
 async function useFontFile(f){
   if (!f) return;
