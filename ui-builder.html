@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI builder | Pramaan</title>
+<meta name="description" content="Free UI builder: pick a colour, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f3f1">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Newsreader and JetBrains Mono are the website's fonts; the rest are the preview's font choices. -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="components/ticket-stub-footer.css">
+<script src="components/ticket-stub-footer.js" defer></script>
+<style>
+/* ---------- Builder chrome: the website's look (parchment, serif headings, mono UI; styles.css) ----------
+   Only the builder's own frame uses these. The preview inside .stage is the user's design.
+   styles.css is not loaded: its bare element rules would leak into the preview. */
+:root{
+  /* website tokens, also read by the footer */
+  --color-parchment:#f6f3f1; --color-lake-blue:#2b59d1; --color-periwinkle-mist:#cfdaf5; --color-coral:#ff9473; --color-gold:#ecda98;
+  --color-off-black:#242424; --color-ink:#000; --color-graphite:#4e4d4d; --color-smoke:#797776; --color-ash:#cecac8;
+  --font-mono:'ABC Diatype Mono','JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-serif:'Untitled Serif','Newsreader',Georgia,'Times New Roman',serif;
+  --page-max-width:1432px; --gutter:40px;
+  --bg:#f6f3f1; --blob-dark:transparent; --blob-light:transparent;
+  --glass:rgba(255,255,255,.55); --glass-strong:#fff; --glass-edge:#cecac8; --glass-shadow:none;
+  --card-top:#fff; --card-bottom:#fbfaf9; --card-edge:#cecac8; --card-shadow:none;
+  --btn-glass:transparent; --btn-glass-hover:rgba(36,36,36,.07); --btn-edge:#242424; --btn-shadow:none;
+  --surface:rgba(255,255,255,.55); --surface-sunk:#efebe8; --line:#cecac8; --line-soft:rgba(36,36,36,.08);
+  --fg:#242424; --fg-2:#4e4d4d; --fg-3:#797776; --inverse:#242424; --inverse-solid:#242424; --on-inverse:#fff;
+  --thread:#242424; --thread-solid:#000; --on-thread:#fff; --thread-glow:transparent; --thread-edge:transparent;
+  --focus:#2b59d1; --needs:#8a5300; --done:#116b33; --blocked:#b91c1c;
+  --pane:rgba(246,243,241,.97);   /* dialogs and pop-ups */
+  --serif:var(--font-serif); --sans:var(--font-mono); --mono:var(--font-mono);
+  --r-island:24px; --r-card:16px; --r-ctl:12px; --r-pill:9999px; --gap:12px; --blur:12px; --blur-btn:0px;
+  /* names the builder's styles already use, pointed at the glass tokens */
+  --c-bg:var(--glass-strong); --c-panel:var(--glass); --c-inset:var(--surface-sunk); --c-line:var(--line); --c-text:var(--fg);
+  --c-muted:var(--fg-3); --c-hover:var(--btn-glass-hover); --c-pri:var(--inverse-solid); --c-pri-fg:var(--on-inverse);
+  --c-ok:var(--done); --c-bad:var(--blocked);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:transparent;color:var(--fg);font:14px/1.5 var(--sans);letter-spacing:0;-webkit-font-smoothing:antialiased}
+/* ---------- Website header and intro (class names prefixed: the preview owns .nav, .logo, .btn, .tag) ---------- */
+.site-wrap{width:100%;max-width:var(--page-max-width);margin:0 auto;padding:0 var(--gutter)}
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(246,243,241,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.site-nav__inner{height:80px;display:flex;align-items:center;gap:40px}
+.site-logo{display:inline-flex;align-items:center;gap:10px;color:var(--color-off-black);text-decoration:none}
+.site-logo__mark{width:32px;height:32px;background:url(logo.svg) center/contain no-repeat;flex:none}
+.site-logo__word{font-family:var(--font-serif);font-size:28px;letter-spacing:-.02em;line-height:1}
+.site-nav__links{display:flex;gap:32px;margin-right:auto}
+.site-nav__links a{font-size:18px;text-transform:uppercase;letter-spacing:-.022em;line-height:1.2;color:var(--color-off-black);text-decoration:none;transition:color .2s}
+.site-nav__links a:hover{color:var(--color-smoke)}
+.site-nav__actions{display:flex;gap:12px}
+.site-btn{display:inline-flex;align-items:center;height:48px;padding:16px 32px;border-radius:100px;border:1px solid transparent;font-size:14px;text-transform:uppercase;letter-spacing:-.02em;line-height:1;white-space:nowrap;text-decoration:none;transition:background-color .2s,color .2s,transform .2s}
+.site-btn:hover{transform:translateY(-1px)}
+.site-btn--black{background:var(--color-off-black);color:#fff} .site-btn--black:hover{background:var(--color-ink)}
+.site-btn--ghost{border-color:var(--color-off-black);color:var(--color-off-black)} .site-btn--ghost:hover{background:var(--color-off-black);color:var(--color-parchment)}
+.site-nav__toggle{display:none;background:none;border:0;width:40px;height:40px;margin-left:auto;position:relative;cursor:pointer}
+.site-nav__toggle span{position:absolute;left:8px;right:8px;height:1.5px;background:var(--color-off-black);transition:transform .2s}
+.site-nav__toggle span:first-child{top:15px} .site-nav__toggle span:last-child{top:24px}
+.nav-open .site-nav__toggle span:first-child{transform:translateY(4.5px) rotate(45deg)}
+.nav-open .site-nav__toggle span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+.uib-hero{padding-top:56px;padding-bottom:28px}
+.uib-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--color-off-black);border-radius:100px;font-size:12px;text-transform:uppercase;letter-spacing:-.02em}
+.uib-tag i{width:8px;height:8px;border-radius:50%;background:var(--color-coral)}
+.uib-hero h1{margin:20px 0 16px;font:400 64px/1.1 var(--font-serif);letter-spacing:-.02em;color:var(--color-off-black)}
+.uib-hero p{margin:0;max-width:760px;font-size:20px;line-height:1.5;letter-spacing:-.02em;color:var(--color-graphite)}
+@media (max-width:1100px){ .site-nav__links{gap:20px} .site-nav__links a{font-size:14px} .uib-hero h1{font-size:52px} }
+@media (max-width:900px){
+  :root{--gutter:24px}
+  .site-nav__links,.site-nav__actions{display:none}
+  .site-nav__toggle{display:block}
+  .nav-open .site-nav__links,.nav-open .site-nav__actions{display:flex;flex-direction:column;position:absolute;left:0;right:0;background:var(--color-parchment);padding:24px var(--gutter)}
+  .nav-open .site-nav__links{top:80px;gap:20px;border-top:1px solid var(--color-ash)}
+  .nav-open .site-nav__actions{top:300px;border-bottom:1px solid var(--color-ash)}
+  .uib-hero{padding-top:32px;padding-bottom:20px} .uib-hero h1{font-size:40px} .uib-hero p{font-size:17px}
+}
+button{font:inherit;color:inherit}
+svg{flex:none}
+
+.top{height:56px;display:flex;align-items:center;gap:14px;padding:0 20px}
+.mark{width:22px;height:22px;border-radius:6px;background:var(--c-pri);display:grid;place-items:center;color:var(--c-pri-fg);font-weight:700;font-size:13px}
+.crumb{color:var(--c-muted)}
+.crumb b{color:var(--c-text);font-weight:600}
+.sp{flex:1}
+.ibtn{width:34px;height:34px;display:grid;place-items:center;border:0;background:transparent;border-radius:8px;cursor:pointer}
+.ibtn:hover{background:var(--c-hover)}
+.cta{height:34px;padding:0 14px;border:0;border-radius:8px;background:var(--c-pri);color:var(--c-pri-fg);font-weight:500;cursor:pointer}
+.ghost{height:34px;padding:0 12px;border:1px solid var(--c-line);border-radius:8px;background:var(--c-panel);cursor:pointer}
+.ghost:hover{background:var(--c-hover)}
+
+.app{display:grid;grid-template-columns:260px 1fr;gap:12px;padding:0 12px 12px;height:calc(100vh - 56px)}
+
+/* sidebar */
+.side{background:var(--c-panel);border:1px solid var(--c-line);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.side .scroll{overflow:auto;padding:6px;flex:1}
+.grp{font-size:11.5px;color:var(--c-muted);padding:12px 12px 4px;display:flex;align-items:center;gap:6px}
+.grp em{font-style:normal;font-size:10.5px;padding:1px 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-text)}
+.row{position:relative;display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;cursor:pointer}
+.row:hover{background:var(--c-hover)}
+.row:focus-within{outline:2px solid var(--c-line)}
+.row .t{flex:1;min-width:0}
+.row small{display:block;font-size:11.5px;color:var(--c-muted);line-height:1.3}
+.row b{display:block;font-weight:500;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row select,.row input[type=color]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0}
+.chip{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.glyph{font-size:12px;color:var(--c-muted);min-width:22px;text-align:right}
+.urlrow{display:flex;gap:6px;padding:4px 12px 8px}
+.urlrow input{flex:1;min-width:0;height:32px;border:1px solid var(--c-line);border-radius:8px;padding:0 10px;background:var(--c-bg);color:inherit;font:inherit;font-size:13px}
+.urlnote{font-size:11.5px;color:var(--c-muted);padding:0 12px 6px}
+.bring{padding:4px 12px 8px;display:grid;gap:6px}
+.bring textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--c-line);border-radius:8px;padding:8px 10px;background:var(--c-bg);color:inherit;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+.bring textarea.drag{border-color:var(--c-text);border-style:dashed}
+.bring .acts{display:flex;gap:6px}
+.bring .acts .ghost{height:30px;font-size:12.5px;padding:0 10px}
+.bring .ex{font-size:11.5px;color:var(--c-muted)}
+.bring .ex button{border:0;background:none;padding:0;color:var(--c-text);text-decoration:underline;cursor:pointer;font-size:11.5px}
+.found{font-size:11.5px;color:var(--c-muted);line-height:1.45}
+.found b{color:var(--c-text);font-weight:500}
+.foot{border-top:1px solid var(--c-line);padding:10px;display:grid;gap:8px}
+.foot .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.guard{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--c-muted);padding:2px 4px}
+.guard i{width:7px;height:7px;border-radius:50%}
+.guard button{margin-left:auto;border:0;background:none;text-decoration:underline;cursor:pointer;font-size:12px;color:var(--c-text)}
+
+/* canvas */
+.canvas{position:relative;background:var(--c-inset);border:1px solid var(--c-line);border-radius:16px;overflow:auto;padding:28px 28px 90px}
+.dock{position:sticky;bottom:0;margin:0 auto;width:max-content;max-width:100%;display:flex;gap:4px;padding:5px;border-radius:12px;background:var(--c-panel);border:1px solid var(--c-line);box-shadow:0 8px 30px rgba(0,0,0,.12);flex-wrap:wrap;justify-content:center;translate:0 60px}
+.dock button{border:0;background:transparent;padding:6px 11px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--c-muted)}
+.dock button[aria-pressed="true"]{background:var(--c-hover);color:var(--c-text);font-weight:500}
+.dock .sep{width:1px;background:var(--c-line);margin:4px 2px}
+
+/* ---------- Stage: everything inside is the builder's theme ---------- */
+.stage{
+  --p:#18181b; --p-fg:#fafafa; --r:10px; --d:1; --m:180ms; --font:Geist,Inter,system-ui,sans-serif;
+  --bg:transparent; --card:#ffffff; --text:#09090b; --muted:#71717a; --line:#e4e4e7; --soft:#f4f4f5; --danger:#dc2626; --ok:#16a34a;
+  container-type:inline-size; margin:0 auto; max-width:1180px; color:var(--text); font-family:var(--font);
+  transition:max-width var(--m) ease;
+}
+.stage{--page:#f4f4f5; background:var(--page); padding:calc(20px*var(--d)); border:1px solid var(--c-line); border-radius:20px}
+.stage.dark{--page:#0b0b0d; --card:#141416; --text:#fafafa; --muted:#a1a1aa; --line:#27272a; --soft:#1f1f23; --danger:#f87171; --ok:#4ade80}
+.stage.mobile{max-width:390px; border-radius:36px; padding:14px}
+.stage *{transition:background-color var(--m) ease,color var(--m) ease,border-radius var(--m) ease,padding var(--m) ease}
+.grid{columns:3;column-gap:calc(16px*var(--d))}
+@container (max-width: 920px){ .grid{columns:2} }
+@container (max-width: 560px){ .grid{columns:1} }
+.card{break-inside:avoid;margin:0 0 calc(16px*var(--d));background:var(--card);border:1px solid var(--line);border-radius:calc(var(--r) + 4px);padding:calc(20px*var(--d));box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:calc(14px*var(--d))}
+.ch h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ch p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.lbl{display:block;font-size:13px;font-weight:500;margin:calc(10px*var(--d)) 0 6px}
+.inp{width:100%;height:calc(36px*var(--d));padding:0 12px;border:1px solid var(--line);border-radius:calc(var(--r)*.8);background:transparent;color:var(--text);font:inherit;font-size:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:calc(38px*var(--d));margin-top:calc(14px*var(--d));border:0;border-radius:calc(var(--r)*.8);background:var(--p);color:var(--p-fg);font:inherit;font-weight:500;font-size:14px;cursor:pointer}
+.btn.o{background:transparent;color:var(--text);border:1px solid var(--line);margin-top:8px}
+.btn.sm{width:auto;height:30px;padding:0 12px;margin:0;font-size:13px}
+.ln{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);padding:4px 0}
+.ln.t{color:var(--text);font-weight:600;border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.alert{display:flex;gap:10px;font-size:13px;border-radius:calc(var(--r)*.8);padding:10px 12px;border:1px solid var(--line);margin-bottom:6px}
+.alert.err{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 35%,transparent);background:color-mix(in srgb,var(--danger) 7%,transparent)}
+.done{text-align:center;padding:calc(10px*var(--d)) 0}
+.done .ring{width:44px;height:44px;border-radius:50%;margin:0 auto 10px;display:grid;place-items:center;background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.done p{margin:0;font-size:14px}
+.empty{text-align:center;padding:calc(18px*var(--d)) 8px;color:var(--muted);font-size:13.5px}
+.empty .ic{width:42px;height:42px;border-radius:calc(var(--r)*.8);margin:0 auto 10px;display:grid;place-items:center;background:var(--soft);color:var(--text)}
+.empty b{display:block;color:var(--text);font-weight:600;margin-bottom:2px}
+.sk{height:12px;border-radius:6px;margin:10px 0;background:linear-gradient(90deg,var(--soft),var(--line),var(--soft));background-size:200% 100%;animation:sk 1.3s linear infinite}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion: reduce){.sk{animation:none}.stage *{transition:none}}
+.big{font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1.1}
+.up{font-size:12px;color:var(--ok);margin-left:8px;font-weight:500}
+.bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:16px}
+.bars span{flex:1;background:var(--p);border-radius:calc(var(--r)*.4) calc(var(--r)*.4) 2px 2px;opacity:.9}
+.bars span:nth-child(odd){opacity:.45}
+.axis{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px}
+.res{padding:calc(10px*var(--d)) 0;border-top:1px solid var(--line)}
+.res a{font-weight:500;font-size:14px;color:var(--text);text-decoration:none}
+.res p{margin:3px 0 4px;font-size:13px;color:var(--muted)}
+.src{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted)}
+.src i{font-style:normal;min-width:18px;height:18px;border-radius:5px;display:grid;place-items:center;background:var(--soft);color:var(--text);font-size:11px;font-weight:600}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;margin:12px 0 0}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.ent{display:flex;gap:12px;align-items:center}
+.av{width:40px;height:40px;border-radius:calc(var(--r)*.8);background:var(--p);color:var(--p-fg);display:grid;place-items:center;font-weight:600;flex:none}
+.av.s{width:34px;height:34px;background:var(--soft);color:var(--text);font-size:12px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.kv div{background:var(--soft);border-radius:calc(var(--r)*.8);padding:10px}
+.kv small{display:block;font-size:11.5px;color:var(--muted)}
+.kv b{font-weight:500;font-size:13.5px}
+.tx{display:flex;align-items:center;gap:12px;padding:calc(8px*var(--d)) 0}
+.tx .t{flex:1;min-width:0}
+.tx b{display:block;font-weight:500;font-size:13.5px}
+.tx small{color:var(--muted);font-size:12px}
+.tx .amt{font-weight:500;font-size:13.5px;font-variant-numeric:tabular-nums}
+.badge{font-size:11px;padding:1px 7px;border-radius:99px;background:var(--soft);color:var(--muted)}
+.badge.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.badge.err{background:color-mix(in srgb,var(--danger) 14%,transparent);color:var(--danger)}
+.badge.p{background:var(--p);color:var(--p-fg)}
+
+/* ---------- component gallery: the common parts of real designs ---------- */
+.sec{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:calc(28px*var(--d)) 2px calc(12px*var(--d));font-size:13px;font-weight:600;color:var(--text)}
+.sec small{font-weight:400;color:var(--muted)}
+.site{background:var(--card);border:1px solid var(--line);border-radius:calc(var(--r) + 4px);margin-bottom:calc(16px*var(--d));overflow:hidden}
+.nav{display:flex;align-items:center;gap:20px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:650}
+.logo{width:20px;height:20px;border-radius:calc(var(--r)*.5);background:var(--p)}
+.links{display:flex;gap:16px;font-size:13.5px;color:var(--muted);flex:1}
+.links a,.lnk{color:inherit;text-decoration:none}
+.lnk{font-size:13.5px;color:var(--text)}
+.navr{display:flex;align-items:center;gap:12px;margin-left:auto}
+.ib.menu{display:none}
+.hero{padding:calc(44px*var(--d)) 24px calc(32px*var(--d));text-align:center}
+.eyebrow{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin-bottom:14px}
+.hero h1{margin:0 auto;max-width:620px;font-size:clamp(28px,5cqi,44px);line-height:1.08;letter-spacing:-.03em;font-weight:650}
+.hero p{margin:12px auto 0;max-width:520px;color:var(--muted);font-size:15px}
+.ctas{display:flex;gap:10px;justify-content:center;margin-top:20px}
+.ctas .btn{width:auto;padding:0 18px;margin:0}
+.logos{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:center;margin-top:28px;font-size:12.5px;font-weight:700;letter-spacing:.14em;color:var(--muted)}
+@container (max-width: 560px){ .links,.navr .lnk,.navr .btn{display:none} .ib.menu{display:grid} .ctas{flex-direction:column} }
+.wrap{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.wrap .btn{width:auto;margin:0;padding:0 14px}
+.btn.g{background:transparent;color:var(--text)}
+.btn.pill{border-radius:99px}
+.btn.lk{background:none;color:var(--text);padding:0 4px;text-decoration:underline;text-underline-offset:3px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.ib{width:calc(36px*var(--d));height:calc(36px*var(--d));display:grid;place-items:center;border:1px solid var(--line);border-radius:calc(var(--r)*.8);background:transparent;color:var(--text);cursor:pointer;padding:0}
+.ib.f{background:var(--p);color:var(--p-fg);border-color:transparent}
+.chk{display:flex;align-items:center;gap:8px;font-size:13.5px;margin-top:10px}
+.chk input{accent-color:var(--p);width:16px;height:16px;margin:0}
+.sw{position:relative;width:34px;height:20px;border-radius:99px;background:var(--p);flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:var(--p-fg)}
+.sw.off{background:var(--line)} .sw.off::after{left:2px;background:var(--card)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 9px;border-radius:calc(var(--r)*.6);border:1px solid var(--line);color:var(--text)}
+.seg{display:inline-flex;padding:3px;border-radius:calc(var(--r)*.8);background:var(--soft);gap:2px}
+.seg span{padding:5px 12px;border-radius:calc(var(--r)*.6);font-size:13px;color:var(--muted)}
+.seg .on{background:var(--card);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.utabs{display:flex;gap:18px;border-bottom:1px solid var(--line);font-size:13.5px;margin-top:16px}
+.utabs span{padding-bottom:8px;color:var(--muted)} .utabs .on{color:var(--text);box-shadow:inset 0 -2px var(--p)}
+.alert.info{color:var(--text);background:var(--soft)}
+.alert.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 35%,transparent);background:color-mix(in srgb,var(--ok) 7%,transparent)}
+.toast{display:flex;gap:10px;align-items:center;padding:11px 12px;border-radius:calc(var(--r)*.8);background:var(--text);color:var(--card);font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.18);margin-top:10px}
+.toast span{flex:1} .toast u{text-underline-offset:3px;cursor:pointer}
+.quote{font-size:15px;line-height:1.5;margin:0}
+.who{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:13px} .who small{display:block;color:var(--muted)}
+.price{font-size:34px;font-weight:650;letter-spacing:-.02em} .price small{font-size:13px;color:var(--muted);font-weight:400}
+.feat{list-style:none;padding:0;margin:12px 0 0;font-size:13.5px;display:grid;gap:7px} .feat li{display:flex;gap:8px;align-items:center} .feat svg{color:var(--ok)}
+.acc details{border-top:1px solid var(--line);padding:10px 0} .acc details:last-child{border-bottom:1px solid var(--line)}
+.acc summary{cursor:pointer;font-weight:500;font-size:14px;list-style:none;display:flex;justify-content:space-between} .acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";color:var(--muted)} .acc details[open] summary::after{content:"–"} .acc p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.code{font:12.5px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--soft);border-radius:calc(var(--r)*.8);padding:12px 14px;overflow:auto;white-space:pre;color:var(--text);margin:0}
+.code i{font-style:normal;color:var(--muted)} .code b{font-weight:400;color:var(--ok)}
+.prog{height:8px;border-radius:99px;background:var(--soft);overflow:hidden} .prog span{display:block;height:100%;background:var(--p);border-radius:inherit}
+.steps{display:flex;gap:8px;margin-top:16px;font-size:12.5px} .steps div{flex:1;display:grid;gap:6px;color:var(--muted)}
+.steps i{height:3px;border-radius:99px;background:var(--line)} .steps .done i{background:var(--p)} .steps .now{color:var(--text)} .steps .now i{background:color-mix(in srgb,var(--p) 45%,var(--line))}
+.modal{border-radius:calc(var(--r)*.8);background:color-mix(in srgb,var(--text) 30%,transparent);padding:22px 14px}
+.modal .box{background:var(--card);border-radius:calc(var(--r) + 4px);padding:16px;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.modal h5{margin:0;font-size:14.5px} .modal p{margin:4px 0 0;font-size:13px;color:var(--muted)} .modal .wrap{justify-content:flex-end;margin-top:14px}
+.pop{border:1px solid var(--line);border-radius:calc(var(--r)*.8);background:var(--card);box-shadow:0 8px 24px rgba(0,0,0,.12);padding:4px;font-size:13.5px;margin-top:8px}
+.pop div{padding:7px 10px;border-radius:calc(var(--r)*.5)} .pop .on{background:var(--soft)}
+.tip{position:relative;display:inline-block;margin-top:36px}
+.tip::before{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;translate:-50% 0;white-space:nowrap;font-size:12px;padding:4px 8px;border-radius:6px;background:var(--text);color:var(--card)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px} .tbl th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.tbl td{padding:8px 0;border-bottom:1px solid var(--line)} .tbl td:last-child,.tbl th:last-child{text-align:right}
+.foot2{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;padding:20px;border:1px solid var(--line);border-radius:calc(var(--r) + 4px);background:var(--card);font-size:13px;color:var(--muted)}
+.foot2 b{color:var(--text);display:block;margin-bottom:6px;font-weight:600} .foot2 div{display:grid;gap:4px}
+
+/* export dialog */
+dialog{border:1px solid var(--c-line);border-radius:16px;padding:0;width:min(720px,calc(100vw - 32px));background:var(--c-panel);color:var(--c-text);box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
+.dh{padding:18px 20px 0}
+.dh h3{margin:0;font-size:16px}
+.dh p{margin:4px 0 0;color:var(--c-muted);font-size:13px}
+.tabs{display:flex;gap:2px;padding:14px 20px 0;flex-wrap:wrap}
+.tabs button{border:0;background:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--c-muted)}
+.tabs button[aria-pressed="true"]{background:var(--c-hover);color:var(--c-text);font-weight:500}
+dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-inset);border:1px solid var(--c-line);max-height:300px;overflow:auto;font:12.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}
+.df{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 20px 18px;flex-wrap:wrap}
+.df span{font-size:12.5px;color:var(--c-muted)}
+
+/* ---------- native app preview: iOS (Apple guidelines) and Android (Material 3) ---------- */
+.stage.ios,.stage.android{max-width:1180px;background:transparent;border:0;padding:0}
+.appnote{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 auto 18px;max-width:1000px;font-size:13px;color:var(--c-muted)}
+.appnote b{color:var(--c-text)}
+.seg2{display:inline-flex;padding:3px;border-radius:9px;background:var(--c-hover);gap:2px}
+.seg2 button{border:0;background:none;padding:5px 10px;border-radius:7px;font-size:12.5px;color:var(--c-muted);cursor:pointer}
+.seg2 button[aria-pressed="true"]{background:var(--c-panel);color:var(--c-text);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.phones{display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+.pf{margin:0;display:grid;gap:10px;justify-items:center}
+.pf figcaption{font-size:12.5px;color:var(--c-muted)}
+.phone{width:300px;height:630px;border-radius:46px;padding:9px;background:#0d0d0f;box-shadow:0 0 0 1px #2a2a2e,0 24px 50px rgba(0,0,0,.35)}
+.phone.android{border-radius:34px}
+.scr{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:var(--page);color:var(--text);font-family:var(--appfont);display:flex;flex-direction:column;font-size:14px}
+.android .scr{border-radius:26px}
+/* clip-path, not only overflow: blurred bars (backdrop-filter) ignore border-radius clipping in Chrome */
+.ios .scr{clip-path:inset(0 round 38px)} .android .scr{clip-path:inset(0 round 26px)}
+.scr *{transition:none}
+.scr .body{flex:1;overflow:hidden;position:relative}
+.sb{display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;font-weight:600;flex:none;position:relative}
+.ios .sb{height:46px} .android .sb{height:30px;padding:0 18px;font-weight:500;font-size:12px}
+.sb .island{position:absolute;top:11px;left:50%;translate:-50% 0;width:88px;height:26px;border-radius:20px;background:#000}
+.sb .cam{position:absolute;top:9px;left:50%;translate:-50% 0;width:11px;height:11px;border-radius:50%;background:#000}
+.sb .ic3{display:flex;gap:4px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;translate:-50% 0;width:108px;height:5px;border-radius:9px;background:var(--text);opacity:.85}
+.android .homebar{width:96px;height:4px;bottom:6px;opacity:.6}
+.tint{color:var(--p);display:inline-flex;align-items:center;gap:2px}
+.sk2{height:12px;border-radius:6px;background:var(--soft);margin:10px 0}
+/* iOS */
+.ios-nav{display:flex;justify-content:space-between;align-items:center;height:30px;padding:0 14px;font-size:15px}
+.ios-large{margin:0;padding:2px 16px 10px;font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.ios-h{font-size:11.5px;text-transform:uppercase;letter-spacing:.02em;color:var(--muted);padding:2px 30px 6px}
+.ios-group{margin:0 14px 16px;background:var(--card);border-radius:min(calc(var(--r) + 2px),14px);overflow:hidden}
+.ios-row{position:relative;display:flex;align-items:center;gap:10px;padding:10px 14px;min-height:44px;font-size:14px}
+/* iOS separators start where the text starts, not at the cell edge */
+.ios-row::after{content:"";position:absolute;left:14px;right:0;bottom:0;height:.5px;background:var(--line)}
+.ios-row:has(> .av)::after{left:58px} .ios-row:has(> .tint)::after{left:43px} .ios-row:last-child::after{display:none}
+.ios-row .t{flex:1;min-width:0} .ios-row .t b{display:block;font-weight:500} .ios-row .t small{color:var(--muted);font-size:12px}
+.ios-row .lab{width:62px;color:var(--text)} .ios-row .val{flex:1;color:var(--muted);white-space:nowrap} .ios-row .chev{color:var(--muted);opacity:.6}
+.ios-row.del{color:var(--danger);justify-content:center}
+.ios-stat{padding:14px} .ios-stat small{color:var(--muted);font-size:12px} .ios-stat .big{font-size:28px;display:block;margin-top:2px}
+.bars.s{height:62px;margin-top:10px;gap:4px}
+.ios-sw{width:44px;height:26px;border-radius:99px;background:var(--p);position:relative;flex:none}
+.ios-sw::after{content:"";position:absolute;top:2px;left:20px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.25)}
+.ios-sw.off{background:var(--soft)} .ios-sw.off::after{left:2px}
+.ios-segw{padding:0 16px 14px} .ios-seg{display:flex;background:var(--soft);border-radius:9px;padding:2px;font-size:13px}
+.ios-seg span{flex:1;text-align:center;padding:5px 0;border-radius:7px;color:var(--text)} .ios-seg .on{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.15);font-weight:600}
+.ios-foot{font-size:12px;color:var(--muted);padding:0 30px 14px;margin-top:-10px} .ios-foot.err{color:var(--danger)}
+.ios-btn{display:block;width:calc(100% - 28px);margin:0 14px;height:48px;border:0;border-radius:min(calc(var(--r) + 4px),24px);background:var(--p);color:var(--p-fg);font:inherit;font-size:16px;font-weight:600}
+.ios-link{display:block;margin:10px auto 0;border:0;background:none;color:var(--p);font:inherit;font-size:15px}
+.ios-tabs{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:7px 0 24px;background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(18px);box-shadow:inset 0 .5px 0 var(--line)}
+.ios-tabs span,.m3-nav span{display:grid;justify-items:center;gap:2px;font-size:10px;color:var(--muted)} .ios-tabs .on{color:var(--p)}
+.ios-dim{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.35);display:grid;place-items:center}
+.ios-alert{width:236px;border-radius:14px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(20px);text-align:center;overflow:hidden}
+.ios-alert b{display:block;padding:16px 16px 2px;font-size:15px} .ios-alert p{margin:0;padding:0 16px 14px;font-size:12.5px;color:var(--text)}
+.ios-alert .bt{display:flex;box-shadow:inset 0 .5px 0 var(--line)} /* Apple: in a destructive alert, Cancel is the bold (preferred) action and Delete is plain red */
+.ios-alert .bt span{flex:1;padding:11px 0;color:var(--p);font-size:15px;font-weight:600} .ios-alert .bt span+span{box-shadow:inset .5px 0 0 var(--line);color:var(--danger);font-weight:400}
+.ios-done{text-align:center;padding:40px 24px} .ios-done .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+/* Android, Material 3 */
+.m3-bar{display:flex;align-items:center;gap:14px;height:56px;padding:0 14px;font-size:20px;flex:none}
+.m3-bar .tt{flex:1}
+.m3-card{margin:6px 14px 14px;padding:16px;border-radius:calc(var(--r) + 2px);background:var(--m3-sfc);box-shadow:0 1px 2px rgba(0,0,0,.18)}
+.m3-card small{color:var(--muted);font-size:12px} .m3-card .big{font-size:28px;display:block;margin-top:2px}
+.m3-sub{font-size:13px;font-weight:500;color:var(--p);padding:4px 18px 6px}
+.m3-li{display:flex;align-items:center;gap:14px;padding:9px 18px;min-height:56px}
+.m3-li .t{flex:1;min-width:0} .m3-li .t b{display:block;font-weight:400;font-size:14.5px} .m3-li .t small{color:var(--muted);font-size:12.5px}
+.m3-av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--m3-pc);color:var(--m3-onpc);font-size:13px;font-weight:500;flex:none}
+.m3-ic{color:var(--muted);display:grid}
+.m3-fab{position:absolute;right:16px;bottom:94px;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--m3-pc);color:var(--m3-onpc);box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.m3-nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:10px 0 20px;background:var(--m3-sfc)}
+.m3-nav i{display:grid;place-items:center;width:56px;height:30px;border-radius:15px} .m3-nav .on{color:var(--text);font-weight:600} .m3-nav .on i{background:var(--m3-sc)}
+.m3-chips{display:flex;gap:8px;padding:2px 16px 14px}
+.m3-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line);font-size:13px}
+.m3-chip.on{background:var(--m3-sc);border-color:transparent}
+.m3-tf{position:relative;margin:0 16px 16px;height:52px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;padding:0 14px;font-size:14.5px}
+.m3-tf label{position:absolute;top:-8px;left:10px;padding:0 4px;background:var(--page);font-size:11.5px;color:var(--muted)}
+.m3-tf.focus{border:2px solid var(--p)} .m3-tf.focus label{color:var(--p)}
+.m3-tf.err{border:2px solid var(--danger)} .m3-tf.err label{color:var(--danger)}
+.m3-help{margin:-12px 30px 14px;font-size:11.5px;color:var(--danger)}
+.m3-two{display:flex} .m3-two .m3-tf{flex:1} .m3-two .m3-tf+.m3-tf{margin-left:0}
+.m3-sw{position:relative;width:46px;height:28px;border-radius:99px;background:var(--p);flex:none}
+.m3-sw::after{content:"";position:absolute;top:4px;left:22px;width:20px;height:20px;border-radius:50%;background:var(--p-fg)}
+.m3-sw.off{background:var(--soft);box-shadow:inset 0 0 0 2px var(--muted)} .m3-sw.off::after{top:7px;left:7px;width:14px;height:14px;background:var(--muted)}
+.m3-btn{display:block;width:calc(100% - 32px);margin:4px 16px 0;height:42px;border:0;border-radius:var(--m3-btn-r);background:var(--p);color:var(--p-fg);font:inherit;font-size:14px;font-weight:500;letter-spacing:.01em}
+.m3-tbtn{display:block;margin:8px auto 0;border:0;background:none;color:var(--p);font:inherit;font-size:14px;font-weight:500}
+.m3-dim{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.38);display:grid;place-items:center}
+.m3-dialog{width:250px;padding:22px 22px 14px;border-radius:28px;background:var(--m3-sfc)}
+.m3-dialog b{display:block;font-size:19px;font-weight:400;margin-bottom:10px} .m3-dialog p{margin:0;font-size:13px;color:var(--muted)}
+.m3-dialog .bt{display:flex;justify-content:flex-end;gap:18px;margin-top:18px;font-size:14px;font-weight:500;color:var(--p)}
+.m3-snack{position:absolute;left:12px;right:12px;bottom:88px;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:4px;background:var(--text);color:var(--card);font-size:13px;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.m3-snack span{flex:1} .m3-snack u{text-decoration:none;color:var(--m3-inv-p);font-weight:500}
+.m3-done{text-align:center;padding:40px 24px} .m3-done .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:var(--m3-pc);color:var(--m3-onpc)}
+.m3-banner{display:flex;gap:10px;margin:6px 14px 14px;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--danger) 14%,var(--page));color:var(--danger);font-size:13px}
+
+/* notifications (builder chrome, top right) */
+.notice{position:fixed;top:66px;right:16px;z-index:60;width:min(360px,calc(100vw - 32px));display:flex;gap:10px;align-items:flex-start;
+  padding:12px 12px 12px 14px;border-radius:12px;background:var(--c-panel);color:var(--c-text);border:1px solid var(--c-line);
+  box-shadow:0 14px 36px rgba(0,0,0,.32);font-size:13px;animation:nin .18s ease}
+.notice[hidden]{display:none}
+.notice .dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none;background:var(--c-ok)}
+.notice.warn .dot{background:#f59e0b} .notice.err .dot{background:var(--c-bad)} .notice.info .dot{background:var(--c-muted)}
+.notice .nt{flex:1;min-width:0;display:grid;gap:3px} .notice .nt span{color:var(--c-muted);line-height:1.4}
+.notice .na{display:flex;gap:12px;margin-top:6px}
+.notice .na button,.notice .x{border:0;background:none;color:var(--c-text);cursor:pointer;font-size:12.5px;padding:0}
+.notice .na button{text-decoration:underline;text-underline-offset:3px} .notice .x{font-size:16px;line-height:1;color:var(--c-muted)}
+@keyframes nin{from{opacity:0;transform:translateY(-6px)}}
+@media (prefers-reduced-motion: reduce){.notice{animation:none}}
+
+/* editable colour table */
+.ctab{padding:2px 6px 6px}
+.crow{position:relative;display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:8px;cursor:pointer}
+.crow:hover{background:var(--c-hover)}
+.crow input[type=color]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0}
+.crow .sw2{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4);flex:none}
+.crow .t{flex:1;min-width:0}
+.crow b{display:block;font-weight:500;font-size:12.5px}
+.crow code{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--c-muted);margin-left:4px}
+.crow small{display:block;font-size:11px;color:var(--c-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .undo{position:relative;z-index:1;border:0;background:none;color:var(--c-text);cursor:pointer;font-size:11.5px;text-decoration:underline}
+
+/* readability check */
+.guard{display:block}
+.read summary{display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-size:12px;color:var(--c-muted)}
+.read summary::-webkit-details-marker{display:none}
+.read summary::after{content:"▾";margin-left:auto}
+.read[open] summary::after{content:"▴"}
+.read .ck{display:flex;align-items:center;gap:7px;font-size:12px;padding:3px 0 0 2px}
+.read .ck span{flex:1;color:var(--c-muted)}
+.read .ck button{margin:0}
+.read .list{max-height:230px;overflow:auto;padding-top:4px}
+/* a failing button check offers two fixes, each with a tiny button showing the result */
+.read .fx2{display:grid;gap:5px;padding:4px 0 2px 16px}
+.read .fx2 button{display:flex;align-items:center;gap:6px;margin:0;padding:3px 8px 3px 3px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface-sunk);color:var(--fg);text-decoration:none;font-size:11.5px;text-align:left;line-height:1.25}
+.read .fx2 button:hover{background:var(--btn-glass-hover)} .read .fx2 small{display:block;color:var(--fg-3);font-size:10.5px}
+.read .fxs{flex:none;padding:2px 7px;border-radius:99px;font-size:11px;font-weight:600}
+
+/* design browser */
+#gal{width:min(1080px,calc(100vw - 32px))}
+.gbar{display:flex;gap:8px;align-items:center;padding:14px 20px 0;flex-wrap:wrap}
+.gbar input{flex:1;min-width:200px;height:34px;border:1px solid var(--c-line);border-radius:8px;padding:0 12px;background:var(--c-bg);color:inherit;font:inherit;font-size:13.5px}
+.gfil{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 20px 0;font-size:12.5px;color:var(--fg-3)}
+.gfil[hidden]{display:none}
+.gfil select{height:32px;padding:0 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:12.5px;cursor:pointer}
+.gfil select.set{border-color:var(--fg);background:var(--btn-glass-hover)}
+.gfil button[data-clear]{border:0;background:none;color:var(--fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:12.5px}
+.gfil i{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4)}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;padding:14px 20px;max-height:60vh;overflow:auto}
+.gcard{border:1px solid var(--c-line);border-radius:12px;overflow:hidden;background:var(--c-inset);cursor:pointer;text-align:left;padding:0;color:inherit;font:inherit}
+.gcard:hover,.gcard:focus-visible{outline:2px solid var(--c-text);outline-offset:1px}
+.gth{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:var(--c-line)}
+.gth img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;transform:scale(1.06);transition:transform .45s ease}
+.gcard:hover .gth img,.gcard:focus-visible .gth img{transform:scale(1)}
+/* Hover pop-out: a larger floating preview beside the card that scrolls the site's full page */
+/* It is a popover so it sits above the dialog and is placed against the window; the dialog's glass blur would otherwise trap and clip it. */
+.gpop{position:fixed;inset:auto;margin:0;padding:0;z-index:5;width:420px;height:540px;border-radius:14px;overflow:hidden;background:var(--c-inset);border:1px solid var(--c-line);
+  box-shadow:0 26px 70px rgba(0,0,0,.55);pointer-events:none;opacity:0;transform:scale(.96);transition:opacity .18s ease,transform .18s ease}
+.gpop.on{opacity:1;transform:none}
+.gpop img{display:block;width:100%;transform:translateY(0)}
+.gpop.on img.run{transform:translateY(var(--dist,0));transition:transform var(--scroll,5s) linear .5s}
+.gpop .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-size:12.5px}
+.gpop .cap b{display:block;font-size:14px}
+.gcard .bad{display:inline-block;margin-left:6px;font-size:10.5px;padding:0 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-muted)}
+@media (prefers-reduced-motion: reduce){ .gth img{transform:none} .gpop.on img.run{transform:none;transition:none} }
+.gcard div{padding:8px 10px 10px}
+.gcard b{display:block;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcard small{font-size:11.5px;color:var(--c-muted)}
+.gdet{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:18px;padding:14px 20px}
+.gdet[hidden],.ggrid[hidden],.gbar[hidden]{display:none}
+.gshot{max-height:62vh;overflow:auto;border:1px solid var(--c-line);border-radius:12px;background:var(--c-inset)}
+.gshot img{display:block;width:100%}
+.ginfo{display:grid;gap:10px;align-content:start;font-size:13px}
+.ginfo h4{margin:0;font-size:17px} .ginfo a{color:var(--c-muted)}
+.ginfo .ns{color:var(--c-text);font-style:italic} .ginfo .meta{color:var(--c-muted)}
+.ginfo p{margin:0;color:var(--c-muted);line-height:1.5;max-height:10em;overflow:auto}
+.gsw{display:flex;gap:6px;flex-wrap:wrap} .gsw i{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4)}
+.ginfo .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.ginfo small{color:var(--c-muted);font-size:11.5px}
+@media (max-width: 760px){ .gdet{grid-template-columns:1fr} }
+.gnone{grid-column:1/-1;color:var(--c-muted);font-size:13.5px;margin:20px 0;text-align:center}
+
+/* ---------- Glass chrome: islands, pill buttons, one accent (DESIGN.md §6–7) ---------- */
+.top,.side,.canvas{background:var(--glass);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.1);backdrop-filter:blur(var(--blur)) saturate(1.1);
+  border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);border-radius:var(--r-island)}
+.top{height:56px;margin:var(--gap) var(--gap) 0;padding:0 12px 0 20px;gap:10px}
+.app{gap:var(--gap);padding:var(--gap);height:calc(100vh - 80px - 56px - var(--gap));min-height:560px}
+.wordmark{display:inline-flex;align-items:center;gap:7px;font:400 21px var(--serif);letter-spacing:-.02em;color:var(--fg);text-decoration:none}
+.wordmark i{width:8px;height:8px;border-radius:50%;background:var(--fg);margin-top:6px}
+.crumb{font:400 22px var(--serif);letter-spacing:-.02em;color:var(--fg);white-space:nowrap}
+@media (max-width:600px){ body .top{height:auto;flex-wrap:wrap;padding:12px 16px;row-gap:8px} .top .sp{flex-basis:100%;height:0} }
+.shared{font-size:12px;color:var(--fg-2);padding:3px 10px;border:1px solid var(--line);border-radius:999px}
+/* quiet glass button (default) and the thread button (the single accent, for the main action) */
+.ghost,.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 16px;border-radius:var(--r-pill);
+  border:1px solid var(--btn-edge);background:var(--btn-glass);box-shadow:var(--btn-shadow);-webkit-backdrop-filter:blur(var(--blur-btn));backdrop-filter:blur(var(--blur-btn));
+  color:var(--fg);font-size:12.5px;font-weight:400;text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap;cursor:pointer;transition:background .12s,transform .12s}
+.ghost:hover{background:var(--btn-glass-hover)} .ghost:active,.cta:active{transform:translateY(1px)}
+.cta{background:var(--thread);border-color:var(--thread-edge);color:var(--on-thread);box-shadow:0 1px 0 var(--thread-edge) inset,0 4px 14px var(--thread-glow)}
+.cta:hover{background:var(--thread-solid)}
+.ibtn{width:36px;height:36px;border-radius:var(--r-pill);color:var(--fg)} .ibtn:hover{background:var(--btn-glass-hover)}
+:where(button,a,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+/* sidebar */
+.side .scroll{padding:10px 8px}
+.grp{font-size:12px;color:var(--fg-3);padding:14px 12px 4px}
+.grp em{border-color:var(--line);color:var(--fg-2);border-radius:var(--r-pill)}
+.row,.crow{border-radius:var(--r-ctl)} .row:hover,.crow:hover{background:var(--surface-sunk)}
+.row small{color:var(--fg-3)} .row b{color:var(--fg)}
+/* A row is outlined only while tabbing (html[data-kb], set in the script), never after a mouse click.
+   :focus-visible alone can't do this: Chrome counts a clicked <select> as keyboard-focused. */
+.row:focus-within{outline:none} html[data-kb] .row:focus-within,html[data-kb] .crow:focus-within{outline:2px solid var(--focus);outline-offset:-2px}
+.row select:focus-visible,.row input:focus-visible,.crow input:focus-visible{outline:none}
+/* colour dots and swatches get a light ring, so near-black colours stay visible on dark glass */
+.chip,.crow .sw2{box-shadow:0 0 0 1px var(--glass-edge),inset 0 0 0 1px rgba(127,127,127,.35)}
+.urlrow input,.bring textarea,.gbar input{background:var(--glass-strong);border:1px solid var(--line);border-radius:var(--r-ctl);color:var(--fg)}
+.urlrow input:focus,.bring textarea:focus,.gbar input:focus{border-color:var(--fg);outline:none}
+.urlnote,.found,.bring .ex{color:var(--fg-3)} .found b,.bring .ex button{color:var(--fg)}
+.foot{border-top:1px solid var(--line-soft);padding:12px}
+.side .ghost{height:32px;padding:0 12px;border-color:var(--line);background:var(--surface-sunk);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.side .ghost:hover{background:var(--line)}
+/* canvas and the bottom bar */
+.canvas{padding:24px 24px 90px}
+.dock{padding:4px;gap:2px;border-radius:var(--r-pill);background:var(--pane);-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur));
+  border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow)}
+.dock button{border-radius:var(--r-pill);padding:6px 12px;color:var(--fg-3)}
+.dock button[aria-pressed="true"]{background:var(--btn-glass-hover);color:var(--fg);box-shadow:var(--btn-shadow)}
+.dock .sep{background:var(--line)}
+.seg2{background:var(--surface-sunk);border-radius:var(--r-pill)} .seg2 button{border-radius:var(--r-pill)}
+.seg2 button[aria-pressed="true"]{background:var(--btn-glass-hover);box-shadow:var(--btn-shadow)}
+.stage:not(.ios):not(.android){border-color:var(--card-edge);box-shadow:var(--card-shadow)}
+/* dialogs, notifications and the hover pop-out: denser glass panes */
+dialog,.notice{background:var(--pane);-webkit-backdrop-filter:blur(28px) saturate(1.1);backdrop-filter:blur(28px) saturate(1.1);
+  border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow),0 24px 60px rgba(0,0,0,.35);color:var(--fg)}
+dialog{border-radius:var(--r-island)} .notice{border-radius:var(--r-card)}
+dialog::backdrop{background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.dh h3,.ginfo h4{font:400 21px var(--serif);letter-spacing:-.02em} .dh p{color:var(--fg-3)}
+.tabs button{border-radius:var(--r-pill);color:var(--fg-3)} .tabs button[aria-pressed="true"]{background:var(--btn-glass-hover);color:var(--fg);box-shadow:var(--btn-shadow)}
+dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-radius:var(--r-card);font-family:var(--mono)}
+.gcard{background:linear-gradient(180deg,var(--card-top),var(--card-bottom));border:1px solid var(--card-edge);box-shadow:var(--card-shadow);border-radius:var(--r-card)}
+.gcard:hover,.gcard:focus-visible{outline:2px solid var(--fg)}
+.gshot{border-radius:var(--r-card);border-color:var(--card-edge)} .gpop{border-radius:var(--r-card);border-color:var(--glass-edge);background:var(--bg)}
+.read summary,.read .ck span{color:var(--fg-3)}
+/* Dropdowns: a trigger button with a chevron, and a menu panel of items with a check on the chosen one.
+   The native <select> stays in the page, hidden, as the value and the source of change events.
+   The panel is a popover, so the sidebar's scrolling and the dialog's blur cannot clip it. */
+.ddt{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 10px 0 14px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:12.5px;white-space:nowrap;cursor:pointer}
+.ddt svg{opacity:.6;transition:transform .15s ease} .ddt[aria-expanded="true"] svg{transform:rotate(180deg)}
+.ddt:hover,.ddt[aria-expanded="true"]{background:var(--btn-glass-hover)} .ddt.set{border-color:var(--fg);background:var(--btn-glass-hover)}
+.ddt.over{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:none} .ddt.over:focus-visible{outline:none}
+.glyph svg{vertical-align:middle;transition:transform .15s ease} .row:has(.ddt[aria-expanded="true"]) .glyph svg{transform:rotate(180deg)}
+.ddm{position:fixed;inset:auto;margin:0;padding:4px;min-width:160px;max-width:calc(100vw - 16px);overflow-y:auto;border:1px solid var(--glass-edge);border-radius:var(--r-ctl);
+  background:var(--pane);-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur));color:var(--fg);font:13px/1.4 var(--sans);
+  box-shadow:0 12px 32px rgba(0,0,0,.28);cursor:default;transition:opacity .15s ease,transform .15s ease}
+@starting-style{ .ddm:popover-open{opacity:0;transform:translateY(-8px) scale(.95)} }
+.ddi{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px 6px 8px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;text-align:left;white-space:nowrap;cursor:default}
+.ddi:hover,.ddi:focus-visible{background:var(--btn-glass-hover);outline:none} .ddi[aria-selected="true"]{font-weight:500}
+.ddc{display:inline-flex;flex:none;width:16px;height:16px} .dds{height:1px;margin:4px -4px;background:var(--line)}
+@media (prefers-reduced-motion: reduce){ .ddm,.ddt svg,.glyph svg{transition:none} }
+@media (max-width: 860px){
+  .app{grid-template-columns:1fr;height:auto}
+  .side .scroll{max-height:none}
+  .canvas{padding:16px 16px 90px}
+  .top{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <div class="site-wrap site-nav__inner">
+    <a href="index.html" class="site-logo" aria-label="Pramaan home"><span class="site-logo__mark" aria-hidden="true"></span><span class="site-logo__word">pramaan</span></a>
+    <nav class="site-nav__links" aria-label="Primary">
+      <a href="index.html#how">How it works</a>
+      <a href="superpowers.html">Superpowers</a>
+      <a href="missions.html">Missions</a>
+      <a href="index.html#pricing">Pricing</a>
+    </nav>
+    <div class="site-nav__actions">
+      <a href="index.html#login" class="site-btn site-btn--ghost">Log in</a>
+      <a href="index.html#start" class="site-btn site-btn--black">Get early access</a>
+    </div>
+    <button class="site-nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="uib-hero site-wrap">
+  <span class="uib-tag"><i></i>Free tool</span>
+  <h1>Design your app's look in minutes.</h1>
+  <p>Pick a colour, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code.</p>
+</section>
+
+<div class="top">
+  <span class="crumb">UI builder</span>
+  <span class="shared" id="sharedTag" hidden>Shared design</span>
+  <span class="sp"></span>
+  <button class="ghost" data-open-gallery>Browse designs</button>
+  <button class="ghost" id="share">Share link</button>
+  <button class="cta" data-open-export>Get code</button>
+</div>
+
+<div class="app">
+  <aside class="side">
+    <div class="scroll" id="rows"></div>
+    <div class="foot">
+      <div class="guard" id="guard"></div>
+      <div class="two"><button class="ghost" id="shuffle">Shuffle</button><button class="ghost" id="reset">Reset</button></div>
+      <button class="cta" data-open-export>Get code</button>
+    </div>
+  </aside>
+
+  <main class="canvas">
+    <div class="stage" id="stage"></div>
+    <div class="dock" id="dock"></div>
+  </main>
+</div>
+
+<dialog id="ex">
+  <div class="dh"><h3>Get code</h3><p id="exSub"></p></div>
+  <div class="tabs" id="exTabs"></div>
+  <pre id="exOut"></pre>
+  <div class="df"><span id="exHint"></span><span style="display:flex;gap:8px"><button class="ghost" id="exClose">Close</button><button class="ghost" id="download">Download</button><button class="cta" id="copy">Copy</button></span></div>
+</dialog>
+
+<dialog id="gal">
+  <div class="dh"><h3>Browse designs</h3><p id="galSub"></p></div>
+  <div class="gbar"><input id="galQ" type="search" placeholder="Search: fintech, rounded, blue, pricing, linear…" aria-label="Search designs"><span class="tabs" id="galTh" style="padding:0"></span></div>
+  <div class="gfil" id="galFil"></div>
+  <div class="ggrid" id="galGrid"></div>
+  <div class="gdet" id="galDetail" hidden></div>
+  <div class="df"><span id="galHint">Styles from real sites. Click one to see its full page before applying it.</span><span style="display:flex;gap:8px"><button class="ghost" id="galMore">Show more</button><button class="ghost" id="galClose">Close</button></span></div>
+</dialog>
+
+<ticket-stub-footer wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+  <nav data-slot="sections">
+    <a href="index.html">Home</a>
+    <a href="superpowers.html">Superpowers</a>
+    <a href="missions.html">Missions</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </nav>
+  <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
+  <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+  <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+  <a data-slot="cta" href="index.html#start">Get early access</a>
+  <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
+  <nav data-slot="links" data-title="More"><a href="developers.html">For developers</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
+  <span data-slot="status" data-caption="Early access">Open</span>
+  <span data-slot="count" data-value="3510">Superpowers</span>
+  <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+  <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
+</ticket-stub-footer>
+
+<!-- Design library index (designs/_gallery.js) is not shipped yet; the gallery buttons stay hidden without it. -->
+<script>
+const $ = s => document.querySelector(s);
+
+/* ---------- data ---------- */
+const FONTS = [['Geist,Inter,system-ui,sans-serif','Geist'],['Inter,system-ui,sans-serif','Inter'],['Fraunces,Georgia,serif','Fraunces'],['Nunito,system-ui,sans-serif','Nunito'],["'JetBrains Mono',ui-monospace,monospace",'JetBrains Mono']];
+const PRESETS = {
+  graphite:{label:'Graphite', primary:'#18181b', font:FONTS[0][0], radius:10, density:1,    motion:180, tone:'plain'},
+  indigo:  {label:'Indigo',   primary:'#4f46e5', font:FONTS[1][0], radius:12, density:1,    motion:200, tone:'plain'},
+  fern:    {label:'Fern',     primary:'#166534', font:FONTS[2][0], radius:4,  density:1.05, motion:120, tone:'formal'},
+  peony:   {label:'Peony',    primary:'#db2777', font:FONTS[3][0], radius:20, density:1.1,  motion:280, tone:'friendly'},
+  ember:   {label:'Ember',    primary:'#ea580c', font:FONTS[4][0], radius:0,  density:.85,  motion:0,   tone:'plain'},
+};
+const LOCALES = {'en-US|USD':1, 'en-IN|INR':83, 'ar-AE|AED':3.67};
+const COPY = {
+  plain:   {payH:'Upgrade to Pro', payB:a=>`Pay ${a}`, payErr:'Payment failed. Try another card.', payOk:'Payment complete. Receipt sent.', signH:'Sign in', signS:'Enter your email to get a code.', signB:'Continue', signErr:'Wrong code. Try again.', signOk:'Signed in.', srchH:'Research', srchEmpty:'No results', srchEmptyS:'Try fewer words.', netErr:'Could not load. Retry.', emptyCart:'Nothing to pay for', usageEmpty:'No API calls yet'},
+  friendly:{payH:'Go Pro', payB:a=>`Pay ${a} and you're done`, payErr:"That card didn't go through. Try another?", payOk:"You're all set! Receipt's in your inbox.", signH:'Welcome back', signS:"Pop in your email, we'll send a code.", signB:"Let's go", signErr:"That code didn't match. One more go?", signOk:"You're in!", srchH:'Ask anything', srchEmpty:'Nothing found yet', srchEmptyS:'Try a broader search?', netErr:"Couldn't load that. Try again?", emptyCart:'Your cart is feeling light', usageEmpty:'No calls yet. Make your first one!'},
+  formal:  {payH:'Complete your upgrade', payB:a=>`Complete payment of ${a}`, payErr:'The payment could not be processed. Please use a different card.', payOk:'Payment received. A receipt has been issued.', signH:'Sign in to your account', signS:'Enter your registered email address.', signB:'Request verification code', signErr:'The verification code is incorrect.', signOk:'Authentication successful.', srchH:'Research', srchEmpty:'No matching results', srchEmptyS:'Please refine your query.', netErr:'The request could not be completed. Please retry.', emptyCart:'No items selected', usageEmpty:'No API activity recorded'},
+};
+
+const DEFAULTS = {preset:'graphite', state:'ready', device:'desktop', mode:'light', locale:'en-US|USD', ex:'shadcn', importText:'', imported:null, importNote:'', beforeImport:null,
+  edits:null, sources:null, fontNote:'', importFrom:null, appFont:'brand'};
+const S = {...DEFAULTS, ...PRESETS.graphite};
+const LOOK = ['primary','font','radius','density','motion'];
+
+/* sidebar rows: [key, label, options[[value,label]] | 'color'] */
+const GROUPS = [
+  ['Look', null, [
+    ['preset','Preset', [...Object.entries(PRESETS).map(([k,p])=>[k,p.label]), ['custom','Custom']]],
+    // To do, 'Your stack' picker: one choice (shadcn on Radix or Base UI, MUI, Mantine, Chakra, React Native,
+    // SwiftUI, Compose) that sets both the preview components and the export. It replaces the old
+    // 'Component library' row (Radix vs Base UI), removed because nothing read it.
+    ['primary','Primary', 'color'],
+    ['font','Font', FONTS],
+    ['radius','Radius', [[0,'None'],[4,'Small'],[10,'Medium'],[12,'Large'],[20,'Full']]],
+    ['density','Density', [[.85,'Compact'],[1,'Default'],[1.05,'Relaxed'],[1.1,'Comfortable']]],
+    ['motion','Motion', [[0,'Off'],[120,'Snappy'],[180,'Smooth'],[200,'Smooth+'],[280,'Gentle']]],
+  ]],
+  // these change only the sample screens, not the design or the exported code
+  ['Preview with', null, [
+    ['tone','Copy tone', [['plain','Plain'],['friendly','Friendly'],['formal','Formal']]],
+    ['locale','Locale', [['en-US|USD','English · USD'],['en-IN|INR','English · INR'],['ar-AE|AED','Arabic · RTL']]],
+  ]],
+];
+
+/* ---------- colour helpers ---------- */
+const hex2rgb = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+const lum = h => { const c = hex2rgb(h).map(v => { v/=255; return v<=.03928 ? v/12.92 : ((v+.055)/1.055)**2.4; }); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+const contrast = (a,b) => { const [x,y] = [lum(a),lum(b)].sort((p,q)=>q-p); return (x+.05)/(y+.05); };
+const fgFor = h => contrast(h,'#ffffff') >= contrast(h,'#111111') ? '#ffffff' : '#111111';
+const shade = (h,k) => '#'+hex2rgb(h).map(v=>Math.max(0,Math.min(255,Math.round(v*k))).toString(16).padStart(2,'0')).join('');
+const labelOf = (opts,v) => (opts.find(o => String(o[0])===String(v)) || [,String(v)])[1];
+
+/* ---------- dropdowns ----------
+   dress() turns each <select> under root into a trigger button and a menu panel. The select stays, hidden, and still
+   holds the value and fires input/change, so nothing that listens to it has to know. Selects are redrawn after every
+   choice, so a panel is built once and never has to be kept in step. */
+const ICON = d => `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+const CHEVRON = ICON('m6 9 6 6 6-6'), CHECK = ICON('M20 6 9 17l-5-5');
+function dress(root){
+  for (const sel of root.querySelectorAll('select:not([hidden])')){
+    sel.hidden = true;
+    const row = sel.closest('.row'), name = sel.getAttribute('aria-label') || '', cur = sel.selectedOptions[0]?.textContent || '';
+    const t = Object.assign(document.createElement('button'), {type:'button', className:`ddt${row ? ' over' : ''}${sel.classList.contains('set') ? ' set' : ''}`});
+    const m = Object.assign(document.createElement('div'), {className:'ddm', popover:'auto'});
+    t.setAttribute('aria-haspopup', 'listbox'); t.setAttribute('aria-expanded', 'false'); t.setAttribute('aria-label', cur.startsWith(name) ? cur : `${name}: ${cur}`);
+    if (!row) { t.innerHTML = `<span></span>${CHEVRON}`; t.firstChild.textContent = cur; }   // in a sidebar row the row itself shows the value
+    m.setAttribute('role', 'listbox'); m.setAttribute('aria-label', name);
+    for (const o of sel.options){
+      const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:`<span class="ddc">${o.selected ? CHECK : ''}</span><span></span>`});
+      b.lastChild.textContent = o.textContent; b.dataset.v = o.value; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', o.selected);
+      m.append(b); if (o.value === '') m.append(Object.assign(document.createElement('div'), {className:'dds'}));   // "any" sits apart from the real values
+    }
+    t.popoverTargetElement = m;
+    t.onkeydown = e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); m.showPopover(); } };
+    m.addEventListener('beforetoggle', e => { if (e.newState !== 'open') return;
+      const r = t.getBoundingClientRect(), w = Math.max(160, r.width), want = Math.min(320, sel.options.length * 32 + 10), below = innerHeight - r.bottom - 12, up = below < want && r.top > below;
+      Object.assign(m.style, {minWidth: w + 'px', left: Math.max(8, Math.min(r.left, innerWidth - w - 8)) + 'px', maxHeight: Math.min(320, up ? r.top - 12 : below) + 'px',
+        top: up ? 'auto' : r.bottom + 4 + 'px', bottom: up ? innerHeight - r.top + 4 + 'px' : 'auto'}); });
+    m.addEventListener('toggle', e => { const open = e.newState === 'open'; t.setAttribute('aria-expanded', open);
+      if (open) (m.querySelector('[aria-selected="true"]') || m.firstChild).focus(); });
+    m.addEventListener('click', e => { const b = e.target.closest('.ddi'); if (!b) return;
+      const again = sel.dataset.k ? `select[data-k="${sel.dataset.k}"]` : `select[data-f="${sel.dataset.f}"]`;
+      m.hidePopover();
+      if (sel.value !== b.dataset.v) { sel.value = b.dataset.v; sel.dispatchEvent(new Event('input', {bubbles:true})); sel.dispatchEvent(new Event('change', {bubbles:true})); }
+      root.querySelector(again)?.nextElementSibling?.focus(); });   // the redraw replaced the trigger: put focus on the new one
+    m.addEventListener('keydown', e => { const items = [...m.querySelectorAll('.ddi')], i = items.indexOf(document.activeElement), n = items.length;
+      const to = e.key === 'ArrowDown' ? items[(i + 1) % n] : e.key === 'ArrowUp' ? items[(i - 1 + n) % n] : e.key === 'Home' ? items[0] : e.key === 'End' ? items[n - 1]
+        : e.key === 'Tab' ? (m.hidePopover(), t)
+        : e.key.length === 1 && e.key !== ' ' ? items.slice(i + 1).concat(items).find(b => b.textContent.trim().toLowerCase().startsWith(e.key.toLowerCase())) : null;
+      if (to) { e.preventDefault(); to.focus(); } });
+    sel.after(t, m);
+  }
+}
+// a panel is placed against the window, so it closes when anything behind it scrolls
+document.addEventListener('scroll', e => { if (!e.target.closest?.('.ddm')) document.querySelector('.ddm:popover-open')?.hidePopover(); }, true);
+
+/* ---------- sidebar ---------- */
+function drawRows(){
+  let h = '';
+  for (const [g,badge,rows] of GROUPS){
+    h += `<div class="grp">${g}${badge?`<em>${badge}</em>`:''}</div>`;
+    for (const [key,label,opts] of rows){
+      const color = opts==='color';
+      const val = color ? theme('light').primary.toUpperCase() : labelOf(opts,S[key]);
+      const icon = color || key==='preset' ? `<span class="chip" style="background:${theme('light').primary}"></span>`
+        : key==='font' ? `<span class="glyph" style="font-family:${S.font.replace(/"/g,'')};font-size:15px;color:var(--c-text)">Aa</span>`
+        : key==='radius' ? `<span style="width:16px;height:16px;border:2px solid var(--c-muted);border-right:0;border-bottom:0;border-top-left-radius:${Math.min(S.radius,12)}px"></span>`
+        : `<span class="glyph">${CHEVRON}</span>`;
+      const ctl = color ? `<input type="color" data-k="primary" value="${S.primary}" aria-label="${label}">`
+        : `<select data-k="${key}" aria-label="${label}">${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(S[key])?'selected':''}>${l}</option>`).join('')}</select>`;
+      h += `<label class="row"><span class="t"><small>${label}</small><b>${val}</b></span>${icon}${ctl}</label>`;
+      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload font file</button>`
+        + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
+    }
+    if (g==='Look') { const T = theme(S.mode);
+      h += `<div class="grp">Colours · ${S.mode==='dark'?'dark':'light'} mode <em>click to edit</em></div><div class="ctab">`
+        + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
+          return `<label class="crow" title="${escA(src)}"><span class="sw2" style="background:${T[k]}"></span>`
+            + `<span class="t"><b>${SLOT_DOC[k]}<code>${T[k]}</code></b><small>${esc(src)}</small></span>`
+            + `${edited ? `<button class="undo" data-undo="${k}">Undo</button>` : ''}<input type="color" data-slot="${k}" value="${T[k]}" aria-label="${SLOT_DOC[k]} colour"></label>`; }).join('')
+        + `<div class="urlnote">Switch Light or Dark in the bottom bar to edit that mode.</div></div>`; }
+    // "From my site → Extract" stays out until it calls companies.brand.styleguide from a server route (extract() below is a stand-in)
+    if (g==='Look') h += `<div class="grp">Bring your design <em>new</em></div><div class="bring">`
+      + `<textarea id="design" spellcheck="false" aria-label="Your design file" placeholder="Paste a DESIGN.md, CSS variables or design tokens (JSON), or drop a file here">${esc(S.importText)}</textarea>`
+      + `<div class="acts"><button class="ghost" id="applyDesign">Apply</button><button class="ghost" id="pickFile">Upload file</button>${S.imported?'<button class="ghost" id="clearDesign">Remove</button>':''}<input type="file" id="designFile" accept=".md,.markdown,.css,.json,.txt" hidden></div>`
+      + (window.DESIGNS ? `<button class="ghost" data-open-gallery style="height:30px;font-size:12.5px">Or browse ${window.DESIGNS.length.toLocaleString()} real designs</button>` : '')
+      + `<div class="ex">Try a sample: <button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
+      + `<div class="found" id="found">${S.importNote}</div></div>`;
+  }
+  $('#rows').innerHTML = h; dress($('#rows'));
+  if ($('#extract')) $('#extract').onclick = extract;
+  $('#pickFont').onclick = () => $('#fontFile').click();
+  $('#fontFile').onchange = e => useFontFile(e.target.files[0]);
+  document.querySelectorAll('#rows [data-open-gallery]').forEach(b => b.onclick = openGallery);
+  wireDesign();
+}
+$('#rows').addEventListener('input', e => {
+  if (e.target.id === 'design'){ S.importText = e.target.value; return; }
+  const sl = e.target.dataset.slot;
+  if (sl) { setSlot(S.mode, sl, e.target.value); render(false); return; }   // keep the picker open while dragging
+  const k = e.target.dataset.k; if (!k) return;
+  let v = e.target.value;
+  if (typeof S[k] === 'number') v = Number(v);
+  if (k === 'preset'){ if (v !== 'custom') Object.assign(S, PRESETS[v], {preset:v, imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); }
+  else { S[k] = v; if (LOOK.includes(k) || k==='tone') S.preset = 'custom';
+    // a hand-picked primary beats the imported one in both modes
+    if (k === 'primary' && S.imported) for (const p of [S.imported.light, S.imported.dark]) { delete p.primary; delete p.primaryFg; }
+    // a new brand colour gets a fresh automatic button-text colour; one pinned by an earlier Fix no longer applies
+    if (k === 'primary' && S.edits) for (const m of ['light', 'dark']) { delete S.edits[m].primary; delete S.edits[m].primaryFg; } }
+  render(k !== 'primary');   // keep the colour picker open while dragging
+});
+// picker closed: redraw so the row shows "Edited by you" and its Undo button
+$('#rows').addEventListener('change', e => { if (e.target.dataset.slot) render(); });
+$('#rows').addEventListener('click', e => { const u = e.target.closest('[data-undo]'); if (!u) return;
+  e.preventDefault(); delete S.edits[S.mode][u.dataset.undo];
+  if (u.dataset.undo === 'primary') delete S.edits[S.mode].primaryFg;   // a Darken-button fix pinned the text colour too
+  render(); });
+
+function extract(){
+  const u = $('#url').value.trim().replace(/^https?:\/\//,''); if (!u){ $('#urlnote').textContent = 'Type a domain first.'; return; }
+  let h = 0; for (const c of u) h = (h*31 + c.charCodeAt(0)) >>> 0;
+  const ctx = document.createElement('canvas').getContext('2d'); ctx.fillStyle = `hsl(${h%360} 62% 42%)`;
+  Object.assign(S, {primary:ctx.fillStyle, font:FONTS[h%3][0], radius:[4,10,12,20][(h>>4)%4], preset:'custom'});
+  render(); $('#urlnote').textContent = `Extracted from ${u} (simulated in this mockup).`;
+}
+$('#shuffle').onclick = () => { const r = a => a[Math.floor(Math.random()*a.length)];
+  Object.assign(S, {primary:'#'+[0,0,0].map(()=>Math.floor(40+Math.random()*170).toString(16).padStart(2,'0')).join(''),
+    font:r(FONTS)[0], radius:r([0,4,10,12,20]), density:r([.85,1,1.05,1.1]), tone:r(['plain','friendly','formal']), preset:'custom',
+    imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); render(); };
+$('#reset').onclick = () => { Object.assign(S, DEFAULTS, PRESETS.graphite); render(); };
+
+/* ---------- bring your design: DESIGN.md, CSS variables or design tokens ---------- */
+// Every format is reduced to (name, value) pairs, then names are matched to the preview's slots.
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const escA = s => esc(s).replace(/"/g,'&quot;');   // for attribute values
+const COLOR_RE = /#[0-9a-f]{3,8}\b|(?:rgba?|hsla?|oklch|oklab|lab|lch)\([^)]*\)|-?\d+(?:\.\d+)?\s+\d+(?:\.\d+)?%\s+\d+(?:\.\d+)?%/i;
+// Slot order matters: specific names first, generic ones (text, primary) last. Shortest matching name wins.
+const SLOTS = [
+  ['primaryFg', /primary (fore|fg|text|contrast|on)|on primary|\b(cta|call to action)\b.*\btext\b/],
+  // "CTA Background", "CTA Button BG": the button colour, not the page, despite the word "background"
+  ['primary', /\b(cta|call to action)\b/],
+  ['danger', /destructive|danger|error|negative/],
+  ['ok', /success|positive/],
+  ['muted', /muted (fore|fg|text)|text (muted|secondary|subtle|tertiary)|secondary text|subtle text|caption/],
+  ['line', /border|stroke|divider|outline|hairline|input/],
+  ['soft', /muted|secondary|subtle|accent|hover|surface (2|alt|raised)/],
+  ['bg', /canvas|\bpage\b/],
+  ['card', /card|surface|panel|popover|elevated/],
+  ['bg', /background|canvas|\bpage\b|\bbg\b/],
+  ['primary', /primary|brand|\bcta\b|call to action/],
+  ['text', /foreground|\btext\b|\bink\b|on surface|body/],
+];
+const COLOR_G = new RegExp(COLOR_RE.source, 'gi');
+// Contrast window against the page (white, or near-black in dark mode). Rejects e.g. a black "accent" as a soft fill.
+const RANGE = {bg:[1,1.6], card:[1,1.6], soft:[1,1.9], text:[4.5,99], muted:[2.5,99]};
+const GF_ALIAS = {'Geist Sans':'Geist'};   // name used in design files → name on Google Fonts
+const PAL_VARS = {card:'--card', text:'--text', muted:'--muted', line:'--line', soft:'--soft', danger:'--danger', ok:'--ok'};
+const SLOT_LABEL = {primary:'primary', primaryFg:'text on primary', bg:'background', card:'cards', text:'text', muted:'muted text', line:'borders', soft:'soft fills', danger:'error', ok:'success', radius:'radius', font:'font'};
+
+const PROBE = document.createElement('canvas').getContext('2d', {willReadFrequently:true});
+/** Any CSS colour (hex, rgb, hsl, oklch, shadcn "222 47% 11%") to #rrggbb, flattened onto `base`. */
+function toHex(v, base){
+  v = String(v).replace(/[`;"']/g,'').trim();
+  if (/^-?[\d.]+\s+[\d.]+%\s+[\d.]+%$/.test(v)) v = `hsl(${v})`;
+  if (!/^(#[0-9a-f]{3,8}$|(rgba?|hsla?|oklch|oklab|lab|lch)\()/i.test(v) || /var\(/i.test(v)) return null;
+  PROBE.fillStyle = '#010203'; PROBE.fillStyle = v;
+  if (PROBE.fillStyle === '#010203') return null;             // browser could not read it
+  PROBE.fillStyle = base; PROBE.fillRect(0,0,1,1); PROBE.fillStyle = v; PROBE.fillRect(0,0,1,1);
+  const [r,g,b] = PROBE.getImageData(0,0,1,1).data;
+  return '#' + [r,g,b].map(n => n.toString(16).padStart(2,'0')).join('');
+}
+const toPx = v => { const m = String(v).match(/(-?\d+(?:\.\d+)?)\s*(px|rem|em)?/); return m ? Math.round(parseFloat(m[1]) * (m[2] && m[2] !== 'px' ? 16 : 1)) : null; };
+const firstFamily = v => { const f = String(v).replace(/[`*;]/g,'').replace(/^[\s{[]*(?:sans|serif|body|base)\s*:\s*[\s[]*/i,'')   // "{ sans: ['Geist', …" (Tailwind config)
+    .split(',')[0].replace(/["'\]]/g,'').trim();
+  return f && f.length < 40 && !/^(\d|var\(|inherit|\{)/.test(f) ? f : null; };
+
+function classify(name, value, dark, quick = false){
+  const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(), n = norm(String(name));
+  if (/radius|rounded|corner/.test(n) && !COLOR_RE.test(value)) {
+    if (/var\(|calc\(/.test(value)) return null;           // "calc(var(--radius) * 0.8)" is a formula, not a size
+    const px = toPx(value);
+    // "default" is the file's own answer, then cards, then buttons and other base sizes;
+    // small/nav radii lose, and pills (100px+) are never the base radius
+    const rank = /\bdefault\b/.test(n) ? -20 : /\bcards?\b/.test(n) ? 0 : /\b(buttons?|general|base|md|medium)\b/.test(n) ? 5
+      : /\b(sm|xs|nav|tags?|badges?|chips?|small|links?|body|pills?|images?|inputs?)\b/.test(n) ? 50 : 20;
+    return px == null || px >= 100 ? null : {n, slot:'radius', v:px, rank}; }
+  if (/font|typeface|family|typography/.test(n) && !COLOR_RE.test(value)) { const f = firstFamily(value); return f && {n, slot:'font', v:f, rank:/mono|code/.test(n) ? 1000 : 0}; }
+  const hex = toHex(value, dark ? '#0a0a0a' : '#ffffff'); if (!hex) return null;
+  // colour names may be camelCase (React Native: mutedText, primaryForeground)
+  const nc = norm(String(name).replace(/([a-z])([A-Z])/g,'$1 $2')), s = SLOTS.find(([,re]) => re.test(nc)); if (!s) return null;
+  // Out-of-range colours are a last resort, except in the file's own Quick Color Reference, which is trusted
+  // as stated (a blue page, a black border). Soft fills and cards are never trusted out of range: files rarely
+  // name them directly, so an odd value there is a misread, not a choice.
+  const want = RANGE[s[0]], c = want && contrast(hex, dark ? '#0a0a0a' : '#ffffff'), off = want && (c < want[0] || c > want[1]);
+  if (off && quick && s[0] !== 'soft' && s[0] !== 'card') return {n, slot:s[0], v:hex};
+  if (off && (s[0] === 'soft' || s[0] === 'card')) return null;
+  return {n, slot:s[0], v:hex, rank: off ? 200 : 0};
+}
+
+function walkTokens(o, path, flat){
+  if (o == null) return;
+  if (Array.isArray(o)) { if (o.every(x => typeof x !== 'object')) flat[path.join('.')] = o.join(', '); return; }
+  if (typeof o !== 'object') { flat[path.join('.')] = o; return; }
+  if ('$value' in o) return walkTokens(o.$value, path, flat);                       // W3C design tokens
+  if ('value' in o && typeof o.value !== 'object') return walkTokens(o.value, path, flat); // Style Dictionary
+  for (const [k,v] of Object.entries(o)) if (!k.startsWith('$')) walkTokens(v, [...path, k], flat);
+}
+
+function parseDesign(text){
+  const t = text.trim(), entries = [];
+  let kind = 'DESIGN.md';
+  if (/^[{[]/.test(t)) {
+    let flat = {};
+    try { walkTokens(JSON.parse(t), [], flat); } catch { return {error:'That looks like JSON but could not be read. Check for a missing comma or quote.'}; }
+    const resolve = v => { for (let i = 0; i < 5 && typeof v === 'string' && /^\{[^}]+\}$/.test(v.trim()); i++) v = flat[v.trim().slice(1,-1)]; return v; };
+    for (const [p,v] of Object.entries(flat)) entries.push({name:p, value:resolve(v) ?? '', dark:/(^|\.)dark(\.|$)/i.test(p), src:`${p}: ${v}`});
+    kind = 'design tokens';
+  } else {
+    if (/--[\w-]+\s*:/.test(t) && !/^#{1,6}\s/m.test(t)) kind = 'CSS variables';
+    // "**Theme:** dark": a dark-only design, so every colour belongs to the dark palette
+    const docDark = /^\W{0,4}theme\W{0,3}:\W{0,4}dark\b/im.test(t);   // a "**Theme:** dark" line, not [data-theme="dark"] or $theme-dark
+    let btn = 0, btnDone = false;   // inside a "### … Button" section: 2 = the primary / filled / CTA one
+    let headDark = false, headRadius = false, sassDark = false, inType = false, quick = false, fonts = 0, depth = 0, darkDepth = null;
+    for (const raw of t.split('\n')) {
+      const line = raw.trim();
+      if (/^#{1,6}\s/.test(line)) {
+        headDark = /dark/i.test(line); headRadius = /radius|corner/i.test(line); quick = /quick colou?r/i.test(line);
+        btn = /^###\s/.test(line) && /button|\bcta\b/i.test(line) ? (/primary|filled|solid|\bcta\b|call to action/i.test(line) ? 2 : 1) : 0; btnDone = false;
+        if (/^##\s/.test(line)) inType = /typograph|\btype\b|fonts?\b/i.test(line);
+        // "### Favorit — Primary typeface …": the first font heading under Typography is the main font
+        const f = inType && /^###\s/.test(line) && !/^###\s+(type\s+)?scale\b/i.test(line) && line.match(/^###\s+(.+?)(?:\s+[—–-]\s|$)/);
+        if (f) entries.push({name:'font', value:f[1], rank:fonts++ * 10, dark:docDark, src:line});
+        continue;
+      }
+      // A "Quick Color Reference" list is the file's own summary, so it outranks everything else.
+      if (/^\*\*[^*]+\*\*:?$/.test(line) || /quick colou?r reference/i.test(line)) { quick = /quick colou?r/i.test(line); continue; }
+      // a dark block: ".dark {" or "dark: {"; or a Sass map "$theme-dark: (" … ");"
+      if (line.includes('{') && darkDepth === null && /dark/i.test(line.split('{')[0])) darkDepth = depth;
+      if (/^\$[\w-]*dark[\w-]*\s*:\s*\($/i.test(line)) sassDark = true; else if (/^\)/.test(line)) sassDark = false;
+      // Fallback primary: the main button's described colours ("Filled with #0428cb background. Text in #ffffff"),
+      // ranked far below any named primary so it only counts when the file has none.
+      if (btn === 1 && /^\*\*role/i.test(line) && /primary|call to action|\bcta\b|main action/i.test(line)) btn = 2;
+      if (btn === 2 && !btnDone && COLOR_RE.test(line) && /background|filled|fill/i.test(line)) {
+        const hex = '(#[0-9a-f]{6}\\b|#[0-9a-f]{3}\\b)', bg = line.match(new RegExp(`${hex}[^.]{0,24}background|(?:background|filled|fill)[^#.]{0,40}${hex}`, 'i')),
+          tx = line.match(new RegExp(`text[^#.]{0,40}${hex}`, 'i')), darkNow = docDark || headDark || sassDark || darkDepth !== null;
+        if (bg) entries.push({name:'primary button', value:bg[1] || bg[2], rank:300, dark:darkNow, src:line});
+        if (tx) entries.push({name:'primary foreground', value:tx[1], rank:300, dark:darkNow, src:line});
+        btnDone = true;
+      }
+      const c = line.match(COLOR_RE);
+      let e = null;
+      if (c) {
+        // The label is what comes before the value; a line naming several colours is prose, not a definition.
+        const before = line.slice(0, c.index);
+        e = {name:/[a-z]/i.test(before) ? before : line.replace(c[0],' '), value:c[0], rank:(line.match(COLOR_G) || []).length > 1 ? 100 : 0};
+      } else if (line.startsWith('|')) {                    // table row: | cards | 6px |
+        const cells = line.split('|').map(s => s.trim()).filter(Boolean);
+        if (cells.length >= 2) e = {name:(headRadius ? 'radius ' : '') + cells[0], value:cells[1]};
+      } else { const i = line.indexOf(':'); if (i > 0) e = {name:line.slice(0,i), value:line.slice(i+1)}; }
+      const words = e ? e.name.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(' ').length : 0;
+      if (e && /\bno (border|background|shadow|fill)|\bwithout\b|\bnever\b|\bavoid\b|\bdon'?t\b|\bdo not\b/i.test(e.name)) e = null; // "no border, color #fff"
+      if (e && quick) { e.rank = (e.rank || 0) - 50; e.quick = true;
+        // No primary in the colour list: the accent is the brand highlight (2nd choice); a monochrome site's
+        // text colour is what its filled buttons use (last resort). Named plain "primary" so they land in that slot.
+        const darkNow = docDark || headDark || sassDark || darkDepth !== null;
+        if (c && /\baccent\b/i.test(e.name)) entries.push({name:'primary', value:c[0], rank:200, quick:true, src:line, dark:darkNow});
+        if (c && /^\W*text\W*$|^\W*text \(primary\)|^\W*text primary\b/i.test(e.name.trim())) entries.push({name:'primary', value:c[0], rank:400, quick:true, src:line, dark:darkNow}); }
+      if (e && words <= 6) entries.push({...e, src:line, dark: docDark || headDark || sassDark || darkDepth !== null});   // longer labels are sentences
+      depth += (line.match(/\{/g) || []).length - (line.match(/\}/g) || []).length;
+      if (darkDepth !== null && depth <= darkDepth) darkDepth = null;
+    }
+  }
+  const pick = {light:{}, dark:{}};
+  for (const e of entries) {
+    const r = classify(e.name, e.value, e.dark, e.quick); if (!r) continue;
+    const s = pick[e.dark ? 'dark' : 'light'], len = r.n.length + (r.rank || 0) + (e.rank || 0);
+    if (!s[r.slot] || len < s[r.slot].len) s[r.slot] = {v:r.v, len, src:e.src};
+  }
+  const plain = s => Object.fromEntries(Object.entries(s).map(([k,o]) => [k, o.v]));
+  // the line each value came from, shown next to it in the colour table
+  const srcs = s => Object.fromEntries(Object.entries(s).map(([k,o]) => [k === 'bg' ? 'page' : k, String(o.src || '').trim().slice(0, 140)]));
+  // "Substitute: Inter" / "use Inter as fallback": a web font to show when the brand font is not on Google Fonts
+  const sub = t.match(/substitute\W{0,6}([A-Z][\w ]{1,30}?)\s*(?:[,.\n(]|$)|use ([A-Z]\w+) as (?:a )?fallback/);
+  return {kind, light:plain(pick.light), dark:plain(pick.dark), sources:{light:srcs(pick.light), dark:srcs(pick.dark)},
+    substitute:sub && (sub[1] || sub[2]).trim()};
+}
+
+// Loads a font from Google Fonts. Known paid fonts are never requested, and other names are fetched first and only
+// added if Google has them, so a missing font does not show up as a failed stylesheet in the browser.
+const loadFont = name => {
+  if (!name || /^(system-ui|sans-serif|serif|monospace|ui-|-apple)/i.test(name)) return;
+  const low = name.toLowerCase();
+  if (GF_ALIAS[name] || Object.keys(LOOKALIKE).some(k => low.includes(k))) return;   // not on Google Fonts
+  const id = 'gf-' + name.replace(/\W/g,''); if (document.getElementById(id)) return;
+  const style = Object.assign(document.createElement('style'), {id}); document.head.appendChild(style);
+  fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
+    .then(r => r.ok ? r.text() : '').then(css => { style.textContent = css; }).catch(() => {});
+};
+
+/* ---------- notifications ---------- */
+let noticeTimer, lastUndo = null; const noticeQueue = [];
+/** Top-right message. actions: [['label', fn], …]. Stays while hovered; closes after 6 s otherwise.
+ *  Background messages (queue = true) wait for the current one, so a font warning never hides a design's Undo. */
+function notify(title, text, kind = 'ok', actions = [], queue = false){
+  let n = $('#notice');
+  if (!n) { n = Object.assign(document.createElement('div'), {id:'notice'}); n.setAttribute('role', 'status'); n.setAttribute('aria-live', 'polite'); document.body.appendChild(n); }
+  if (queue && !n.hidden && n.className) { noticeQueue.push([title, text, kind, actions]); return; }
+  n.className = `notice ${kind}`; n.hidden = false;
+  n.innerHTML = `<i class="dot"></i><div class="nt"><b>${title}</b>${text ? `<span>${text}</span>` : ''}`
+    + `${actions.length ? `<div class="na">${actions.map(([l], i) => `<button data-a="${i}">${l}</button>`).join('')}</div>` : ''}</div>`
+    + `<button class="x" data-a="x" aria-label="Dismiss">×</button>`;
+  const close = () => { n.hidden = true; if (noticeQueue.length) setTimeout(() => notify(...noticeQueue.shift()), 200); }, arm = () => { clearTimeout(noticeTimer); noticeTimer = setTimeout(close, 6000); };
+  n.onclick = e => { const a = e.target.closest('[data-a]')?.dataset.a; if (a === undefined) return; if (a !== 'x') actions[Number(a)][1](); close(); };
+  n.onmouseenter = () => clearTimeout(noticeTimer); n.onmouseleave = arm; arm();
+}
+function undoDesign(){
+  if (!lastUndo) return; Object.assign(S, JSON.parse(lastUndo)); lastUndo = null;
+  for (const f of S.font.split(',').slice(0, 2)) loadFont(f.replace(/['"]/g,'').trim());
+  render(); notify('Design undone', 'Back to how it was before.', 'info');
+}
+const showColours = () => { const c = $('.ctab'); if (c) c.previousElementSibling.scrollIntoView({behavior:'smooth', block:'start'}); };
+
+function applyDesign(){
+  const text = S.importText.trim();
+  if (!text) { S.importNote = 'Paste or upload a file first.'; render(); return notify('Nothing to apply', 'Paste or upload a design file first.', 'err'); }
+  const d = parseDesign(text);
+  if (d.error) { S.importNote = d.error; render(); return notify('Could not read that file', d.error, 'err'); }
+  const {light, dark} = d, radius = light.radius ?? dark.radius, font = light.font ?? dark.font;
+  for (const s of [light, dark]) { delete s.radius; delete s.font; }
+  // text on primary must be readable on primary, or the button label disappears
+  const lp = light.primary || dark.primary;
+  if (light.primaryFg && (!lp || contrast(light.primaryFg, lp) < 3)) delete light.primaryFg;
+  if (dark.primaryFg && contrast(dark.primaryFg, dark.primary || lp || '#ffffff') < 3) delete dark.primaryFg;
+  const slots = new Set([...Object.keys(light), ...Object.keys(dark)]);
+  if (!slots.size && radius == null && !font) {
+    S.importNote = `Nothing recognised in this ${d.kind}. Name tokens like primary, background, text, border, radius or font.`; render();
+    return notify('Nothing applied', `No colours, radius or font found in this ${d.kind}.`, 'err');
+  }
+  lastUndo = JSON.stringify(snapshot());   // for the notification's Undo
+  if (!S.imported) S.beforeImport = {primary:S.primary, font:S.font, radius:S.radius, preset:S.preset};
+  if (light.primary || dark.primary) S.primary = light.primary || dark.primary;
+  delete light.primary;                                   // light primary lives in S.primary so the picker can change it
+  if (radius != null) S.radius = radius;
+  S.fontNote = '';
+  if (font) { const alt = GF_ALIAS[font] || lookalike(font, d.substitute);
+    S.font = `'${font}'${alt && alt !== font ? `, '${alt}'` : ''}, system-ui, sans-serif`; loadFont(font); if (alt) loadFont(alt); checkFont(); }
+  S.edits = null; S.sources = d.sources;
+  const darkOnly = !Object.keys(light).length && Object.keys(dark).length > 0;
+  if (darkOnly) S.mode = 'dark';
+  S.imported = {light, dark}; S.preset = 'custom';
+  if (radius != null) slots.add('radius'); if (font) slots.add('font');
+  const missing = ['primary','bg','text','line','radius','font'].filter(k => !slots.has(k)).map(k => SLOT_LABEL[k]);
+  const from = S.importFrom ? esc(S.importFrom) : d.kind; S.importFrom = null;
+  S.importNote = `<b>Applied from ${from}:</b> ${[...slots].map(k => SLOT_LABEL[k]).join(', ')}.`
+    + (darkOnly ? ' This is a dark-only design, so the preview switched to dark. Light mode keeps the default colours.'
+      : Object.keys(dark).length ? ' Dark mode included.' : ' No dark colours found, so dark mode keeps the defaults.')
+    + (missing.length ? ` Not found: ${missing.join(', ')}.` : '');
+  render();
+  const colours = [...slots].filter(k => k !== 'radius' && k !== 'font').length;
+  notify(`${from} loaded`, `${colours} colour${colours === 1 ? '' : 's'}${radius != null ? ', radius' : ''}${font ? `, font ${esc(font)}` : ''}`
+    + `${darkOnly ? ' · dark-only, switched to dark' : Object.keys(dark).length ? ' · light and dark' : ''}`
+    + `${missing.length ? ` · not in file: ${missing.join(', ')}` : ''}.`, missing.length > 2 ? 'warn' : 'ok',
+    [['Undo', undoDesign], ['Review colours', showColours]]);
+}
+
+async function readDesignFile(f){
+  if (!f) return;
+  if (!f.size) { S.importNote = `${esc(f.name)} is empty (0 bytes). Save the file, then upload it again.`; return render(); }
+  if (f.size > 500_000) { S.importNote = 'That file is over 500 KB. Paste just the colour, type and radius parts.'; return render(); }
+  S.importText = await f.text(); applyDesign();
+}
+
+const SAMPLES = {
+  css: `:root {
+  --radius: 0.75rem;
+  --background: oklch(0.985 0.002 247);
+  --foreground: oklch(0.21 0.034 264);
+  --card: oklch(1 0 0);
+  --primary: oklch(0.55 0.2 155);
+  --primary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.96 0.005 250);
+  --muted-foreground: oklch(0.55 0.02 264);
+  --border: oklch(0.92 0.006 250);
+  --destructive: oklch(0.58 0.22 27);
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+}
+.dark {
+  --background: oklch(0.17 0.02 260);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.21 0.025 260);
+  --primary: oklch(0.72 0.17 155);
+  --primary-foreground: oklch(0.2 0.03 155);
+  --muted: oklch(0.27 0.02 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --border: oklch(1 0 0 / 12%);
+  --destructive: oklch(0.7 0.19 22);
+}`,
+  tokens: JSON.stringify({
+    color: {
+      brand: {600: {$type:'color', $value:'#c2410c'}},
+      primary: {$type:'color', $value:'{color.brand.600}'},
+      background: {$value:'#fffaf5'}, surface: {$value:'#ffffff'},
+      text: {default: {$value:'#1c1917'}, muted: {$value:'#78716c'}},
+      border: {$value:'#e7e5e4'}, error: {$value:'#b91c1c'}, success: {$value:'#15803d'},
+    },
+    radius: {md: {$type:'dimension', $value:'6px'}},
+    font: {family: {body: {$value:'Fraunces'}}},
+  }, null, 2),
+  md: `# Acme design
+
+## Colours
+- **Primary**: \`#7c3aed\` (buttons, links, focus)
+- **Background**: \`#faf9ff\`
+- **Surface / cards**: \`#ffffff\`
+- **Text**: \`#18181b\`
+- **Muted text**: \`#71717a\`
+- **Border**: \`#e9e5f5\`
+- **Error**: \`#e11d48\`
+
+## Dark mode
+- Primary: #a78bfa
+- Background: #0f0d17
+- Surface: #1a1726
+- Text: #f4f4f5
+- Muted text: #a1a1aa
+- Border: #2e2a3d
+
+## Type
+- Font: Nunito, sans-serif
+
+## Shape
+- Corner radius: 16px`,
+};
+
+function wireDesign(){
+  const ta = $('#design');
+  $('#applyDesign').onclick = applyDesign;
+  $('#pickFile').onclick = () => $('#designFile').click();
+  $('#designFile').onchange = e => readDesignFile(e.target.files[0]);
+  const clear = $('#clearDesign');
+  if (clear) clear.onclick = () => { lastUndo = JSON.stringify(snapshot());
+    Object.assign(S, S.beforeImport || {}, {imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); render();
+    notify('Design removed', 'Back to the look you had before importing.', 'info', [['Undo', undoDesign]]); };
+  ta.ondragover = e => { e.preventDefault(); ta.classList.add('drag'); };
+  ta.ondragleave = () => ta.classList.remove('drag');
+  ta.ondrop = e => { e.preventDefault(); ta.classList.remove('drag'); readDesignFile(e.dataTransfer.files[0]); };
+  document.querySelectorAll('[data-sample]').forEach(b => b.onclick = () => { S.importText = SAMPLES[b.dataset.sample]; applyDesign(); });
+}
+
+/* ---------- dock (applies to every card at once) ---------- */
+const DOCK = [['state',['ready','loading','empty','error','success']],['device',['desktop','mobile','ios','android']],['mode',['light','dark']]];
+const DOCK_LABEL = {mobile:'Mobile web', ios:'iOS app', android:'Android app'};
+$('#dock').onclick = e => { const b = e.target.closest('button'); if (!b) return; S[b.dataset.k] = b.dataset.v; render(); };
+const drawDock = () => $('#dock').innerHTML = DOCK.map(([k,vs]) => vs.map(v => `<button data-k="${k}" data-v="${v}" aria-pressed="${S[k]===v}">${DOCK_LABEL[v] || v[0].toUpperCase()+v.slice(1)}</button>`).join('')).join('<span class="sep"></span>');
+
+/* ---------- cards ---------- */
+const money = usd => { const [loc,cur] = S.locale.split('|'); return new Intl.NumberFormat(loc,{style:'currency',currency:cur,maximumFractionDigits:cur==='INR'?0:2}).format(usd*LOCALES[S.locale]); };
+const sk = n => Array.from({length:n},(_,i)=>`<div class="sk" style="width:${92-i*13}%"></div>`).join('');
+const ico = d => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const I = {check:'<path d="M20 6 9 17l-5-5"/>', alert:'<circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>', search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>', cart:'<circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M3 4h2l2.4 11h11.2L21 8H6.2"/>', chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>', inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v7H2v-7z"/>', building:'<rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h1M14 7h1M9 11h1M14 11h1M9 15h6"/>'};
+const card = (title, sub, body, side='') => `<section class="card"><div class="ch"><div><h4>${title}</h4>${sub?`<p>${sub}</p>`:''}</div>${side}</div>${body}</section>`;
+const emptyB = (icon, t, s) => `<div class="empty"><div class="ic">${ico(icon)}</div><b>${t}</b>${s||''}</div>`;
+const errB = t => `<div class="alert err">${ico(I.alert)}<span>${t}</span></div>`;
+
+function cards(){
+  const C = COPY[S.tone], st = S.state, price = money(29);
+
+  const usage = (() => {
+    const body = st==='loading' ? sk(2)+`<div class="sk" style="height:110px;margin-top:16px"></div>`
+      : st==='empty' ? emptyB(I.chart, C.usageEmpty, '<br><span>Calls show up here in real time.</span>')
+      : st==='error' ? errB(C.netErr)
+      : `<div><span class="big">48,210</span><span class="up">+12.4%</span></div>
+         <div class="bars">${[38,52,44,61,57,70,66,82,74,90,86,100].map(v=>`<span style="height:${v}%"></span>`).join('')}</div>
+         <div class="axis"><span>Sep 1</span><span>Sep 15</span><span>Sep 30</span></div>`;
+    return card('API calls', 'All capabilities · this month', body, `<span class="badge">metered</span>`);
+  })();
+
+  const checkout = (() => {
+    const summary = `<div class="ln" style="margin-top:12px"><span>Pro · monthly</span><span>${price}</span></div>
+      <div class="ln"><span>Tax</span><span>Included</span></div>
+      <div class="ln t"><span>Total</span><span>${price}</span></div>`;
+    const body = st==='loading' ? sk(5)
+      : st==='empty' ? emptyB(I.cart, C.emptyCart, `<button class="btn o" style="width:auto;padding:0 14px;margin:12px auto 0">See plans</button>`)
+      : st==='success' ? `<div class="done"><div class="ring">${ico(I.check)}</div><p>${C.payOk}</p></div><button class="btn o">View receipt</button>`
+      : `${st==='error'?errB(C.payErr):''}<label class="lbl">Card number</label><input class="inp" value="4242 4242 4242 4242" aria-label="Card number">
+         <div class="two"><div><label class="lbl">Expiry</label><input class="inp" value="12 / 29" aria-label="Expiry"></div><div><label class="lbl">CVC</label><input class="inp" value="123" aria-label="CVC"></div></div>
+         ${summary}<button class="btn">${C.payB(price)}</button>`;
+    return card(C.payH, 'Billed monthly, cancel anytime.', body);
+  })();
+
+  const search = (() => {
+    const box = `<input class="inp" value="${st==='empty'?'zxqv widget tariffs':'How are solar panels recycled?'}" aria-label="Search">`;
+    const R = [['Panel recycling, step by step','example.org','Frames and glass are recovered first; silicon recovery is improving.'],
+               ['Recovery rates by region','example.net','Collection schemes differ widely between regions.'],
+               ['What end-of-life handling costs','example.com','Transport is often the largest share of the total.']];
+    const body = box + (st==='loading' ? sk(6)
+      : st==='empty' ? emptyB(I.search, C.srchEmpty, `<br><span>${C.srchEmptyS}</span>`)
+      : st==='error' ? `<div style="margin-top:12px">${errB(C.netErr)}</div>`
+      : `<div style="margin-top:12px">${R.map((r,i)=>`<div class="res"><a href="#">${r[0]}</a><p>${r[2]}</p><span class="src"><i>${i+1}</i>${r[1]}</span></div>`).join('')}</div>`);
+    return card(C.srchH, 'Answers with a source on every line', body, `<span class="badge">cited</span>`);
+  })();
+
+  const signin = (() => {
+    const body = st==='loading' ? sk(4)
+      : st==='success' ? `<div class="done"><div class="ring">${ico(I.check)}</div><p>${C.signOk}</p></div>`
+      : `${st==='error'?errB(C.signErr):''}<label class="lbl">Email</label><input class="inp" ${st==='empty'?'placeholder="you@example.com"':'value="sam@example.com"'} aria-label="Email">
+         <button class="btn">${C.signB}</button><div class="or">or</div><button class="btn o">Continue with Google</button>`;
+    return card(C.signH, C.signS, body);
+  })();
+
+  const company = (() => {
+    const body = st==='loading' ? sk(5) : st==='empty' ? emptyB(I.building, 'No company found', '<br><span>Check the domain and try again.</span>') : st==='error' ? errB(C.netErr)
+      : `<div class="ent"><div class="av">A</div><div><b style="font-weight:600">Acme Robotics</b><div style="font-size:13px;color:var(--muted)">acme.example · Industrial automation</div></div></div>
+         <div class="kv"><div><small>Employees</small><b>120–250</b></div><div><small>Founded</small><b>2019</b></div><div><small>HQ</small><b>Pune</b></div><div><small>Funding</small><b>Series A</b></div></div>`;
+    return card('Company', 'Enriched from 3 sources', body);
+  })();
+
+  const payments = (() => {
+    const T = [['NS','Nova Studio','Pro · monthly',29,'Paid'],['KL','Kite Labs','Team · annual',290,'Paid'],['OC','Orbit Co','Pro · monthly',29,'Refunded'],['FC','Fern & Co','Starter',9,'Paid']];
+    const body = st==='loading' ? sk(6) : st==='empty' ? emptyB(I.inbox, 'No payments yet', '<br><span>They appear here as soon as one clears.</span>') : st==='error' ? errB(C.netErr)
+      : T.map(t=>`<div class="tx"><div class="av s">${t[0]}</div><div class="t"><b>${t[1]}</b><small>${t[2]}</small></div><div style="text-align:right"><div class="amt">${money(t[3])}</div><span class="badge ${t[4]==='Paid'?'ok':''}">${t[4]}</span></div></div>`).join('');
+    return card('Recent payments', 'Across your customers', body, `<button class="btn o sm">View all</button>`);
+  })();
+
+  return [usage, checkout, search, signin, company, payments].join('');
+}
+
+/* ---------- site chrome + component gallery ----------
+   Covers the component types found across 1,282 Refero designs (share of designs that use each):
+   button 93%, card 85%, nav bar 65%, link 56%, input 47%, badge/tag 36%, hero 18%, alert/toast 13%,
+   stat 8%, testimonial 8%, tabs 7%, footer 6%, logo strip 6%, icon button 5%, select 4%, code 4%,
+   divider 3%, toggle 2%, accordion 2%, modal 2%, pricing 1%, avatar 1%, table 1%, tooltip 1%, progress 1%. */
+const I2 = {menu:'<path d="M4 7h16M4 12h16M4 17h16"/>', plus:'<path d="M12 5v14M5 12h14"/>', heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'};
+
+function site(){
+  return `<div class="site"><header class="nav"><span class="brand"><span class="logo"></span>Acme</span>
+      <nav class="links"><a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a><a href="#">Customers</a></nav>
+      <span class="navr"><a class="lnk" href="#">Sign in</a><button class="btn sm">Get started</button><button class="ib menu" aria-label="Menu">${ico(I2.menu)}</button></span></header>
+    <section class="hero"><span class="eyebrow">New · Research API</span><h1>Ship answers your users can check.</h1>
+      <p>One SDK for search, enrichment and payments. Every result arrives with its source.</p>
+      <div class="ctas"><button class="btn">Start free</button><button class="btn o">Book a demo</button></div>
+      <div class="logos"><span>NOVA</span><span>KITE</span><span>ORBIT</span><span>FERN</span><span>LUMEN</span></div></section></div>`;
+}
+
+function gallery(){
+  const ok = ico(I.check);
+  return [
+    card('Buttons', 'Filled, outline, ghost, pill, link, icon, disabled',
+      `<div class="wrap"><button class="btn">Primary</button><button class="btn o">Secondary</button><button class="btn g">Ghost</button></div>
+       <div class="wrap" style="margin-top:8px"><button class="btn pill">Pill</button><button class="btn lk">Text link</button><button class="btn" disabled>Disabled</button></div>
+       <div class="wrap" style="margin-top:8px"><button class="ib f" aria-label="Add">${ico(I2.plus)}</button><button class="ib" aria-label="Save">${ico(I2.heart)}</button><button class="ib" aria-label="Search">${ico(I.search)}</button></div>`),
+    card('Form controls', 'Select, checkbox, radio, toggle',
+      `<label class="lbl" style="margin-top:0">Plan</label><select class="inp" aria-label="Plan"><option>Pro · monthly</option><option>Team · annual</option></select>
+       <label class="chk"><input type="checkbox" checked> Email me receipts</label>
+       <label class="chk"><input type="radio" name="g-r" checked> Card</label><label class="chk"><input type="radio" name="g-r"> Bank transfer</label>
+       <div class="chk"><span class="sw"></span> Usage alerts<span style="flex:1"></span><span class="sw off"></span> Beta</div>`),
+    card('Badges and tags', 'Status, counts, filters',
+      `<div class="wrap"><span class="badge">Draft</span><span class="badge ok">Paid</span><span class="badge err">Failed</span><span class="badge p">New</span></div>
+       <div class="wrap" style="margin-top:10px"><span class="tag">Fintech ${ico(I2.x).replace('18','12').replace('18','12')}</span><span class="tag">Series A</span><span class="tag">India</span></div>`),
+    card('Tabs', 'Segmented control and underline tabs',
+      `<div class="seg"><span class="on">Monthly</span><span>Annual</span></div>
+       <div class="utabs"><span class="on">Overview</span><span>Usage</span><span>Billing</span></div>`),
+    card('Alerts and toasts', 'Info, success, error, toast',
+      `<div class="alert info">${ico(I2.info)}<span>Your trial ends in 5 days.</span></div>
+       <div class="alert ok">${ok}<span>Domain verified.</span></div>${errB('Card declined. Try another card.')}
+       <div class="toast"><span>Invite sent to sam@example.com</span><u>Undo</u></div>`),
+    card('Pricing', 'Plan card',
+      `<span class="badge p">Most popular</span><div class="price" style="margin-top:10px">${money(29)}<small> / month</small></div>
+       <ul class="feat"><li>${ok}10,000 API calls</li><li>${ok}Cited answers</li><li>${ok}Email support</li></ul><button class="btn">Choose Pro</button>`),
+    card('Testimonial', 'Quote with author',
+      `<p class="quote">“We replaced four vendors with one SDK and shipped checkout in a day.”</p>
+       <div class="who"><div class="av s">PR</div><div><b>Priya Rao</b><small>CTO, Nova Studio</small></div></div>`),
+    card('FAQ', 'Accordion',
+      `<div class="acc"><details open><summary>Can I bring my own keys?</summary><p>Yes. Email and payments use your own accounts.</p></details>
+       <details><summary>Is there a free tier?</summary><p>The first 1,000 calls each month are free.</p></details>
+       <details><summary>Where is data stored?</summary><p>In the region you choose at sign-up.</p></details></div>`),
+    card('Code block', 'Install and CLI output',
+      `<pre class="code"><i>$</i> npm i @pramaan/sdk
+<i>$</i> npx pramaan login
+<b>✓</b> Signed in as sam@example.com</pre>`),
+    card('Progress', 'Bar and stepper',
+      `<div class="ln" style="padding-top:0"><span>Monthly quota</span><span>64%</span></div><div class="prog"><span style="width:64%"></span></div>
+       <div class="steps"><div class="done"><i></i>Account</div><div class="now"><i></i>Payments</div><div><i></i>Go live</div></div>`),
+    card('Dialog', 'Modal over the page',
+      `<div class="modal"><div class="box"><h5>Delete this key?</h5><p>Apps using it stop working right away.</p>
+       <div class="wrap"><button class="btn o sm">Cancel</button><button class="btn sm" style="background:var(--danger);color:#fff">Delete</button></div></div></div>`),
+    card('Menu and tooltip', 'Dropdown and hover hint',
+      `<button class="btn o sm">Sort: Newest ▾</button><div class="pop"><div class="on">Newest</div><div>Oldest</div><div>Amount</div></div>
+       <span class="tip" data-tip="Copied to clipboard"><button class="btn o sm">Copy key</button></span>`),
+    card('Table', 'Rows with a header',
+      `<table class="tbl"><thead><tr><th>Customer</th><th>Plan</th><th>Amount</th></tr></thead>
+       <tbody><tr><td>Nova Studio</td><td>Pro</td><td>${money(29)}</td></tr><tr><td>Kite Labs</td><td>Team</td><td>${money(290)}</td></tr><tr><td>Fern &amp; Co</td><td>Starter</td><td>${money(9)}</td></tr></tbody></table>`),
+  ].join('');
+}
+
+/* ---------- native app screens: same brand on iOS and Android controls ---------- */
+const mix = (a, b, t) => '#' + hex2rgb(a).map((v, i) => Math.round(v + (hex2rgb(b)[i] - v) * t).toString(16).padStart(2,'0')).join('');
+const icoS = (d, s) => ico(d).replace('width="18" height="18"', `width="${s}" height="${s}"`);
+const I3 = {home:'<path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/>', card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+  chev:'<path d="m9 6 6 6-6 6"/>', back:'<path d="m15 6-6 6 6 6"/>', user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/>', bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/>',
+  bat:'<rect x="2" y="7" width="18" height="10" rx="3"/><path d="M22 11v2"/>', wifi:'<path d="M2 9a15 15 0 0 1 20 0M5 13a10 10 0 0 1 14 0M8.5 16.5a5 5 0 0 1 7 0"/>'};
+const PAY = [['NS','Nova Studio','Pro · monthly',29],['KL','Kite Labs','Team · annual',290],['FC','Fern & Co','Starter',9]];
+const miniBars = () => `<div class="bars s">${[38,52,44,61,57,70,66,82,74,90,86,100].map(v => `<span style="height:${v}%"></span>`).join('')}</div>`;
+const skel = n => Array.from({length:n}, (_, i) => `<div class="sk2" style="width:${90 - i * 14}%"></div>`).join('');
+
+// Material 3 needs "container" shades of primary; derived here from the brand colour for each mode
+function appVars(os, T){
+  const dark = S.mode === 'dark', v = {};
+  if (os === 'android') Object.assign(v, {
+    '--m3-pc': dark ? mix(T.primary, '#000000', .55) : mix(T.primary, '#ffffff', .8),
+    '--m3-onpc': dark ? mix(T.primary, '#ffffff', .75) : mix(T.primary, '#000000', .55),
+    '--m3-sc': mix(T.primary, T.card, dark ? .78 : .86),
+    '--m3-sfc': mix(T.card, T.primary, .04),
+    '--m3-inv-p': dark ? mix(T.primary, '#000000', .2) : mix(T.primary, '#ffffff', .55),
+    '--m3-btn-r': S.radius < 6 ? S.radius + 'px' : '21px'});   // Material buttons are pills unless the brand is square-cornered
+  v['--appfont'] = S.appFont === 'system'
+    ? (os === 'ios' ? "-apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif" : "Roboto, 'Google Sans', system-ui, sans-serif") : S.font;
+  return Object.entries(v).map(([k, x]) => `${k}:${x}`).join(';');
+}
+
+const IOS = {
+  sb: () => `<div class="sb"><span>9:41</span><span class="island"></span><span class="ic3">${icoS(I3.wifi,15)}${icoS(I3.bat,19)}</span></div>`,
+  tabs: on => `<div class="ios-tabs">${[['Home',I3.home],['Usage',I.chart],['Billing',I3.card],['Settings',I3.gear]].map(([l, d]) =>
+    `<span class="${l === on ? 'on' : ''}">${icoS(d,22)}${l}</span>`).join('')}</div><span class="homebar"></span>`,
+  home(C, st){
+    const body = st === 'loading' ? `<div class="ios-group" style="padding:14px">${skel(5)}</div>`
+      : st === 'empty' ? `<div class="ios-done"><b>${C.usageEmpty}</b><p style="color:var(--muted);font-size:13px">Calls show up here in real time.</p></div>`
+      : `${st === 'error' ? `<div class="ios-group"><div class="ios-row" style="color:var(--danger)">${icoS(I.alert,18)}<span class="t">${C.netErr}</span></div></div>` : ''}`
+        + `<div class="ios-group"><div class="ios-stat"><small>API calls · this month</small><span class="big">48,210<span class="up">+12.4%</span></span>${miniBars()}</div></div>`
+        + `<div class="ios-h">Recent payments</div><div class="ios-group">${PAY.map(p => `<div class="ios-row"><span class="av s" style="border-radius:50%">${p[0]}</span>`
+        + `<span class="t"><b>${esc(p[1])}</b><small>${p[2]}</small></span><span>${money(p[3])}</span></div>`).join('')}</div>`;
+    return `${IOS.sb()}<div class="ios-nav"><span></span><span class="tint">Edit</span></div><h1 class="ios-large">Usage</h1><div class="body">${body}</div>${IOS.tabs('Home')}`;
+  },
+  form(C, st, price){
+    const body = st === 'loading' ? `<div class="ios-group" style="padding:14px">${skel(6)}</div>`
+      : st === 'success' ? `<div class="ios-done"><div class="ring">${icoS(I.check,30)}</div><b>${C.payOk}</b></div><button class="ios-btn">Done</button>`
+      : `<div class="ios-segw"><div class="ios-seg"><span class="on">Monthly</span><span>Annual</span></div></div>`
+        + `<div class="ios-h">Card</div><div class="ios-group"><div class="ios-row"><span class="lab">Number</span><span class="val">4242 4242 4242 4242</span></div>`
+        + `<div class="ios-row"><span class="lab">Expiry</span><span class="val">12 / 29</span></div><div class="ios-row"><span class="lab">CVC</span><span class="val">123</span></div></div>`
+        + (st === 'error' ? `<div class="ios-foot err">${C.payErr}</div>` : `<div class="ios-foot">Billed monthly. Cancel anytime.</div>`)
+        + `<div class="ios-group"><div class="ios-row"><span class="t">Email me receipts</span><span class="ios-sw"></span></div></div>`
+        + `<button class="ios-btn">${C.payB(price)}</button><button class="ios-link">Restore purchase</button>`;
+    return `${IOS.sb()}<div class="ios-nav"><span class="tint">${icoS(I3.back,20)}Plans</span><span></span></div><h1 class="ios-large">${C.payH}</h1><div class="body">${body}</div><span class="homebar"></span>`;
+  },
+  settings(){
+    const row = (d, l, end) => `<div class="ios-row"><span class="tint">${icoS(d,19)}</span><span class="t">${l}</span>${end}</div>`, chev = `<span class="chev">${icoS(I3.chev,16)}</span>`;
+    return `${IOS.sb()}<div class="ios-nav"></div><h1 class="ios-large">Settings</h1><div class="body">`
+      + `<div class="ios-group">${row(I3.user,'Profile',chev)}${row(I3.key,'API keys',chev)}${row(I3.card,'Billing',chev)}</div>`
+      + `<div class="ios-group">${row(I3.bell,'Usage alerts','<span class="ios-sw"></span>')}${row(I.chart,'Beta features','<span class="ios-sw off"></span>')}</div>`
+      + `<div class="ios-group"><div class="ios-row del">Delete API key</div></div>`
+      + `</div>${IOS.tabs('Settings')}`
+      + `<div class="ios-dim"><div class="ios-alert"><b>Delete this key?</b><p>Apps using it stop working right away.</p><div class="bt"><span>Cancel</span><span>Delete</span></div></div></div>`;
+  },
+};
+
+const AND = {
+  sb: () => `<div class="sb"><span>9:41</span><span class="cam"></span><span class="ic3">${icoS(I3.wifi,14)}${icoS(I3.bat,17)}</span></div>`,
+  nav: on => `<div class="m3-nav">${[['Home',I3.home],['Usage',I.chart],['Billing',I3.card],['Settings',I3.gear]].map(([l, d]) =>
+    `<span class="${l === on ? 'on' : ''}"><i>${icoS(d,20)}</i>${l}</span>`).join('')}</div><span class="homebar"></span>`,
+  home(C, st){
+    const body = st === 'loading' ? `<div class="m3-card">${skel(5)}</div>`
+      : st === 'empty' ? `<div class="m3-done"><b>${C.usageEmpty}</b><p style="color:var(--muted);font-size:13px">Calls show up here in real time.</p></div>`
+      : `${st === 'error' ? `<div class="m3-banner">${icoS(I.alert,18)}<span>${C.netErr}</span></div>` : ''}`
+        + `<div class="m3-card"><small>API calls · this month</small><span class="big">48,210<span class="up">+12.4%</span></span>${miniBars()}</div>`
+        + `<div class="m3-sub">Recent payments</div>${PAY.map(p => `<div class="m3-li"><span class="m3-av">${p[0]}</span>`
+        + `<span class="t"><b>${esc(p[1])}</b><small>${p[2]}</small></span><span>${money(p[3])}</span></div>`).join('')}`
+        + (st === 'success' ? `<div class="m3-snack"><span>${C.payOk}</span><u>View</u></div>` : '');
+    return `${AND.sb()}<div class="m3-bar"><span class="m3-ic">${icoS(I2.menu,22)}</span><span class="tt">Usage</span><span class="m3-av" style="width:32px;height:32px">S</span></div>`
+      + `<div class="body">${body}<span class="m3-fab">${icoS(I2.plus,22)}</span></div>${AND.nav('Home')}`;
+  },
+  form(C, st, price){
+    const body = st === 'loading' ? `<div style="padding:0 16px">${skel(6)}</div>`
+      : st === 'success' ? `<div class="m3-done"><div class="ring">${icoS(I.check,30)}</div><b>${C.payOk}</b></div><button class="m3-btn">Done</button>`
+      : `<div class="m3-chips"><span class="m3-chip on">${icoS(I.check,16)}Monthly</span><span class="m3-chip">Annual</span></div>`
+        + `<div class="m3-tf ${st === 'error' ? 'err' : 'focus'}"><label>Card number</label>4242 4242 4242 4242</div>`
+        + (st === 'error' ? `<div class="m3-help">${C.payErr}</div>` : '')
+        + `<div class="m3-two"><div class="m3-tf"><label>Expiry</label>12 / 29</div><div class="m3-tf"><label>CVC</label>123</div></div>`
+        + `<div class="m3-li" style="min-height:48px"><span class="t"><b>Email me receipts</b></span><span class="m3-sw"></span></div>`
+        + `<button class="m3-btn">${C.payB(price)}</button><button class="m3-tbtn">Restore purchase</button>`;
+    return `${AND.sb()}<div class="m3-bar"><span class="m3-ic">${icoS(I3.back,22)}</span><span class="tt">${C.payH}</span></div><div class="body">${body}</div><span class="homebar"></span>`;
+  },
+  settings(){
+    const li = (d, l, s, end) => `<div class="m3-li"><span class="m3-ic">${icoS(d,22)}</span><span class="t"><b>${l}</b><small>${s}</small></span>${end}</div>`;
+    return `${AND.sb()}<div class="m3-bar"><span class="tt">Settings</span><span class="m3-ic">${icoS(I.search,22)}</span></div><div class="body">`
+      + li(I3.user,'Profile','Name, email','') + li(I3.key,'API keys','2 active','') + li(I3.bell,'Usage alerts','At 80% of quota','<span class="m3-sw"></span>')
+      + li(I.chart,'Beta features','Try new capabilities early','<span class="m3-sw off"></span>')
+      + `<div class="m3-li" style="color:var(--danger)"><span style="display:grid">${icoS(I3.key,22)}</span><span class="t"><b>Delete API key</b></span></div>`
+      + `</div>${AND.nav('Settings')}`
+      + `<div class="m3-dim"><div class="m3-dialog"><b>Delete this key?</b><p>Apps using it stop working right away.</p><div class="bt"><span>Cancel</span><span>Delete</span></div></div></div>`;
+  },
+};
+
+function appScreens(os){
+  const C = COPY[S.tone], st = S.state, price = money(29), P = os === 'ios' ? IOS : AND;
+  return `<div class="appnote"><span><b>${os === 'ios' ? 'iOS app' : 'Android app'}</b> · ${os === 'ios' ? "Apple's design guidelines" : 'Material 3'}: `
+    + `your colours, corner radius and font on native controls. Export: React Native, ${os === 'ios' ? 'SwiftUI' : 'Compose'}.</span>`
+    + `<span class="seg2"><button data-appfont="brand" aria-pressed="${S.appFont !== 'system'}">Brand font</button>`
+    + `<button data-appfont="system" aria-pressed="${S.appFont === 'system'}">${os === 'ios' ? 'SF Pro' : 'Roboto'}</button></span></div>`
+    + `<div class="phones" style="${appVars(os, theme(S.mode))}">`
+    + [['Home', P.home(C, st, price)], ['Checkout', P.form(C, st, price)], ['Settings and alert', P.settings(C, st)]]
+      .map(([cap, s]) => `<figure class="pf"><div class="phone ${os}"><div class="scr">${s}</div></div><figcaption>${cap}</figcaption></figure>`).join('')
+    + `</div>`;
+}
+
+const footer = () => `<footer class="foot2" style="margin-top:calc(16px*var(--d))"><div><b>Acme</b><span>© 2026 Acme Inc.</span></div>
+  <div><b>Product</b><span>Pricing</span><span>Changelog</span></div><div><b>Company</b><span>About</span><span>Careers</span></div><div><b>Legal</b><span>Privacy</span><span>Terms</span></div></footer>`;
+
+/* ---------- export ---------- */
+const slug = () => S.preset==='custom' ? 'custom-' + S.primary.slice(1) : S.preset;
+const fontName = () => S.font.split(',')[0].replace(/['"]/g,'').trim();
+// Every export is built from theme('light') and theme('dark'): the same values the preview paints.
+const SLOTS_OUT = ['page','card','text','muted','line','soft','primary','primaryFg','danger','ok'];
+const SLOT_DOC = {page:'Background', card:'Cards', text:'Text', muted:'Muted text', line:'Border', soft:'Subtle fill', primary:'Primary',
+  primaryFg:'Text on primary', danger:'Error', ok:'Success'};
+// Standard names in every export, so other tools (and this importer) read them without guessing
+const OUT_NAME = {page:'background', card:'card', text:'text', muted:'muted-text', line:'border', soft:'subtle',
+  primary:'primary', primaryFg:'primary-foreground', danger:'danger', ok:'success'};
+const both = () => ({L:theme('light'), D:theme('dark')});
+// Five chart colours from the brand hue (72° apart); a grey/black brand gets shadcn's own chart defaults.
+const rgb2hsl = h => { const [r,g,b] = hex2rgb(h).map(v => v/255), mx = Math.max(r,g,b), mn = Math.min(r,g,b), l = (mx+mn)/2, d = mx-mn;
+  if (!d) return [0,0,l]; const s = d / (1 - Math.abs(2*l - 1));
+  const hh = mx === r ? ((g-b)/d + 6) % 6 : mx === g ? (b-r)/d + 2 : (r-g)/d + 4; return [hh*60, s, l]; };
+const hsl2hex = (h,s,l) => { const k = n => (n + h/30) % 12, a = s * Math.min(l, 1-l);
+  return '#' + [0,8,4].map(n => Math.round(255 * (l - a * Math.max(-1, Math.min(k(n)-3, 9-k(n), 1)))).toString(16).padStart(2,'0')).join(''); };
+const SHADCN_CHARTS = {light:['oklch(0.646 0.222 41.116)','oklch(0.6 0.118 184.704)','oklch(0.398 0.07 227.392)','oklch(0.828 0.189 84.429)','oklch(0.769 0.188 70.08)'],
+  dark:['oklch(0.488 0.243 264.376)','oklch(0.696 0.17 162.48)','oklch(0.769 0.188 70.08)','oklch(0.627 0.265 303.9)','oklch(0.645 0.246 16.439)']};
+const charts = (t, mode) => { const [h,s] = rgb2hsl(t.primary);
+  return s < .15 ? SHADCN_CHARTS[mode] : [0,72,144,216,288].map(d => hsl2hex((h + d) % 360, Math.min(Math.max(s,.45),.75), mode === 'light' ? .5 : .62)); };
+// shadcn/ui variable set (Tailwind v4 layout), filled from one resolved mode of our theme
+const shadcnBlock = (sel, t, mode) => `${sel} {\n` + (sel === ':root' ? `  --radius: ${S.radius/16}rem;\n` : '') + Object.entries({
+  background:t.page, foreground:t.text, card:t.card, 'card-foreground':t.text, popover:t.card, 'popover-foreground':t.text,
+  primary:t.primary, 'primary-foreground':t.primaryFg, secondary:t.soft, 'secondary-foreground':t.text, muted:t.soft,
+  'muted-foreground':t.muted, accent:t.soft, 'accent-foreground':t.text, destructive:t.danger, 'destructive-foreground':fgFor(t.danger),
+  border:t.line, input:t.line, ring:t.primary, ...Object.fromEntries(charts(t, mode).map((c,i) => [`chart-${i+1}`, c])),
+  sidebar:t.page, 'sidebar-foreground':t.text, 'sidebar-primary':t.primary, 'sidebar-primary-foreground':t.primaryFg,
+  'sidebar-accent':t.soft, 'sidebar-accent-foreground':t.text, 'sidebar-border':t.line, 'sidebar-ring':t.primary,
+}).map(([k,v]) => `  --${k}: ${v};`).join('\n') + '\n}';
+const SHADCN_COLORS = ['background','foreground','card','card-foreground','popover','popover-foreground','primary','primary-foreground',
+  'secondary','secondary-foreground','muted','muted-foreground','accent','accent-foreground','destructive','destructive-foreground',
+  'border','input','ring','chart-1','chart-2','chart-3','chart-4','chart-5','sidebar','sidebar-foreground','sidebar-primary',
+  'sidebar-primary-foreground','sidebar-accent','sidebar-accent-foreground','sidebar-border','sidebar-ring'];
+const shadcnFile = (L, D) => `/* globals.css for a shadcn/ui project on Tailwind v4. Replaces the whole file. */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {\n`
+  + SHADCN_COLORS.map(c => `  --color-${c}: var(--${c});`).join('\n')
+  + `\n  --radius-sm: calc(var(--radius) * 0.6);\n  --radius-md: calc(var(--radius) * 0.8);\n  --radius-lg: var(--radius);\n  --radius-xl: calc(var(--radius) * 1.4);`
+  + `\n  --radius-2xl: calc(var(--radius) * 1.8);\n  --radius-3xl: calc(var(--radius) * 2.2);\n  --radius-4xl: calc(var(--radius) * 2.6);`
+  + `\n  --font-sans: ${S.font};\n  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;\n}\n\n`
+  + `${shadcnBlock(':root', L, 'light')}\n\n${shadcnBlock('.dark', D, 'dark')}\n\n`
+  + `@layer base {\n  * {\n    @apply border-border outline-ring/50;\n  }\n  body {\n    @apply bg-background text-foreground font-sans;\n  }\n}\n`;
+// Plain Tailwind (no shadcn): shadcn-style names so utilities read naturally (bg-primary, text-muted-foreground)
+const twColors = t => ({background:t.page, foreground:t.text, card:t.card, 'card-foreground':t.text, muted:t.soft,
+  'muted-foreground':t.muted, border:t.line, primary:t.primary, 'primary-foreground':t.primaryFg, danger:t.danger, success:t.ok});
+/** n shades of one hue, lightest first, with the exact colour at index k (Mantine 10, Chakra 50–950). */
+const scale = (hex, n, k) => { const [h,s,l] = rgb2hsl(hex);
+  return Array.from({length:n}, (_,i) => i === k ? hex
+    : hsl2hex(h, Math.min(s,.9), i < k ? l + (.97 - l) * (k - i) / k : l - (l - .1) * (i - k) / (n - 1 - k))); };
+const twRadius = () => ({default:S.radius, sm:Math.round(S.radius*.6), md:Math.round(S.radius*.8), lg:S.radius, xl:Math.round(S.radius*1.4)});
+const EX = {
+  'shadcn': () => { const {L,D} = both(); return shadcnFile(L, D); },
+  'Tailwind v4': () => { const {L,D} = both(), R = twRadius();
+    return `/* app.css for Tailwind CSS v4. Classes: bg-primary, text-muted-foreground, border-border, rounded-lg, font-sans. */\n`
+      + `@import "tailwindcss";\n\n@custom-variant dark (&:where(.dark, .dark *));\n\n@theme {\n`
+      + Object.entries(twColors(L)).map(([k,v]) => `  --color-${k}: ${v};`).join('\n')
+      + '\n' + Object.entries(R).map(([k,v]) => `  --radius-${k}: ${v}px;`).join('\n')
+      + `\n  --font-sans: ${S.font};\n}\n\n.dark {\n` + Object.entries(twColors(D)).map(([k,v]) => `  --color-${k}: ${v};`).join('\n') + '\n}\n'; },
+  'MUI': () => { const {L,D} = both(), pal = t => `      palette: {\n        primary: { main: '${t.primary}', contrastText: '${t.primaryFg}' },\n`
+      + `        background: { default: '${t.page}', paper: '${t.card}' },\n        text: { primary: '${t.text}', secondary: '${t.muted}' },\n`
+      + `        divider: '${t.line}',\n        error: { main: '${t.danger}' },\n        success: { main: '${t.ok}' },\n      },`;
+    return `// theme.js for Material UI v6+. Wrap the app in <ThemeProvider theme={theme}>; dark mode via class="dark" on <html>.\n`
+      + `import { createTheme } from '@mui/material/styles';\n\nexport const theme = createTheme({\n  cssVariables: { colorSchemeSelector: 'class' },\n`
+      + `  colorSchemes: {\n    light: {\n${pal(L)}\n    },\n    dark: {\n${pal(D)}\n    },\n  },\n  shape: { borderRadius: ${S.radius} },\n`
+      + `  typography: { fontFamily: ${JSON.stringify(S.font)} },\n});\n`; },
+  'Mantine': () => { const {L,D} = both(), shades = scale(L.primary, 10, 6), R = twRadius(),
+      vars = t => `    '--mantine-color-body': '${t.page}',\n    '--mantine-color-text': '${t.text}',\n    '--mantine-color-dimmed': '${t.muted}',\n`
+        + `    '--mantine-color-default-border': '${t.line}',\n    '--mantine-color-error': '${t.danger}',`;
+    return `// theme.js for Mantine v7+. <MantineProvider theme={theme} cssVariablesResolver={resolver}>\n`
+      + `import { createTheme } from '@mantine/core';\n\nexport const theme = createTheme({\n  primaryColor: 'brand',\n  primaryShade: { light: 6, dark: 4 },\n`
+      + `  colors: {\n    // 10 shades, lightest first; index 6 is the exact brand colour\n    brand: [${shades.map(c => `'${c}'`).join(', ')}],\n  },\n`
+      + `  defaultRadius: 'md',\n  radius: { xs: '${R.sm}px', sm: '${R.sm}px', md: '${R.default}px', lg: '${R.xl}px', xl: '${Math.round(S.radius*1.8)}px' },\n`
+      + `  fontFamily: ${JSON.stringify(S.font)},\n  headings: { fontFamily: ${JSON.stringify(S.font)} },\n});\n\n`
+      + `// Page, text, muted text, border and error colours for each mode\nexport const resolver = () => ({\n  variables: {},\n  light: {\n${vars(L)}\n  },\n  dark: {\n${vars(D)}\n  },\n});\n`; },
+  'Chakra': () => { const {L,D} = both(), sh = scale(L.primary, 11, 5), keys = [50,100,200,300,400,500,600,700,800,900,950],
+      v = (a, b) => `{ value: { base: '${a}', _dark: '${b}' } }`, b = n => sh[keys.indexOf(n)];
+    return `// theme.js for Chakra UI v3. <ChakraProvider value={system}>; brand colours via colorPalette="brand".\n`
+      + `import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';\n\nconst config = defineConfig({\n  theme: {\n    tokens: {\n`
+      + `      colors: {\n        // 50–950 scale; 500 is the exact brand colour\n        brand: {\n${keys.map((k,i) => `          ${k}: { value: '${sh[i]}' },`).join('\n')}\n        },\n      },\n`
+      + `      fonts: {\n        heading: { value: ${JSON.stringify(S.font)} },\n        body: { value: ${JSON.stringify(S.font)} },\n      },\n    },\n`
+      + `    semanticTokens: {\n      colors: {\n        brand: {\n          solid: ${v(L.primary, D.primary)},\n          contrast: ${v(L.primaryFg, D.primaryFg)},\n`
+      + `          fg: ${v(b(700), b(300))},\n          muted: ${v(b(100), b(900))},\n          subtle: ${v(b(200), b(800))},\n          emphasized: ${v(b(300), b(700))},\n`
+      + `          focusRing: ${v(L.primary, D.primary)},\n        },\n        bg: {\n          DEFAULT: ${v(L.page, D.page)},\n          panel: ${v(L.card, D.card)},\n          muted: ${v(L.soft, D.soft)},\n        },\n`
+      + `        fg: {\n          DEFAULT: ${v(L.text, D.text)},\n          muted: ${v(L.muted, D.muted)},\n          error: ${v(L.danger, D.danger)},\n          success: ${v(L.ok, D.ok)},\n        },\n`
+      + `        border: {\n          DEFAULT: ${v(L.line, D.line)},\n        },\n      },\n      radii: {\n        l1: { value: '${Math.round(S.radius*.5)}px' },\n`
+      + `        l2: { value: '${Math.round(S.radius*.8)}px' },\n        l3: { value: '${S.radius}px' },\n      },\n    },\n  },\n});\n\nexport const system = createSystem(defaultConfig, config);\n`; },
+  'SCSS': () => { const {L,D} = both(), map = t => SLOTS_OUT.map(k => `  ${OUT_NAME[k]}: ${t[k]},`).join('\n');
+    return `// _theme.scss: Sass maps for light and dark, emitted as CSS variables. Use: color: var(--color-primary);\n`
+      + `$radius: ${S.radius}px;\n$font-sans: ${S.font};\n\n$theme-light: (\n${map(L)}\n);\n\n$theme-dark: (\n${map(D)}\n);\n\n`
+      + `:root {\n  @each $name, $value in $theme-light { --color-#{$name}: #{$value}; }\n  --radius: #{$radius};\n  --font-sans: #{$font-sans};\n}\n\n`
+      + `[data-theme='dark'] {\n  @each $name, $value in $theme-dark { --color-#{$name}: #{$value}; }\n}\n`; },
+  'React Native': () => { const {L,D} = both(), RN = {page:'background', card:'card', text:'text', muted:'mutedText', line:'border', soft:'subtle',
+      primary:'primary', primaryFg:'primaryForeground', danger:'danger', ok:'success'}, obj = t => SLOTS_OUT.map(k => `    ${RN[k]}: '${t[k]}',`).join('\n');
+    return `// theme.js for React Native / Expo. const colors = theme[useColorScheme() ?? 'light'];\nexport const theme = {\n  light: {\n${obj(L)}\n  },\n  dark: {\n${obj(D)}\n  },\n`
+      + `  radius: ${S.radius},\n  fontFamily: '${fontName()}', // load it with expo-font, or the system font is used\n};\n`; },
+  'SwiftUI': () => { const {L,D} = both(), hx = h => '0x' + h.slice(1).toUpperCase(), SW = {page:'Background', card:'Card', text:'Text', muted:'MutedText',
+      line:'Border', soft:'Subtle', primary:'Primary', primaryFg:'OnPrimary', danger:'Danger', ok:'Success'};
+    return `// Theme.swift for SwiftUI (iOS 15+). Colours follow the system light/dark setting.\nimport SwiftUI\nimport UIKit\n\nextension Color {\n`
+      + SLOTS_OUT.map(k => `    static let app${SW[k]} = Color(light: ${hx(L[k])}, dark: ${hx(D[k])})`).join('\n')
+      + `\n}\n\nenum AppTheme {\n    static let cornerRadius: CGFloat = ${S.radius}\n    static let fontName = "${fontName()}" // add the font file to the app, or the system font is used\n}\n\n`
+      + `private extension Color {\n    init(light: UInt32, dark: UInt32) {\n        self.init(UIColor { $0.userInterfaceStyle == .dark ? UIColor(hex: dark) : UIColor(hex: light) })\n    }\n}\n\n`
+      + `private extension UIColor {\n    convenience init(hex: UInt32) {\n        self.init(red: CGFloat((hex >> 16) & 0xFF) / 255, green: CGFloat((hex >> 8) & 0xFF) / 255,\n`
+      + `                  blue: CGFloat(hex & 0xFF) / 255, alpha: 1)\n    }\n}\n`; },
+  'Compose': () => { const {L,D} = both(), c = h => `Color(0xFF${h.slice(1).toUpperCase()})`,
+      scheme = (fn, t) => `val ${fn === 'lightColorScheme' ? 'Light' : 'Dark'}Colors = ${fn}(\n    primary = ${c(t.primary)},\n    onPrimary = ${c(t.primaryFg)},\n`
+        + `    background = ${c(t.page)},\n    onBackground = ${c(t.text)},\n    surface = ${c(t.card)},\n    onSurface = ${c(t.text)},\n`
+        + `    surfaceVariant = ${c(t.soft)},\n    onSurfaceVariant = ${c(t.muted)},\n    outline = ${c(t.line)},\n    error = ${c(t.danger)},\n    onError = ${c(fgFor(t.danger))},\n)`;
+    return `// Theme.kt for Jetpack Compose (Material 3). Wrap screens in AppTheme { ... }.\npackage com.example.ui.theme\n\n`
+      + `import androidx.compose.foundation.isSystemInDarkTheme\nimport androidx.compose.foundation.shape.RoundedCornerShape\nimport androidx.compose.material3.MaterialTheme\n`
+      + `import androidx.compose.material3.Shapes\nimport androidx.compose.material3.darkColorScheme\nimport androidx.compose.material3.lightColorScheme\n`
+      + `import androidx.compose.runtime.Composable\nimport androidx.compose.ui.graphics.Color\nimport androidx.compose.ui.unit.dp\n\n`
+      + `${scheme('lightColorScheme', L)}\n\n${scheme('darkColorScheme', D)}\n\n// Material 3 has no success role; use these directly\nval SuccessLight = ${c(L.ok)}\nval SuccessDark = ${c(D.ok)}\n\n`
+      + `val AppShapes = Shapes(\n    small = RoundedCornerShape(${Math.round(S.radius*.6)}.dp),\n    medium = RoundedCornerShape(${S.radius}.dp),\n    large = RoundedCornerShape(${Math.round(S.radius*1.4)}.dp),\n)\n\n`
+      + `// Font: ${fontName()}. Add it under res/font and set MaterialTheme typography, or the system font is used.\n@Composable\n`
+      + `fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {\n`
+      + `    MaterialTheme(colorScheme = if (darkTheme) DarkColors else LightColors, shapes = AppShapes, content = content)\n}\n`; },
+  'Tailwind v3': () => { const {L,D} = both(), R = twRadius(), C = twColors(L), q = s => `'${s}'`,
+      vars = t => Object.entries(twColors(t)).map(([k,v]) => `        '--color-${k}': '${v}',`).join('\n');
+    return `/** tailwind.config.js for Tailwind CSS v3. Dark mode: add class="dark" to <html>. */\nexport default {\n  darkMode: 'class',\n`
+      + `  content: ['./src/**/*.{html,js,jsx,ts,tsx,vue,svelte}'],\n  theme: {\n    extend: {\n      colors: {\n`
+      + Object.keys(C).map(k => `        ${q(k)}: 'var(--color-${k})',`).join('\n')
+      + `\n      },\n      borderRadius: { DEFAULT: '${R.default}px', sm: '${R.sm}px', md: '${R.md}px', lg: '${R.lg}px', xl: '${R.xl}px' },`
+      + `\n      fontFamily: { sans: [${S.font.split(',').map(f => q(f.trim().replace(/['"]/g,''))).join(', ')}] },\n    },\n  },\n`
+      + `  plugins: [\n    ({ addBase }) => addBase({\n      ':root': {\n${vars(L)}\n      },\n      '.dark': {\n${vars(D)}\n      },\n    }),\n  ],\n};\n`; },
+  'CSS': () => { const {L,D} = both(), v = t => SLOTS_OUT.map(k => `  --color-${OUT_NAME[k]}: ${t[k]};`).join('\n');
+    return `:root {\n${v(L)}\n  --radius: ${S.radius}px;\n  --font-sans: ${S.font};\n  --density: ${S.density};\n  --motion: ${S.motion}ms;\n}\n\n[data-theme="dark"] {\n${v(D)}\n}`; },
+  'DESIGN.md': () => { const {L,D} = both(), list = t => SLOTS_OUT.map(k => `- ${SLOT_DOC[k]}: ${t[k]}`).join('\n');
+    // Same layout the importer reads, so an exported file imports back unchanged.
+    return `# ${slug()} — Style Reference\n\n**Theme:** light (dark mode below)\n\n## Quick Color Reference\n${list(L)}\n\n## Dark mode\n${list(D)}\n\n`
+      + `## Tokens — Typography\n\n### ${fontName()} — Primary typeface for all text\n\n- **Substitute:** Inter\n\n`
+      + `## Tokens — Spacing & Shapes\n\n### Border Radius\n\n| Element | Value |\n|---------|-------|\n| default | ${S.radius}px |\n| buttons | ${Math.round(S.radius*.8)}px |\n\n`
+      + `## Notes\n\n- Density ${S.density}x spacing; motion ${S.motion}ms ease, none under reduced motion\n- Copy tone: ${S.tone} (e.g. "${COPY[S.tone].payErr}")\n- Every block has ready, loading, empty, error and success states\n- Never hard-code colours; use the tokens above\n`; },
+  'Tokens': () => { const {L,D} = both(), c = t => Object.fromEntries(SLOTS_OUT.map(k => [OUT_NAME[k], {$type:'color', $value:t[k]}]));
+    return JSON.stringify({color:{light:c(L), dark:c(D)}, radius:{default:{$type:'dimension',$value:S.radius+'px'}},
+      font:{family:{body:{$type:'fontFamily',$value:fontName()}}}, motion:{base:{$type:'duration',$value:S.motion+'ms'}}, density:{$value:S.density}}, null, 2); },
+  'Figma': () => { const {L,D} = both();
+    return `Collection "${slug()}"  modes: light | dark\n\n` + SLOTS_OUT.map(k => `color/${OUT_NAME[k].padEnd(19)}  ${L[k]}  |  ${D[k]}`).join('\n')
+      + `\nradius/default    ${S.radius}\nspace/scale       ${S.density}\nfont/body         ${fontName()}`; },
+};
+const FILE = {'shadcn':'globals.css', 'Tailwind v4':'app.css', 'Tailwind v3':'tailwind.config.js', 'MUI':'theme.js', 'Mantine':'theme.js',
+  'Chakra':'theme.js', 'SCSS':'_theme.scss', 'React Native':'theme.js', 'SwiftUI':'Theme.swift', 'Compose':'Theme.kt', 'CSS':'theme.css', 'DESIGN.md':'DESIGN.md', 'Tokens':'tokens.json', 'Figma':'figma-variables.txt'};
+const HINT = {'shadcn':'Complete globals.css for shadcn/ui on Tailwind v4: replace the whole file. Needs tw-animate-css installed.',
+  'Tailwind v4':'Your main CSS file in a Tailwind v4 project (no shadcn). Light in @theme, dark in .dark.',
+  'MUI':'Material UI v6+ theme with light and dark colour schemes, radius and font.',
+  'Mantine':'Mantine v7+ theme: a 10-shade brand scale plus page, text, border and error colours per mode.',
+  'Chakra':'Chakra UI v3 system: brand 50–950 scale and light/dark semantic tokens (bg, fg, border).',
+  'SCSS':'Sass maps for light and dark that also write CSS variables. Dark mode via data-theme="dark".',
+  'React Native':'Plain theme object for React Native or Expo, keyed by useColorScheme().',
+  'SwiftUI':'Colours that follow the iOS light/dark setting, plus corner radius and font name.',
+  'Compose':'Material 3 light and dark colour schemes, shapes and an AppTheme wrapper for Android.',
+  'Tailwind v3':'Replace tailwind.config.js. Colours switch with class="dark" on <html>; adjust content paths to your project.', 'CSS':'Plain CSS variables for any stack; dark mode via data-theme="dark".',
+  'DESIGN.md':'Hand to your AI coding tool so new screens match. Imports back into this builder.', 'Tokens':'W3C design-token format, light and dark.',
+  'Figma':'Light and dark values per variable, for a Figma variables collection.'};
+const TAB_ORDER = ['shadcn','Tailwind v4','Tailwind v3','CSS','SCSS','MUI','Mantine','Chakra','React Native','SwiftUI','Compose','DESIGN.md','Tokens','Figma'];
+function drawExport(){
+  $('#exTabs').innerHTML = TAB_ORDER.map(k=>`<button data-v="${k}" aria-pressed="${S.ex===k}">${k}</button>`).join('');
+  $('#exOut').textContent = EX[S.ex](); $('#exHint').textContent = HINT[S.ex];
+  $('#exSub').textContent = `${FILE[S.ex]} · light and dark · ${fontName()} · radius ${S.radius}px`;
+}
+$('#download').onclick = () => {
+  const url = URL.createObjectURL(new Blob([$('#exOut').textContent], {type:'text/plain'}));
+  Object.assign(document.createElement('a'), {href:url, download:FILE[S.ex]}).click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+$('#exTabs').onclick = e => { const v = e.target.dataset.v; if (v){ S.ex = v; drawExport(); } };
+document.querySelectorAll('[data-open-export]').forEach(b => b.onclick = () => { drawExport(); $('#ex').showModal(); });
+$('#exClose').onclick = () => $('#ex').close();
+$('#copy').onclick = () => { try { navigator.clipboard.writeText($('#exOut').textContent); $('#copy').textContent='Copied'; setTimeout(()=>$('#copy').textContent='Copy',1200); } catch(e){} };
+
+/* ---------- readability check: every text/background pair, WCAG AA ---------- */
+const CHECKS = [
+  ['Text on page', 'text', 'page', 4.5], ['Text on cards', 'text', 'card', 4.5], ['Muted text on cards', 'muted', 'card', 4.5],
+  ['Button text', 'primaryFg', 'primary', 4.5], ['Primary on cards', 'primary', 'card', 3],
+  ['Error text on cards', 'danger', 'card', 4.5], ['Success on cards', 'ok', 'card', 3],
+];
+function drawGuard(){
+  const T = theme(S.mode), res = CHECKS.map(([label, fg, bg, min], i) => ({i, label, min, cr:contrast(T[fg], T[bg])}));
+  const bad = res.filter(r => r.cr < r.min), dot = ok => `<i style="background:${ok ? 'var(--c-ok)' : 'var(--c-bad)'}"></i>`;
+  $('#guard').innerHTML = `<details class="read"${bad.length ? ' open' : ''}><summary>${dot(!bad.length)}Readability (${S.mode}): ${res.length - bad.length} of ${res.length} pass</summary>`
+    + `<div class="list">${res.map(r => { const plans = r.cr < r.min ? fixPlans(CHECKS[r.i]) : [];
+      return `<div class="ck">${dot(r.cr >= r.min)}<span>${r.label} · ${r.cr.toFixed(1)}:1${plans.length > 1 ? ` (needs ${r.min})` : ''}</span>`
+        + `${plans.length === 1 ? `<button data-fix="${r.i}">Fix</button>` : ''}</div>`
+        + (plans.length > 1 ? `<div class="fx2">${plans.map((p, j) => `<button data-fix="${r.i}" data-plan="${j}" title="${p.label}: ${p.slot === 'primary' ? 'button' : 'text'} becomes ${p.value}, ${p.note}"><span class="fxs" style="background:${p.bg};color:${p.fg}">Aa</span>`
+          + `<span>${p.label}<small>${p.note} · ${p.cr.toFixed(1)}:1</small></span></button>`).join('')}</div>` : ''); }).join('')}`
+    + `${bad.length > 1 ? `<div class="ck"><span></span><button data-fixall>Fix all</button></div>` : ''}</div></details>`;
+}
+// Fix checks every background the colour sits on (text is on both page and cards), so one fix never breaks another.
+// If no single colour can pass on all of them, it moves the failing background toward the other one instead.
+const stepTo = (c, to, k = .1) => '#' + hex2rgb(c).map((v, i) => Math.round(v + (hex2rgb(to)[i] - v) * k).toString(16).padStart(2,'0')).join('');
+// Ways to make one failing check pass, best first. Each is {slot, value, ...} and is only offered if it keeps
+// every other check on that colour passing. Button text gets two: move the button colour and keep the text colour
+// the file chose, or keep the brand colour exactly and change the text. Fix all takes the first.
+function fixPlans([, fg, bg, min]){
+  const T = theme(S.mode); if (contrast(T[fg], T[bg]) >= min) return [];
+  const ok = (slot, c) => CHECKS.every(([, f, b, m]) => f !== slot && b !== slot || contrast(f === slot ? c : T[f], b === slot ? c : T[b]) >= m);
+  const plans = [];
+  if (bg === 'primary') {   // step the button away from its text: darker under light text, lighter under dark text
+    let c = T.primary; const dark = lum(T.primaryFg) > .5;
+    for (let i = 0; i < 60 && !ok('primary', c); i++) c = stepTo(c, dark ? '#000000' : '#ffffff', .04);
+    if (ok('primary', c)) plans.push({slot:'primary', value:c, pin:T.primaryFg, bg:c, fg:T.primaryFg, cr:contrast(T.primaryFg, c),
+      label: dark ? 'Darken button' : 'Lighten button', note:'keeps your text colour'});
+  }
+  // moving the brand colour for links may leave its button text unreadable; that text is then re-picked (applyPlan)
+  const okFg = c => fg === 'primary' ? CHECKS.every(([, f, b, m]) => f !== 'primary' || contrast(c, T[b]) >= m) : ok(fg, c);
+  for (const to of ['#000000', '#ffffff']) {
+    let c = T[fg];
+    // button text goes straight to near-black or white: a grey label on a coloured button looks broken
+    if (fg === 'primaryFg') c = to === '#000000' ? '#111111' : '#ffffff';
+    for (let i = 0; i < 60 && !okFg(c); i++) c = stepTo(c, to);
+    if (okFg(c)) { plans.push({slot:fg, value:c, bg:T[bg], fg:c, cr:contrast(c, T[bg]),
+      label: lum(c) > .5 ? 'Light text' : 'Dark text', note:'keeps your brand colour'}); break; }
+  }
+  // a pale button (yellow, mint) would have to turn murky to carry light text: then changing the text is the smaller change
+  const far = (a, b) => Math.hypot(...hex2rgb(a).map((v, i) => v - hex2rgb(b)[i])) > 60;
+  if (plans.length === 2 && plans[0].pin && far(plans[0].value, T.primary)) plans.reverse();
+  if (plans.length) return plans;
+  // no colour of the text passes on every background it sits on: move the failing background toward the other one
+  const other = CHECKS.filter(c => c[1] === fg).map(p => p[2]).find(b => b !== bg);
+  let b = T[bg], to = other ? T[other] : (contrast(T[fg], '#000000') > contrast(T[fg], '#ffffff') ? '#ffffff' : '#000000');
+  for (let i = 0; i < 60 && contrast(T[fg], b) < min; i++) b = stepTo(b, to);
+  if (contrast(T[fg], b) < min) { to = contrast(T[fg], '#000000') > contrast(T[fg], '#ffffff') ? '#000000' : '#ffffff';
+    for (let i = 0; i < 60 && contrast(T[fg], b) < min; i++) b = stepTo(b, to); }
+  return [{slot:bg, value:b}];
+}
+function applyPlan(p){
+  if (!p) return;
+  // a moved button colour is kept only as an edit: theme() applies edits last, so the automatic dark-card lift can't
+  // undo it, and Undo on the colour row brings the original back
+  if (p.slot === 'primary') { S.edits = S.edits || {light:{}, dark:{}}; S.edits[S.mode].primary = p.value; S.preset = 'custom'; }
+  else setSlot(S.mode, p.slot, p.value);
+  // keep the text colour the button had; otherwise theme() would recompute it from the new button colour
+  if (p.pin) { S.edits = S.edits || {light:{}, dark:{}}; S.edits[S.mode].primaryFg = p.pin; }
+  else if (p.slot === 'primary') { const T = theme(S.mode);
+    if (contrast(T.primaryFg, T.primary) < 4.5) { S.edits = S.edits || {light:{}, dark:{}}; S.edits[S.mode].primaryFg = fgFor(T.primary); } }
+}
+const fixCheck = (c, j = 0) => applyPlan(fixPlans(c)[j]);
+$('#guard').addEventListener('click', e => { const b = e.target.closest('[data-fix],[data-fixall]'); if (!b) return; e.preventDefault();
+  // one fix can move a colour another check uses (links move the button colour), so go round until nothing fails
+  if ('fixall' in b.dataset) for (let n = 0; n < 4 && CHECKS.some(c => fixPlans(c).length); n++) for (const c of CHECKS) fixCheck(c);
+  else fixCheck(CHECKS[Number(b.dataset.fix)], Number(b.dataset.plan || 0));
+  render(); });
+
+/* ---------- design browser: 1,282 real styles in designs/ ---------- */
+// Designs a viewer hid as broken (their own browser only; the team list is designs/_hidden.json)
+let hiddenSet = null;
+const hiddenDesigns = () => hiddenSet || (hiddenSet = new Set((() => { try { return JSON.parse(localStorage.getItem('pramaan-hidden-designs') || '[]'); } catch { return []; } })()));
+const saveHidden = () => { try { localStorage.setItem('pramaan-hidden-designs', JSON.stringify([...hiddenDesigns()])); } catch {} };
+const G = {q:'', th:'all', n:60, i:'', c:'', r:''};
+// Filters built from each design's own data (scripts/build_gallery.py): industry label, main colour, corner style
+const FILTERS = [['i', 'Industry', v => v[0].toUpperCase() + v.slice(1)], ['c', 'Colour', v => v === 'neutral' ? 'Black and white' : v[0].toUpperCase() + v.slice(1)],
+  ['r', 'Corners', v => ({sharp:'Sharp (0–2px)', soft:'Soft (3–10px)', round:'Round (11–24px)', pill:'Pill (25px+)'})[v] || v]];
+const SWATCH = {red:'#dc2626', orange:'#ea580c', yellow:'#eab308', green:'#16a34a', teal:'#0d9488', blue:'#2563eb', purple:'#7c3aed', pink:'#db2777', neutral:'#8a8a8a'};
+// Words people type that mean a filter value ("rounded blue fintech"), matched against the design's labels too
+const labelsOf = d => `${d.i} ${d.th} ${d.c === 'neutral' ? 'black white monochrome neutral' : d.c} ${({sharp:'sharp square', soft:'soft', round:'round rounded', pill:'pill rounded'})[d.r] || ''}`;
+function drawGallery(){
+  const list = window.DESIGNS;
+  if (!list) { $('#galSub').textContent = 'Design library not found.'; $('#galMore').hidden = true;
+    $('#galGrid').innerHTML = '<p class="gnone">Put this page next to the designs/ folder and run <code>python3 scripts/build_gallery.py</code>.</p>'; return; }
+  const words = G.q.toLowerCase().split(/\s+/).filter(Boolean);
+  const ordered = G.order && G.order.length === list.length ? G.order.map(i => list[i]) : list, hid = hiddenDesigns();
+  const shown = ordered.filter(d => !hid.has(d.s));
+  const pass = (d, skip) => (G.th === 'all' || d.th === G.th) && FILTERS.every(([k]) => k === skip || !G[k] || d[k] === G[k]);
+  // Every word must appear somewhere; a hit in the name or site ranks above one in the labels, above one in the description
+  const score = d => { let s = 0; const name = `${d.t} ${d.d}`.toLowerCase(), lab = labelsOf(d).toLowerCase(), rest = `${d.ns} ${d.fo} ${d.k} ${d.x}`.toLowerCase();
+    for (const w of words) { if (name.includes(w)) s += 8; else if (lab.split(' ').includes(w)) s += 4; else if (rest.includes(w)) s += 1; else return 0; } return s || 1; };
+  let hits = shown.filter(d => pass(d)).map(d => [score(d), d]).filter(([s]) => s > 0);
+  if (words.length) hits.sort((a, b) => b[0] - a[0]);          // stable sort: the shuffled order breaks ties
+  hits = hits.map(([, d]) => d);
+  $('#galSub').textContent = `${hits.length.toLocaleString()} of ${shown.length.toLocaleString()} designs`;
+  // each dropdown counts what choosing that value would show, given the other filters
+  $('#galFil').innerHTML = FILTERS.map(([k, label, nice]) => { const n = {};
+      for (const d of shown) if (d[k] && pass(d, k) && (!words.length || score(d))) n[d[k]] = (n[d[k]] || 0) + 1;
+      return `<select data-f="${k}" class="${G[k] ? 'set' : ''}" aria-label="${label}"><option value="">${label}: any</option>`
+        + Object.keys(n).sort((a, b) => n[b] - n[a]).map(v => `<option value="${v}" ${G[k] === v ? 'selected' : ''}>${nice(v)} (${n[v]})</option>`).join('') + `</select>`; }).join('')
+    + (G.c ? `<i style="background:${SWATCH[G.c]}"></i>` : '')
+    + (G.i || G.c || G.r || G.th !== 'all' || G.q ? `<button data-clear>Clear all</button>` : '');
+  dress($('#galFil'));
+  $('#galTh').innerHTML = ['all','light','dark'].map(v => `<button data-th="${v}" aria-pressed="${G.th === v}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('');
+  $('#galGrid').innerHTML = hits.slice(0, G.n).map(d => `<button class="gcard" data-s="${d.s}" aria-label="${escA(d.d || d.t)}, ${escA([d.th, d.i].filter(Boolean).join(', '))}"><span class="gth">`
+    + `<img class="g0" loading="lazy" alt="" src="designs/${d.s}/${d.img}"></span>`
+    + `<div><b>${esc(d.t)}</b><small>${esc([d.th, d.i].filter(Boolean).join(' · '))}</small></div></button>`).join('') || '<p class="gnone">No designs match. Try fewer words, or clear a filter.</p>';
+  $('#galMore').hidden = hits.length <= G.n;
+}
+// A fresh random order every time the browser opens, so people see new references; it stays put while they search
+function openGallery(){
+  const list = window.DESIGNS || [];
+  G.order = list.map((_, i) => i);
+  for (let i = G.order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [G.order[i], G.order[j]] = [G.order[j], G.order[i]]; }
+  G.n = 60; showGrid(); drawGallery(); $('#gal').showModal(); $('#galGrid').scrollTop = 0; $('#galQ').focus();
+}
+function showGrid(){ $('#galDetail').hidden = true; $('#galGrid').hidden = false; $('.gbar').hidden = false; $('#galFil').hidden = false; }
+// Detail view: the site's full page as a scrollable image, its labels and colours, then Apply
+function showDesign(slug){
+  const d = (window.DESIGNS || []).find(x => x.s === slug); if (!d) return;
+  const shots = d.f ? [d.f] : (d.pv && d.pv.length ? d.pv : [d.img]);
+  $('#galGrid').hidden = true; $('.gbar').hidden = true; $('#galFil').hidden = true; $('#galMore').hidden = true;
+  $('#galDetail').hidden = false;
+  $('#galDetail').innerHTML = `<div class="gshot" tabindex="0" aria-label="Full page of ${escA(d.d || d.t)}">${shots.map(s => `<img alt="" src="designs/${d.s}/${s}">`).join('')}</div>`
+    + `<div class="ginfo"><h4>${esc(d.d || d.t)}</h4>${d.u ? `<a href="${escA(d.u)}" target="_blank" rel="noopener">${esc(d.u)}</a>` : ''}`
+    + `<span class="meta">${esc([d.th, d.i].filter(Boolean).join(' · '))}${d.fo ? ` · font ${esc(d.fo)}` : ''}</span>`
+    + `${d.ns ? `<span class="ns">${esc(d.ns)}</span>` : ''}${d.sw && d.sw.length ? `<div class="gsw">${d.sw.map(c => `<i title="${c}" style="background:${c}"></i>`).join('')}</div>` : ''}`
+    + `<p>${esc(d.x)}</p>${d.f ? '' : '<small>No full-page image for this one; showing the screen previews.</small>'}`
+    + `<div class="acts"><button class="cta" id="galApply">Apply this design</button><button class="ghost" id="galBack">Back to all designs</button></div>`
+    + `<button class="ghost" id="galHide" style="height:28px;font-size:12px;justify-self:start">Preview looks broken? Hide this design</button></div>`;
+  $('#galHide').onclick = () => { hiddenDesigns().add(slug); saveHidden(); showGrid(); drawGallery();
+    notify('Design hidden', `${esc(d.d || d.t)} won't show in the browser on this computer.`, 'info',
+      [['Undo', () => { hiddenDesigns().delete(slug); saveHidden(); drawGallery(); }]]); };
+  $('#galApply').onclick = () => applyFromGallery(slug);
+  $('#galBack').onclick = () => { showGrid(); drawGallery(); };
+  $('#galDetail .gshot').scrollTop = 0;
+}
+function applyFromGallery(slug){ $('#galHint').textContent = 'Loading…';
+  const sc = Object.assign(document.createElement('script'), {src:`designs/${slug}/style.js`});
+  sc.onerror = () => { $('#galHint').textContent = 'Could not load that design. Re-run scripts/build_gallery.py.'; };
+  document.head.appendChild(sc); }
+document.querySelectorAll('.top [data-open-gallery]').forEach(b => b.onclick = openGallery);
+$('#galQ').oninput = e => { G.q = e.target.value; G.n = 60; drawGallery(); };
+$('#galTh').onclick = e => { const v = e.target.dataset.th; if (v) { G.th = v; G.n = 60; drawGallery(); } };
+$('#galFil').onchange = e => { const k = e.target.dataset.f; if (k) { G[k] = e.target.value; G.n = 60; drawGallery(); } };
+$('#galFil').onclick = e => { if (!('clear' in e.target.dataset)) return; Object.assign(G, {q:'', th:'all', i:'', c:'', r:'', n:60}); $('#galQ').value = ''; drawGallery(); };
+$('#galMore').onclick = () => { G.n += 60; drawGallery(); };
+$('#galClose').onclick = () => $('#gal').close();
+// Each design's style.md is wrapped in designs/<slug>/style.js, which calls __designLoaded (works from file://)
+$('#galGrid').onclick = e => { const b = e.target.closest('.gcard'); if (b) showDesign(b.dataset.s); };
+// Hover pop-out: after a short pause on a card, a larger preview opens beside it and scrolls the full page.
+// It lives inside the dialog so it sits above the modal backdrop.
+const gpop = Object.assign(document.createElement('div'), {className:'gpop'}); gpop.setAttribute('aria-hidden', 'true'); gpop.popover = 'manual'; $('#gal').appendChild(gpop);
+let popTimer, popFor = null;
+function showPop(card){
+  const d = (window.DESIGNS || []).find(x => x.s === card.dataset.s); if (!d) return;
+  popFor = card; const src = `designs/${d.s}/${d.f || d.img}`;
+  gpop.innerHTML = `<img alt="" src="${src}"><div class="cap"><b>${esc(d.d || d.t)}</b>${esc([d.th, d.i].filter(Boolean).join(' · '))}</div>`;
+  const r = card.getBoundingClientRect(), W = 420, H = Math.min(540, innerHeight - 32);
+  gpop.style.height = H + 'px';
+  gpop.style.left = (r.right + 12 + W < innerWidth ? r.right + 12 : Math.max(16, r.left - 12 - W)) + 'px';
+  gpop.style.top = Math.max(16, Math.min(r.top - 40, innerHeight - H - 16)) + 'px';
+  const img = gpop.querySelector('img');
+  img.onload = () => { if (popFor !== card) return; const dist = Math.max(0, img.offsetHeight - H);
+    if (img.offsetHeight < H) gpop.style.height = img.offsetHeight + 'px';   // short capture: shrink to fit, no empty panel under it
+    img.style.setProperty('--dist', `-${dist}px`); img.style.setProperty('--scroll', `${Math.max(2, dist / 110).toFixed(1)}s`);   // ~110 px a second
+    requestAnimationFrame(() => img.classList.add('run')); };
+  gpop.showPopover(); requestAnimationFrame(() => gpop.classList.add('on'));
+}
+function hidePop(){ clearTimeout(popTimer); popFor = null; gpop.classList.remove('on'); if (gpop.matches(':popover-open')) gpop.hidePopover(); }
+$('#galGrid').addEventListener('pointerover', e => { const c = e.target.closest('.gcard'); if (!c || c === popFor) return;
+  hidePop(); popTimer = setTimeout(() => showPop(c), 280); });
+$('#galGrid').addEventListener('pointerleave', hidePop);
+$('#galGrid').addEventListener('pointerout', e => { const c = e.target.closest('.gcard'); if (c && !c.contains(e.relatedTarget)) hidePop(); });
+$('#galGrid').addEventListener('scroll', hidePop);
+$('#galGrid').addEventListener('click', hidePop);
+window.__designLoaded = (slug, md) => { const d = (window.DESIGNS || []).find(x => x.s === slug);
+  S.importText = md; S.importFrom = d ? (d.d || d.t) : slug; applyDesign(); $('#gal').close();   // site name, not Refero's long title
+  $('#galHint').textContent = 'Styles from real sites. Click one to see its full page before applying it.'; };
+
+/* ---------- auto-save in this browser, and share links ---------- */
+const SAVE_KEYS = ['preset','mode','device','appFont','locale','primary','font','radius','density','motion','tone','imported','importNote','edits','sources'];
+const snapshot = () => Object.fromEntries(SAVE_KEYS.map(k => [k, S[k]]));
+let saveTimer;
+function save(){ clearTimeout(saveTimer); saveTimer = setTimeout(() => {
+  try { localStorage.setItem('pramaan-ui-builder', JSON.stringify({...snapshot(), importText:S.importText.length < 200000 ? S.importText : ''})); } catch {} }, 300); }
+const b64u = s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const unb64u = s => decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
+function restore(){
+  let got = null;
+  try { const h = location.hash.match(/^#t=([\w-]+)$/); if (h) { got = JSON.parse(unb64u(h[1]));
+    history.replaceState(null, '', location.pathname + location.search); } } catch {}
+  if (!got) try { got = JSON.parse(localStorage.getItem('pramaan-ui-builder') || 'null'); } catch {}
+  if (!got || typeof got !== 'object') return;
+  if (got.importNote === 'Opened from a shared link.') got.importNote = '';   // older copies saved this note
+  for (const k of [...SAVE_KEYS, 'importText']) if (k in got) S[k] = got[k];
+  if (typeof S.radius !== 'number' || typeof S.density !== 'number' || !/^#[0-9a-f]{6}$/i.test(S.primary)) Object.assign(S, DEFAULTS, PRESETS.graphite);
+  // A look saved under an old preset name (neutral, ledger...) keeps its values as a custom look.
+  if (S.preset !== 'custom' && !PRESETS[S.preset]) S.preset = 'custom';
+  for (const f of S.font.split(',').slice(0, 2)) loadFont(f.replace(/['"]/g,'').trim());
+  if (S.imported) checkFont();
+}
+$('#share').onclick = async () => {
+  const url = location.href.split('#')[0] + '#t=' + b64u(JSON.stringify(snapshot()));
+  try { await navigator.clipboard.writeText(url); $('#share').textContent = 'Link copied'; } catch { prompt('Copy this link', url); }
+  setTimeout(() => { $('#share').textContent = 'Share link'; }, 1600);
+};
+
+/* ---------- fonts: lookalikes for paid fonts, and font file upload ---------- */
+// Paid or brand fonts → the closest free Google font, shown when the real one is not available
+const LOOKALIKE = {saans:'Inter', 'gt america':'Inter Tight', 'söhne':'Inter', sohne:'Inter', graphik:'Inter', circular:'DM Sans', avenir:'Nunito Sans',
+  'proxima nova':'Montserrat', helvetica:'Inter', 'sf pro':'Inter', 'founders grotesk':'Inter Tight', aeonik:'Manrope', gilroy:'Plus Jakarta Sans',
+  'neue montreal':'Inter', neuemontreal:'Inter', suisse:'Inter', 'untitled sans':'Inter', diatype:'Inter', apercu:'DM Sans', basier:'Manrope',
+  calibre:'Inter', matter:'Manrope', euclid:'Outfit', eina:'Poppins', gotham:'Montserrat', futura:'Jost', 'neue haas':'Inter', akzidenz:'Inter',
+  favorit:'Inter', 'gt walsheim':'DM Sans', cera:'Outfit', roobert:'Manrope', 'atlas grotesk':'Inter', whyte:'Inter', 'aktiv grotesk':'Inter',
+  mabry:'Space Grotesk', polysans:'Space Grotesk', tiempos:'Source Serif 4', 'gt sectra':'Fraunces', canela:'Fraunces', recoleta:'Fraunces',
+  'editorial new':'Playfair Display', freight:'Libre Caslon Text', lyon:'Source Serif 4', 'gt alpina':'Fraunces', ivy:'Playfair Display',
+  domaine:'Playfair Display', 'berkeley mono':'JetBrains Mono', 'sf mono':'JetBrains Mono'};
+function lookalike(font, sub){
+  const f = font.toLowerCase();
+  for (const [k, v] of Object.entries(LOOKALIKE)) if (f.includes(k)) return v;
+  if (sub && !/^(system|sans|serif|ui-|arial|helvetica)/i.test(sub)) return sub;
+  return /mono|code/.test(f) ? 'JetBrains Mono' : /serif|garamond|caslon|times|georgia/.test(f) && !/sans/.test(f) ? 'Source Serif 4' : 'Inter';
+}
+// A font is available if text set in it measures differently from the browser's fallback
+const hasFont = name => { const c = document.createElement('canvas').getContext('2d'), s = 'mmmmmmmmmmlli1WQ@#&';
+  return ['monospace','serif'].some(b => { c.font = `40px ${b}`; const w = c.measureText(s).width; c.font = `40px '${name}', ${b}`; return c.measureText(s).width !== w; }); };
+function checkFont(){
+  const [font, alt] = S.font.split(',').map(f => f.replace(/['"]/g,'').trim()), stack = S.font;
+  const run = () => { if (S.font !== stack) return;   // a newer design or font has replaced this one
+    const before = S.fontNote;
+    S.fontNote = hasFont(font) ? '' : `${esc(font)} isn't available here, so the preview shows ${alt && !/^system/.test(alt) ? esc(alt) + ', a close match' : 'the system font'}. Upload the font file to see it exactly.`;
+    if (S.fontNote !== before) { render();
+      if (S.fontNote) notify(`Font not available: ${esc(font)}`, alt && !/^system/.test(alt) ? `Showing ${esc(alt)}, the closest free match.` : 'Showing the system font.',
+        'warn', [['Upload font file', () => $('#fontFile')?.click()]], true); } };
+  setTimeout(run, 1500); setTimeout(run, 4000);   // after the Google Fonts stylesheet and files arrive
+}
+async function useFontFile(f){
+  if (!f) return;
+  const cur = fontName(), name = cur && !/^(geist|inter|system-ui)$/i.test(cur) ? cur : f.name.replace(/\.[^.]+$/,'');
+  try { const face = new FontFace(name, await f.arrayBuffer()); await face.load(); document.fonts.add(face);
+    if (fontName() !== name) S.font = `'${name}', system-ui, sans-serif`;
+    S.preset = 'custom'; S.fontNote = `Showing ${esc(name)} from ${esc(f.name)}. The file stays on this computer until you reload.`;
+  } catch { S.fontNote = `${esc(f.name)} could not be read as a font. Use a .woff2, .woff, .otf or .ttf file.`; }
+  render();
+}
+
+/* ---------- render ---------- */
+const BASE = {
+  light:{page:'#f4f4f5', card:'#ffffff', text:'#09090b', muted:'#71717a', line:'#e4e4e7', soft:'#f4f4f5', danger:'#dc2626', ok:'#16a34a'},
+  dark: {page:'#0b0b0d', card:'#141416', text:'#fafafa', muted:'#a1a1aa', line:'#27272a', soft:'#1f1f23', danger:'#f87171', ok:'#4ade80'},
+};
+/** The full resolved palette for one mode: defaults, then the imported design, then a readable primary. */
+function theme(mode){
+  const pal = (S.imported && S.imported[mode]) || {};
+  // Defaults follow the page the file gives, not the mode label: a dark page under "light" (Refero mislabels some)
+  // gets dark defaults tinted from that page, so white text never lands on white default cards.
+  let base = BASE[mode];
+  if (pal.bg && (lum(pal.bg) < .18) !== (mode === 'dark')) base = lum(pal.bg) < .18
+    ? {...BASE.dark, card:mix(pal.bg, '#ffffff', .06), soft:mix(pal.bg, '#ffffff', .1), line:mix(pal.bg, '#ffffff', .16)} : BASE.light;
+  const t = {...base};
+  for (const k of ['card','text','muted','line','soft','danger','ok']) if (pal[k]) t[k] = pal[k];
+  if (pal.bg) t.page = pal.bg;
+  let p = pal.primary || S.primary;
+  // No primary for this mode and the cards are dark: a near-black brand (Vercel, Neutral) would vanish on them.
+  if (!pal.primary && lum(t.card) < .18) { const ch = hex2rgb(p);
+    // a grey/black brand flips to near-white (as shadcn's neutral theme does); a coloured one is lightened
+    if (Math.max(...ch) - Math.min(...ch) < 16 && contrast(p, t.card) < 4.5) p = pal.text || '#fafafa';
+    for (let i = 0; i < 20 && contrast(p, t.card) < 4.5; i++) p = '#' + hex2rgb(p).map(v => Math.round(v + (255 - v) * .15).toString(16).padStart(2,'0')).join(''); }
+  t.primary = p; t.primaryFg = pal.primaryFg || fgFor(p);
+  // the user's own edits from the colour table win over everything
+  const ed = (S.edits && S.edits[mode]) || {};
+  Object.assign(t, ed);
+  if (ed.primary && !ed.primaryFg) t.primaryFg = fgFor(ed.primary);
+  return t;
+}
+
+/** One colour change from the table or a Fix button. Light primary stays in S.primary so the Look picker matches. */
+function setSlot(mode, k, v){
+  if (k === 'primary' && mode === 'light') { S.primary = v; if (S.sources?.light) delete S.sources.light.primary;
+    if (S.imported) delete S.imported.light.primaryFg; S.preset = 'custom'; return; }
+  S.edits = S.edits || {light:{}, dark:{}}; S.edits[mode][k] = v; S.preset = 'custom';
+}
+
+/** Where a colour in the table came from, in plain words. */
+function slotSource(mode, k){
+  if (S.edits?.[mode]?.[k]) return 'Edited by you';
+  const src = S.sources?.[mode]?.[k];
+  if (src) return 'From file: ' + src;
+  if (k === 'primary') return mode === 'light' ? (S.imported ? 'From file' : S.preset === 'custom' ? 'Picked by you' : 'From preset') : 'Auto: readable on dark cards';
+  if (k === 'primaryFg') return 'Auto: readable on the primary colour';
+  return S.imported ? 'Default (not in your file)' : 'Default';
+}
+
+function refreshRows(){
+  const pr = $('#rows [data-k="primary"]'); if (pr) pr.closest('.row').querySelector('b').textContent = theme('light').primary.toUpperCase();
+  document.querySelectorAll('#rows .chip').forEach(c => c.style.background = theme('light').primary);
+  const T = theme(S.mode);
+  document.querySelectorAll('#rows .crow').forEach(r => { const k = r.querySelector('input').dataset.slot;
+    r.querySelector('.sw2').style.background = T[k]; r.querySelector('code').textContent = T[k]; r.querySelector('small').textContent = slotSource(S.mode, k); });
+}
+
+function render(redrawRows = true){
+  const st = $('#stage'), T = theme(S.mode);
+  // The page colour belongs to the preview device only; the builder canvas around it never changes.
+  Object.entries({'--p':T.primary, '--p-fg':T.primaryFg, '--page':T.page, '--card':T.card, '--text':T.text, '--muted':T.muted,
+    '--line':T.line, '--soft':T.soft, '--danger':T.danger, '--ok':T.ok,
+    '--r':S.radius+'px', '--d':S.density, '--m':S.motion+'ms', '--font':S.font}).forEach(([k,v]) => st.style.setProperty(k,v));
+  st.className = `stage ${S.mode} ${S.device}`;
+  st.dir = S.locale.startsWith('ar') ? 'rtl' : 'ltr';
+  st.innerHTML = S.device === 'ios' || S.device === 'android' ? appScreens(S.device)
+    : `${site()}<div class="grid">${cards()}</div>`
+      + `<div class="sec">Components <small>The parts most real designs use, so an imported style shows on each one.</small></div>`
+      + `<div class="grid">${gallery()}</div>${footer()}`;
+  if (redrawRows) drawRows(); else refreshRows();
+  drawDock(); drawGuard(); save();
+}
+
+// No design library on the site yet: hide the buttons that open it
+if (!window.DESIGNS) document.querySelectorAll('.top [data-open-gallery]').forEach(b => b.style.display = 'none');
+// Website mobile menu
+const navToggle = document.querySelector('[data-nav-toggle]');
+navToggle.onclick = () => navToggle.setAttribute('aria-expanded', String(document.body.classList.toggle('nav-open')));
+
+const openedFromLink = () => { $('#sharedTag').hidden = false; };
+const fromLink = /^#t=/.test(location.hash);
+restore();
+render();
+if (fromLink) openedFromLink();
+$('#stage').addEventListener('click', e => { const b = e.target.closest('[data-appfont]'); if (b) { S.appFont = b.dataset.appfont; render(); } });
+// keyboard vs mouse, for the sidebar rows' focus outline
+document.addEventListener('keydown', e => { if (e.key === 'Tab') document.documentElement.dataset.kb = '1'; });
+document.addEventListener('pointerdown', () => { delete document.documentElement.dataset.kb; });
+// a shared link pasted into a tab that already shows the builder only changes the hash
+window.addEventListener('hashchange', () => { if (/^#t=/.test(location.hash)) { restore(); render(); openedFromLink(); } });
+</script>
+</body>
+</html>
