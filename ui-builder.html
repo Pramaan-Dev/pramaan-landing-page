@@ -786,7 +786,7 @@ function drawRows(){
         + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
     }
     if (g==='Look') { const T = theme(S.mode);
-      h += `<div class="grp">Colours · ${S.mode==='dark'?'dark':'light'} mode <em>click to edit</em></div><div class="ctab">`
+      h += `<div class="grp">Colours (${S.mode==='dark'?'dark':'light'})</div><div class="ctab">`
         + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
           return `<label class="crow" title="${escA(src)}"><span class="sw2" style="background:${T[k]}"></span>`
             + `<span class="t"><b>${SLOT_DOC[k]}<code>${T[k]}</code></b><small>${esc(src)}</small></span>`
