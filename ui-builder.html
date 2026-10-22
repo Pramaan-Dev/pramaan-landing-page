@@ -466,8 +466,10 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 /* ---------- Glass chrome: islands, pill buttons, one accent (DESIGN.md §6–7) ---------- */
 .top,.side,.canvas{background:var(--glass);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.1);backdrop-filter:blur(var(--blur)) saturate(1.1);
   border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);border-radius:var(--r-island)}
-.top{height:56px;margin:var(--gap) var(--gap) 0;padding:0 12px 0 20px;gap:10px}
-.app{gap:var(--gap);padding:var(--gap);height:calc(100vh - 80px - 56px - var(--gap));min-height:560px}
+.top{height:56px;margin-top:var(--gap);padding:0 12px 0 20px;gap:10px}
+.app{gap:var(--gap);padding:var(--gap) 0;height:calc(100vh - 80px - 56px - var(--gap));min-height:560px}
+/* line the builder up with the header and heading column */
+.top,.app{width:calc(100% - 2*var(--gutter));max-width:calc(var(--page-max-width) - 2*var(--gutter));margin-left:auto;margin-right:auto}
 .wordmark{display:inline-flex;align-items:center;gap:7px;font:400 21px var(--serif);letter-spacing:-.02em;color:var(--fg);text-decoration:none}
 .wordmark i{width:8px;height:8px;border-radius:50%;background:var(--fg);margin-top:6px}
 .crumb{font:400 22px var(--serif);letter-spacing:-.02em;color:var(--fg);white-space:nowrap}
@@ -552,9 +554,11 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
     <a href="index.html" class="site-logo" aria-label="Pramaan home"><span class="site-logo__mark" aria-hidden="true"></span><span class="site-logo__word">pramaan</span></a>
     <nav class="site-nav__links" aria-label="Primary">
       <a href="index.html#how">How it works</a>
+      <a href="index.html#tasks">What you can do</a>
       <a href="superpowers.html">Superpowers</a>
       <a href="missions.html">Missions</a>
       <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
     </nav>
     <div class="site-nav__actions">
       <a href="index.html#login" class="site-btn site-btn--ghost">Log in</a>
