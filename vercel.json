@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/security.txt", "destination": "/.well-known/security.txt", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/SKILL.md", "destination": "/skill.md" },
     { "source": "/skills/:slug/SKILL.md", "destination": "/skills/:slug/skill.md" }
