@@ -544,6 +544,10 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 .ddi{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px 6px 8px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;text-align:left;white-space:nowrap;cursor:default}
 .ddi:hover,.ddi:focus-visible{background:var(--btn-glass-hover);outline:none} .ddi[aria-selected="true"]{font-weight:500}
 .ddc{display:inline-flex;flex:none;width:16px;height:16px} .dds{height:1px;margin:4px -4px;background:var(--line)}
+.ddq{display:block;width:calc(100% - 4px);margin:2px 2px 6px;height:32px;padding:0 10px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--glass-strong);color:var(--fg);font:inherit;font-size:12.5px}
+.ddq:focus{outline:none;border-color:var(--fg)}
+.ddh{padding:8px 10px 4px;font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:-.02em} .ddh:empty{display:none}
+.ddi[hidden]{display:none}
 @media (prefers-reduced-motion: reduce){ .ddm,.ddt svg,.glyph svg{transition:none} }
 @media (max-width: 860px){
   .app{grid-template-columns:1fr;height:auto}
@@ -576,6 +580,7 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 <section class="uib-hero site-wrap">
   <span class="uib-tag"><i></i>Free tool</span>
   <h1>UI builder</h1>
+  <p>Design your app's look in minutes.</p>
 </section>
 
 <div class="top">
@@ -702,32 +707,61 @@ function dress(root){
     const m = Object.assign(document.createElement('div'), {className:'ddm', popover:'auto'});
     t.setAttribute('aria-haspopup', 'listbox'); t.setAttribute('aria-expanded', 'false'); t.setAttribute('aria-label', cur.startsWith(name) ? cur : `${name}: ${cur}`);
     if (!row) { t.innerHTML = `<span></span>${CHEVRON}`; t.firstChild.textContent = cur; }   // in a sidebar row the row itself shows the value
+    const isFont = sel.dataset.k === 'font';
+    if (isFont) m.innerHTML = `<input class="ddq" type="text" placeholder="Search Google fonts" aria-label="Search fonts" autocomplete="off" spellcheck="false">`;
     m.setAttribute('role', 'listbox'); m.setAttribute('aria-label', name);
     for (const o of sel.options){
       const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:`<span class="ddc">${o.selected ? CHECK : ''}</span><span></span>`});
       b.lastChild.textContent = o.textContent; b.dataset.v = o.value; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', o.selected);
       m.append(b); if (o.value === '') m.append(Object.assign(document.createElement('div'), {className:'dds'}));   // "any" sits apart from the real values
     }
+    if (isFont) { m.append(Object.assign(document.createElement('div'), {className:'ddh', textContent:'Google Fonts'}), Object.assign(document.createElement('div'), {className:'ddg'}));
+      const q = m.querySelector('.ddq');
+      q.oninput = () => fontSearch(m, q.value);
+      q.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); [...m.querySelectorAll('.ddi')].find(b => !b.hidden)?.click(); }
+        if (e.key === 'Escape') { e.preventDefault(); m.hidePopover(); t.focus(); } };
+      fontSearch(m, ''); }
     t.popoverTargetElement = m;
     t.onkeydown = e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); m.showPopover(); } };
     m.addEventListener('beforetoggle', e => { if (e.newState !== 'open') return;
-      const r = t.getBoundingClientRect(), w = Math.max(160, r.width), want = Math.min(320, sel.options.length * 32 + 10), below = innerHeight - r.bottom - 12, up = below < want && r.top > below;
-      Object.assign(m.style, {minWidth: w + 'px', left: Math.max(8, Math.min(r.left, innerWidth - w - 8)) + 'px', maxHeight: Math.min(320, up ? r.top - 12 : below) + 'px',
+      const r = t.getBoundingClientRect(), w = Math.max(isFont ? 240 : 160, r.width), cap = isFont ? 380 : 320, want = isFont ? cap : Math.min(cap, sel.options.length * 32 + 10), below = innerHeight - r.bottom - 12, up = below < want && r.top > below;
+      Object.assign(m.style, {minWidth: w + 'px', left: Math.max(8, Math.min(r.left, innerWidth - w - 8)) + 'px', maxHeight: Math.min(cap, up ? r.top - 12 : below) + 'px',
         top: up ? 'auto' : r.bottom + 4 + 'px', bottom: up ? innerHeight - r.top + 4 + 'px' : 'auto'}); });
     m.addEventListener('toggle', e => { const open = e.newState === 'open'; t.setAttribute('aria-expanded', open);
-      if (open) (m.querySelector('[aria-selected="true"]') || m.firstChild).focus(); });
+      const q = m.querySelector('.ddq'); if (open && q && q.value) { q.value = ''; fontSearch(m, ''); }   // each opening starts a fresh search
+      if (open) (q || m.querySelector('[aria-selected="true"]') || m.firstChild).focus(); });
     m.addEventListener('click', e => { const b = e.target.closest('.ddi'); if (!b) return;
+      if (b.dataset.gf) { m.hidePopover(); useGoogleFont(b.dataset.gf, b.dataset.c); return; }
       const again = sel.dataset.k ? `select[data-k="${sel.dataset.k}"]` : `select[data-f="${sel.dataset.f}"]`;
       m.hidePopover();
-      if (sel.value !== b.dataset.v) { sel.value = b.dataset.v; sel.dispatchEvent(new Event('input', {bubbles:true})); sel.dispatchEvent(new Event('change', {bubbles:true})); }
+      // no option marked selected = the current value is not in the list (a Google or imported font): any pick is a change
+      if (sel.value !== b.dataset.v || !sel.querySelector('option[selected]')) { sel.value = b.dataset.v; sel.dispatchEvent(new Event('input', {bubbles:true})); sel.dispatchEvent(new Event('change', {bubbles:true})); }
       root.querySelector(again)?.nextElementSibling?.focus(); });   // the redraw replaced the trigger: put focus on the new one
-    m.addEventListener('keydown', e => { const items = [...m.querySelectorAll('.ddi')], i = items.indexOf(document.activeElement), n = items.length;
+    m.addEventListener('keydown', e => { if (e.target.classList.contains('ddq') && !['ArrowDown','ArrowUp','Tab'].includes(e.key)) return;   // typing in the search box
+      const items = [...m.querySelectorAll('.ddi')].filter(b => !b.hidden), i = items.indexOf(document.activeElement), n = items.length;
       const to = e.key === 'ArrowDown' ? items[(i + 1) % n] : e.key === 'ArrowUp' ? items[(i - 1 + n) % n] : e.key === 'Home' ? items[0] : e.key === 'End' ? items[n - 1]
         : e.key === 'Tab' ? (m.hidePopover(), t)
         : e.key.length === 1 && e.key !== ' ' ? items.slice(i + 1).concat(items).find(b => b.textContent.trim().toLowerCase().startsWith(e.key.toLowerCase())) : null;
       if (to) { e.preventDefault(); to.focus(); } });
     sel.after(t, m);
   }
+}
+// Font menu search: the built-in fonts that match, then up to 40 Google fonts (most popular first) from data/google-fonts.json,
+// fetched once on first use. An empty search shows the 25 most popular.
+let googleFonts;
+async function fontSearch(m, raw){
+  const q = raw.trim().toLowerCase();
+  for (const b of m.querySelectorAll('.ddi:not([data-gf])')) b.hidden = !!q && !b.textContent.toLowerCase().includes(q);
+  googleFonts ||= fetch('data/google-fonts.json').then(r => r.json()).catch(() => []);
+  const list = await googleFonts, own = new Set(FONTS.map(f => f[1].toLowerCase()));
+  if (m.querySelector('.ddq').value.trim().toLowerCase() !== q) return;   // a newer keystroke is already searching
+  const hits = list.filter(([f]) => !own.has(f.toLowerCase()) && (!q || f.toLowerCase().includes(q)))
+    .sort((a, b) => q ? a[0].toLowerCase().startsWith(q) === b[0].toLowerCase().startsWith(q) ? 0 : a[0].toLowerCase().startsWith(q) ? -1 : 1 : 0)
+    .slice(0, q ? 40 : 25);
+  const g = m.querySelector('.ddg'); g.textContent = '';
+  for (const [f, c] of hits) { const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:'<span class="ddc"></span><span></span>'});
+    b.lastChild.textContent = f; b.dataset.gf = f; b.dataset.c = c; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', fontName() === f); if (fontName() === f) b.firstChild.innerHTML = CHECK; g.append(b); }
+  m.querySelector('.ddh').textContent = hits.length ? 'Google Fonts' : q ? 'No Google font by that name' : '';
 }
 // a panel is placed against the window, so it closes when anything behind it scrolls
 document.addEventListener('scroll', e => { if (!e.target.closest?.('.ddm')) document.querySelector('.ddm:popover-open')?.hidePopover(); }, true);
@@ -748,8 +782,7 @@ function drawRows(){
       const ctl = color ? `<input type="color" data-k="primary" value="${S.primary}" aria-label="${label}">`
         : `<select data-k="${key}" aria-label="${label}">${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(S[key])?'selected':''}>${l}</option>`).join('')}</select>`;
       h += `<label class="row"><span class="t"><small>${label}</small><b>${val}</b></span>${icon}${ctl}</label>`;
-      if (key==='font') h += `<div class="urlrow"><input id="gfont" placeholder="Any Google font" title="Type a Google Fonts name, for example Manrope" aria-label="Google font name" autocomplete="off" spellcheck="false"><button class="ghost" id="useGfont" style="height:32px">Use</button></div>`
-        + `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
+      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
         + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
     }
     if (g==='Look') { const T = theme(S.mode);
@@ -770,8 +803,6 @@ function drawRows(){
   $('#rows').innerHTML = h; dress($('#rows'));
   if ($('#extract')) $('#extract').onclick = extract;
   $('#pickFont').onclick = () => $('#fontFile').click();
-  $('#useGfont').onclick = () => useGoogleFont($('#gfont').value);
-  $('#gfont').onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); useGoogleFont(e.target.value); } };
   $('#fontFile').onchange = e => useFontFile(e.target.files[0]);
   document.querySelectorAll('#rows [data-open-gallery]').forEach(b => b.onclick = openGallery);
   wireDesign();
@@ -1806,17 +1837,18 @@ function checkFont(){
         'warn', [['Upload your font', () => $('#fontFile')?.click()]], true); } };
   setTimeout(run, 1500); setTimeout(run, 4000);   // after the Google Fonts stylesheet and files arrive
 }
-// A font typed by name: asked of Google Fonts directly (not through loadFont, whose paid-font list would block names it
-// merely contains), so any family Google has today works. Unknown names are refused with the fix.
-async function useGoogleFont(raw){
+// A font picked from the Font menu's Google search: asked of Google Fonts directly (not through loadFont, whose paid-font
+// list would block names it merely contains). cat is the list's category letter, for the fallback fonts.
+async function useGoogleFont(raw, cat){
   const typed = String(raw || '').replace(/['";]/g, '').trim(); if (!typed) return;
   const name = GF_ALIAS[typed] || typed, id = 'gf-' + name.replace(/\W/g, '');
+  const fallback = cat === 'r' ? 'Georgia, serif' : cat === 'm' ? 'ui-monospace, monospace' : 'system-ui, sans-serif';
   const css = await fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
     .then(r => r.ok ? r.text() : '').catch(() => '');
   if (!css) return notify(`Font not found: ${esc(typed)}`, 'Google Fonts has no font by that name. Check the spelling, or upload the font file.', 'err',
     [['Upload your font', () => $('#fontFile')?.click()]]);
   if (!document.getElementById(id)) document.head.appendChild(Object.assign(document.createElement('style'), {id, textContent:css}));
-  Object.assign(S, {font:`'${name}', system-ui, sans-serif`, fontNote:'', preset:'custom'});
+  Object.assign(S, {font:`'${name}', ${fallback}`, fontNote:'', preset:'custom'});
   render(); checkFont();
   notify(`Font: ${esc(name)}`, 'Loaded from Google Fonts.', 'ok');
 }
