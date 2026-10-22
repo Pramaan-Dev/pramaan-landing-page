@@ -509,6 +509,11 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .dock button{border-radius:var(--r-pill);padding:6px 12px;color:var(--fg-3)}
 .dock button[aria-pressed="true"]{background:var(--btn-glass-hover);color:var(--fg);box-shadow:var(--btn-shadow)}
 .dock .sep{background:var(--line)}
+/* the preview options sit in the toolbar, not floating over the preview */
+.top{height:auto;min-height:56px;flex-wrap:wrap;row-gap:6px;padding-top:8px;padding-bottom:8px}
+.top .dock{position:static;translate:none;margin:0;width:auto;padding:0;border:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;justify-content:flex-start}
+.top .dock button{padding:6px 10px;font-size:12.5px}
+body .canvas{padding-bottom:24px}
 .seg2{background:var(--surface-sunk);border-radius:var(--r-pill)} .seg2 button{border-radius:var(--r-pill)}
 .seg2 button[aria-pressed="true"]{background:var(--btn-glass-hover);box-shadow:var(--btn-shadow)}
 .stage:not(.ios):not(.android){border-color:var(--card-edge);box-shadow:var(--card-shadow)}
@@ -574,6 +579,7 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 </section>
 
 <div class="top">
+  <div class="dock" id="dock"></div>
   <span class="shared" id="sharedTag" hidden>Shared design</span>
   <span class="sp"></span>
   <button class="ghost" data-open-gallery>Browse designs</button>
@@ -593,7 +599,6 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 
   <main class="canvas">
     <div class="stage" id="stage"></div>
-    <div class="dock" id="dock"></div>
   </main>
 </div>
 
