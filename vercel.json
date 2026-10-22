@@ -7,6 +7,7 @@
     { "source": "/skills/:slug/SKILL.md", "destination": "/skills/:slug/skill.md" }
   ],
   "headers": [
+    { "source": "/", "headers": [{ "key": "Link", "value": "</.well-known/ai-catalog.json>; rel=\"ai-catalog\", </skill.md>; rel=\"alternate\"; type=\"text/markdown\"" }] },
     { "source": "/(.*)\\.md", "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }] },
     { "source": "/(.*)\\.txt", "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }] }
   ]

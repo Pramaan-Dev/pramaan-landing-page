@@ -1,0 +1,50 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Pramaan",
+    "identifier": "https://www.pramaan.dev",
+    "documentationUrl": "https://www.pramaan.dev/skill.md"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:pramaan.dev:docs:skill",
+      "displayName": "Pramaan agent skill",
+      "type": "text/markdown",
+      "url": "https://www.pramaan.dev/skill.md",
+      "description": "How an agent uses Pramaan end to end: getting a key, finding an action, building a request, running it safely and reading errors.",
+      "tags": ["skills", "documentation", "getting-started"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:docs:category-skills",
+      "displayName": "Pramaan category skills",
+      "type": "text/markdown",
+      "url": "https://www.pramaan.dev/skills/index.md",
+      "description": "One skill per category: people and companies, web search, email, texting and calls, social media, ads, payments, documents, media, AI models, apps, developer tools, identity.",
+      "tags": ["skills", "documentation"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:docs:llms",
+      "displayName": "llms.txt",
+      "type": "text/plain",
+      "url": "https://www.pramaan.dev/llms.txt",
+      "description": "Short index of the pages and files agents need.",
+      "tags": ["llms", "documentation"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:mcp:npm",
+      "displayName": "Pramaan MCP server",
+      "type": "text/html",
+      "url": "https://www.npmjs.com/package/@pramaan/mcp",
+      "description": "MCP server that lists, describes and runs Pramaan capabilities. Run with PRAMAAN_API_KEY=... npx @pramaan/mcp.",
+      "tags": ["mcp", "npm"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:sdk:typescript",
+      "displayName": "Pramaan TypeScript SDK",
+      "type": "text/html",
+      "url": "https://www.npmjs.com/package/@pramaan/sdk",
+      "description": "Call any Pramaan capability over the hosted API. npm install @pramaan/sdk.",
+      "tags": ["sdk", "npm", "typescript"]
+    }
+  ]
+}

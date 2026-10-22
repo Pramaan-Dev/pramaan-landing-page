@@ -113,3 +113,4 @@ writeFileSync(`${root}/data/missions.json`, JSON.stringify({
   missions: missions.sort(byName),
 }));
 console.log(`${Object.keys(CATALOG).length} superpowers in ${fams.length} families, ${missions.length} missions.`);
+await import("./prerender-catalogue.mjs");
