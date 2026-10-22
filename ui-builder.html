@@ -96,7 +96,7 @@ svg{flex:none}
 .ghost{height:34px;padding:0 12px;border:1px solid var(--c-line);border-radius:8px;background:var(--c-panel);cursor:pointer}
 .ghost:hover{background:var(--c-hover)}
 
-.app{display:grid;grid-template-columns:260px 1fr;gap:12px;padding:0 12px 12px;height:calc(100vh - 56px)}
+.app{display:grid;grid-template-columns:300px 1fr;gap:12px;padding:0 12px 12px;height:calc(100vh - 56px)}
 
 /* sidebar */
 .side{background:var(--c-panel);border:1px solid var(--c-line);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
@@ -670,10 +670,7 @@ const GROUPS = [
     ['radius','Radius', [[0,'None'],[4,'Small'],[10,'Medium'],[12,'Large'],[20,'Full']]],
     ['density','Density', [[.85,'Compact'],[1,'Default'],[1.05,'Relaxed'],[1.1,'Comfortable']]],
     ['motion','Motion', [[0,'Off'],[120,'Snappy'],[180,'Smooth'],[200,'Smooth+'],[280,'Gentle']]],
-  ]],
-  // these change only the sample screens, not the design or the exported code
-  ['Preview with', null, [
-    ['tone','Copy tone', [['plain','Plain'],['friendly','Friendly'],['formal','Formal']]],
+    // changes only the sample screens, not the design or the exported code. Copy tone has no row; presets still set it.
     ['locale','Locale', [['en-US|USD','English · USD'],['en-IN|INR','English · INR'],['ar-AE|AED','Arabic · RTL']]],
   ]],
 ];
@@ -734,7 +731,7 @@ document.addEventListener('scroll', e => { if (!e.target.closest?.('.ddm')) docu
 function drawRows(){
   let h = '';
   for (const [g,badge,rows] of GROUPS){
-    h += `<div class="grp">${g}${badge?`<em>${badge}</em>`:''}</div>`;
+    if (g !== 'Look') h += `<div class="grp">${g}${badge?`<em>${badge}</em>`:''}</div>`;
     for (const [key,label,opts] of rows){
       const color = opts==='color';
       const val = color ? theme('light').primary.toUpperCase() : labelOf(opts,S[key]);
@@ -745,7 +742,7 @@ function drawRows(){
       const ctl = color ? `<input type="color" data-k="primary" value="${S.primary}" aria-label="${label}">`
         : `<select data-k="${key}" aria-label="${label}">${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(S[key])?'selected':''}>${l}</option>`).join('')}</select>`;
       h += `<label class="row"><span class="t"><small>${label}</small><b>${val}</b></span>${icon}${ctl}</label>`;
-      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload font file</button>`
+      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
         + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
     }
     if (g==='Look') { const T = theme(S.mode);
@@ -757,10 +754,10 @@ function drawRows(){
         + `<div class="urlnote">Switch Light or Dark in the bottom bar to edit that mode.</div></div>`; }
     // "From my site → Extract" stays out until it calls companies.brand.styleguide from a server route (extract() below is a stand-in)
     if (g==='Look') h += `<div class="grp">Bring your design <em>new</em></div><div class="bring">`
+      + `<div class="ex"><button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
       + `<textarea id="design" spellcheck="false" aria-label="Your design file" placeholder="Paste a DESIGN.md, CSS variables or design tokens (JSON), or drop a file here">${esc(S.importText)}</textarea>`
       + `<div class="acts"><button class="ghost" id="applyDesign">Apply</button><button class="ghost" id="pickFile">Upload file</button>${S.imported?'<button class="ghost" id="clearDesign">Remove</button>':''}<input type="file" id="designFile" accept=".md,.markdown,.css,.json,.txt" hidden></div>`
       + (window.DESIGNS ? `<button class="ghost" data-open-gallery style="height:30px;font-size:12.5px">Or browse ${window.DESIGNS.length.toLocaleString()} real designs</button>` : '')
-      + `<div class="ex">Try a sample: <button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
       + `<div class="found" id="found">${S.importNote}</div></div>`;
   }
   $('#rows').innerHTML = h; dress($('#rows'));
@@ -1027,10 +1024,7 @@ function applyDesign(){
   if (radius != null) slots.add('radius'); if (font) slots.add('font');
   const missing = ['primary','bg','text','line','radius','font'].filter(k => !slots.has(k)).map(k => SLOT_LABEL[k]);
   const from = S.importFrom ? esc(S.importFrom) : d.kind; S.importFrom = null;
-  S.importNote = `<b>Applied from ${from}:</b> ${[...slots].map(k => SLOT_LABEL[k]).join(', ')}.`
-    + (darkOnly ? ' This is a dark-only design, so the preview switched to dark. Light mode keeps the default colours.'
-      : Object.keys(dark).length ? ' Dark mode included.' : ' No dark colours found, so dark mode keeps the defaults.')
-    + (missing.length ? ` Not found: ${missing.join(', ')}.` : '');
+  S.importNote = '';   // success is told by the notification below; the sidebar note only shows problems
   render();
   const colours = [...slots].filter(k => k !== 'radius' && k !== 'font').length;
   notify(`${from} loaded`, `${colours} colour${colours === 1 ? '' : 's'}${radius != null ? ', radius' : ''}${font ? `, font ${esc(font)}` : ''}`
@@ -1797,7 +1791,7 @@ function checkFont(){
     S.fontNote = hasFont(font) ? '' : `${esc(font)} isn't available here, so the preview shows ${alt && !/^system/.test(alt) ? esc(alt) + ', a close match' : 'the system font'}. Upload the font file to see it exactly.`;
     if (S.fontNote !== before) { render();
       if (S.fontNote) notify(`Font not available: ${esc(font)}`, alt && !/^system/.test(alt) ? `Showing ${esc(alt)}, the closest free match.` : 'Showing the system font.',
-        'warn', [['Upload font file', () => $('#fontFile')?.click()]], true); } };
+        'warn', [['Upload your font', () => $('#fontFile')?.click()]], true); } };
   setTimeout(run, 1500); setTimeout(run, 4000);   // after the Google Fonts stylesheet and files arrive
 }
 async function useFontFile(f){
