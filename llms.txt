@@ -45,5 +45,6 @@ One skill per category, on top of the main skill. [Index](https://www.pramaan.de
 
 ## Optional
 
+- [Full catalogue (markdown)](https://www.pramaan.dev/catalogue/index.md): every superpower and mission id, one file per category
 - [Superpowers](https://www.pramaan.dev/superpowers.html): the catalogue of single actions
 - [Missions](https://www.pramaan.dev/missions.html): multi-step jobs that return one result

@@ -23,12 +23,36 @@
       "tags": ["skills", "documentation"]
     },
     {
+      "identifier": "urn:air:pramaan.dev:docs:catalogue",
+      "displayName": "Pramaan catalogue",
+      "type": "text/markdown",
+      "url": "https://www.pramaan.dev/catalogue/index.md",
+      "description": "Every superpower (single action) and mission (multi-step job) id with its description, one markdown file per category.",
+      "tags": ["catalogue", "documentation"]
+    },
+    {
       "identifier": "urn:air:pramaan.dev:docs:llms",
       "displayName": "llms.txt",
       "type": "text/plain",
       "url": "https://www.pramaan.dev/llms.txt",
       "description": "Short index of the pages and files agents need.",
       "tags": ["llms", "documentation"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:api:openapi",
+      "displayName": "Pramaan API (OpenAPI)",
+      "type": "application/json",
+      "url": "https://api.pramaan.dev/openapi.json",
+      "description": "Every endpoint, request and response of the hosted API. Base URL https://api.pramaan.dev, header Authorization: Bearer <key>.",
+      "tags": ["api", "openapi"]
+    },
+    {
+      "identifier": "urn:air:pramaan.dev:mcp:remote",
+      "displayName": "Pramaan remote MCP server",
+      "type": "application/json",
+      "url": "https://mcp.pramaan.dev/mcp",
+      "description": "Hosted MCP server with OAuth. Metadata at https://mcp.pramaan.dev/.well-known/oauth-protected-resource; scopes pramaan:read and pramaan:run.",
+      "tags": ["mcp", "oauth"]
     },
     {
       "identifier": "urn:air:pramaan.dev:mcp:npm",
