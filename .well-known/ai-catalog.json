@@ -23,6 +23,14 @@
       "tags": ["skills", "documentation"]
     },
     {
+      "identifier": "urn:air:pramaan.dev:docs:site",
+      "displayName": "Pramaan docs",
+      "type": "text/html",
+      "url": "https://docs.pramaan.dev",
+      "description": "Guides and a reference page for every superpower, mission and API call. Markdown index at https://docs.pramaan.dev/llms.txt.",
+      "tags": ["documentation", "api"]
+    },
+    {
       "identifier": "urn:air:pramaan.dev:docs:catalogue",
       "displayName": "Pramaan catalogue",
       "type": "text/markdown",

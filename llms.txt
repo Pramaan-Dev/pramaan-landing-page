@@ -12,6 +12,7 @@ running it safely (approval, idempotency, jobs), reading errors and the three wa
 ## Start here
 
 - [Agent skill](https://www.pramaan.dev/skill.md): how an agent uses Pramaan, end to end
+- [Docs](https://docs.pramaan.dev): guides and a reference page for every superpower, mission and API call ([llms.txt](https://docs.pramaan.dev/llms.txt))
 - [Developers](https://www.pramaan.dev/developers.html): overview for people building with Pramaan
 - [API reference (OpenAPI)](https://api.pramaan.dev/openapi.json): every endpoint, request and response
 
