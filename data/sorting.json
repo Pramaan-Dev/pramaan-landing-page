@@ -3113,15 +3113,6 @@
   "campaign.posts.report": {
    "c": "Social media"
   },
-  "candidate.background.check": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.dev.profile": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.employment.verify": {
-   "c": "Hiring & assessments"
-  },
   "candidate.lookalikes.find": {
    "c": "Hiring & assessments"
   },
@@ -3132,9 +3123,6 @@
    "c": "Hiring & assessments"
   },
   "candidate.pool.size": {
-   "c": "Hiring & assessments"
-  },
-  "candidate.profile.authenticity": {
    "c": "Hiring & assessments"
   },
   "candidate.source": {
@@ -9544,6 +9532,9 @@
   },
   "license.check": {
    "c": "Finance"
+  },
+  "linkedin.jobs.watch": {
+   "c": "Hiring & assessments"
   },
   "linkedin.account.connect": {
    "c": "Social media",
@@ -17020,9 +17011,6 @@
   "whatsapp.user.block-review": {
    "c": "Phone & messaging"
   },
-  "worker.registration.verify": {
-   "c": "Hiring & assessments"
-  },
   "workflow.activate": {
    "c": "Developer tools",
    "f": "Workflows"
@@ -17858,6 +17846,117 @@
   "zhihu.scholar.search": {
    "c": "Research",
    "f": "Zhihu scholar"
+  },
+  "bilibili.user.dynamics": {
+   "c": "Social media",
+   "f": "Bilibili"
+  },
+  "bilibili.user.profile": {
+   "c": "Social media",
+   "f": "Bilibili"
+  },
+  "bilibili.user.relation-stats": {
+   "c": "Social media",
+   "f": "Bilibili"
+  },
+  "bilibili.user.videos": {
+   "c": "Social media",
+   "f": "Bilibili"
+  },
+  "weibo.user.articles": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "weibo.user.audios": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "weibo.user.followers": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "weibo.user.following": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "crypto.hyperliquid.performance": {
+   "c": "Crypto & DeFi",
+   "f": "Hyperliquid"
+  },
+  "crypto.traders.leaderboard": {
+   "c": "Crypto & DeFi",
+   "f": "Wallets and on-chain"
+  },
+  "crypto.wallet.labels": {
+   "c": "Crypto & DeFi",
+   "f": "Wallets and on-chain"
+  },
+  "douyin.accounts.hot": {
+   "c": "Social media",
+   "f": "Douyin trends and index"
+  },
+  "identity.adverse-media.check": {
+   "c": "Identity & security",
+   "f": "Sanctions and watchlist screening"
+  },
+  "identity.pep.check": {
+   "c": "Identity & security",
+   "f": "Sanctions and watchlist screening"
+  },
+  "identity.sanctions.check": {
+   "c": "Identity & security",
+   "f": "Sanctions and watchlist screening"
+  },
+  "people.personal-email.available": {
+   "c": "Data",
+   "f": "Email and phone finding"
+  },
+  "people.phone.available": {
+   "c": "Data",
+   "f": "Email and phone finding"
+  },
+  "people.work-email.available": {
+   "c": "Data",
+   "f": "Email and phone finding"
+  },
+  "prediction.polymarket.trades": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "stocks.congress.trades": {
+   "c": "Finance",
+   "f": "Insider and fund filings"
+  },
+  "tiktok.live.rankings": {
+   "c": "Social media",
+   "f": "TikTok"
+  },
+  "trustpilot.company-reviews": {
+   "c": "E-commerce",
+   "f": "Trustpilot"
+  },
+  "web.authors.search": {
+   "c": "Research",
+   "f": "Academic papers"
+  },
+  "weibo.user.posts": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "weibo.user.super-topics": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "weibo.user.videos": {
+   "c": "Social media",
+   "f": "Weibo"
+  },
+  "linkedin.relation.get": {
+   "c": "Social media",
+   "f": "LinkedIn"
+  },
+  "linkedin.outreach.run": {
+   "c": "Social media"
   }
  }
 }

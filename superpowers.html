@@ -6,12 +6,15 @@
   <title>Superpowers | Pramaan</title>
   <meta name="description" content="Every superpower Pramaan can rent you per use: search, data, social, messaging, payments, AI and more, each routed to the cheapest source that can do the job." />
   <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="catalogue.css" />
+  <link rel="alternate" type="text/markdown" href="catalogue/index.md" title="Full catalogue" />
   <link rel="stylesheet" href="components/ticket-stub-footer.css" />
   <script src="components/ticket-stub-footer.js" defer></script>
 </head>
@@ -28,6 +31,7 @@
         <a href="superpowers.html" aria-current="page">Superpowers</a>
         <a href="missions.html">Missions</a>
         <a href="index.html#pricing">Pricing</a>
+        <a href="https://docs.pramaan.dev">Docs</a>
       </nav>
       <div class="nav__actions">
         <a href="index.html#login" class="btn btn--ghost">Log in</a>
@@ -57,9 +61,1710 @@
     <div class="container cat-layout">
       <aside class="cat-side" aria-label="Categories">
         <p class="eyebrow cat-side__title">Categories</p>
-        <ul data-cats></ul>
+        <ul data-cats><!-- cats --><li><button type="button" data-cat="All" aria-pressed="true"><span>All</span><span>3,510</span></button></li><li><button type="button" data-cat="Data" aria-pressed="false"><span>Data</span><span>305</span></button></li><li><button type="button" data-cat="Social media" aria-pressed="false"><span>Social media</span><span>566</span></button></li><li><button type="button" data-cat="AI search and SEO" aria-pressed="false"><span>AI search and SEO</span><span>185</span></button></li><li><button type="button" data-cat="Advertising" aria-pressed="false"><span>Advertising</span><span>96</span></button></li><li><button type="button" data-cat="News" aria-pressed="false"><span>News</span><span>10</span></button></li><li><button type="button" data-cat="Research" aria-pressed="false"><span>Research</span><span>63</span></button></li><li><button type="button" data-cat="Legal" aria-pressed="false"><span>Legal</span><span>33</span></button></li><li><button type="button" data-cat="Web tools" aria-pressed="false"><span>Web tools</span><span>138</span></button></li><li><button type="button" data-cat="E-commerce" aria-pressed="false"><span>E-commerce</span><span>134</span></button></li><li><button type="button" data-cat="Travel &#38; places" aria-pressed="false"><span>Travel &#38; places</span><span>189</span></button></li><li><button type="button" data-cat="Finance" aria-pressed="false"><span>Finance</span><span>356</span></button></li><li><button type="button" data-cat="Crypto &#38; DeFi" aria-pressed="false"><span>Crypto &#38; DeFi</span><span>142</span></button></li><li><button type="button" data-cat="Gen AI" aria-pressed="false"><span>Gen AI</span><span>309</span></button></li><li><button type="button" data-cat="Email &#38; calendar" aria-pressed="false"><span>Email &#38; calendar</span><span>109</span></button></li><li><button type="button" data-cat="Phone &#38; messaging" aria-pressed="false"><span>Phone &#38; messaging</span><span>283</span></button></li><li><button type="button" data-cat="Hiring &#38; assessments" aria-pressed="false"><span>Hiring &#38; assessments</span><span>78</span></button></li><li><button type="button" data-cat="Identity &#38; security" aria-pressed="false"><span>Identity &#38; security</span><span>158</span></button></li><li><button type="button" data-cat="Developer tools" aria-pressed="false"><span>Developer tools</span><span>356</span></button></li><!-- /cats --></ul>
       </aside>
-      <div data-groups></div>
+      <div data-groups><!-- groups -->
+  <section class="cat-group" data-group="Featured">
+    <div class="cat-group__head"><h2>Featured</h2><p>Where most people start.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Company profiles">
+    <span class="card__name">Company profiles</span>
+    <span class="card__summary">Get a full profile of a company from its name, website or profile link.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email and phone finding">
+    <span class="card__name">Email and phone finding</span>
+    <span class="card__summary">Find work or personal emails and phone numbers for a person.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Web scraping">
+    <span class="card__name">Web scraping</span>
+    <span class="card__summary">Read, crawl and pull structured data from any web page.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Search">
+    <span class="card__name">Google Search</span>
+    <span class="card__summary">Get Google results, AI answers, suggestions and past versions of results pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="TikTok">
+    <span class="card__name">TikTok</span>
+    <span class="card__summary">Search TikTok videos, creators, hashtags, sounds and live streams.</span>
+    <span class="card__foot"><span class="pill pill--dark">48 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="SMS">
+    <span class="card__name">SMS</span>
+    <span class="card__summary">Send and receive text messages, manage lists, templates and registration.</span>
+    <span class="card__foot"><span class="pill pill--dark">58 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payment links">
+    <span class="card__name">Payment links</span>
+    <span class="card__summary">Create payment links, send them to customers and track their orders.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Image generation">
+    <span class="card__name">Image generation</span>
+    <span class="card__summary">Make new images from text, in your own saved styles.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Proctored exams">
+    <span class="card__name">Proctored exams</span>
+    <span class="card__summary">Build proctored exams, invite candidates and read their results and integrity reports.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Data">
+    <div class="cat-group__head"><h2>Data</h2><p>Companies, people and contacts: research, lead lists, work emails and company signals.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Ad audiences">
+    <span class="card__name">Ad audiences</span>
+    <span class="card__summary">Get advertising IDs and hashed emails for ad audience uploads.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Agency directory">
+    <span class="card__name">Agency directory</span>
+    <span class="card__summary">Search a directory of agencies and the services they offer.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Brand change alerts">
+    <span class="card__name">Brand change alerts</span>
+    <span class="card__summary">Watch brands and get told when their logos, colors or details change.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Brand logos and styles">
+    <span class="card__name">Brand logos and styles</span>
+    <span class="card__summary">Get a brand&#39;s logos, colors, fonts and description from its website.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company data monitors">
+    <span class="card__name">Company data monitors</span>
+    <span class="card__summary">Watch companies and saved searches and get told when something new matches.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company emails">
+    <span class="card__name">Company emails</span>
+    <span class="card__summary">Find how a company&#39;s work emails are written and which addresses are known.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company funding and investors">
+    <span class="card__name">Company funding and investors</span>
+    <span class="card__summary">Find funding rounds, acquisitions, investors and pre-IPO valuations for companies.</span>
+    <span class="card__foot"><span class="pill pill--dark">19 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company profiles">
+    <span class="card__name">Company profiles</span>
+    <span class="card__summary">Get a full profile of a company from its name, website or profile link.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company registers">
+    <span class="card__name">Company registers</span>
+    <span class="card__summary">Read official company register records, officers, owners, filings and licences.</span>
+    <span class="card__foot"><span class="pill pill--dark">39 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company search">
+    <span class="card__name">Company search</span>
+    <span class="card__summary">Find lists of companies by description, filters or lookalikes.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company signals and watches">
+    <span class="card__name">Company signals and watches</span>
+    <span class="card__summary">Watch companies for buying signals and changes, and get new ones delivered.</span>
+    <span class="card__foot"><span class="pill pill--dark">35 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company tech and traffic">
+    <span class="card__name">Company tech and traffic</span>
+    <span class="card__summary">See the technologies, website traffic and infrastructure behind a company.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email and phone finding">
+    <span class="card__name">Email and phone finding</span>
+    <span class="card__summary">Find work or personal emails and phone numbers for a person.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email checking">
+    <span class="card__name">Email checking</span>
+    <span class="card__summary">Check whether emails are real, deliverable, risky or disposable, and score lead quality.</span>
+    <span class="card__foot"><span class="pill pill--dark">23 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Maps business contacts">
+    <span class="card__name">Google Maps business contacts</span>
+    <span class="card__summary">Get the emails and phones businesses on Google Maps publish on their sites.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Outreach drafting">
+    <span class="card__name">Outreach drafting</span>
+    <span class="card__summary">Draft sales emails and campaigns from company signals; nothing is sent.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="People profiles">
+    <span class="card__name">People profiles</span>
+    <span class="card__summary">Turn a name, email or profile link into a full professional profile.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="People search">
+    <span class="card__name">People search</span>
+    <span class="card__summary">Find and count people by role, company and description, and export lists.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="People watches">
+    <span class="card__name">People watches</span>
+    <span class="card__summary">Watch people and profiles for job changes and new engagement.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="School data">
+    <span class="card__name">School data</span>
+    <span class="card__summary">Turn a school name or website into clean school facts.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Trade data">
+    <span class="card__name">Trade data</span>
+    <span class="card__summary">Find importers, exporters and shipments, and see country trade figures.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="US business lookup">
+    <span class="card__name">US business lookup</span>
+    <span class="card__summary">Find US businesses by name or address and read their contact details.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="YouTube channel contacts">
+    <span class="card__name">YouTube channel contacts</span>
+    <span class="card__summary">Get the business email a YouTube channel published.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Social media">
+    <div class="cat-group__head"><h2>Social media</h2><p>Posts, profiles, comments and trends on every network, and posting from your accounts.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Apple Music">
+    <span class="card__name">Apple Music</span>
+    <span class="card__summary">Read public Apple Music songs, albums and artist pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bilibili">
+    <span class="card__name">Bilibili</span>
+    <span class="card__summary">Search Bilibili videos, comments, live rooms and trending topics.</span>
+    <span class="card__foot"><span class="pill pill--dark">21 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bluesky">
+    <span class="card__name">Bluesky</span>
+    <span class="card__summary">Read public Bluesky profiles and posts.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Comments, messages and mentions">
+    <span class="card__name">Comments, messages and mentions</span>
+    <span class="card__summary">Read and reply to comments, direct messages and mentions on your accounts.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Connect social accounts">
+    <span class="card__name">Connect social accounts</span>
+    <span class="card__summary">Link your own social accounts and pages so you can post from them.</span>
+    <span class="card__foot"><span class="pill pill--dark">33 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Creator discovery">
+    <span class="card__name">Creator discovery</span>
+    <span class="card__summary">Find creators on Instagram, TikTok and YouTube and compare their audiences and results.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douban">
+    <span class="card__name">Douban</span>
+    <span class="card__summary">Read ratings, comments, reviews and trending lists for films and shows on Douban.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douyin">
+    <span class="card__name">Douyin</span>
+    <span class="card__summary">Search Douyin videos, accounts, comments and live rooms, and read feeds.</span>
+    <span class="card__foot"><span class="pill pill--dark">34 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douyin trends and index">
+    <span class="card__name">Douyin trends and index</span>
+    <span class="card__summary">See what is trending on Douyin and how topics and videos perform over time.</span>
+    <span class="card__foot"><span class="pill pill--dark">35 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Facebook">
+    <span class="card__name">Facebook</span>
+    <span class="card__summary">Read public Facebook pages, groups, posts, comments and events.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Hacker News">
+    <span class="card__name">Hacker News</span>
+    <span class="card__summary">Search Hacker News stories.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="IMDb">
+    <span class="card__name">IMDb</span>
+    <span class="card__summary">Look up films and series: cast, plot, ratings, awards, box office and trivia.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Instagram">
+    <span class="card__name">Instagram</span>
+    <span class="card__summary">Read profiles, posts, reels, stories, comments, hashtags and places on Instagram.</span>
+    <span class="card__foot"><span class="pill pill--dark">34 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Kick">
+    <span class="card__name">Kick</span>
+    <span class="card__summary">Read public Kick stream clips.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Kuaishou">
+    <span class="card__name">Kuaishou</span>
+    <span class="card__summary">Search Kuaishou and Kwai videos, users, lives and music, and read trending lists.</span>
+    <span class="card__foot"><span class="pill pill--dark">16 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Lemon8">
+    <span class="card__name">Lemon8</span>
+    <span class="card__summary">Search Lemon8 posts, topics and trending searches.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Link-in-bio pages">
+    <span class="card__name">Link-in-bio pages</span>
+    <span class="card__summary">Read creator pages on Linktree, Komi, Pillar and similar link pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="LinkedIn">
+    <span class="card__name">LinkedIn</span>
+    <span class="card__summary">Read LinkedIn profiles, companies, posts and comments, and message or post from connected accounts.</span>
+    <span class="card__foot"><span class="pill pill--dark">43 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Pinterest">
+    <span class="card__name">Pinterest</span>
+    <span class="card__summary">Browse Pinterest boards and pins, and see how often a page is saved.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Pipixia">
+    <span class="card__name">Pipixia</span>
+    <span class="card__summary">Read Pipixia feeds, short dramas, hashtags and trending posts.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Reddit">
+    <span class="card__name">Reddit</span>
+    <span class="card__summary">Read and search Reddit posts, comments, communities and user profiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">22 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Rumble">
+    <span class="card__name">Rumble</span>
+    <span class="card__summary">Read Rumble channels, videos, comments and transcripts.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Snapchat">
+    <span class="card__name">Snapchat</span>
+    <span class="card__summary">Read Snapchat creator profiles and Spotlight videos and comments.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Social posting">
+    <span class="card__name">Social posting</span>
+    <span class="card__summary">Publish, schedule, edit and measure posts on your connected social accounts.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="SoundCloud">
+    <span class="card__name">SoundCloud</span>
+    <span class="card__summary">Read SoundCloud artist profiles and tracks.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Spotify">
+    <span class="card__name">Spotify</span>
+    <span class="card__summary">Look up Spotify albums, artists, tracks and podcasts.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Telegram channels">
+    <span class="card__name">Telegram channels</span>
+    <span class="card__summary">Read and search posts from public Telegram channels.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Threads">
+    <span class="card__name">Threads</span>
+    <span class="card__summary">Search Threads posts and read public profiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="TikTok">
+    <span class="card__name">TikTok</span>
+    <span class="card__summary">Search TikTok videos, creators, hashtags, sounds and live streams.</span>
+    <span class="card__foot"><span class="pill pill--dark">48 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Toutiao">
+    <span class="card__name">Toutiao</span>
+    <span class="card__summary">Read Toutiao articles and comments.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Truth Social">
+    <span class="card__name">Truth Social</span>
+    <span class="card__summary">Read public Truth Social posts and profiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Twitch">
+    <span class="card__name">Twitch</span>
+    <span class="card__summary">Look up Twitch channels, their schedules, videos and clips.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Username lookup">
+    <span class="card__name">Username lookup</span>
+    <span class="card__summary">Check which public sites have a profile under a username.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Video search">
+    <span class="card__name">Video search</span>
+    <span class="card__summary">Search public videos and see links, excerpts and creators.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="WeChat">
+    <span class="card__name">WeChat</span>
+    <span class="card__summary">Read WeChat official-account articles, comments, and Channels videos.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Weibo">
+    <span class="card__name">Weibo</span>
+    <span class="card__summary">Search Weibo posts, topics, users and trending searches.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="X (Twitter)">
+    <span class="card__name">X (Twitter)</span>
+    <span class="card__summary">Search X posts, read profiles, threads, followers and trending topics.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Xiaohongshu">
+    <span class="card__name">Xiaohongshu</span>
+    <span class="card__summary">Search Xiaohongshu notes, creators, comments and trending topics.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Xigua">
+    <span class="card__name">Xigua</span>
+    <span class="card__summary">Search Xigua videos and read their details and comments.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Youku">
+    <span class="card__name">Youku</span>
+    <span class="card__summary">Read Youku user profiles and video details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="YouTube">
+    <span class="card__name">YouTube</span>
+    <span class="card__summary">Search YouTube videos, channels, comments, transcripts and trends.</span>
+    <span class="card__foot"><span class="pill pill--dark">24 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Zhihu">
+    <span class="card__name">Zhihu</span>
+    <span class="card__summary">Search Zhihu questions, answers, articles and read user profiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">22 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="AI search and SEO">
+    <div class="cat-group__head"><h2>AI search and SEO</h2><p>Rankings, keywords, backlinks, and how AI answer engines see your brand.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="AI answer engines">
+    <span class="card__name">AI answer engines</span>
+    <span class="card__summary">Ask ChatGPT, Claude, Perplexity and others a question and get answers with sources.</span>
+    <span class="card__foot"><span class="pill pill--dark">16 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Backlinks">
+    <span class="card__name">Backlinks</span>
+    <span class="card__summary">See who links to any site, new and lost links, and link gaps.</span>
+    <span class="card__foot"><span class="pill pill--dark">28 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Baidu Search">
+    <span class="card__name">Baidu Search</span>
+    <span class="card__summary">See what Baidu shows for a keyword, in web and news results.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bing keywords">
+    <span class="card__name">Bing keywords</span>
+    <span class="card__summary">Get Bing keyword ideas with search volume and cost per click.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bing Search">
+    <span class="card__name">Bing Search</span>
+    <span class="card__summary">See Bing results for a query: web, news, images, videos and shopping.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Blog publishing">
+    <span class="card__name">Blog publishing</span>
+    <span class="card__summary">Connect a blog or store, then write, edit, publish and schedule posts.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Domain authority">
+    <span class="card__name">Domain authority</span>
+    <span class="card__summary">Score any site or page for authority and spam, and track it over time.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="DuckDuckGo Search">
+    <span class="card__name">DuckDuckGo Search</span>
+    <span class="card__summary">Get DuckDuckGo web and news results for any query.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Business Profile">
+    <span class="card__name">Google Business Profile</span>
+    <span class="card__summary">Look up Google business listings, profiles and the questions people ask.</span>
+    <span class="card__foot"><span class="pill pill--dark">33 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google keywords">
+    <span class="card__name">Google keywords</span>
+    <span class="card__summary">Find keyword ideas with search volume, cost, difficulty and trends.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Search">
+    <span class="card__name">Google Search</span>
+    <span class="card__summary">Get Google results, AI answers, suggestions and past versions of results pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google site rankings">
+    <span class="card__name">Google site rankings</span>
+    <span class="card__summary">See how a website ranks in Google, its keywords, pages and traffic.</span>
+    <span class="card__foot"><span class="pill pill--dark">17 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Image search">
+    <span class="card__name">Image search</span>
+    <span class="card__summary">Search the web for images and the pages they appear on.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Keyword research">
+    <span class="card__name">Keyword research</span>
+    <span class="card__summary">Find search volume, trends and suggestions for keywords.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Naver search">
+    <span class="card__name">Naver search</span>
+    <span class="card__summary">Get Naver search results and its AI overview for a query.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Regional search engines">
+    <span class="card__name">Regional search engines</span>
+    <span class="card__summary">See search results from regional engines such as Seznam.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Search trends">
+    <span class="card__name">Search trends</span>
+    <span class="card__summary">See related searches, topics and interest by region.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Site link analysis">
+    <span class="card__name">Site link analysis</span>
+    <span class="card__summary">See a site&#39;s pages, internal links and its strongest pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Web mentions">
+    <span class="card__name">Web mentions</span>
+    <span class="card__summary">Find where a brand or topic is mentioned online and the tone.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="WeChat search">
+    <span class="card__name">WeChat search</span>
+    <span class="card__summary">See search interest and suggestions for WeChat keywords.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Yahoo Search">
+    <span class="card__name">Yahoo Search</span>
+    <span class="card__summary">Get Yahoo web, image and video search results for a query.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Yandex Search">
+    <span class="card__name">Yandex Search</span>
+    <span class="card__summary">Get Yandex web, image and video search results for a query.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Advertising">
+    <div class="cat-group__head"><h2>Advertising</h2><p>Your ad accounts, competitors&#39; ads, audiences and creator deals.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Ad accounts">
+    <span class="card__name">Ad accounts</span>
+    <span class="card__summary">Connect your ad accounts and read campaigns, ads, audiences, spend and results.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Ad libraries">
+    <span class="card__name">Ad libraries</span>
+    <span class="card__summary">See the ads any company is running, from public ad libraries.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bing Ads">
+    <span class="card__name">Bing Ads</span>
+    <span class="card__summary">Size Bing ad audiences and see how keywords perform in Bing ads.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douyin brand and creator index">
+    <span class="card__name">Douyin brand and creator index</span>
+    <span class="card__summary">Match brands and compare Douyin creators for marketing.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douyin Xingtu creator marketplace">
+    <span class="card__name">Douyin Xingtu creator marketplace</span>
+    <span class="card__summary">Find Douyin creators for paid deals and see their prices, audience and results.</span>
+    <span class="card__foot"><span class="pill pill--dark">29 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Facebook ads">
+    <span class="card__name">Facebook ads</span>
+    <span class="card__summary">Find advertisers in the Facebook ad library.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Ads">
+    <span class="card__name">Google Ads</span>
+    <span class="card__summary">See who advertises on Google, which keywords they bid on and their ads.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="LinkedIn ads">
+    <span class="card__name">LinkedIn ads</span>
+    <span class="card__summary">Read ads from LinkedIn&#39;s public ad library.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Tag Manager">
+    <span class="card__name">Tag Manager</span>
+    <span class="card__summary">Manage your website tags, triggers and variables in Google Tag Manager.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="TikTok ads">
+    <span class="card__name">TikTok ads</span>
+    <span class="card__summary">Browse the TikTok ad library and top ads by country.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="WeChat Channels creators">
+    <span class="card__name">WeChat Channels creators</span>
+    <span class="card__summary">See a WeChat Channels creator&#39;s marketplace profile, prices and videos.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Xiaohongshu creator marketplace">
+    <span class="card__name">Xiaohongshu creator marketplace</span>
+    <span class="card__summary">Find Xiaohongshu creators for paid deals, with their notes and reach.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="News">
+    <div class="cat-group__head"><h2>News</h2><p>Headlines, articles and news feeds on any topic, company or market.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Company news">
+    <span class="card__name">Company news</span>
+    <span class="card__summary">Get recent news articles about a company.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="News search">
+    <span class="card__name">News search</span>
+    <span class="card__summary">Search news headlines and articles with sentiment and company tags.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Research">
+    <div class="cat-group__head"><h2>Research</h2><p>Deep research, academic papers and answers that cite their sources.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Academic papers">
+    <span class="card__name">Academic papers</span>
+    <span class="card__summary">Search papers, authors, citations, journals and research institutions.</span>
+    <span class="card__foot"><span class="pill pill--dark">29 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Deep research">
+    <span class="card__name">Deep research</span>
+    <span class="card__summary">Run web research on questions or lists of records, and watch answers change.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Dataset Search">
+    <span class="card__name">Google Dataset Search</span>
+    <span class="card__summary">Find public datasets on a topic and read their details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Scholar and Patents">
+    <span class="card__name">Google Scholar and Patents</span>
+    <span class="card__summary">Search academic papers and patents with citations and filing details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Public datasets">
+    <span class="card__name">Public datasets</span>
+    <span class="card__summary">Look up public data such as drug recalls, nutrition and earthquakes.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Web answers">
+    <span class="card__name">Web answers</span>
+    <span class="card__summary">Ask questions and get sourced answers or reports from the live web.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Zhihu scholar">
+    <span class="card__name">Zhihu scholar</span>
+    <span class="card__summary">Search scholarly papers on Zhihu.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Legal">
+    <div class="cat-group__head"><h2>Legal</h2><p>Courts, cases, dockets, judges and statutes.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Company court records">
+    <span class="card__name">Company court records</span>
+    <span class="card__summary">Find court cases that name a company.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Court records">
+    <span class="card__name">Court records</span>
+    <span class="card__summary">Search US court cases, dockets, filings, judges, opinions and oral arguments.</span>
+    <span class="card__foot"><span class="pill pill--dark">21 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="US laws">
+    <span class="card__name">US laws</span>
+    <span class="card__summary">Search and read US federal and state statutes, regulations and court rules.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Web tools">
+    <div class="cat-group__head"><h2>Web tools</h2><p>Read, scrape and watch any website, or drive a real browser.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Domains and DNS">
+    <span class="card__name">Domains and DNS</span>
+    <span class="card__summary">Search, buy, renew and set up domain names and their DNS records.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Page capture">
+    <span class="card__name">Page capture</span>
+    <span class="card__summary">Turn any web page into a screenshot, PDF, HTML or metadata.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Page change watching">
+    <span class="card__name">Page change watching</span>
+    <span class="card__summary">Watch pages on a schedule and get told when they change.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Remote browser">
+    <span class="card__name">Remote browser</span>
+    <span class="card__summary">Open a real browser in the cloud, click, type, read pages and give it tasks.</span>
+    <span class="card__foot"><span class="pill pill--dark">39 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Short links">
+    <span class="card__name">Short links</span>
+    <span class="card__summary">Create short links and see how many clicks they get.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Site audits">
+    <span class="card__name">Site audits</span>
+    <span class="card__summary">Check a site&#39;s speed, accessibility, uptime and crawl rules.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Site mapping">
+    <span class="card__name">Site mapping</span>
+    <span class="card__summary">List a site&#39;s pages from its sitemap or by mapping its links.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Video download">
+    <span class="card__name">Video download</span>
+    <span class="card__summary">Download a public video as a file and list its available formats.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Web scraping">
+    <span class="card__name">Web scraping</span>
+    <span class="card__summary">Read, crawl and pull structured data from any web page.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Web search">
+    <span class="card__name">Web search</span>
+    <span class="card__summary">Search the web and get titles, links, snippets and page text.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Website technology">
+    <span class="card__name">Website technology</span>
+    <span class="card__summary">See which technologies a website uses and who else uses them.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="E-commerce">
+    <div class="cat-group__head"><h2>E-commerce</h2><p>Products, prices, reviews and marketplaces, through to shipping and tracking.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Amazon">
+    <span class="card__name">Amazon</span>
+    <span class="card__summary">Look up Amazon products, sellers, best sellers and the keywords they rank for.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="App Store">
+    <span class="card__name">App Store</span>
+    <span class="card__summary">Look up App Store apps, charts, reviews and the search terms they rank for.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Business reviews">
+    <span class="card__name">Business reviews</span>
+    <span class="card__summary">Read and reply to reviews on your business pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Customs duty">
+    <span class="card__name">Customs duty</span>
+    <span class="card__summary">Look up the customs duty on goods by tariff code.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Douyin Shop">
+    <span class="card__name">Douyin Shop</span>
+    <span class="card__summary">Search Douyin Shop products and read their details and customer comments.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="eBay">
+    <span class="card__name">eBay</span>
+    <span class="card__summary">Search eBay listings and read price, condition and seller details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Facebook Marketplace">
+    <span class="card__name">Facebook Marketplace</span>
+    <span class="card__summary">Search Facebook Marketplace listings near a place and read their details.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Play">
+    <span class="card__name">Google Play</span>
+    <span class="card__summary">Search Google Play apps, books, games and movies, with reviews and rankings.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Shopping">
+    <span class="card__name">Google Shopping</span>
+    <span class="card__summary">Search Google Shopping products and compare seller offers.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Home Depot">
+    <span class="card__name">Home Depot</span>
+    <span class="card__summary">Search Home Depot products with brand, price and rating.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="JD.com">
+    <span class="card__name">JD.com</span>
+    <span class="card__summary">Search JD.com products and check their current prices.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Product catalogs and orders">
+    <span class="card__name">Product catalogs and orders</span>
+    <span class="card__summary">Manage your shop&#39;s products and create or search orders.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Product lookup and prices">
+    <span class="card__name">Product lookup and prices</span>
+    <span class="card__summary">Look up products by barcode, compare prices and pull reviews from shop pages.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Shipping">
+    <span class="card__name">Shipping</span>
+    <span class="card__summary">Get shipping quotes, buy labels, book pickups and track parcels.</span>
+    <span class="card__foot"><span class="pill pill--dark">46 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Taobao">
+    <span class="card__name">Taobao</span>
+    <span class="card__summary">Search Taobao and Tmall products and read their reviews.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="TikTok Shop">
+    <span class="card__name">TikTok Shop</span>
+    <span class="card__summary">Search TikTok Shop products, stores, creators and reviews.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Trustpilot">
+    <span class="card__name">Trustpilot</span>
+    <span class="card__summary">Search Trustpilot businesses and read their ratings and customer reviews.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Walmart">
+    <span class="card__name">Walmart</span>
+    <span class="card__summary">Search Walmart products with prices, ratings and sellers.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Xianyu">
+    <span class="card__name">Xianyu</span>
+    <span class="card__summary">Search second-hand listings on Xianyu.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Xiaohongshu shop">
+    <span class="card__name">Xiaohongshu shop</span>
+    <span class="card__summary">Search Xiaohongshu products and read their reviews.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Yelp reviews">
+    <span class="card__name">Yelp reviews</span>
+    <span class="card__summary">Read customer reviews of a business on Yelp.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Travel &#38; places">
+    <div class="cat-group__head"><h2>Travel &#38; places</h2><p>Maps, places, addresses, property, routes, weather and travel.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Addresses and geocoding">
+    <span class="card__name">Addresses and geocoding</span>
+    <span class="card__summary">Check, complete and split addresses and turn them into map points and back.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Air quality">
+    <span class="card__name">Air quality</span>
+    <span class="card__summary">Check current, past and forecast air quality worldwide.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Apple Maps">
+    <span class="card__name">Apple Maps</span>
+    <span class="card__summary">Look up a place on Apple Maps with its details and rating.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bing Maps">
+    <span class="card__name">Bing Maps</span>
+    <span class="card__summary">Search businesses on Bing Maps with addresses, websites and ratings.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Custom maps">
+    <span class="card__name">Custom maps</span>
+    <span class="card__summary">Build private map data and styles, and render map images and tiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">21 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="DuckDuckGo Maps">
+    <span class="card__name">DuckDuckGo Maps</span>
+    <span class="card__summary">Search places on DuckDuckGo Maps with addresses, categories and ratings.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Elevation">
+    <span class="card__name">Elevation</span>
+    <span class="card__summary">Get the height above sea level at any point or along a route.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="EV charging">
+    <span class="card__name">EV charging</span>
+    <span class="card__summary">Find electric-car chargers and see whether they are free right now.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Flights and hotels">
+    <span class="card__name">Flights and hotels</span>
+    <span class="card__summary">Search and price flights, seats and hotel rooms.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Fuel prices">
+    <span class="card__name">Fuel prices</span>
+    <span class="card__summary">See fuel and charging prices by US state and city.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Geofences">
+    <span class="card__name">Geofences</span>
+    <span class="card__summary">Draw zones, check if a point is inside, and map areas reachable in set time.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google events">
+    <span class="card__name">Google events</span>
+    <span class="card__summary">Find events happening near you, with time and place.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Maps">
+    <span class="card__name">Google Maps</span>
+    <span class="card__summary">Find places on Google Maps and read their reviews, photos and posts.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Local businesses">
+    <span class="card__name">Local businesses</span>
+    <span class="card__summary">Find local businesses by keyword and city with their contact details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Parking">
+    <span class="card__name">Parking</span>
+    <span class="card__summary">Find parking near a spot, with live free spaces and prices.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Places">
+    <span class="card__name">Places</span>
+    <span class="card__summary">Search places, get their details and photos, and count places in an area.</span>
+    <span class="card__foot"><span class="pill pill--dark">17 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Public transit">
+    <span class="card__name">Public transit</span>
+    <span class="card__summary">Find transit stations and their next departures.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Real estate">
+    <span class="card__name">Real estate</span>
+    <span class="card__summary">Search homes for sale or rent, recent sales, and property agents.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Roads">
+    <span class="card__name">Roads</span>
+    <span class="card__summary">Check road traffic, incidents and speed limits, and snap points to roads.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Routes">
+    <span class="card__name">Routes</span>
+    <span class="card__summary">Plan routes, travel times, electric-car trips and multi-stop tours.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Time and holidays">
+    <span class="card__name">Time and holidays</span>
+    <span class="card__summary">Look up time zones, public holidays and business days.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Tripadvisor">
+    <span class="card__name">Tripadvisor</span>
+    <span class="card__summary">Search Tripadvisor places, hotels and restaurants and read their reviews.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Vehicles">
+    <span class="card__name">Vehicles</span>
+    <span class="card__summary">Search new and used cars, auctions, lease deals and fault codes.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Weather alerts">
+    <span class="card__name">Weather alerts</span>
+    <span class="card__summary">Get official warnings, fire risk and weather events for a place.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Weather forecast">
+    <span class="card__name">Weather forecast</span>
+    <span class="card__summary">Get current weather and forecasts for any place or route.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Weather history and climate">
+    <span class="card__name">Weather history and climate</span>
+    <span class="card__summary">Look up past weather, climate averages and solar data.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Finance">
+    <div class="cat-group__head"><h2>Finance</h2><p>Take payments, run billing, move money, handle tax and read the markets.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Bank account checks">
+    <span class="card__name">Bank account checks</span>
+    <span class="card__summary">Check bank accounts, IBANs, bank codes and payment addresses are real.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bank statements">
+    <span class="card__name">Bank statements</span>
+    <span class="card__summary">Upload bank statements and read income, spending, balances and obligations.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Bank transfers">
+    <span class="card__name">Bank transfers</span>
+    <span class="card__summary">Ask customers to pay by bank transfer and see when it arrives.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Billing and subscriptions">
+    <span class="card__name">Billing and subscriptions</span>
+    <span class="card__summary">Manage customers, plans, subscriptions, invoices and refunds in your billing account.</span>
+    <span class="card__foot"><span class="pill pill--dark">37 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Company financials">
+    <span class="card__name">Company financials</span>
+    <span class="card__summary">Read a company&#39;s statements, ratios, revenue estimates, credit history and filings.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Credit scores and reports">
+    <span class="card__name">Credit scores and reports</span>
+    <span class="card__summary">Get a credit score or report for a person who agrees to share bank data.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Disputes">
+    <span class="card__name">Disputes</span>
+    <span class="card__summary">Respond to payment disputes with evidence.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Exchange rates">
+    <span class="card__name">Exchange rates</span>
+    <span class="card__summary">Look up exchange rates, convert currencies and get conversion quotes.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Finance">
+    <span class="card__name">Google Finance</span>
+    <span class="card__summary">Get stock, index and currency quotes and market news from Google Finance.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="India GST">
+    <span class="card__name">India GST</span>
+    <span class="card__summary">File GST returns and issue e-invoices and e-way bills for Indian taxpayers.</span>
+    <span class="card__foot"><span class="pill pill--dark">29 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Insider and fund filings">
+    <span class="card__name">Insider and fund filings</span>
+    <span class="card__summary">See insider trades and who holds a company&#39;s shares.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Interest rates">
+    <span class="card__name">Interest rates</span>
+    <span class="card__summary">See a central bank&#39;s policy interest rate over time.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Kalshi">
+    <span class="card__name">Kalshi</span>
+    <span class="card__summary">Read Kalshi prediction markets: prices, trades, volume and order books.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Money transfers">
+    <span class="card__name">Money transfers</span>
+    <span class="card__summary">Save recipients, quote and send money, and check your balances.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Open banking">
+    <span class="card__name">Open banking</span>
+    <span class="card__summary">Connect bank accounts with consent and read balances, holders and transactions.</span>
+    <span class="card__foot"><span class="pill pill--dark">26 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payment links">
+    <span class="card__name">Payment links</span>
+    <span class="card__summary">Create payment links, send them to customers and track their orders.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payment mandates">
+    <span class="card__name">Payment mandates</span>
+    <span class="card__summary">Record customer consent for repeat debits and revoke it.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payment QR codes">
+    <span class="card__name">Payment QR codes</span>
+    <span class="card__summary">Create QR codes customers scan to pay.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payments">
+    <span class="card__name">Payments</span>
+    <span class="card__summary">Take payments, check out customers, hold and capture money, and save payment methods.</span>
+    <span class="card__foot"><span class="pill pill--dark">33 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Payouts">
+    <span class="card__name">Payouts</span>
+    <span class="card__summary">Send money to people and businesses, singly or in bulk.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Polymarket">
+    <span class="card__name">Polymarket</span>
+    <span class="card__summary">Read Polymarket markets, prices, volume, positions and smart-money moves.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Prediction markets">
+    <span class="card__name">Prediction markets</span>
+    <span class="card__summary">Read open markets and volumes on Polymarket, Kalshi and other prediction sites.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Refunds">
+    <span class="card__name">Refunds</span>
+    <span class="card__summary">Reverse payments and manage refunds.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Settlements">
+    <span class="card__name">Settlements</span>
+    <span class="card__summary">See what was settled to your bank and match it to orders.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Stock prices and markets">
+    <span class="card__name">Stock prices and markets</span>
+    <span class="card__summary">Get stock quotes, history, indices, sectors, movers and company news.</span>
+    <span class="card__foot"><span class="pill pill--dark">32 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Tax and VAT">
+    <span class="card__name">Tax and VAT</span>
+    <span class="card__summary">Check VAT numbers and invoices and look up tax rates by country.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Transaction merchants">
+    <span class="card__name">Transaction merchants</span>
+    <span class="card__summary">Turn a card or bank transaction line into a clear merchant name and logo.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Crypto &#38; DeFi">
+    <div class="cat-group__head"><h2>Crypto &#38; DeFi</h2><p>Tokens, wallets, chains, DeFi yields and on-chain data.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Crypto derivatives">
+    <span class="card__name">Crypto derivatives</span>
+    <span class="card__summary">See futures, options, funding rates, open interest and liquidations.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto funding and funds">
+    <span class="card__name">Crypto funding and funds</span>
+    <span class="card__summary">Find crypto funding rounds, venture funds, token sales and listed treasuries.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto market data">
+    <span class="card__name">Crypto market data</span>
+    <span class="card__summary">Track DeFi value, gas prices, trending coins and market mood.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto news">
+    <span class="card__name">Crypto news</span>
+    <span class="card__summary">Read the latest crypto news and project analysis.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto prices and markets">
+    <span class="card__name">Crypto prices and markets</span>
+    <span class="card__summary">Check coin prices, exchange order books, candles, ETFs and market mood.</span>
+    <span class="card__foot"><span class="pill pill--dark">21 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto projects and airdrops">
+    <span class="card__name">Crypto projects and airdrops</span>
+    <span class="card__summary">Research crypto projects, events, airdrops and which tokens are getting attention.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="DeFi protocols">
+    <span class="card__name">DeFi protocols</span>
+    <span class="card__summary">Track DeFi protocols, chains, bridges and exchanges by value, fees and volume.</span>
+    <span class="card__foot"><span class="pill pill--dark">24 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="DeFi yields and borrowing">
+    <span class="card__name">DeFi yields and borrowing</span>
+    <span class="card__summary">Compare yields, staking rates and borrowing costs across DeFi.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Hyperliquid">
+    <span class="card__name">Hyperliquid</span>
+    <span class="card__summary">Read a wallet&#39;s trades, positions and orders on Hyperliquid.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Stablecoins and real-world assets">
+    <span class="card__name">Stablecoins and real-world assets</span>
+    <span class="card__summary">Track stablecoin supply and tokenised real-world assets.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Token unlocks">
+    <span class="card__name">Token unlocks</span>
+    <span class="card__summary">See when tokens unlock and how much will enter supply.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Wallets and on-chain">
+    <span class="card__name">Wallets and on-chain</span>
+    <span class="card__summary">Look into wallets, tokens, transfers and transactions straight from the blockchain.</span>
+    <span class="card__foot"><span class="pill pill--dark">26 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Gen AI">
+    <div class="cat-group__head"><h2>Gen AI</h2><p>Make images, video, voice and music, and call language models.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="3D models">
+    <span class="card__name">3D models</span>
+    <span class="card__summary">Check 3D models for printing and rigging, and list animation presets.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Ad image tools">
+    <span class="card__name">Ad image tools</span>
+    <span class="card__summary">Translate, resize and vary the images in an ad.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="AI avatars">
+    <span class="card__name">AI avatars</span>
+    <span class="card__summary">Create talking avatars, lip-sync and reusable video templates.</span>
+    <span class="card__foot"><span class="pill pill--dark">27 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="AI memory">
+    <span class="card__name">AI memory</span>
+    <span class="card__summary">Store documents and facts for an AI to remember, search and forget.</span>
+    <span class="card__foot"><span class="pill pill--dark">39 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="AI model rankings">
+    <span class="card__name">AI model rankings</span>
+    <span class="card__summary">Compare AI models by leaderboard rank, cost and task.</span>
+    <span class="card__foot"><span class="pill pill--dark">14 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="AI video editing">
+    <span class="card__name">AI video editing</span>
+    <span class="card__summary">Edit, enlarge, reframe, join and transcribe videos.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="AI video generation">
+    <span class="card__name">AI video generation</span>
+    <span class="card__summary">Make video clips from text, images and product pictures.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Content checks">
+    <span class="card__name">Content checks</span>
+    <span class="card__summary">Check text for AI writing, plagiarism, quality and readability.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Dubbing">
+    <span class="card__name">Dubbing</span>
+    <span class="card__summary">Dub speech in audio or video into another language, keeping the voices.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Embeddings and ranking">
+    <span class="card__name">Embeddings and ranking</span>
+    <span class="card__summary">Turn text into vectors, rank passages and count or shrink prompts.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Image analysis">
+    <span class="card__name">Image analysis</span>
+    <span class="card__summary">Describe an image, find objects in it and check its quality.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Image editing">
+    <span class="card__name">Image editing</span>
+    <span class="card__summary">Remove backgrounds, erase objects, enlarge, restore and retouch images.</span>
+    <span class="card__foot"><span class="pill pill--dark">23 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Image generation">
+    <span class="card__name">Image generation</span>
+    <span class="card__summary">Make new images from text, in your own saved styles.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Language models">
+    <span class="card__name">Language models</span>
+    <span class="card__summary">Chat with AI models, generate text in bulk and count tokens.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Media branding">
+    <span class="card__name">Media branding</span>
+    <span class="card__summary">Save brand colors and fonts to use in generated videos.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Media consent">
+    <span class="card__name">Media consent</span>
+    <span class="card__summary">Collect and check a person&#39;s recorded consent before using their likeness.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Media generation">
+    <span class="card__name">Media generation</span>
+    <span class="card__summary">Check on or delete the media you have generated.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Model catalog">
+    <span class="card__name">Model catalog</span>
+    <span class="card__summary">Browse public AI models, their versions, documentation and examples.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Music generation">
+    <span class="card__name">Music generation</span>
+    <span class="card__summary">Write lyrics, extend or change music and make soundtracks.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Product and fashion images">
+    <span class="card__name">Product and fashion images</span>
+    <span class="card__summary">Show clothes on a model, recolor products and make campaign pictures.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Running models">
+    <span class="card__name">Running models</span>
+    <span class="card__summary">Run a public AI model on your inputs and read the result.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Sound effects">
+    <span class="card__name">Sound effects</span>
+    <span class="card__summary">Make sound effects from a written description.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Speech to text">
+    <span class="card__name">Speech to text</span>
+    <span class="card__summary">Turn recordings into text, subtitles and searchable transcripts.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Text tools">
+    <span class="card__name">Text tools</span>
+    <span class="card__summary">Rewrite, classify, analyse and draft text.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Translation">
+    <span class="card__name">Translation</span>
+    <span class="card__summary">Translate text, detect languages and keep your preferred terms.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Vector search">
+    <span class="card__name">Vector search</span>
+    <span class="card__summary">Store vectors and find the closest matches for your own data.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Video agents">
+    <span class="card__name">Video agents</span>
+    <span class="card__summary">Set up talking video agents with tools, rules and goals.</span>
+    <span class="card__foot"><span class="pill pill--dark">24 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Voices and speech">
+    <span class="card__name">Voices and speech</span>
+    <span class="card__summary">Turn text into spoken audio and design or clone voices.</span>
+    <span class="card__foot"><span class="pill pill--dark">17 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Email &#38; calendar">
+    <div class="cat-group__head"><h2>Email &#38; calendar</h2><p>Send and read email, and book, run and sum up meetings.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Calendar">
+    <span class="card__name">Calendar</span>
+    <span class="card__summary">Create and manage calendars and events, answer invites and check free times.</span>
+    <span class="card__foot"><span class="pill pill--dark">16 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Connected email accounts">
+    <span class="card__name">Connected email accounts</span>
+    <span class="card__summary">Connect or disconnect a person&#39;s own email account.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email deliverability">
+    <span class="card__name">Email deliverability</span>
+    <span class="card__summary">Track delivery, block or allow addresses and watch bounce rates.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email domains">
+    <span class="card__name">Email domains</span>
+    <span class="card__summary">Add your own sending domain and get its mail records set up and checked.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email folders and signatures">
+    <span class="card__name">Email folders and signatures</span>
+    <span class="card__summary">Manage mailbox folders and email signatures.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email inbox">
+    <span class="card__name">Email inbox</span>
+    <span class="card__summary">Create inboxes, then read, search, label and delete messages and conversations.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email sending">
+    <span class="card__name">Email sending</span>
+    <span class="card__summary">Write drafts, send, reply, forward and schedule emails.</span>
+    <span class="card__foot"><span class="pill pill--dark">17 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Email templates">
+    <span class="card__name">Email templates</span>
+    <span class="card__summary">Save reusable email templates and send them.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Video meetings">
+    <span class="card__name">Video meetings</span>
+    <span class="card__summary">Create video meeting rooms and fetch their recordings.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Phone &#38; messaging">
+    <div class="cat-group__head"><h2>Phone &#38; messaging</h2><p>Calls, AI phone agents, SMS, WhatsApp, chat and one-time codes.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="AI voice agents">
+    <span class="card__name">AI voice agents</span>
+    <span class="card__summary">Build voice agents that talk on phone calls, with documents and tools.</span>
+    <span class="card__foot"><span class="pill pill--dark">24 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Browser calling">
+    <span class="card__name">Browser calling</span>
+    <span class="card__summary">Make and take calls from a web page.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Call campaigns">
+    <span class="card__name">Call campaigns</span>
+    <span class="card__summary">Run phone call campaigns to many people and track results.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="iMessage">
+    <span class="card__name">iMessage</span>
+    <span class="card__summary">Send, receive and manage iMessage conversations and groups from your own sender.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="In-app chat">
+    <span class="card__name">In-app chat</span>
+    <span class="card__summary">Add chat to your app: channels, messages, members and moderators.</span>
+    <span class="card__foot"><span class="pill pill--dark">29 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Notifications">
+    <span class="card__name">Notifications</span>
+    <span class="card__summary">Send push, in-app and other notifications to subscribers and manage their devices and preferences.</span>
+    <span class="card__foot"><span class="pill pill--dark">22 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="One-time codes">
+    <span class="card__name">One-time codes</span>
+    <span class="card__summary">Send and verify one-time codes by text or email.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Opt-outs">
+    <span class="card__name">Opt-outs</span>
+    <span class="card__summary">Keep a do-not-contact list so messages never reach people who opted out.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Outreach campaigns">
+    <span class="card__name">Outreach campaigns</span>
+    <span class="card__summary">Manage contacts, broadcasts, drip sequences and automated replies in one inbox.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Phone calls">
+    <span class="card__name">Phone calls</span>
+    <span class="card__summary">Place, control, record and review phone calls.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Phone number checks">
+    <span class="card__name">Phone number checks</span>
+    <span class="card__summary">Check a phone number, its line type and its carrier.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Phone numbers">
+    <span class="card__name">Phone numbers</span>
+    <span class="card__summary">Rent, buy, port and set up phone numbers and short codes.</span>
+    <span class="card__foot"><span class="pill pill--dark">39 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="RCS">
+    <span class="card__name">RCS</span>
+    <span class="card__summary">Send rich text messages from your business sender, with text fallback.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="SIP trunks">
+    <span class="card__name">SIP trunks</span>
+    <span class="card__summary">Connect your own phone lines to voice calling.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="SMS">
+    <span class="card__name">SMS</span>
+    <span class="card__summary">Send and receive text messages, manage lists, templates and registration.</span>
+    <span class="card__foot"><span class="pill pill--dark">58 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Viber">
+    <span class="card__name">Viber</span>
+    <span class="card__summary">Send business messages on Viber.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="WhatsApp">
+    <span class="card__name">WhatsApp</span>
+    <span class="card__summary">Send WhatsApp messages and templates and manage your business profile.</span>
+    <span class="card__foot"><span class="pill pill--dark">26 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Hiring &#38; assessments">
+    <div class="cat-group__head"><h2>Hiring &#38; assessments</h2><p>Jobs, pay, candidates and proctored tests.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Company jobs and reviews">
+    <span class="card__name">Company jobs and reviews</span>
+    <span class="card__summary">See a company&#39;s open jobs and what its employees say about it.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Crypto jobs">
+    <span class="card__name">Crypto jobs</span>
+    <span class="card__summary">Search Web3 jobs, companies, remote roles and crypto salaries.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Employment checks">
+    <span class="card__name">Employment checks</span>
+    <span class="card__summary">Check employment history, credentials and background records.</span>
+    <span class="card__foot"><span class="pill pill--dark">9 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Google Jobs">
+    <span class="card__name">Google Jobs</span>
+    <span class="card__summary">Search job openings by employer, place and description.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Job market stats">
+    <span class="card__name">Job market stats</span>
+    <span class="card__summary">See vacancies, top employers, regions and pay trends in a country.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Job postings">
+    <span class="card__name">Job postings</span>
+    <span class="card__summary">Search open job postings, analyze an ad and normalize job titles.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="LinkedIn jobs">
+    <span class="card__name">LinkedIn jobs</span>
+    <span class="card__summary">Search LinkedIn job postings and read their details.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Nonprofit jobs">
+    <span class="card__name">Nonprofit jobs</span>
+    <span class="card__summary">Search nonprofit jobs, internships, volunteer roles and organizations.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Proctored exams">
+    <span class="card__name">Proctored exams</span>
+    <span class="card__summary">Build proctored exams, invite candidates and read their results and integrity reports.</span>
+    <span class="card__foot"><span class="pill pill--dark">13 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Resume parsing">
+    <span class="card__name">Resume parsing</span>
+    <span class="card__summary">Turn a resume into contact details, skills, work history and education.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Salaries">
+    <span class="card__name">Salaries</span>
+    <span class="card__summary">Look up salaries, H-1B pay, internship pay and company benefits.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Startup jobs">
+    <span class="card__name">Startup jobs</span>
+    <span class="card__summary">Find startup jobs, trending startups and company profiles.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Work permits">
+    <span class="card__name">Work permits</span>
+    <span class="card__summary">Check whether a citizen of one country needs a work permit in another.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Identity &#38; security">
+    <div class="cat-group__head"><h2>Identity &#38; security</h2><p>Verify people, stop fraud, run sign-in and check for threats.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="Age and profile checks">
+    <span class="card__name">Age and profile checks</span>
+    <span class="card__summary">Work out an age from a birth date and check a profile is genuine.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Breach checks">
+    <span class="card__name">Breach checks</span>
+    <span class="card__summary">Check whether an email or password has shown up in a known data breach.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Compliance checks">
+    <span class="card__name">Compliance checks</span>
+    <span class="card__summary">Score money-laundering risk and check data protection and crypto service rules.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Device signals">
+    <span class="card__name">Device signals</span>
+    <span class="card__summary">See which devices visit your site and flag risky requests.</span>
+    <span class="card__foot"><span class="pill pill--dark">24 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Document wallet">
+    <span class="card__name">Document wallet</span>
+    <span class="card__summary">Fetch a person&#39;s official documents from their digital wallet, with their consent.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Exposed hosts">
+    <span class="card__name">Exposed hosts</span>
+    <span class="card__summary">Find internet-facing servers and services and judge how risky they look.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Face and liveness checks">
+    <span class="card__name">Face and liveness checks</span>
+    <span class="card__summary">Match faces, confirm a live person and estimate age from a photo.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Fraud checks">
+    <span class="card__name">Fraud checks</span>
+    <span class="card__summary">Check emails, phones, IPs, cards, addresses and transactions for fraud signs.</span>
+    <span class="card__foot"><span class="pill pill--dark">11 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Fraud network reports">
+    <span class="card__name">Fraud network reports</span>
+    <span class="card__summary">Report fraud and screen people against shared fraud reports.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Identity verification">
+    <span class="card__name">Identity verification</span>
+    <span class="card__summary">Check ID documents and identity numbers and run full verification flows.</span>
+    <span class="card__foot"><span class="pill pill--dark">25 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="IP checks">
+    <span class="card__name">IP checks</span>
+    <span class="card__summary">See where an IP address is, who owns it and whether it is abusive.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Sanctions and watchlist screening">
+    <span class="card__name">Sanctions and watchlist screening</span>
+    <span class="card__summary">Screen a person or company against sanctions and watchlists.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Sign-in and users">
+    <span class="card__name">Sign-in and users</span>
+    <span class="card__summary">Add sign-in to your app and manage its users, teams and sessions.</span>
+    <span class="card__foot"><span class="pill pill--dark">27 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="URL and file safety">
+    <span class="card__name">URL and file safety</span>
+    <span class="card__summary">Check links and files for malware and phishing.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Vulnerabilities">
+    <span class="card__name">Vulnerabilities</span>
+    <span class="card__summary">Look up known security flaws and exploits for software.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Website security">
+    <span class="card__name">Website security</span>
+    <span class="card__summary">Check a website&#39;s security headers, TLS, privacy setup and known weak spots.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button></div>
+  </section>
+  <section class="cat-group" data-group="Developer tools">
+    <div class="cat-group__head"><h2>Developer tools</h2><p>Code, deploys, storage, databases, workflows and documents.</p></div>
+    <div class="cards">
+  <button type="button" class="card" data-key="App backend">
+    <span class="card__name">App backend</span>
+    <span class="card__summary">Create and run a ready-made backend for your app, with your own server functions.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Code helpers">
+    <span class="card__name">Code helpers</span>
+    <span class="card__summary">Explain, convert, document and review code, configs, logs and errors.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Code sandbox">
+    <span class="card__name">Code sandbox</span>
+    <span class="card__summary">Run code safely in the cloud, in one-off runs or a saved sandbox.</span>
+    <span class="card__foot"><span class="pill pill--dark">16 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Connected apps">
+    <span class="card__name">Connected apps</span>
+    <span class="card__summary">Connect your users to outside apps and run actions in them.</span>
+    <span class="card__foot"><span class="pill pill--dark">30 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Data files and test data">
+    <span class="card__name">Data files and test data</span>
+    <span class="card__summary">Clean CSV files, convert them to JSON, compare JSON and make fake test records.</span>
+    <span class="card__foot"><span class="pill pill--dark">4 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Database tables">
+    <span class="card__name">Database tables</span>
+    <span class="card__summary">Read, add, change and delete rows in your own database tables.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Developer trends">
+    <span class="card__name">Developer trends</span>
+    <span class="card__summary">See what is trending among developers right now.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Document processing">
+    <span class="card__name">Document processing</span>
+    <span class="card__summary">Turn PDFs, Word files and images into text or fields, and convert or watermark them.</span>
+    <span class="card__foot"><span class="pill pill--dark">15 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="E-signature">
+    <span class="card__name">E-signature</span>
+    <span class="card__summary">Send documents for signing, track them and download the signed copy.</span>
+    <span class="card__foot"><span class="pill pill--dark">20 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Environment variables">
+    <span class="card__name">Environment variables</span>
+    <span class="card__summary">Set, list and remove project settings and secrets.</span>
+    <span class="card__foot"><span class="pill pill--dark">10 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="File storage">
+    <span class="card__name">File storage</span>
+    <span class="card__summary">Store, move, share and delete files in your own storage buckets.</span>
+    <span class="card__foot"><span class="pill pill--dark">22 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="GitHub">
+    <span class="card__name">GitHub</span>
+    <span class="card__summary">Read public repository details and see trending repositories.</span>
+    <span class="card__foot"><span class="pill pill--dark">2 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="GPU compute">
+    <span class="card__name">GPU compute</span>
+    <span class="card__summary">Run your own code on rented GPUs and manage endpoints, storage and jobs.</span>
+    <span class="card__foot"><span class="pill pill--dark">26 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Hosting and deploys">
+    <span class="card__name">Hosting and deploys</span>
+    <span class="card__summary">Deploy sites and services, scale them and roll back to an earlier version.</span>
+    <span class="card__foot"><span class="pill pill--dark">18 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Key-value store">
+    <span class="card__name">Key-value store</span>
+    <span class="card__summary">Store, read, count and expire simple values, hashes and lists.</span>
+    <span class="card__foot"><span class="pill pill--dark">12 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Message queue">
+    <span class="card__name">Message queue</span>
+    <span class="card__summary">Send messages to your web address later or on a repeating schedule.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Packages and repos">
+    <span class="card__name">Packages and repos</span>
+    <span class="card__summary">Look up npm and Python packages and public code repositories.</span>
+    <span class="card__foot"><span class="pill pill--dark">5 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Postgres database">
+    <span class="card__name">Postgres database</span>
+    <span class="card__summary">Set up, pause, resume and manage a Postgres database for your project.</span>
+    <span class="card__foot"><span class="pill pill--dark">7 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Rate limiting">
+    <span class="card__name">Rate limiting</span>
+    <span class="card__summary">Limit how often a user or app can do something.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Remote connectors">
+    <span class="card__name">Remote connectors</span>
+    <span class="card__summary">Plug in outside tool servers and call their tools.</span>
+    <span class="card__foot"><span class="pill pill--dark">6 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Schedules">
+    <span class="card__name">Schedules</span>
+    <span class="card__summary">Run any action on a repeating schedule and review its runs.</span>
+    <span class="card__foot"><span class="pill pill--dark">8 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Software directory">
+    <span class="card__name">Software directory</span>
+    <span class="card__summary">Search a directory of software products and categories.</span>
+    <span class="card__foot"><span class="pill pill--dark">3 superpowers</span></span>
+  </button>
+  <button type="button" class="card" data-key="Stack Overflow">
+    <span class="card__name">Stack Overflow</span>
+    <span class="card__summary">Search Stack Overflow questions.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Unit conversion">
+    <span class="card__name">Unit conversion</span>
+    <span class="card__summary">Convert values between units of length, weight, volume and more.</span>
+    <span class="card__foot"><span class="pill pill--dark">1 superpower</span></span>
+  </button>
+  <button type="button" class="card" data-key="Workflows">
+    <span class="card__name">Workflows</span>
+    <span class="card__summary">Build, run and schedule automated workflows, with their tables, queues and credentials.</span>
+    <span class="card__foot"><span class="pill pill--dark">105 superpowers</span></span>
+  </button></div>
+  </section><p class="cat-empty" hidden data-empty>Nothing matches. Try fewer words, or pick All.</p><!-- /groups --></div>
     </div>
   </main>
 
@@ -85,9 +1790,9 @@
     <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
     <a data-slot="cta" href="index.html#start">Get early access</a>
     <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
-    <nav data-slot="links" data-title="More"><a href="developers.html">For developers</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
+    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
     <span data-slot="status" data-caption="Early access">Open</span>
-    <span data-slot="count" data-value="3483">Superpowers</span>
+    <span data-slot="count" data-value="3510">Superpowers</span>
     <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
     <p data-slot="legal"><a href="legal/privacy.html">Privacy</a><a href="legal/terms.html">Terms</a></p>
   </ticket-stub-footer>

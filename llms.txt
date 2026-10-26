@@ -12,8 +12,27 @@ running it safely (approval, idempotency, jobs), reading errors and the three wa
 ## Start here
 
 - [Agent skill](https://www.pramaan.dev/skill.md): how an agent uses Pramaan, end to end
+- [Docs](https://docs.pramaan.dev): guides and a reference page for every superpower, mission and API call ([llms.txt](https://docs.pramaan.dev/llms.txt))
 - [Developers](https://www.pramaan.dev/developers.html): overview for people building with Pramaan
 - [API reference (OpenAPI)](https://api.pramaan.dev/openapi.json): every endpoint, request and response
+
+## Category skills
+
+One skill per category, on top of the main skill. [Index](https://www.pramaan.dev/skills/index.md)
+
+- [People & companies](https://www.pramaan.dev/skills/people-companies/skill.md)
+- [Web & search](https://www.pramaan.dev/skills/web-search/skill.md)
+- [Email](https://www.pramaan.dev/skills/email/skill.md)
+- [Texting & calls](https://www.pramaan.dev/skills/texting-calls/skill.md)
+- [Social media](https://www.pramaan.dev/skills/social-media/skill.md)
+- [Ads & marketing](https://www.pramaan.dev/skills/ads-marketing/skill.md)
+- [Payments & money](https://www.pramaan.dev/skills/payments-money/skill.md)
+- [Documents & files](https://www.pramaan.dev/skills/documents-files/skill.md)
+- [Media (image, video, audio)](https://www.pramaan.dev/skills/media/skill.md)
+- [AI models](https://www.pramaan.dev/skills/ai-models/skill.md)
+- [Apps & connections](https://www.pramaan.dev/skills/apps-connections/skill.md)
+- [Developer tools](https://www.pramaan.dev/skills/developer-tools/skill.md)
+- [Identity & checks](https://www.pramaan.dev/skills/identity-checks/skill.md)
 
 ## Ways in
 
@@ -27,5 +46,6 @@ running it safely (approval, idempotency, jobs), reading errors and the three wa
 
 ## Optional
 
+- [Full catalogue (markdown)](https://www.pramaan.dev/catalogue/index.md): every superpower and mission id, one file per category
 - [Superpowers](https://www.pramaan.dev/superpowers.html): the catalogue of single actions
 - [Missions](https://www.pramaan.dev/missions.html): multi-step jobs that return one result

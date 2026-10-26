@@ -6,7 +6,9 @@
   <title>Pramaan — Every capability your agent needs, with proof</title>
   <meta name="description" content="Pramaan puts 300 capabilities from 67 providers behind one API, one key and one bill. Name the capability; Pramaan picks the provider and returns a neutral result." />
   <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
@@ -37,7 +39,7 @@
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
-        <a href="#docs">Docs</a>
+        <a href="https://docs.pramaan.dev">Docs</a>
       </nav>
       <div class="nav__actions">
         <a href="#login" class="btn btn--ghost">Login</a>
@@ -403,13 +405,13 @@
             <pre class="code"><code>GET https://api.pramaan.dev/v1/capabilities</code></pre>
           </article>
           <article class="card">
-            <span class="tag tag--plain">SDK &middot; coming soon</span>
+            <span class="tag tag--plain"><span class="tag__dot"></span>SDK &middot; on npm</span>
             <h3 class="h-card">TypeScript SDK</h3>
             <p>Fetch-only, so it runs in Node, Next.js, Bun and Workers. Jobs, idempotency and errors built in.</p>
             <pre class="code"><code>npm i @pramaan/sdk</code></pre>
           </article>
           <article class="card">
-            <span class="tag tag--plain">MCP &middot; coming soon</span>
+            <span class="tag tag--plain"><span class="tag__dot"></span>MCP &middot; on npm</span>
             <h3 class="h-card">MCP server</h3>
             <p>Any MCP client can list, describe and run capabilities and outcomes &mdash; with approval prompts for actions.</p>
             <pre class="code"><code>npx @pramaan/mcp</code></pre>
@@ -491,7 +493,7 @@
   <!-- Footer (component: components/halftone-footer.*) -->
   <halftone-footer wordmark="pramaan" label="Pramaan" meta="One API, one key, one bill.">
     <nav data-title="Product"><a href="#catalog">Capabilities</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></nav>
-    <nav data-title="Developers"><a href="#docs">Docs</a><a href="#docs">API reference</a><a href="https://api.pramaan.dev/openapi.json">OpenAPI</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a></nav>
+    <nav data-title="Developers"><a href="https://docs.pramaan.dev">Docs</a><a href="https://docs.pramaan.dev/platform">API reference</a><a href="https://api.pramaan.dev/openapi.json">OpenAPI</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a></nav>
     <nav data-title="Company"><a href="index.html">Pramaan for everyone</a><a href="#">Blog</a><a href="#">Contact</a></nav>
     <p data-legal>&copy; 2026 Pramaan &middot; <a href="legal/privacy.html">Privacy</a> &middot; <a href="legal/terms.html">Terms</a></p>
   </halftone-footer>

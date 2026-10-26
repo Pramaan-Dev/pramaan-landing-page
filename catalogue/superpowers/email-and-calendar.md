@@ -1,0 +1,157 @@
+# Superpowers: Email & calendar
+
+Send and read email, and book, run and sum up meetings.
+
+## Calendar
+
+Create and manage calendars and events, answer invites and check free times.
+
+- `calendar.agenda.get`: Read your calendar agenda with titles, locations and invitation answers, ordered by start time. The default window is now through 90 days; recurring dates are materialized roughly 90 days ahead. Use calendar.event.instances.list for farther dates. No attendees or version are promised.
+- `calendar.calendar.create`: Create an owned calendar in a connected mailbox. Returns calendar names and settings; personal data belongs to the connected account.
+- `calendar.calendar.delete`: Delete an owned calendar in a connected mailbox. Returns calendar names and settings; personal data belongs to the connected account. (needs approval)
+- `calendar.calendar.get`: Get an owned calendar in a connected mailbox. Returns calendar names and settings; personal data belongs to the connected account.
+- `calendar.calendar.update`: Update an owned calendar in a connected mailbox. Returns calendar names and settings; personal data belongs to the connected account.
+- `calendar.calendars.list`: List owned calendars in a connected mailbox. Returns calendar names and settings; personal data belongs to the connected account.
+- `calendar.event.create`: Create an event on one of your inboxes' calendars: one-off, whole-day, or recurring (RFC 5545 rule). With attendees and sendInvites, one invitation email goes to each attendee — that counts against the daily sending limit (200 a day by default) and is charged per attendee, before anything is saved; without it nothing is mailed. Your inbox becomes the organizer. Returns a ref for calendar.event.get, calendar.event.update, calendar.event.delete and calendar.event.respond.
+- `calendar.event.delete`: Delete a calendar event, or cancel one date of a recurring event (mode single, default), or that date and every later one (mode future, ending the series). With sendInvites, one cancellation email goes to each attendee — each counts against the daily sending limit (200 a day by default) and is charged per attendee; without it the cancellation stays on your calendar only. Only events your inbox organizes can send. Pass the version a read returned to fail instead of overwrite.
+- `calendar.event.get`: Read one calendar event with its attendees' answers. Pass the ref calendar.event.create returned, or the inbox plus the RFC Message-ID of the invitation email the event came from (its updates and cancellations record it too). An invitation email records its event a few seconds after it arrives; read again if it is not there yet.
+- `calendar.event.instances.list`: List dates of a recurring series within a UTC window of at most 366 days, including farther future dates. Returns calendar summaries and invitation answers with handles; read one event before a conditional edit.
+- `calendar.event.respond`: Answer an invitation one of your inboxes received: accepted, declined or tentative. By default the inbox emails the reply to the organizer — that counts against the daily sending limit (200 a day by default) and is charged as one send, before anything is saved; sendReply false records the answer without emailing. Only events the inbox was invited to by email can be answered.
+- `calendar.event.update`: Edit one calendar event: pass only the fields to change; send null to clear description, location or metadata; attendees replaces the whole list. For a date of a recurring event, mode single (default) edits that date only and future edits it and every later one. With sendInvites the change is emailed to attendees — each counts against the daily sending limit (200 a day by default) and is charged per attendee. Pass the version a read returned to fail instead of overwrite.
+- `calendar.events.list`: List calendar events with titles, locations and participant addresses when supplied. Ordered by last change. Read an event before a conditional edit to get its current version.
+- `calendar.free-busy.get`: Read only busy intervals from your own calendars, safe to show to someone booking a slot. A connection defaults to primary, never silently all calendars; repeat its selector with exact unique calendar names for several. Native free/busy is used on connected calendar apps and supported primary mail calendars. Secondary mail calendars and unsupported native calendars are derived from complete event lists with source-expanded recurrences; rented inbox calendars are derived from stored one-offs and expanded series instances. Cancelled, declined and reported free/transparent events are excluded; tentative events are busy. Rented inbox calendars do not document transparency and their remaining events are treated as busy. Windows are at most 62 days; incomplete data fails the whole call.
+- `calendar.get`: Read one of your inboxes' calendars: its default time zone for new events and how many events it holds. The calendar exists from the moment the inbox does; there is nothing to create.
+- `calendar.update`: Change one of your inboxes' calendars' default time zone for events created without one. Existing events do not move. Pass the version calendar.get returned to fail instead of overwrite when it changed meanwhile.
+
+## Connected email accounts
+
+Connect or disconnect a person's own email account.
+
+- `email.account.connect.start`: Start connecting a person’s email account; the same connected account serves calendar and contacts. The monthly rental starts after successful sign-in.
+- `email.account.connect.status`: Check a mailbox connection: pending, connected with an owned account handle, or failed. The connected account also serves calendar and contacts.
+- `email.account.disconnect`: Disconnect an owned email account and end its monthly rental. This also removes access to its calendar and contacts. (needs approval)
+- `email.accounts.list`: List your connected email account addresses and handles, optionally for one end user. The accounts also serve calendar and contacts.
+
+## Email deliverability
+
+Track delivery, block or allow addresses and watch bounce rates.
+
+- `email.esp.detect`: Detect the email service provider behind an email address or a website domain (the mailbox host or the sending platform the domain runs on).
+- `email.events.list`: List delivery and engagement events for one email sent through this API. At most 100 per page; recipient email addresses are returned only if requested.
+- `email.filter.entries.list`: Read your send-governance lists: who your inboxes may mail, receive mail from, or reply to, and who is blocked, as allow and block entries per workspace or per one inbox. Without a direction or type, all of them are read (at most 3,000 entries per call); use direction and type to go deeper.
+- `email.filter.entry.add`: Allow or block one email address or a whole domain for one direction of mail traffic: what your inboxes may send to, receive from, or reply to. Workspace-wide by default, or scope it to one inbox. Remove it with email.filter.entry.remove.
+- `email.filter.entry.get`: Read one allow or block entry for your workspace or inbox. Returns an email address or domain and its saved reason.
+- `email.filter.entry.remove`: Remove one allow or block entry you added, by its direction, type and address or domain; scope it to an inbox if it was added there. Entries the service manages itself cannot be removed. Removing an entry that is not there answers not_found.
+- `email.metrics.get`: Read usage, event counts and bounce/complaint rates for your mail workspace, or for one of your inboxes: counts and rates over a time window, never message content. Choose events (what happened), usage (what you have: storage, messages, inboxes) or rates (bounce and complaint rates).
+- `email.suppression.add`: Suppress one email address in your sending area. Returns the suppressed personal email address.
+- `email.suppression.get`: Read one suppressed email address and its reason. Returns a personal email address.
+- `email.suppression.remove`: Remove one email address from its suppression category. Requires confirm true; never clears a whole list.
+- `email.suppressions.list`: List suppressed email addresses and their reason in your sending area. Returns personal email addresses; at most 100 per page.
+- `web.domain.disposable`: Check whether a domain is a disposable email host or a free webmail provider.
+- `web.domain.email-inspect`: Inspect mail routing and mailbox-domain facts about any domain. Unknown facts are omitted. This does not configure a sending domain or verify a person's mailbox. Worst case $0.008 per domain.
+
+## Email domains
+
+Add your own sending domain and get its mail records set up and checked.
+
+- `email.domain.create`: Add a custom sending domain to your workspace and get the DNS records to publish. It is rented by the month (2.60 USD): the first month is charged when it is added and it renews monthly. After 7 days with a renewal unpaid, the domain is removed. Refused, with nothing created or charged, while sending is switched off for your account. Returns a ref for email.domain.get.
+- `email.domain.delete`: Remove a custom domain from your workspace and stop its monthly charge. Permanent: inboxes can no longer send from it. Pass the ref or the name. Removing a domain that is already gone answers not_found.
+- `email.domain.get`: Re-check a custom domain's DNS records and verification status: publish the records it lists, then call this again until verified.
+- `email.domain.setuplink.get`: Get the one-click setup page your DNS host offers for this domain's mail records, when it has one. The page is hosted by your DNS provider; open it, approve the records there, and the domain's checks re-run.
+- `email.domain.update`: Switch a custom domain's behaviour on or off: complaint feedback, inbound mail, subdomain inboxes, and open tracking (the prerequisite for tracked sends). Turning inbound mail or subdomains on re-pends the domain's verification: extra DNS records are needed, and email.domain.get lists them again.
+- `email.domain.verify`: Add a sending domain to Pramaan-managed sending (your own tenant) or your connected email account, and get its DNS records.
+- `email.domain.zonefile.get`: Read a custom domain's DNS records as a zone file (plain text, RFC 1035 form), to import them into a DNS host that accepts zone files. The record values name the mail infrastructure the records point at.
+- `email.domains.list`: List your custom sending domains with their switches. Rows are keyed by the domain name, which names the domain in email.domain.update, email.domain.get, email.domain.delete, email.domain.zonefile.get and email.domain.setuplink.get. DNS check status comes from email.domain.get.
+
+## Email folders and signatures
+
+Manage mailbox folders and email signatures.
+
+- `email.folder.create`: Create an owned folder in a connected mailbox. Returns folder names and colors; personal data belongs to the connected account.
+- `email.folder.delete`: Delete an owned folder in a connected mailbox. Returns folder names and colors; personal data belongs to the connected account. (needs approval)
+- `email.folder.get`: Get an owned folder in a connected mailbox. Returns folder names and colors; personal data belongs to the connected account.
+- `email.folder.update`: Update an owned folder in a connected mailbox. Returns folder names and colors; personal data belongs to the connected account.
+- `email.folders.list`: List owned folders in a connected mailbox. Returns folder names and colors; personal data belongs to the connected account.
+- `email.signature.create`: Create an owned signature in a connected mailbox. Returns signature body and names; personal data belongs to the connected account.
+- `email.signature.delete`: Delete an owned signature in a connected mailbox. Returns signature body and names; personal data belongs to the connected account. (needs approval)
+- `email.signature.get`: Get an owned signature in a connected mailbox. Returns signature body and names; personal data belongs to the connected account.
+- `email.signature.update`: Update an owned signature in a connected mailbox. Returns signature body and names; personal data belongs to the connected account.
+- `email.signatures.list`: List owned signatures in a connected mailbox. Returns signature body and names; personal data belongs to the connected account.
+
+## Email inbox
+
+Create inboxes, then read, search, label and delete messages and conversations.
+
+- `email.attachment.from-url`: Fetch a file from a URL and get it back as an attachment object you can pass straight into email.message.send, email.message.reply or email.draft.create. The file is fetched on the server: the address must be public, redirects are refused, and the file is capped at 6 MB, the same limit attachments have. The URL is never sent to any mail service.
+- `email.attachment.get`: Read one attachment of a message: the bytes come back inline as base64 (at most 6 MB). Pass the inbox, the message's RFC Message-ID and the attachment's id.
+- `email.attachment.read`: Copy one message attachment to private storage as a job. Supports PNG/JPEG/GIF/WebP, MP3/WAV/OGG/FLAC/MP4/MOV/WebM, PDF, DOCX, text and ZIP. At most 30 MB; images at most 20 MB. Select its zero-based metadata position. Returns personal file contents.
+- `email.attachment.text.get`: Read extracted document text from one attachment as a job. Downloads at most 1 MB and returns at most 250,000 characters; extraction may be absent. Returns personal document contents.
+- `email.inbox.authorize`: Approve one pending app sign-in for one of your inboxes, with the 22-character code the app's sign-in page showed. Approving grants that app a key scoped to this inbox: it can then read this inbox's mail and send from it, so only approve sign-ins you started. The code is a secret: it is never stored, logged or echoed back.
+- `email.inbox.create`: Create a mailbox your agent sends from and receives mail at. It is rented by the month (2.60 USD): the first month is charged when it is created and it renews monthly until you delete it. An inbox whose renewal is unpaid cannot send, and after 7 unpaid days it is deleted with its mail. Refused, with nothing created or charged, while sending is switched off for your account. Returns a ref for email.inbox.get and email.inbox.delete.
+- `email.inbox.delete`: Delete one of your inboxes and everything in it (messages, threads, drafts), and stop its monthly charge. Permanent: pass the ref or the address.
+- `email.inbox.get`: Read one inbox: address, display name and status. Pass the ref or the address.
+- `email.inbox.update`: Rename one of your inboxes, pause or resume it, or edit its metadata (your own key-value tags). Pausing stops the inbox sending and receiving: sends are refused, and mail sent to it meanwhile is neither delivered nor bounced, then or after you resume. Pausing does not end its monthly rental or charge; delete the inbox for that. Pass the ref the create returned or the address.
+- `email.inboxes.list`: List your agent inboxes with their addresses, display names and status.
+- `email.message.attributes.update`: Update a message’s star, unread state or metadata in your connected mailbox. Folder changes use email.message.update.
+- `email.message.clean`: Read one owned email as cleaned text or Markdown, at most 100 KB. Includes message content; addressed by mailbox and public RFC Message-ID.
+- `email.message.clean-bulk`: Clean up to 20 owned messages as a job, at most 100 KB per row. Address each by mailbox and public RFC Message-ID; results match your own row ids.
+- `email.message.delete`: Delete one message from one of your inboxes, with its attachments. Permanent: pass the ref a send returned, or the inbox plus the RFC Message-ID. Deleting a message that is already gone answers not_found. To delete a whole conversation instead, use email.thread.delete.
+- `email.message.get`: Read one message in an inbox: sanitised body, recipients and attachments. Pass the ref a send returned, or the inbox plus the RFC Message-ID.
+- `email.message.raw.get`: Read one message as its raw .eml file: the exact source with headers, base64-encoded inline (at most 10 MB; larger messages are refused). Pass the ref a send returned, or the inbox plus the RFC Message-ID. A raw message contains personal data and anything the sender included, unfiltered.
+- `email.message.raw.read`: Copy the raw message, including unfiltered headers and personal contents, to private file storage as a job. At most 30 MB. No provider download link is returned.
+- `email.message.summary.get`: Read one message summary: sender and recipient addresses, subject, preview, labels and attachment metadata. No message body is returned. Attachment identifiers are local index labels.
+- `email.message.summary.get-bulk`: Process up to 500 message summaries as a job. Each row uses your own id and public inbox plus RFC Message-ID. Different inboxes run one row at a time; native groups are atomic only within one label patch.
+- `email.message.update`: Add or remove labels on one message in one of your inboxes. Labels are your own tags for state, e.g. awaiting-reply or done; pass the ref a send returned, or the inbox plus the RFC Message-ID.
+- `email.message.update-bulk`: Process up to 50 message label changes as a job. Each row uses your own id and public inbox plus RFC Message-ID. Use one inbox and one label patch per call. That group is atomic upstream; refs are not accepted.
+- `email.messages.batch.get`: Read up to 500 messages of one inbox in one call: sender, recipients, subject, preview, labels and attachment names — the same rows a list returns, without bodies. Messages that do not exist are left out and listed in skipped. Bodies come from email.message.get.
+- `email.messages.batch.update`: Add or remove labels on up to 50 messages of one inbox in one call. The change is all or nothing for the messages found; messages that do not exist in that inbox are left out and listed in skipped, so results are keyed by the RFC Message-IDs you passed.
+- `email.messages.list`: List the messages in one of your inboxes, newest first: sender, subject, preview and attachments. Bodies come from email.message.get.
+- `email.messages.search`: Search the messages in one of your inboxes by keyword: sender, recipients, subject and body are matched.
+- `email.thread.delete`: Delete a whole conversation from one of your inboxes: every message in it and their attachments. Permanent. Name the conversation by the inbox and any RFC Message-ID in it. Deleting a conversation that is already gone answers not_found. To delete one message only, use email.message.delete.
+- `email.thread.get`: Read one conversation: subject, preview and every message in order with sanitised bodies. Name it by the inbox and any RFC Message-ID in the thread.
+- `email.thread.update`: Add or remove labels on a whole conversation in one of your inboxes. Name the conversation by the inbox and any RFC Message-ID in it. Labels are your own tags for state, e.g. awaiting-reply or done.
+- `email.threads.list`: List the conversations across all of your inboxes, newest first. Pass a row's inbox and lastMessageId to email.thread.get.
+- `email.workspace.get`: Inspect your own mail workspace without creating one. Counts all owned inboxes and domains, without returning addresses or contents.
+
+## Email sending
+
+Write drafts, send, reply, forward and schedule emails.
+
+- `email.draft.create`: Write an email draft in one of your inboxes. Nothing is sent: send it with email.draft.send, so an approval step can sit in between. Returns a ref for email.draft.send.
+- `email.draft.delete`: Delete a draft you created, by the ref its create returned. Permanent. If the draft was scheduled to be sent, deleting it also cancels that scheduled send. Deleting a draft that is already gone answers not_found.
+- `email.draft.get`: Read a saved draft: recipient addresses, cleaned message text and attachment metadata. Reply drafts may have no recipients yet.
+- `email.draft.send`: Send the draft an email.draft.create returned (pass its ref). Irreversible: on an unclear outcome it may already have been sent. It counts toward the daily sending limit (200 a day by default, per UTC day): past it the call is refused as rate_limited and nothing is sent. (needs approval)
+- `email.draft.update`: Edit a draft you created: recipients, subject, body, attachments and labels. Leave a field out to keep it; send null to clear it. Pass sendAt to schedule the draft to be sent at a time — the send counts against the daily sending limit when it is scheduled, and rescheduling counts again — reschedule by passing a new time, and cancel by sending null, by deleting the draft, or by pausing the inbox. Nothing is sent while you edit. Pass the ref the draft's create returned.
+- `email.drafts.list`: List saved drafts with addresses, subjects, previews and attachment metadata. Each row has a handle for reading, editing or sending; bodies are omitted.
+- `email.message.forward`: Send a message from one of your inboxes on to new recipients. Threading follows the source message; add a comment with text or html, and a subject to replace the original. Irreversible: on an unclear outcome it may already have been sent. Forwards share the daily sending limit (200 a day by default, per UTC day): past it the call is refused as rate_limited and nothing is sent. Returns a ref for email.message.get and email.message.reply. (needs approval)
+- `email.message.reply`: Reply to a message in one of your inboxes — an inbound one by its RFC Message-ID, or one you sent by its ref. Same thread; irreversible: on an unclear outcome it may already have been sent. A reply counts toward the daily sending limit (200 a day by default, per UTC day): past it the call is refused as rate_limited and nothing is sent. (needs approval)
+- `email.message.schedule.cancel`: Request cancellation of an owned scheduled email send. Delivery is still possible within ten seconds of its send time; poll status afterward.
+- `email.message.schedule.create`: Schedule an email from an owned mailbox for a future UTC time. Returns a schedule handle. The send counts against the daily sending limit on the day it is scheduled. Includes recipient addresses and message content; an unclear outcome may already have scheduled it. (needs approval)
+- `email.message.schedule.get`: Poll the status of an owned scheduled email send.
+- `email.message.schedules.list`: List scheduled email sends in your mailbox; each row has an owned handle for status or cancellation.
+- `email.message.send`: Send one email from one of your inboxes to up to 50 recipients. Irreversible: on an unclear outcome it may already have been sent. Sends, replies and sent drafts share a daily limit (200 a day by default, counted per UTC day): past it the call is refused as rate_limited and nothing is sent. Returns a ref for email.message.get and email.message.reply. (needs approval)
+- `email.message.send-tracked`: Send one email from one of your inboxes with open tracking on: a pixel is injected into the HTML body, and the first open surfaces as an `opened` label on the message (read it with email.message.get or email.messages.list) and as an open event. Needs a custom domain with tracking enabled (email.domain.update turns it on) and an HTML body — otherwise the send is refused and nothing is sent. One pixel per message, not per recipient: an open by any recipient is not attributed to one of them. Irreversible: on an unclear outcome it may already have been sent. Shares the daily sending limit (200 a day by default). Returns a ref for email.message.get and email.message.reply. (needs approval)
+- `email.send`: Send one email to up to 50 recipients, from your own connected Gmail or Outlook by default. Ask to connect first with apps.connection.start; no automatic managed fallback. Choose sender: "pramaan" for Pramaan’s managed domain, with reply-to set to your member email. Personal mail supports plain text or HTML; managed sending also supports uploaded attachments (10 files, 6 MB combined) and calendar invitations. Returns a ref for email.status. (needs approval)
+- `email.send-bulk`: Send up to 100 emails as one background job. Every row returns your row id and, when accepted, a ref for email.status. At most 50 recipients per row; worst-case provisional cost 9 USD. Acceptance is not delivery. (needs approval)
+- `email.status`: Delivery status of an email sent with email.send when its trackable flag is true: your connected email account, or Pramaan-managed sending with delivery webhooks configured. Pass the returned ref. Managed status is queued until the first delivery event arrives; delayed delivery maps to sent, and opens or clicks to delivered.
+
+## Email templates
+
+Save reusable email templates and send them.
+
+- `email.template.create`: Create an HTML email template with a subject and body. Its content can contain personal data.
+- `email.template.delete`: Delete one mail template by its templateId. Requires confirm true; permanently removes the template.
+- `email.template.get`: Read a mail template by the templateId from email.templates.list. Stored subjects and bodies may contain personal content.
+- `email.template.send`: Send your stored email template to one primary recipient and at most 49 copy recipients, with optional uploaded attachments. Holds the full recipient cost. Send an Idempotency-Key. (needs approval)
+- `email.template.update`: Edit a mail template by its templateId. Omitted fields are kept; names, subjects and bodies may contain personal content.
+- `email.templates.list`: List mail templates in your sending area, with identifiers for get, update and delete. Names and subjects may contain personal content; at most 100 per page.
+
+## Video meetings
+
+Create video meeting rooms and fetch their recordings.
+
+- `meetings.recording.get`: Read one recording of a video meeting room you created: its status and, when ready, the recording as a file on your storage. The app's own download link is never returned. If file storage is not configured, the call answers not available.
+- `meetings.recordings.list`: List the recordings of a video meeting room you created, newest first. A ready recording comes back as a file on your storage, never as the app's own download link. Where an app offers no recordings, this declines. If file storage is not configured, the call answers not available.
+- `meetings.room.create`: Create a video meeting on an end user's own connected meeting app, for one booking: returns the platform reference, a guest join link, a host link where the app gives one, and dial-in details where given. The host link is sensitive and is returned only once, to the room's owner.
+- `meetings.room.delete`: Delete a video meeting room you created, so its join link stops working. Only the room's owner can delete it. This cannot be undone, so it requires approval. (needs approval)
+- `meetings.room.get`: Read one video meeting room you created: its title, time, join link and dial-in details, and its host link only on a connection that may write (a read-only connection gets the room without it). Only the room's owner can read it; another builder's room answers not found.

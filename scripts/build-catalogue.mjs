@@ -13,6 +13,9 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const lab = resolve(process.argv[2] ?? resolve(root, "../capabilities-lab"));
 const { CATALOG } = await import(`${lab}/packages/sdk/src/generated/catalog.ts`);
 const { OUTCOMES } = await import(`${lab}/packages/sdk/src/generated/outcomes.ts`);
+// Missions the owner hid everywhere: never on this site, not even in data files.
+const { HIDDEN_OUTCOME_IDS } = await import(`${lab}/apps/api/src/outcomes-registry.ts`);
+const visible = Object.values(OUTCOMES).filter((o) => !HIDDEN_OUTCOME_IDS.has(o.id));
 const sorting = JSON.parse(readFileSync(`${root}/data/sorting.json`, "utf8"));
 const missionNames = JSON.parse(readFileSync(`${root}/data/mission-names.json`, "utf8"));
 
@@ -77,7 +80,7 @@ for (const line of readFileSync(`${lab}/docs/OUTCOMES.md`, "utf8").split("\n")) 
   const m = line.match(/^\| `([^`]+)` \| .* \| ((?:`[^`]+`(?:, )?)+) \| [a-z_]+ \| (?:yes|no) \|$/);
   if (m) steps[m[1]] = m[2].replaceAll("`", "").split(", ");
 }
-const missions = Object.values(OUTCOMES).map((o) => ({
+const missions = visible.map((o) => ({
   id: o.id,
   name: missionNames[o.id] ?? nameOf(o.id),
   category: place(o.id).c,
@@ -106,7 +109,8 @@ writeFileSync(`${root}/data/superpowers.json`, JSON.stringify({
 writeFileSync(`${root}/data/missions.json`, JSON.stringify({
   total: missions.length,
   categories: count(missions, () => 1),
-  featured: sorting.featured.missions.filter((id) => OUTCOMES[id]),
+  featured: sorting.featured.missions.filter((id) => OUTCOMES[id] && !HIDDEN_OUTCOME_IDS.has(id)),
   missions: missions.sort(byName),
 }));
 console.log(`${Object.keys(CATALOG).length} superpowers in ${fams.length} families, ${missions.length} missions.`);
+await import("./prerender-catalogue.mjs");
