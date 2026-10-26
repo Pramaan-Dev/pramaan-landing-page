@@ -30,6 +30,10 @@ const pills = (x) =>
 const docsUrl = (family, id) =>
   `https://docs.pramaan.dev/superpowers/${family.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-')}/${id.toLowerCase().replace(/[^a-z0-9-]/g, '')}`;
 
+// Docs page for a mission: the category slug keeps its "&" ("crypto-&-defi"); the id loses its dots.
+export const missionDocsUrl = (m) =>
+  `https://docs.pramaan.dev/missions/${m.category.toLowerCase().replace(/\s+/g, '-')}/${m.id.replace(/\./g, '')}`;
+
 // One shape for both pages: { key, name, category, summary, foot, search, panel() }
 export const toCards = (kind, data) =>
   kind === 'superpowers'
@@ -66,6 +70,7 @@ export const toCards = (kind, data) =>
           <p class="panel__lead">${esc(m.description)}</p>
           <div class="panel__facts">${m.priceMaxMicro > 0 ? `<span class="pill pill--dark">Up to ${usd(m.priceMaxMicro)} a run</span>` : ''}${pills(m)}</div>
           <div class="panel__id"><code>${esc(m.id)}</code><button type="button" data-copy-id="${esc(m.id)}">Copy id</button></div>
+          <a class="panel__docs" href="${esc(missionDocsUrl(m))}" target="_blank" rel="noopener">API docs &rarr;</a>
           <div>
             <span class="eyebrow">The superpowers it uses, in order</span>
             <ol class="panel__list panel__steps">${m.steps
