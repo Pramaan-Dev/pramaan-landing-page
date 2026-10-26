@@ -1,0 +1,34 @@
+/* Legal pages: reuses the catalogue hero, layout and sidebar. */
+.legal-draft {
+  align-self: flex-start; padding: 6px 14px; border-radius: var(--radius-pills);
+  background: var(--color-gold); font-size: var(--text-body-sm);
+}
+.cat-side a {
+  display: block; padding: 8px 12px; border-radius: 12px;
+  font-size: var(--text-body-sm); color: inherit; text-decoration: none;
+}
+.cat-side a:hover { background: rgba(36, 36, 36, .05); }
+.cat-side a[aria-current="page"] { background: var(--color-off-black); color: var(--color-parchment); }
+
+.legal { min-width: 0; overflow-wrap: anywhere; max-width: 760px; font-size: var(--text-body); line-height: 1.6; color: var(--color-off-black); }
+.legal h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-heading-sm); line-height: 1.2; margin: 48px 0 16px; }
+.legal h3 { font-size: var(--text-label); font-weight: 500; margin: 32px 0 12px; }
+.legal > :first-child { margin-top: 0; }
+.legal p, .legal ul, .legal ol, .legal-table { margin-bottom: 16px; }
+.legal ul, .legal ol { padding-left: 24px; }
+.legal ul { list-style: disc; }
+.legal ol { list-style: decimal; }
+.legal li + li { margin-top: 6px; }
+.legal li > ul, .legal li > ol { margin: 6px 0 0; }
+.legal a { color: var(--color-lake-blue); }
+.legal code { font-family: var(--font-mono); font-size: .9em; }
+.legal mark { background: var(--color-gold); padding: 0 2px; }
+.legal-table { overflow-x: auto; }
+.legal table { border-collapse: collapse; font-size: var(--text-body-sm); width: 100%; }
+.legal th, .legal td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--color-ash); }
+.legal th { font-weight: 500; }
+
+@media (max-width: 900px) {
+  .cat-layout { grid-template-columns: minmax(0, 1fr); }
+  .cat-side a { white-space: nowrap; }
+}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pramaan Subprocessors | Pramaan</title>
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../catalogue.css" />
+  <link rel="stylesheet" href="../legal.css" />
+  <link rel="stylesheet" href="../components/ticket-stub-footer.css" />
+  <script src="../components/ticket-stub-footer.js" defer></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="../index.html#how">How it works</a>
+        <a href="../superpowers.html">Superpowers</a>
+        <a href="../missions.html">Missions</a>
+        <a href="../index.html#pricing">Pricing</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="../index.html#login" class="btn btn--ghost">Log in</a>
+        <a href="../index.html#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cat-hero">
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Legal</span>
+        <h1 class="display display--md">Subprocessors</h1>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Legal pages">
+        <p class="eyebrow cat-side__title">Legal</p>
+        <ul>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="acceptable-use.html">Acceptable Use</a></li>
+          <li><a href="messaging.html">Messaging and SMS</a></li>
+          <li><a href="background-checks.html">Background checks</a></li>
+          <li><a href="refunds.html">Credit and refunds</a></li>
+          <li><a href="subprocessors.html" aria-current="page">Subprocessors</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="security.html">Security</a></li>
+        </ul>
+      </aside>
+      <article class="legal">
+<p><strong>Last updated:</strong> 19 October 2026</p>
+<p>These companies run the infrastructure behind the Service and process personal data for us.</p>
+<div class="legal-table"><table><thead><tr><th>Subprocessor</th><th>What it does for us</th><th>Data</th><th>Location</th></tr></thead><tbody><tr><td>Render</td><td>Hosting for the API and the database</td><td>all stored data</td><td>US and EU</td></tr><tr><td>Inngest</td><td>Runs background jobs and schedules</td><td>job inputs and results in transit</td><td>US and EU</td></tr><tr><td>Cloudflare (R2)</td><td>File storage: uploads, generated media, exports</td><td>files</td><td>US and EU</td></tr><tr><td>Clerk</td><td>Sign-in, sessions and sign-in codes</td><td>name, email, sign-in records</td><td>US and EU</td></tr><tr><td>Resend</td><td>Pramaan's own email: invites, receipts, notices</td><td>email addresses, message content</td><td>US and EU</td></tr><tr><td>Dodo Payments</td><td>Sells credit as merchant of record; tax and receipts</td><td>billing name, email, payment</td><td>US and EU</td></tr><tr><td>Mintlify</td><td>Hosts the docs site</td><td>visitor logs</td><td>US and EU</td></tr></tbody></table></div>
+<h2>Providers that carry out superpowers</h2>
+<p>Each superpower is carried out by one or more third-party providers. Which one depends on the call and changes over time. They receive only what that call needs and a hashed workspace tag. By category, they are:</p>
+<ul><li>people and company data providers;</li><li>telephony and messaging providers (phone numbers, SMS, voice);</li><li>email inbox and sending providers;</li><li>connected-app platforms (for apps you connect, such as a CRM or calendar);</li><li>social posting providers;</li><li>AI model providers;</li><li>web search, scraping and other public-data providers.</li></ul>
+<p>Customers who sign the DPA receive the full named list.</p>
+<h2>Changes</h2>
+<p>We will give 30 days' notice of a new subprocessor to builders who have signed the DPA. They can object.</p>
+      </article>
+    </div>
+  </main>
+
+  <ticket-stub-footer wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+    <nav data-slot="sections">
+      <a href="../index.html">Home</a>
+      <a href="../superpowers.html">Superpowers</a>
+      <a href="../missions.html">Missions</a>
+      <a href="../index.html#pricing">Pricing</a>
+      <a href="../index.html#faq">FAQ</a>
+    </nav>
+    <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
+    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+    <a data-slot="cta" href="../index.html#start">Get early access</a>
+    <nav data-slot="links" data-title="Product"><a href="../superpowers.html">Superpowers</a><a href="../missions.html">Missions</a><a href="../index.html#pricing">Pricing</a><a href="../index.html#faq">FAQ</a></nav>
+    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="../developers.html">For developers</a><a href="../index.html#login">Log in</a><a href="security.html">Security</a></nav>
+    <span data-slot="status" data-caption="Early access">Open</span>
+    <span data-slot="count" data-value="3483">Superpowers</span>
+    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+    <p data-slot="legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></p>
+  </ticket-stub-footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

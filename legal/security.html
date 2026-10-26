@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pramaan Security Overview | Pramaan</title>
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../catalogue.css" />
+  <link rel="stylesheet" href="../legal.css" />
+  <link rel="stylesheet" href="../components/ticket-stub-footer.css" />
+  <script src="../components/ticket-stub-footer.js" defer></script>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="../index.html" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="../index.html#how">How it works</a>
+        <a href="../superpowers.html">Superpowers</a>
+        <a href="../missions.html">Missions</a>
+        <a href="../index.html#pricing">Pricing</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="../index.html#login" class="btn btn--ghost">Log in</a>
+        <a href="../index.html#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cat-hero">
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Legal</span>
+        <h1 class="display display--md">Security Overview</h1>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Legal pages">
+        <p class="eyebrow cat-side__title">Legal</p>
+        <ul>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="acceptable-use.html">Acceptable Use</a></li>
+          <li><a href="messaging.html">Messaging and SMS</a></li>
+          <li><a href="background-checks.html">Background checks</a></li>
+          <li><a href="refunds.html">Credit and refunds</a></li>
+          <li><a href="subprocessors.html">Subprocessors</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="security.html" aria-current="page">Security</a></li>
+        </ul>
+      </aside>
+      <article class="legal">
+<p><strong>Effective date:</strong> 19 October 2026</p>
+<p>This page describes only the security measures built today.</p>
+<h2>How we protect your data</h2>
+<ul><li><strong>Keys.</strong> An API key is shown once. Only a prefix and its last four characters are displayed after that. Keys can be revoked at once.</li><li><strong>Credentials.</strong> Your own provider credentials and connection tokens are encrypted, each tied to its workspace. They are never logged or shown back.</li><li><strong>Encrypted in transit.</strong> Public connections use HTTPS, and traffic between our services and our database travels over our hosting provider's encrypted private network. Requests to third-party providers use HTTPS. If you ask us to fetch an address that uses plain http, that request is sent as you specified.</li><li><strong>Backups.</strong> Daily copies are kept 6 days, weekly copies 27 days and monthly copies 89 days. Manual copies are deleted after 90 days.</li><li><strong>Separate workspaces.</strong> Every stored record is scoped to its workspace, project and environment. Tests check that one workspace cannot read another's data.</li><li><strong>Provider-neutral results.</strong> Results leave out provider names, ids and account details. Sources receive a hash of your workspace id, not your name.</li><li><strong>Logs.</strong> Server logs carry request ids, key prefixes and a fingerprint of the input. They never carry request bodies or credentials.</li><li><strong>Outbound calls.</strong> Web addresses that builders supply are checked, and private network addresses are blocked.</li><li><strong>Inbound webhooks.</strong> Signatures are checked and repeats ignored before anything runs.</li><li><strong>Sending limits.</strong> Each workspace has a daily send cap and a kill switch on Pramaan-owned SMS, email and social channels.</li><li><strong>Approvals.</strong> Calls that cannot be undone, or that cost more than your limit, can require a named approver.</li><li><strong>Software supply chain.</strong> Dependency versions are pinned, and new package releases are held for a day before use.</li></ul>
+<h2>Reporting a vulnerability</h2>
+<p>Email security@pramaan.dev. We confirm your report within 3 business days and keep you updated until it is fixed.</p>
+<ul><li>Test only your own account. Do not access, change or delete other people's data.</li><li>Do not disrupt the service, run automated scans, or try social engineering or phishing.</li><li>Give us 90 days, or until we have fixed the issue, before telling anyone else.</li></ul>
+<p>If you follow these rules, we treat your research as authorised and will not take legal action against you. With your permission, we will thank you on this page. We do not offer cash rewards.</p>
+<h2>Incidents</h2>
+<p>If a breach affects your data, we will tell you without undue delay and as the law requires.</p>
+      </article>
+    </div>
+  </main>
+
+  <ticket-stub-footer wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+    <nav data-slot="sections">
+      <a href="../index.html">Home</a>
+      <a href="../superpowers.html">Superpowers</a>
+      <a href="../missions.html">Missions</a>
+      <a href="../index.html#pricing">Pricing</a>
+      <a href="../index.html#faq">FAQ</a>
+    </nav>
+    <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
+    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+    <a data-slot="cta" href="../index.html#start">Get early access</a>
+    <nav data-slot="links" data-title="Product"><a href="../superpowers.html">Superpowers</a><a href="../missions.html">Missions</a><a href="../index.html#pricing">Pricing</a><a href="../index.html#faq">FAQ</a></nav>
+    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="../developers.html">For developers</a><a href="../index.html#login">Log in</a><a href="security.html">Security</a></nav>
+    <span data-slot="status" data-caption="Early access">Open</span>
+    <span data-slot="count" data-value="3483">Superpowers</span>
+    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+    <p data-slot="legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></p>
+  </ticket-stub-footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

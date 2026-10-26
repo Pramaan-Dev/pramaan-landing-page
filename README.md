@@ -12,8 +12,11 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | `developers.html` | Developers | Capabilities, providers, SDK / MCP / HTTP, pricing math. |
 | `superpowers.html` | Everyone | Every superpower (capability), one card per family, grouped into 18 categories with search and a Featured row. A card opens a side panel listing that family's superpowers. `#<Family>` in the URL opens it directly. |
 | `missions.html` | Everyone | Every mission (outcome), one card each, same categories. The side panel shows the price cap, approvals and the superpowers it runs, in order. `#<mission.id>` opens it directly. |
+| `legal/*.html` | Everyone | Terms, privacy, acceptable use, messaging, refunds, subprocessors, cookies, security. Drafts for legal review, marked "Not in force" and `noindex`. |
 
 The two catalogue pages share `catalogue.css` and `catalogue.js` and load `data/superpowers.json` and `data/missions.json`. Rebuild those after the lists change in capabilities-lab: `node scripts/build-catalogue.mjs` (expects `../capabilities-lab`; pass another path as the first argument). Categories and families live in `data/sorting.json`, sorted by hand per id; the build stops on any id that is not in it, so new ids must be sorted there first.
+
+The legal pages are generated from `docs/legal/*.md` in capabilities-lab: `node scripts/build-legal.mjs ../capabilities-lab/docs/legal`. Reviewer notes (quote blocks) are dropped, and placeholders in square brackets are highlighted. Edit the Markdown there, not the HTML here.
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
 
