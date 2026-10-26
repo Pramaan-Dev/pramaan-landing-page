@@ -23,6 +23,12 @@ if (!side.children.length) side.innerHTML = sideHtml(data);
 
 const groups = [...document.querySelectorAll('.cat-group')];
 const search = document.querySelector('[data-search]');
+// Phones get the short placeholder; the long one with examples doesn't fit.
+const phone = matchMedia('(max-width: 600px)');
+const fullHint = search.placeholder;
+const setHint = () => (search.placeholder = phone.matches ? search.dataset.short : fullHint);
+setHint();
+phone.addEventListener('change', setHint);
 let category = 'All';
 
 function apply() {
