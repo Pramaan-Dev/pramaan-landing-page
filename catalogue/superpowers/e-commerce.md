@@ -14,6 +14,7 @@ Look up Amazon products, sellers, best sellers and the keywords they rank for.
 - `amazon.product.detail`: One Amazon product by ASIN: title, price, rating, review count, image and brand.
 - `amazon.product.keywords`: The Amazon search keywords a product ranks for, with its position and each keyword's volume.
 - `amazon.product.rank-overview`: How many Amazon search keywords each of several products ranks for, by position band.
+- `amazon.product.reviews`: List published product reviews without reviewer identities. Returns personal data: Published product review text; reviewer identifiers and contact details are omitted..
 - `amazon.product.sellers`: The sellers offering an Amazon product, with their price, rating and delivery terms.
 - `amazon.search.products`: Search Amazon products by keyword; returns ASIN, title, price, rating and image.
 - `amazon.storefront.detail`: A creator's Amazon storefront by its address, with its description and the lists and collections it shows. Returns personal data: the storefront owner's name and description.

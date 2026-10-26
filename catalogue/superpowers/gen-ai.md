@@ -194,6 +194,7 @@ Describe an image, find objects in it and check its quality.
 - `image.describe`: Describe an uploaded image in plain words or as scene elements with normalized boxes. Empty descriptions are a free miss.
 - `image.inspect`: Inspect an uploaded image for selected content, product-fidelity or image-quality checks, including visible human content. No person is identified or ranked. Requires a configured inspection source; only requested checks are returned.
 - `image.objects.detect`: Detect object labels and boxes in an uploaded image, including person labels. Returns no identities or scores of people; input up to 20 MB and 4 megapixels.
+- `web.image.read`: Import a public image with explicit consent into your own stored files. At most 10 MiB; JPEG, PNG, GIF or WebP only, checked by type and signature. Refuses private destinations, SVG, HTML and excessive redirects.
 
 ## Image editing
 
@@ -278,6 +279,7 @@ Check on or delete the media you have generated.
 - `media.generation.delete`: Delete your own generated-media record where supported. Requires explicit confirmation; copied files keep their normal expiry.
 - `media.generation.get`: Read the state of your own generated media without copying files or returning submitted prompts.
 - `media.generations.list`: List your own media generations. Stored states can lag rendering; read a row to refresh its state. An empty page may have a continuation.
+- `media.prepare`: Prepare an image or video for a publishing platform as a background job. Videos above 200 MB are refused. Each team can prepare 60 files per hour.
 
 ## Model catalog
 
@@ -355,6 +357,7 @@ Turn recordings into text, subtitles and searchable transcripts.
 
 Rewrite, classify, analyse and draft text.
 
+- `ai.judgment.calibrated`: Return a decision model's probability for each supplied option using your question and context. These are model estimates, not a guarantee of accuracy or measured calibration on your data. Evaluate thresholds on your own labelled examples before acting on them.
 - `text.analyze`: Analyze submitted text for requested summaries, topics, intentions and sentiment; content may contain personal data. Holds a provisional ceiling of $0.135 per requested feature, up to $0.540.
 - `text.blog-outline.generate`: Write an outline for a blog post on a topic, with title ideas and sections.
 - `text.classify`: Sort a text into categories (your own or general ones), with a confidence for each.
@@ -440,6 +443,7 @@ Turn text into spoken audio and design or clone voices.
 - `audio.pronunciation-dictionary.get`: Read a speech pronunciation dictionary, including substitutions that may contain personal names.
 - `audio.pronunciation-dictionary.update`: Change a speech pronunciation dictionary; adding an existing key replaces that substitution.
 - `audio.speech`: Turn text into spoken audio; returns a link to the audio file, kept for 7 days.
+- `audio.speech-timed`: Turn text into MP3 speech with timed text segments; copies audio to file storage.
 - `audio.voice-catalog.list`: List public voice names, languages, gender and supported controls, returning stable voice keys.
 - `audio.voice-settings.get`: Read how one of your voices speaks: stability, similarity, style, speaker boost and speed. Pass the ref of a voice.
 - `audio.voice-settings.update`: Change how one of your voices speaks: stability, similarity, style, speaker boost or speed. Only the settings you send change. Works on voices you created, not on shared ones.
@@ -448,5 +452,6 @@ Turn text into spoken audio and design or clone voices.
 - `audio.voice.delete`: Permanently delete one of your voices and the recordings it was made from. Pass the ref of the voice and confirm: true. There is no undo.
 - `audio.voice.design`: Design a new voice from a written description. Returns a few preview recordings of candidate voices; keep one with audio.voice.create using its ref. The previews are charged once as one piece of speech. Runs as a job.
 - `audio.voice.get`: Read one of your voices: name, description, languages, tags, number of samples and how it speaks. Pass the ref of a voice. Returns the description and tags you wrote.
+- `audio.voice.preview`: Generate one voice preview from a description, without creating a saved voice.
 - `audio.voice.update`: Change one of your voices: rename it, rewrite its description or tags, or add recordings (up to 3 files and 10 MB in total). Only what you send changes. Adding recordings costs extra. Voice recordings are personal data.
 - `audio.voices.list`: List the voices you created (designed or cloned), newest first. Each row has a ref for the other voice capabilities. Returns each voice's name and the description you wrote.

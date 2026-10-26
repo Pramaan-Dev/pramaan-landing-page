@@ -158,7 +158,7 @@ Keep a do-not-contact list so messages never reach people who opted out.
 - `messaging.opt-out.add`: Add a person to your project's opt-out list: no text, WhatsApp message, call or email you send through Pramaan reaches them on that channel (or any, with all) until you remove it. Free. An existing entry is returned as it is.
 - `messaging.opt-out.check`: Whether a send to this address on this channel would be refused because the person opted out. Free. Says only blocked or not, never why.
 - `messaging.opt-out.remove`: Remove a person from your project's own opt-out list, for one channel or all. Only entries you added can be removed: one the person made (a STOP reply or an unsubscribe link) counts as not removed. Free. Sends to them may still be refused for other reasons, which are never named.
-- `messaging.opt-outs.list`: List your project's own opt-out entries, oldest first, with a masked address, channel, source and reason. Free.
+- `messaging.opt-outs.list`: List your project's own opt-out entries, oldest first, with a masked address, channel, source and reason, plus the organisation's STOP replies (read-only, masked, with the number they replied to). Free.
 - `messaging.record.redact`: Permanently redact the stored record of an outbound text message you sent; this does not recall delivery.
 
 ## Outreach campaigns
@@ -175,7 +175,8 @@ Manage contacts, broadcasts, drip sequences and automated replies in one inbox.
 - `outreach.sequence.enroll`: Enrol contacts in a drip sequence, which starts messaging them. Send an Idempotency-Key.
 - `outreach.sequence.unenroll`: Remove a contact from a drip sequence so it sends them nothing more.
 - `outreach.sequences.list`: List your drip sequences with enrolment counts.
-- `outreach.workflow.activate`: Set a conversation workflow live so it starts replying to inbound messages.
+- `outreach.workflow.activate`: Set a conversation workflow live so it starts replying to inbound messages. (needs approval)
+- `outreach.workflow.create`: Create a draft conversation workflow that can upsert contacts in the connected CRM. Personal data stays in the connected portal; it can be erased there. Activate separately.
 - `outreach.workflows.list`: List your conversation workflows with run counts.
 
 ## Phone calls
@@ -351,6 +352,7 @@ Send WhatsApp messages and templates and manage your business profile.
 - `whatsapp.business-profile.update`: Update your WhatsApp business contact details, description or about text.
 - `whatsapp.conversation-settings.get`: Read WhatsApp welcome-message, conversation-starter and command settings.
 - `whatsapp.conversation-settings.update`: Configure WhatsApp welcome messages, conversation starters and commands.
+- `whatsapp.inbound-messages.list`: List inbound direct WhatsApp messages from your existing sender account. Walk every continuation to finish a history sweep. Media is copied to platform files; results never contain upstream media links.
 - `whatsapp.media.delete`: Permanently delete an owned WhatsApp media file. (needs approval)
 - `whatsapp.media.upload`: Upload an owned file or public media link to WhatsApp, up to 5 MB. Media persists for 30 days unless deleted earlier.
 - `whatsapp.message.send`: Reply with free text on WhatsApp to someone who messaged you in the last 24 hours. Send an Idempotency-Key. (needs approval)

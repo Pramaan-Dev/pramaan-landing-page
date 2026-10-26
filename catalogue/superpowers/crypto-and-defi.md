@@ -79,6 +79,7 @@ Check coin prices, exchange order books, candles, ETFs and market mood.
 - `crypto.price.ohlc`: Read public open, high, low and close price candles for one crypto currency pair. Returns up to fifty candles.
 - `crypto.search`: Find crypto coins by name or symbol, with the id other crypto capabilities take.
 - `crypto.technical.indicator`: A technical indicator (such as RSI or MACD) for a trading pair on an exchange and interval.
+- `crypto.token.prices`: Read current or historical US-dollar prices and percentage changes for public token contracts.
 
 ## Crypto projects and airdrops
 
@@ -118,6 +119,7 @@ Track DeFi protocols, chains, bridges and exchanges by value, fees and volume.
 - `crypto.protocol.financials`: A DeFi protocol's income statement (revenue, costs, earnings) by period.
 - `crypto.protocol.flows`: The inflows and outflows of a DeFi protocol over the day after a given time.
 - `crypto.protocol.treasury`: A DeFi protocol's treasury value and holdings, with totals and changes.
+- `crypto.protocol.tvl`: Read the current total USD value locked in one DeFi protocol.
 - `crypto.protocol.tvl-metrics`: A DeFi protocol's value locked, with totals and changes over time.
 - `crypto.protocols.list`: DeFi protocols with their value locked, category, chains and recent change.
 - `crypto.treasuries.list`: DeFi protocol treasuries, with their value and holdings.
@@ -163,6 +165,7 @@ Track stablecoin supply and tokenised real-world assets.
 - `crypto.stablecoins.chains`: The total stablecoin supply on each chain now.
 - `crypto.stablecoins.dominance-history`: Historical stablecoin totals and the largest stablecoin on a chain, in US dollars. Returns up to 50 observations in source order.
 - `crypto.stablecoins.list`: Stablecoins with their peg, mechanism and circulating supply.
+- `crypto.stablecoins.price-history`: Read daily historical US-dollar stablecoin prices by public ticker symbol.
 - `crypto.stablecoins.supply-history`: Historical circulating supply of USD-pegged stablecoins across all chains or one chain. Returns up to 50 observations in source order.
 
 ## Token unlocks

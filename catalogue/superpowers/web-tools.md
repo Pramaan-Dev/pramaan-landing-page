@@ -51,6 +51,8 @@ Turn any web page into a screenshot, PDF, HTML or metadata.
 
 Watch pages on a schedule and get told when they change.
 
+- `web.monitor.budget.add`: Buy prepaid monitoring allowance for this workspace, up to the explicit maximum payment. Requires confirm true and an Idempotency-Key. Creates only the largest whole allowance unit that fits the maximum. Monitors stop after their bounded 24-hour window, with unused allowance still reserved. (needs approval)
+- `web.monitor.budget.get`: Read this workspace's prepaid monitoring allowance. Other workspaces' funds and spending are never included. Monitor windows reserve their full possible use before starting.
 - `web.monitor.change.read`: Read one detected page, sitemap or structured-data change with bounded diff, evidence and exact URL counts. Captured content may include personal data. Free to read.
 - `web.monitor.changes`: Read detected changes for one monitor or all your monitors. Includes bounded before and after text, URL samples, exact counts and evidence; captured content may include personal data. Free to read.
 - `web.monitor.create`: Watch a web page or a search topic on a schedule; checks are billed and no notifications are sent. Returns a ref for web.monitor.delete.
@@ -66,6 +68,7 @@ Watch pages on a schedule and get told when they change.
 - `web.monitor.runs-list`: Read check history across your own monitors, with handles to read each run. Free to read; completed checks are billed through their monitor rental.
 - `web.monitor.trigger`: Run a web monitor's check now, ahead of its schedule. The check is billed like a scheduled one and cannot be undone; sending this twice runs two checks.
 - `web.monitor.update`: Change a web monitor's schedule, its query, or its label. Checks keep running and keep billing at their cadence. A schedule that checks more often is charged for the rest of the paid month at once and is refused when your credit cannot pay it; one that checks less often lowers the charge from the next renewal.
+- `web.monitor.version.get`: Read a captured page version belonging to one of your monitors. Use a version reference from the change feed.
 
 ## Remote browser
 

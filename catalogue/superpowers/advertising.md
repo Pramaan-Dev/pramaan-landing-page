@@ -8,14 +8,20 @@ Connect your ad accounts and read campaigns, ads, audiences, spend and results.
 
 - `ads.account.connect.credentials`: Connect an ads platform account with its dashboard API key instead of a sign-in redirect. The key is forwarded once so the platform can verify it and keep it for the connection; it is not stored or logged by this API and never appears in a result or an error. The connected account shows up in social.accounts.list and works with the ads.* capabilities.
 - `ads.account.connect.start`: Start connecting a platform's ads account: returns a sign-in link for the person who owns it, or reports that the ads account already exists. The person signs in, lands back on returnUrl, and the connection can then be checked with social.account.connect.status. The ads account shows up in social.accounts.list with the ads.* capabilities.
+- `ads.account.invitation.create`: Invite someone to a connected Google Ads customer. May require a second administrator approval. Send an Idempotency-Key. (needs approval)
+- `ads.account.invitation.revoke`: Withdraw an unaccepted access invitation to a connected Google Ads customer.
+- `ads.account.invitations.list`: List access invitations for a connected Google Ads customer.
 - `ads.accounts.list`: List the ad accounts behind a connected ads account (read-only): name, currency, balance.
 - `ads.ad-sets.list`: List ad sets (ad groups) with status and budget, optionally for one campaign.
+- `ads.ad.creatives.review.get`: Read each creative review verdict in a TikTok Smart+ ad, including Spark posts and rejection reasons.
 - `ads.ad.review.get`: Read an ad's review verdict: approved or rejected, why, and where it may not run (read-only).
 - `ads.ads.list`: List ads with delivery and review status and impressions, clicks, conversions (read-only).
 - `ads.audiences.list`: List the custom and lookalike audiences in an ad account, with size (read-only).
 - `ads.campaigns.list`: List ad campaigns with status, budget and spend, impressions, clicks, conversions (read-only).
 - `ads.catalog-ad.create`: Create a catalog-template ad, paused, in an existing ad set, choosing its image or carousel format. Preview by default (checks the ad set and inputs, sends nothing); send an Idempotency-Key when creating.
+- `ads.conversions.send`: Report conversion events, including Meta Business Messaging attribution. Customer identity is personal data. Use stable event IDs and an Idempotency-Key. (needs approval)
 - `ads.insights.get`: Spend, impressions, reach, clicks and conversions for a campaign or ad, in total and per day.
+- `ads.lead.update`: Update a lead status and optional deal value on a connected ad account.
 - `ads.leads.list`: List leads submitted through your ad lead forms, newest first (contains personal data).
 - `ads.targeting.search`: Find advertising targeting options, including TikTok additional interests and hashtags and their availability.
 
@@ -106,6 +112,9 @@ Read ads from LinkedIn's public ad library.
 
 Manage your website tags, triggers and variables in Google Tag Manager.
 
+- `ads.tracking-tag.install`: Install a tracking tag on a connected store or site. Webflow requires a later site publish; this call never publishes the site.
+- `ads.tracking-tag.remove`: Remove a tracking tag from a connected store or site.
+- `ads.tracking-tag.status`: Read tracking tag installation status on a connected store or site.
 - `tagmanager.account.get`: Get a account in your connected tag management account. (needs a connected account)
 - `tagmanager.accounts.list`: List the accessible accounts in your connected tag management account. (needs a connected account)
 - `tagmanager.container.get`: Get a container in your connected tag management account. (needs a connected account)

@@ -309,7 +309,7 @@ Connect bank accounts with consent and read balances, holders and transactions.
 Create payment links, send them to customers and track their orders.
 
 - `payments.payment-link.cancel`: Cancel a payment link. It stays readable and earlier payments are not refunded. (needs a connected account)
-- `payments.payment-link.create`: Create a payment request. May contact the customer only when notification or reminder options are enabled. Accepts customer name, email and phone for delivery, and optional bank and fund account references for payment validation. (needs approval; needs a connected account)
+- `payments.payment-link.create`: Create a payment link (payment request) for a customer. May contact the customer only when notification or reminder options are enabled. Accepts customer name, email and phone for delivery, and optional bank and fund account references for payment validation. (needs approval; needs a connected account)
 - `payments.payment-link.get`: Read a payment link from your connected merchant account. (needs a connected account)
 - `payments.payment-link.notify`: Send a payment link to its saved customer by email or text message. (needs approval; needs a connected account)
 - `payments.payment-link.orders.list`: List your order IDs, amounts and states for a payment link; at most 1000 orders. (needs a connected account)
@@ -481,6 +481,8 @@ Get stock quotes, history, indices, sectors, movers and company news.
 
 Check VAT numbers and invoices and look up tax rates by country.
 
+- `edi.einvoice.status.get`: Check the exchange state of an invoice you submitted, using its original connected account. Pending includes states without a definitive receipt. Acceptance by the exchange is separate from delivery or the recipient's business acceptance. (needs a connected account)
+- `edi.einvoice.submit`: Submit one Italian national XML invoice using your connected invoicing account. Select that account with Pramaan-Account and use an idempotency key. Queued means pending, not acceptance. An uncertain submission must be checked manually and never automatically resent. The invoice service bills your connected account directly; no platform key is used. (needs approval; needs a connected account)
 - `finance.invoice.validate`: Check an invoice's VAT number format, line item sums and tax arithmetic, and list the errors.
 - `finance.tax-rates.get`: A country's company tax, VAT, income tax, capital gains and social security rates.
 - `finance.vat-number.validate`: Check a European VAT number against the EU register, with the registered company name and address.

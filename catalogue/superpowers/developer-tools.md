@@ -71,6 +71,7 @@ Connect your users to outside apps and run actions in them.
 - `apps.action.execute`: Run one action in a connected third-party app (email, issues, chat, CRM…) as one of your end users.
 - `apps.action.fields`: Inspect an action's argument or output fields on your own connected automation account; private defaults and samples are omitted. Use apps.catalog.search for the Pramaan-run connector. (needs a connected account)
 - `apps.action.get`: Get an action's input fields on your own connected automation account. Use apps.catalog.search for the Pramaan-run connector. (needs a connected account)
+- `apps.action.read`: Read messages through your connected app using only reviewed read actions. Unknown or write actions are refused before execution. Continuations retain the same arguments.
 - `apps.action.run`: Run an app action as a background job. It may send messages, move money, or change real data. Inputs and outputs may contain personal data; encrypted job data is retained for seven days. Cancelling the job does not undo an action already dispatched. (needs approval; needs a connected account)
 - `apps.action.test`: Test an app action within 25 seconds. This can perform a real write, send a message, or move money. Results may contain personal data; a timed-out action may already have run. (needs approval; needs a connected account)
 - `apps.actions.list`: List actions on your own connected automation account, with tokens and handles for field discovery. Use apps.catalog.search for the Pramaan-run connector. (needs a connected account)
@@ -147,6 +148,7 @@ Turn PDFs, Word files and images into text or fields, and convert or watermark t
 
 Send documents for signing, track them and download the signed copy.
 
+- `signature.certificate.get`: Read the saved public certificate and leaf-first chain for your connected signing credential. Select the credential with Pramaan-Account. The leaf is matched to the connected public key; this does not sign, establish trust, or check revocation. A missing certificate requires reconnecting with a public certificate chain.
 - `signature.digest.sign`: Sign a SHA-256 digest with your connected key. A call made with an organisation key signs without an approver; calls made as a team member need approval. Choose an account with Pramaan-Account; keep a key-service audit trail and restrict credentials to signing and reading that one public key. Access-refusal, disabled-key and unknown-key errors mean nothing was signed; after an ambiguous failure the signature may or may not have been made. This does not create a signed PDF, prove consent or identify a signer. (needs approval)
 - `signature.document.get`: Read uploaded signing document readiness, optionally returning its title. Document titles may contain personal data.
 - `signature.document.upload`: Upload a PDF from your file storage for signing, at most 10 MiB. The document may contain personal data. Maximum estimate USD 0.22.
@@ -193,9 +195,9 @@ Store, move, share and delete files in your own storage buckets.
 - `storage.object.copy`: Copy an object up to 1 GiB within your connected account. Larger copies use upload parts. (needs a connected account)
 - `storage.object.delete`: Permanently delete up to 100 files by path from your own file storage. (needs a connected account)
 - `storage.object.download-url`: Create a short-lived signed URL that downloads one file from your own file storage. (needs a connected account)
-- `storage.object.get`: Download up to 25 MB from your storage; return base64 up to 1 MiB or an accepted hosted file. Object contents may include personal data. (needs a connected account)
+- `storage.object.get`: Download a file up to 25 MB from your storage bucket; return base64 up to 1 MiB or an accepted hosted file. Object contents may include personal data. (needs a connected account)
 - `storage.object.head`: Read the size and media type of an object without downloading its contents. (needs a connected account)
-- `storage.object.put`: Store a file up to 25 MB, or inline base64 up to 1 MiB, in your own bucket. Bytes and names may contain personal data. (needs a connected account)
+- `storage.object.put`: Upload (store) a file up to 25 MB, or inline base64 up to 1 MiB, in your own bucket. Bytes and names may contain personal data. (needs a connected account)
 - `storage.object.restore`: Request restoration of an archived object. Your storage account pays archive retrieval fees. (needs a connected account)
 - `storage.object.tags.get`: Read the complete tag set of an object. Tags may contain personal data. (needs a connected account)
 - `storage.object.tags.set`: Replace all tags of an object; an empty set clears them. Tags may contain personal data. (needs a connected account)
@@ -214,8 +216,15 @@ Store, move, share and delete files in your own storage buckets.
 
 Read public repository details and see trending repositories.
 
+- `github.issue.comments`: List public comments on an issue or pull request. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
+- `github.issues.search`: Search public GitHub issues and pull requests. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
+- `github.repo.contributors`: List public repository contributor handles and contribution counts. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
+- `github.repo.forks`: List public forks of a repository. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
+- `github.repo.issues`: List public repository issues and pull requests. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
 - `github.repo.profile`: Read public repository details, description, language and reported activity counts.
 - `github.trending.repositories`: List trending public repositories for a programming language and time period, without contributor profiles.
+- `github.user.profile`: Read a public GitHub account profile without contact details. Returns personal data: Public GitHub handles, display names and biographies; no contact details or person scores..
+- `github.user.repos`: List repositories published by a public GitHub account. Returns personal data: Public account repository names and published descriptions..
 
 ## GPU compute
 
@@ -481,4 +490,7 @@ Build, run and schedule automated workflows, with their tables, queues and crede
 - `workflow.variable.update`: Replace a variable key, value and optional project. Value is write-only.
 - `workflow.variables.list`: List workflow variables. Values are omitted by default; explicitly requested values may contain personal data.
 - `workflow.webhook.call`: Call a public workflow webhook as a job, with at most 1 MiB of input. Ends at confirmed HTTP acceptance, never workflow completion. External workflow spending is uncapped. (needs approval; needs a connected account)
+- `workflow.webhook.signed-call`: Deliver signed JSON to a public HTTPS receiver as a job. Uses Standard Webhooks HMAC-SHA256 headers. Uncertain delivery is never automatically sent again. (needs approval)
+- `workflow.webhook.signing-policy.create`: Create an encrypted signing policy and reveal its secret once. Save the secret at your receiver before sending events.
+- `workflow.webhook.signing-policy.delete`: Remove a signing policy so it cannot sign new deliveries. An already dispatched event cannot be recalled.
 - `workflow.webhooks.list`: List webhook metadata in a project of your connected workflow account; trigger URLs and payloads are excluded. (needs a connected account)

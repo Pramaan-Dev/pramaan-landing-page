@@ -94,12 +94,12 @@ Connect a blog or store, then write, edit, publish and schedule posts.
 - `blog.post.update`: Edit a blog post: title, body, URL slug, tags, author, excerpt, featured image, search-engine fields, or move its schedule by giving a new future publishAt. Publishing and unpublishing are blog.post.publish and blog.post.unpublish. Send an Idempotency-Key.
 - `blog.posts.list`: List the posts in one blog of a connected store or site, newest first. Use postId with the other blog.post.* capabilities.
 - `blog.site.connect.start`: Start connecting a blog source: a store (give its myshopify.com domain) or a site. Returns a sign-in link for the person who owns it, and a ref to check with social.account.connect.status. The connected account then shows up in social.accounts.list and works with the blog.* capabilities.
-- `blog.site.connect.token`: Connect a blog source with credentials instead of the sign-in flow: a store through its myshopify.com domain and a custom app's access token, or a site through its address, a login name and an application password. The secret is forwarded once so the platform can verify it and keep it for the connection; it is not stored or logged by this API and never appears in a result or an error. The connected account shows up in social.accounts.list.
+- `blog.site.connect.token`: Connect a blog source with credentials instead of the sign-in flow: a store through its myshopify.com domain and a custom app's access token, a WordPress site through its address, login name and application password, or a Webflow site through its site API token. The secret is forwarded once so the platform can verify it and keep it for the connection; it is not stored or logged by this API and never appears in a result or an error. The connected account shows up in social.accounts.list.
 - `blog.site.create`: Create a blog on a connected store. Stores that only publish into their existing blogs refuse this; a connected site always refuses it (its site is the blog). Send an Idempotency-Key.
 - `blog.site.delete`: Delete a blog on a connected store, and every post in it. This is permanent and cannot be undone. Connected sites refuse this; disconnect the site instead. Send an Idempotency-Key.
-- `blog.site.get`: Read one blog on a connected store or site: its title and URL slug. A site's own blog is addressed by the numeric id blog.sites.list reports.
+- `blog.site.get`: Read one blog on a connected store or site: its title and URL slug. A site's own blog is addressed by the platform-native id blog.sites.list reports.
 - `blog.site.update`: Rename a blog on a connected store, or change its URL slug. Sites cannot be renamed this way (the site is the blog); those refuse. Send an Idempotency-Key.
-- `blog.sites.list`: List the blogs on a connected store or site. A store can have several blogs; a site has exactly one. Use accountId and blogId with the other blog.* capabilities.
+- `blog.sites.list`: List the blogs on a connected store or site. Stores and collection-based sites can have several blogs; single-blog sites expose one. Use accountId and blogId with the other blog.* capabilities.
 
 ## Domain authority
 
@@ -221,6 +221,7 @@ See how a website ranks in Google, its keywords, pages and traffic.
 Search the web for images and the pages they appear on.
 
 - `image.search`: Search the web for images matching keywords or a description; returns image URLs, the pages they appear on, titles and dimensions.
+- `media.stock-photos.search`: Search stock photos with licence information, image dimensions and required source and photographer credits. Display both credits and their links. Image and credit addresses are intentional source attribution. Empty results cost zero; a stock licence does not establish every depicted person's consent.
 
 ## Keyword research
 
@@ -279,6 +280,7 @@ Find where a brand or topic is mentioned online and the tone.
 See search interest and suggestions for WeChat keywords.
 
 - `wechat-search.index`: Search-interest readings over time for one WeChat keyword.
+- `wechat-search.results`: Read public results on WeChat. Returns personal data: public account names and public content.
 - `wechat-search.suggestions`: Get suggested WeChat searches for a keyword.
 
 ## Yahoo Search
