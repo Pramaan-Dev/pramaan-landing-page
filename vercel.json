@@ -1,6 +1,7 @@
 {
   "redirects": [
-    { "source": "/security.txt", "destination": "/.well-known/security.txt", "permanent": true }
+    { "source": "/security.txt", "destination": "/.well-known/security.txt", "permanent": true },
+    { "source": "/legal", "destination": "/legal/terms.html", "permanent": false }
   ],
   "rewrites": [
     { "source": "/SKILL.md", "destination": "/skill.md" },
