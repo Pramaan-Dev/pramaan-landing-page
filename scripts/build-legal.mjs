@@ -18,6 +18,10 @@ const PAGES = [
   { md: "COOKIES.md", slug: "cookies", nav: "Cookies" },
   { md: "SECURITY.md", slug: "security", nav: "Security" },
 ];
+// Company details filled into the drafts' placeholders.
+const FILL = { "COMPANY LEGAL NAME": "Pramaan", "REGISTERED ADDRESS": "66 Paul St, London EC2A 4NA" };
+const fill = (md) => md.replace(/\[([A-Z ]+)\]/g, (m, k) => FILL[k] ?? m);
+
 const LINKS = Object.fromEntries(PAGES.map((p) => [p.md, `${p.slug}.html`]));
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -96,7 +100,6 @@ const page = (p, title, body) => `<!doctype html>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${esc(title)} | Pramaan</title>
-  <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#f6f3f1" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -137,7 +140,6 @@ const page = (p, title, body) => `<!doctype html>
       <div class="container cat-hero__inner">
         <span class="tag"><span class="tag__dot"></span>Legal</span>
         <h1 class="display display--md">${esc(title.replace(/^Pramaan /, ""))}</h1>
-        <p class="legal-draft">Draft for legal review. Not in force.</p>
       </div>
     </section>
 
@@ -167,7 +169,7 @@ ${body}
     <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
     <a data-slot="cta" href="../index.html#start">Get early access</a>
     <nav data-slot="links" data-title="Product"><a href="../superpowers.html">Superpowers</a><a href="../missions.html">Missions</a><a href="../index.html#pricing">Pricing</a><a href="../index.html#faq">FAQ</a></nav>
-    <nav data-slot="links" data-title="More"><a href="../developers.html">For developers</a><a href="../index.html#login">Log in</a><a href="security.html">Security</a></nav>
+    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="../developers.html">For developers</a><a href="../index.html#login">Log in</a><a href="security.html">Security</a></nav>
     <span data-slot="status" data-caption="Early access">Open</span>
     <span data-slot="count" data-value="3483">Superpowers</span>
     <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
@@ -181,7 +183,7 @@ ${body}
 
 mkdirSync("legal", { recursive: true });
 for (const p of PAGES) {
-  const { title, body } = render(readFileSync(join(src, p.md), "utf8"));
+  const { title, body } = render(fill(readFileSync(join(src, p.md), "utf8")));
   writeFileSync(`legal/${p.slug}.html`, page(p, title, body));
 }
 console.log(`wrote ${PAGES.length} pages to legal/`);
