@@ -9,6 +9,7 @@
   "headers": [
     { "source": "/", "headers": [{ "key": "Link", "value": "</.well-known/ai-catalog.json>; rel=\"ai-catalog\", </skill.md>; rel=\"alternate\"; type=\"text/markdown\"" }] },
     { "source": "/(.*)\\.md", "headers": [{ "key": "Content-Type", "value": "text/markdown; charset=utf-8" }] },
+    { "source": "/.well-known/microsoft-identity-association.json", "headers": [{ "key": "Content-Type", "value": "application/json" }] },
     { "source": "/(.*)\\.txt", "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }] }
   ]
 }
