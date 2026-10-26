@@ -26,6 +26,10 @@ const pills = (x) =>
     .map((p) => (Array.isArray(p) ? `<span class="pill pill--${p[1]}">${p[0]}</span>` : `<span class="pill">${p}</span>`))
     .join('');
 
+// Docs page for a superpower: Mintlify slugs the family (tag) and the id (operation).
+const docsUrl = (family, id) =>
+  `https://docs.pramaan.dev/superpowers/${family.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-')}/${id.toLowerCase().replace(/[^a-z0-9-]/g, '')}`;
+
 // One shape for both pages: { key, name, category, summary, foot, search, panel() }
 export const toCards = (kind, data) =>
   kind === 'superpowers'
@@ -43,7 +47,7 @@ export const toCards = (kind, data) =>
           <p class="caption">${num(f.items.length)} superpower${f.items.length === 1 ? '' : 's'}</p>
           <ul class="panel__list">${f.items
             .map(
-              (i) => `<li id="${esc(i.id)}"><code>${esc(i.id)}</code><p>${esc(i.description)}</p><div class="panel__facts">${pills(i)}</div></li>`
+              (i) => `<li id="${esc(i.id)}"><code>${esc(i.id)}</code><p>${esc(i.description)}</p><div class="panel__facts">${pills(i)}</div><a class="panel__docs" href="${docsUrl(f.name, i.id)}" target="_blank" rel="noopener">API docs &rarr;</a></li>`
             )
             .join('')}</ul>`,
       }))

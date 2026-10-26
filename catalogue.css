@@ -106,6 +106,7 @@
 .panel__list code { font-size: var(--text-body-sm); }
 .panel__list p { font-size: var(--text-body-sm); color: var(--color-graphite); }
 .panel__list .panel__facts { gap: 6px; }
+.panel__docs { align-self: flex-start; font-size: var(--text-body-sm); text-decoration: underline; text-underline-offset: 3px; }
 .panel__steps { counter-reset: step; }
 .panel__steps li { padding-left: 40px; position: relative; }
 .panel__steps li::before {
