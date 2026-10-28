@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UI inspiration | Pramaan</title>
+  <meta name="description" content="Over a thousand real website designs to start from. Pick one and open it in the free UI builder with its colours, fonts and corners already applied." />
+  <meta name="theme-color" content="#f6f3f1" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="catalogue.css" />
+  <link rel="stylesheet" href="components/ticket-stub-footer.css" />
+  <script src="components/ticket-stub-footer.js" defer></script>
+  <style>
+    .insp-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 32px; border-top: 1px solid var(--color-ash); }
+    .insp-bar select, .insp-bar button { height: 36px; padding: 0 12px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); background: rgba(255,255,255,.6); font: inherit; font-size: var(--text-body-sm); color: inherit; cursor: pointer; }
+    .insp-bar button[aria-pressed="true"] { background: var(--color-off-black); border-color: var(--color-off-black); color: #fff; }
+    .insp-count { margin-left: auto; font-size: var(--text-body-sm); color: var(--color-smoke); }
+    .insp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; padding: 24px 0 32px; }
+    .insp-card { display: flex; flex-direction: column; overflow: hidden; background: rgba(255,255,255,.45); border: 1px solid var(--color-ash); border-radius: 24px; }
+    .insp-shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-ash); }
+    .insp-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .insp-body { display: flex; flex-direction: column; gap: 10px; padding: 16px 20px 20px; flex: 1; }
+    .insp-body b { font-family: var(--font-serif); font-weight: 400; font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
+    .insp-body small { color: var(--color-smoke); }
+    .insp-body p { margin: 0; flex: 1; font-size: var(--text-body-sm); color: var(--color-graphite); }
+    .insp-sw { display: flex; gap: 4px; }
+    .insp-sw i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); }
+    .insp-go { align-self: flex-start; margin-top: 4px; }
+    .insp-more { display: flex; justify-content: center; padding-bottom: 120px; }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="logo" aria-label="Pramaan home">
+        <span class="logo__mark" aria-hidden="true"></span>
+        <span class="logo__word">pramaan</span>
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="index.html#how">How it works</a>
+        <a href="superpowers.html">Superpowers</a>
+        <a href="missions.html">Missions</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="https://docs.pramaan.dev">Docs</a>
+      </nav>
+      <div class="nav__actions">
+        <a href="index.html#login" class="btn btn--ghost">Log in</a>
+        <a href="index.html#start" class="btn btn--black">Get early access</a>
+      </div>
+      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cat-hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>UI inspiration</span>
+        <h1 class="display display--md">Start from a real design.</h1>
+        <p class="lead">Styles taken from real websites: colours, fonts, spacing and corners. Pick one and open it in the free <a href="ui-builder">UI builder</a>, already applied, then copy the code or the prompt for your coding tool.</p>
+        <label class="cat-search">
+          <span aria-hidden="true">&#9906;</span>
+          <input type="search" placeholder="Search designs, e.g. fintech, rounded blue, dark" aria-label="Search designs" data-short="Search designs" data-q />
+        </label>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="insp-bar" data-bar></div>
+      <div class="insp-grid" data-grid><p>Loading designs…</p></div>
+      <div class="insp-more"><button type="button" class="btn btn--ghost" data-more hidden>Show more</button></div>
+    </div>
+  </main>
+
+  <ticket-stub-footer id="start" wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
+    <nav data-slot="sections">
+      <a href="index.html">Home</a>
+      <a href="superpowers.html">Superpowers</a>
+      <a href="missions.html">Missions</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <p data-slot="eyebrow">Research Acme before my meeting|Send a proctored test to 3 candidates|Send Priya a payment link for $200</p>
+    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
+    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+    <a data-slot="cta" href="index.html#start">Get early access</a>
+    <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
+    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="ui-builder">UI builder</a><a href="ui-inspiration">UI inspiration</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
+    <span data-slot="status" data-caption="Early access">Open</span>
+    <span data-slot="count" data-value="1283">Designs</span>
+    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+    <p data-slot="legal"><a href="legal/privacy.html">Privacy</a><a href="legal/terms.html">Terms</a></p>
+  </ticket-stub-footer>
+
+  <script src="script.js"></script>
+  <!-- Design library: images, style guides and the index live on the designs host (same base as ui-builder.html). -->
+  <script>const DB = 'https://designs.pramaan.dev/';</script>
+  <script src="https://designs.pramaan.dev/_gallery.js"></script>
+  <script src="ui-inspiration.js"></script>
+</body>
+</html>

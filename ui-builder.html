@@ -636,15 +636,17 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
   <a data-slot="cta" href="index.html#start">Get early access</a>
   <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
-  <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
+  <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="ui-inspiration">UI inspiration</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
   <span data-slot="status" data-caption="Early access">Open</span>
   <span data-slot="count" data-value="3510">Superpowers</span>
   <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
   <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
 </ticket-stub-footer>
 
-<!-- Design library index (designs/_gallery.js) is not shipped yet; the gallery buttons stay hidden without it. -->
+<!-- Design library: index, images and style guides live on the designs host; without it the gallery buttons stay hidden. -->
+<script src="https://designs.pramaan.dev/_gallery.js"></script>
 <script>
+const DB = 'https://designs.pramaan.dev/';
 const $ = s => document.querySelector(s);
 
 /* ---------- data ---------- */
@@ -1705,7 +1707,7 @@ function drawGallery(){
   dress($('#galFil'));
   $('#galTh').innerHTML = ['all','light','dark'].map(v => `<button data-th="${v}" aria-pressed="${G.th === v}">${v[0].toUpperCase() + v.slice(1)}</button>`).join('');
   $('#galGrid').innerHTML = hits.slice(0, G.n).map(d => `<button class="gcard" data-s="${d.s}" aria-label="${escA(d.d || d.t)}, ${escA([d.th, d.i].filter(Boolean).join(', '))}"><span class="gth">`
-    + `<img class="g0" loading="lazy" alt="" src="designs/${d.s}/${d.img}"></span>`
+    + `<img class="g0" loading="lazy" alt="" src="${DB}${d.s}/${d.img}"></span>`
     + `<div><b>${esc(d.t)}</b><small>${esc([d.th, d.i].filter(Boolean).join(' · '))}</small></div></button>`).join('') || '<p class="gnone">No designs match. Try fewer words, or clear a filter.</p>';
   $('#galMore').hidden = hits.length <= G.n;
 }
@@ -1723,7 +1725,7 @@ function showDesign(slug){
   const shots = d.f ? [d.f] : (d.pv && d.pv.length ? d.pv : [d.img]);
   $('#galGrid').hidden = true; $('.gbar').hidden = true; $('#galFil').hidden = true; $('#galMore').hidden = true;
   $('#galDetail').hidden = false;
-  $('#galDetail').innerHTML = `<div class="gshot" tabindex="0" aria-label="Full page of ${escA(d.d || d.t)}">${shots.map(s => `<img alt="" src="designs/${d.s}/${s}">`).join('')}</div>`
+  $('#galDetail').innerHTML = `<div class="gshot" tabindex="0" aria-label="Full page of ${escA(d.d || d.t)}">${shots.map(s => `<img alt="" src="${DB}${d.s}/${s}">`).join('')}</div>`
     + `<div class="ginfo"><h4>${esc(d.d || d.t)}</h4>${d.u ? `<a href="${escA(d.u)}" target="_blank" rel="noopener">${esc(d.u)}</a>` : ''}`
     + `<span class="meta">${esc([d.th, d.i].filter(Boolean).join(' · '))}${d.fo ? ` · font ${esc(d.fo)}` : ''}</span>`
     + `${d.ns ? `<span class="ns">${esc(d.ns)}</span>` : ''}${d.sw && d.sw.length ? `<div class="gsw">${d.sw.map(c => `<i title="${c}" style="background:${c}"></i>`).join('')}</div>` : ''}`
@@ -1738,8 +1740,9 @@ function showDesign(slug){
   $('#galDetail .gshot').scrollTop = 0;
 }
 function applyFromGallery(slug){ $('#galHint').textContent = 'Loading…';
-  const sc = Object.assign(document.createElement('script'), {src:`designs/${slug}/style.js`});
-  sc.onerror = () => { $('#galHint').textContent = 'Could not load that design. Re-run scripts/build_gallery.py.'; };
+  const sc = Object.assign(document.createElement('script'), {src:`${DB}${slug}/style.js`});
+  sc.onerror = () => { $('#galHint').textContent = 'Could not load that design. Try again, or pick another.';
+    if (!$('#gal').open) notify('Design not loaded', 'That design could not load. Browse designs to pick another.', 'err'); };
   document.head.appendChild(sc); }
 document.querySelectorAll('.top [data-open-gallery]').forEach(b => b.onclick = openGallery);
 $('#galQ').oninput = e => { G.q = e.target.value; G.n = 60; drawGallery(); };
@@ -1756,7 +1759,7 @@ const gpop = Object.assign(document.createElement('div'), {className:'gpop'}); g
 let popTimer, popFor = null;
 function showPop(card){
   const d = (window.DESIGNS || []).find(x => x.s === card.dataset.s); if (!d) return;
-  popFor = card; const src = `designs/${d.s}/${d.f || d.img}`;
+  popFor = card; const src = `${DB}${d.s}/${d.f || d.img}`;
   gpop.innerHTML = `<img alt="" src="${src}"><div class="cap"><b>${esc(d.d || d.t)}</b>${esc([d.th, d.i].filter(Boolean).join(' · '))}</div>`;
   const r = card.getBoundingClientRect(), W = 420, H = Math.min(540, innerHeight - 32);
   gpop.style.height = H + 'px';
@@ -1944,6 +1947,10 @@ const fromLink = /^#t=/.test(location.hash);
 restore();
 render();
 if (fromLink) openedFromLink();
+// Opened from UI inspiration (/ui-builder?design=<slug>): apply that design, then drop the parameter so a reload keeps later edits
+const wantDesign = new URLSearchParams(location.search).get('design');
+if (wantDesign && (window.DESIGNS || []).some(d => d.s === wantDesign)) {
+  applyFromGallery(wantDesign); history.replaceState(null, '', location.pathname + location.hash); }
 $('#stage').addEventListener('click', e => { const b = e.target.closest('[data-appfont]'); if (b) { S.appFont = b.dataset.appfont; render(); } });
 // keyboard vs mouse, for the sidebar rows' focus outline
 document.addEventListener('keydown', e => { if (e.key === 'Tab') document.documentElement.dataset.kb = '1'; });
