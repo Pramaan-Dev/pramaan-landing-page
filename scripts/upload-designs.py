@@ -1,4 +1,4 @@
-# Uploads the design library to Cloudflare R2 (bucket pramaan-designs, served at designs.pramaan.dev).
+# Uploads the design library to Cloudflare R2 (bucket pramaan-ui-inspo, EU, served at design.pramaan.dev).
 # Only what the site uses: _gallery.js, each design's thumbnail, full-page image (or previews) and style.js.
 # Keys come from capabilities-lab .env (R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY) and are never printed.
 # Usage: python3 scripts/upload-designs.py [--dry-run]
@@ -7,8 +7,8 @@ import json, os, shutil, subprocess, sys
 DESIGNS = '/Users/yogi/Projects/pramaan-capability-lab/designs'
 ENV = '/Users/yogi/Projects/capabilities-lab/.env'
 STAGE = '/tmp/designs-upload'
-ENDPOINT = 'https://f1e3faf422ed2d3ced52af3e6932336f.r2.cloudflarestorage.com'
-BUCKET = 'pramaan-designs'
+ENDPOINT = 'https://f1e3faf422ed2d3ced52af3e6932336f.eu.r2.cloudflarestorage.com'
+BUCKET = 'pramaan-ui-inspo'
 
 env = dict(os.environ)
 for line in open(ENV):
