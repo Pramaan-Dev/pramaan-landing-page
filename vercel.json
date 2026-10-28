@@ -1,7 +1,8 @@
 {
+  "cleanUrls": true,
   "redirects": [
     { "source": "/security.txt", "destination": "/.well-known/security.txt", "permanent": true },
-    { "source": "/legal{/}?", "destination": "/legal/terms.html", "permanent": false }
+    { "source": "/legal{/}?", "destination": "/legal/terms", "permanent": false }
   ],
   "rewrites": [
     { "source": "/SKILL.md", "destination": "/skill.md" },
