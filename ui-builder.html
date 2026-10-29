@@ -424,6 +424,9 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 
 /* design browser */
 #gal{width:min(1080px,calc(100vw - 32px))}
+/* a clear edge where the scrolling grid ends: cards fade out above the footer's divider */
+#gal .df{padding-top:14px;border-top:1px solid rgba(0,0,0,.1)}
+#gal .ggrid{mask-image:linear-gradient(#000 calc(100% - 28px),transparent)}
 .gbar{display:flex;gap:8px;align-items:center;padding:14px 20px 0;flex-wrap:wrap}
 .gbar input{flex:1;min-width:200px;height:34px;border:1px solid var(--c-line);border-radius:8px;padding:0 12px;background:var(--c-bg);color:inherit;font:inherit;font-size:13.5px}
 .gfil{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 20px 0;font-size:12.5px;color:var(--fg-3)}
