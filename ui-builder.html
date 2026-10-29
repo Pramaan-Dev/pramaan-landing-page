@@ -1004,7 +1004,14 @@ function parseDesign(text){
 // added if Google has them, so a missing font does not show up as a failed stylesheet in the browser.
 const loadFont = name => {
   if (!name || /^(system-ui|sans-serif|serif|monospace|ui-|-apple)/i.test(name)) return;
-  const low = name.toLowerCase();
+  const low = name.toLowerCase(), free = FREE_FAMILY[low];
+  if (free && free[0] !== 'g') {   // Fontshare or Fontsource: their stylesheets always exist, so link them directly
+    const id = 'ff-' + name.replace(/\W/g,''); if (document.getElementById(id)) return;
+    const [src, , slug, w] = free, urls = src === 's' ? [`https://api.fontshare.com/v2/css?f[]=${slug}@${w.join(',')}&display=swap`]
+      : w.map(n => `https://cdn.jsdelivr.net/npm/@fontsource/${slug}/${n}.css`);
+    urls.forEach((href, i) => document.head.appendChild(Object.assign(document.createElement('link'), {id: id + (i || ''), rel:'stylesheet', href})));
+    return;
+  }
   if (GF_ALIAS[name] || Object.keys(LOOKALIKE).some(k => low.includes(k))) return;   // not on Google Fonts
   const id = 'gf-' + name.replace(/\W/g,''); if (document.getElementById(id)) return;
   const style = Object.assign(document.createElement('style'), {id}); document.head.appendChild(style);
@@ -1040,7 +1047,7 @@ function applyDesign(){
   if (!text) { S.importNote = 'Paste or upload a file first.'; render(); return notify('Nothing to apply', 'Paste or upload a design file first.', 'err'); }
   const d = parseDesign(text);
   if (d.error) { S.importNote = d.error; render(); return notify('Could not read that file', d.error, 'err'); }
-  const {light, dark} = d, radius = light.radius ?? dark.radius, font = light.font ?? dark.font;
+  const {light, dark} = d, radius = light.radius ?? dark.radius, raw = light.font ?? dark.font, font = raw && (FREE_FONTS[raw.toLowerCase()]?.[1] || raw);
   for (const s of [light, dark]) { delete s.radius; delete s.font; }
   // text on primary must be readable on primary, or the button label disappears
   const lp = light.primary || dark.primary;
@@ -1057,7 +1064,7 @@ function applyDesign(){
   delete light.primary;                                   // light primary lives in S.primary so the picker can change it
   if (radius != null) S.radius = radius;
   S.fontNote = '';
-  if (font) { const alt = GF_ALIAS[font] || lookalike(font, d.substitute);
+  if (font) { const alt = FREE_FAMILY[font.toLowerCase()] ? '' : GF_ALIAS[font] || lookalike(font, d.substitute);
     S.font = `'${font}'${alt && alt !== font ? `, '${alt}'` : ''}, system-ui, sans-serif`; loadFont(font); if (alt) loadFont(alt); checkFont(); }
   S.edits = null; S.sources = d.sources;
   const darkOnly = !Object.keys(light).length && Object.keys(dark).length > 0;
@@ -1821,6 +1828,10 @@ const LOOKALIKE = {saans:'Inter', 'gt america':'Inter Tight', 'söhne':'Inter', 
   mabry:'Space Grotesk', polysans:'Space Grotesk', tiempos:'Source Serif 4', 'gt sectra':'Fraunces', canela:'Fraunces', recoleta:'Fraunces',
   'editorial new':'Playfair Display', freight:'Libre Caslon Text', lyon:'Source Serif 4', 'gt alpina':'Fraunces', ivy:'Playfair Display',
   domaine:'Playfair Display', 'berkeley mono':'JetBrains Mono', 'sf mono':'JetBrains Mono'};
+// Free fonts the design files name differently (InterVariable, Satoshi-Variable…) → [source, real family, id, weights].
+// g = Google Fonts, s = Fontshare, f = Fontsource. Built from the design library's font names.
+const FREE_FONTS = {"clash grotesk":["s","Clash Grotesk","clash-grotesk",[400,500,600,700]],"satoshi":["s","Satoshi","satoshi",[400,500,700]],"switzer":["s","Switzer","switzer",[400,500,600,700]],"clashgrotesk":["s","Clash Grotesk","clash-grotesk",[400,500,600,700]],"inter display":["g","Inter","",[]],"intervariable":["g","Inter","",[]],"google sans display":["g","Google Sans","",[]],"intervar":["g","Inter","",[]],"red hat display variable":["g","Red Hat Display","",[]],"source sans pro":["f","Source Sans Pro","source-sans-pro",[400,600,700]],"interdisplay":["g","Inter","",[]],"geistsans":["g","Geist","",[]],"clashdisplay":["s","Clash Display","clash-display",[400,500,600,700]],"inter variable":["g","Inter","",[]],"geist regular":["g","Geist","",[]],"inter variablefont slnt wght":["g","Inter","",[]],"instrument sans variable":["g","Instrument Sans","",[]],"onest variable":["g","Onest","",[]],"notioninter":["g","Inter","",[]],"manrope variable":["g","Manrope","",[]],"inter var":["g","Inter","",[]],"excon":["s","Excon","excon",[400,500,700]],"ibm plex sans variable":["g","IBM Plex Sans","",[]],"tiktok sans variable":["g","TikTok Sans","",[]],"ranade":["s","Ranade","ranade",[400,500,700]],"geist-regular":["g","Geist","",[]],"satoshi-variable":["s","Satoshi","satoshi",[400,500,700]],"commit mono":["f","Commit Mono","commit-mono",[400,500,600,700]],"openrunde":["f","Open Runde","open-runde",[400,500,600,700]],"uncut sans variable":["f","Uncut Sans","uncut-sans",[400,500,600,700]]};
+const FREE_FAMILY = Object.fromEntries(Object.values(FREE_FONTS).map(v => [v[1].toLowerCase(), v]));
 function lookalike(font, sub){
   const f = font.toLowerCase();
   for (const [k, v] of Object.entries(LOOKALIKE)) if (f.includes(k)) return v;
