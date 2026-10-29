@@ -152,14 +152,14 @@ svg{flex:none}
 .grid{columns:3;column-gap:calc(16px*var(--d))}
 @container (max-width: 920px){ .grid{columns:2} }
 @container (max-width: 560px){ .grid{columns:1} }
-.card{break-inside:avoid;margin:0 0 calc(16px*var(--d));background:var(--card);border:1px solid var(--line);border-radius:calc(var(--r) + 4px);padding:calc(20px*var(--d));box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card{break-inside:avoid;margin:0 0 calc(16px*var(--d));background:var(--card);border:1px solid var(--line);border-radius:var(--rc,calc(var(--r) + 4px));padding:calc(20px*var(--d));box-shadow:var(--cs,0 1px 2px rgba(0,0,0,.04))}
 .ch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:calc(14px*var(--d))}
-.ch h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.ch h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em;font-family:var(--hf,inherit)}
 .ch p{margin:2px 0 0;font-size:13px;color:var(--muted)}
 .lbl{display:block;font-size:13px;font-weight:500;margin:calc(10px*var(--d)) 0 6px}
-.inp{width:100%;height:calc(36px*var(--d));padding:0 12px;border:1px solid var(--line);border-radius:calc(var(--r)*.8);background:transparent;color:var(--text);font:inherit;font-size:14px}
+.inp{width:100%;height:calc(36px*var(--d));padding:0 12px;border:1px solid var(--line);border-radius:var(--ri,calc(var(--r)*.8));background:transparent;color:var(--text);font:inherit;font-size:14px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:calc(38px*var(--d));margin-top:calc(14px*var(--d));border:0;border-radius:calc(var(--r)*.8);background:var(--p);color:var(--p-fg);font:inherit;font-weight:500;font-size:14px;cursor:pointer}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:calc(38px*var(--d));margin-top:calc(14px*var(--d));border:0;border-radius:var(--rb,calc(var(--r)*.8));background:var(--p);color:var(--p-fg);font:inherit;font-weight:500;font-size:14px;cursor:pointer}
 .btn.o{background:transparent;color:var(--text);border:1px solid var(--line);margin-top:8px}
 .btn.sm{width:auto;height:30px;padding:0 12px;margin:0;font-size:13px}
 .ln{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);padding:4px 0}
@@ -175,7 +175,7 @@ svg{flex:none}
 .sk{height:12px;border-radius:6px;margin:10px 0;background:linear-gradient(90deg,var(--soft),var(--line),var(--soft));background-size:200% 100%;animation:sk 1.3s linear infinite}
 @keyframes sk{to{background-position:-200% 0}}
 @media (prefers-reduced-motion: reduce){.sk{animation:none}.stage *{transition:none}}
-.big{font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1.1}
+.big{font-size:30px;font-weight:650;letter-spacing:-.02em;line-height:1.1;font-family:var(--hf,inherit)}
 .up{font-size:12px;color:var(--ok);margin-left:8px;font-weight:500}
 .bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin-top:16px}
 .bars span{flex:1;background:var(--p);border-radius:calc(var(--r)*.4) calc(var(--r)*.4) 2px 2px;opacity:.9}
@@ -200,7 +200,7 @@ svg{flex:none}
 .tx b{display:block;font-weight:500;font-size:13.5px}
 .tx small{color:var(--muted);font-size:12px}
 .tx .amt{font-weight:500;font-size:13.5px;font-variant-numeric:tabular-nums}
-.badge{font-size:11px;padding:1px 7px;border-radius:99px;background:var(--soft);color:var(--muted)}
+.badge{font-size:11px;padding:1px 7px;border-radius:var(--rt,99px);background:var(--soft);color:var(--muted)}
 .badge.ok{background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
 .badge.err{background:color-mix(in srgb,var(--danger) 14%,transparent);color:var(--danger)}
 .badge.p{background:var(--p);color:var(--p-fg)}
@@ -208,7 +208,7 @@ svg{flex:none}
 /* ---------- component gallery: the common parts of real designs ---------- */
 .sec{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:calc(28px*var(--d)) 2px calc(12px*var(--d));font-size:13px;font-weight:600;color:var(--text)}
 .sec small{font-weight:400;color:var(--muted)}
-.site{background:var(--card);border:1px solid var(--line);border-radius:calc(var(--r) + 4px);margin-bottom:calc(16px*var(--d));overflow:hidden}
+.site{background:var(--card);border:1px solid var(--line);border-radius:var(--rc,calc(var(--r) + 4px));margin-bottom:calc(16px*var(--d));overflow:hidden}
 .nav{display:flex;align-items:center;gap:20px;padding:12px 18px;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:8px;font-weight:650}
 .logo{width:20px;height:20px;border-radius:calc(var(--r)*.5);background:var(--p)}
@@ -219,7 +219,9 @@ svg{flex:none}
 .ib.menu{display:none}
 .hero{padding:calc(44px*var(--d)) 24px calc(32px*var(--d));text-align:center}
 .eyebrow{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);margin-bottom:14px}
-.hero h1{margin:0 auto;max-width:620px;font-size:clamp(28px,5cqi,44px);line-height:1.08;letter-spacing:-.03em;font-weight:650}
+.hero h1{margin:0 auto;max-width:620px;font-size:clamp(28px,5cqi,44px);line-height:1.08;letter-spacing:var(--ht,-.03em);font-weight:var(--hw,650);font-family:var(--hf,inherit)}
+/* a design whose main button is an outline: border and label in the primary colour, no fill */
+.stage.ob .btn:not(.o):not(.g):not(.lk){background:transparent;color:var(--p);box-shadow:inset 0 0 0 1px var(--p)}
 .hero p{margin:12px auto 0;max-width:520px;color:var(--muted);font-size:15px}
 .ctas{display:flex;gap:10px;justify-content:center;margin-top:20px}
 .ctas .btn{width:auto;padding:0 18px;margin:0}
@@ -238,7 +240,7 @@ svg{flex:none}
 .sw{position:relative;width:34px;height:20px;border-radius:99px;background:var(--p);flex:none}
 .sw::after{content:"";position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:var(--p-fg)}
 .sw.off{background:var(--line)} .sw.off::after{left:2px;background:var(--card)}
-.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 9px;border-radius:calc(var(--r)*.6);border:1px solid var(--line);color:var(--text)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 9px;border-radius:var(--rt,calc(var(--r)*.6));border:1px solid var(--line);color:var(--text)}
 .seg{display:inline-flex;padding:3px;border-radius:calc(var(--r)*.8);background:var(--soft);gap:2px}
 .seg span{padding:5px 12px;border-radius:calc(var(--r)*.6);font-size:13px;color:var(--muted)}
 .seg .on{background:var(--card);color:var(--text);box-shadow:0 1px 2px rgba(0,0,0,.08)}
@@ -261,7 +263,7 @@ svg{flex:none}
 .steps{display:flex;gap:8px;margin-top:16px;font-size:12.5px} .steps div{flex:1;display:grid;gap:6px;color:var(--muted)}
 .steps i{height:3px;border-radius:99px;background:var(--line)} .steps .done i{background:var(--p)} .steps .now{color:var(--text)} .steps .now i{background:color-mix(in srgb,var(--p) 45%,var(--line))}
 .modal{border-radius:calc(var(--r)*.8);background:color-mix(in srgb,var(--text) 30%,transparent);padding:22px 14px}
-.modal .box{background:var(--card);border-radius:calc(var(--r) + 4px);padding:16px;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.modal .box{background:var(--card);border-radius:var(--rc,calc(var(--r) + 4px));padding:16px;box-shadow:0 12px 32px rgba(0,0,0,.25)}
 .modal h5{margin:0;font-size:14.5px} .modal p{margin:4px 0 0;font-size:13px;color:var(--muted)} .modal .wrap{justify-content:flex-end;margin-top:14px}
 .pop{border:1px solid var(--line);border-radius:calc(var(--r)*.8);background:var(--card);box-shadow:0 8px 24px rgba(0,0,0,.12);padding:4px;font-size:13.5px;margin-top:8px}
 .pop div{padding:7px 10px;border-radius:calc(var(--r)*.5)} .pop .on{background:var(--soft)}
@@ -269,7 +271,7 @@ svg{flex:none}
 .tip::before{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;translate:-50% 0;white-space:nowrap;font-size:12px;padding:4px 8px;border-radius:6px;background:var(--text);color:var(--card)}
 .tbl{width:100%;border-collapse:collapse;font-size:13px} .tbl th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
 .tbl td{padding:8px 0;border-bottom:1px solid var(--line)} .tbl td:last-child,.tbl th:last-child{text-align:right}
-.foot2{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;padding:20px;border:1px solid var(--line);border-radius:calc(var(--r) + 4px);background:var(--card);font-size:13px;color:var(--muted)}
+.foot2{display:flex;flex-wrap:wrap;gap:18px 40px;justify-content:space-between;padding:20px;border:1px solid var(--line);border-radius:var(--rc,calc(var(--r) + 4px));background:var(--card);font-size:13px;color:var(--muted)}
 .foot2 b{color:var(--text);display:block;margin-bottom:6px;font-weight:600} .foot2 div{display:grid;gap:4px}
 
 /* export dialog */
@@ -666,7 +668,7 @@ const COPY = {
 };
 
 const DEFAULTS = {preset:'graphite', state:'ready', device:'desktop', mode:'light', locale:'en-US|USD', ex:'shadcn', importText:'', imported:null, importNote:'', beforeImport:null,
-  edits:null, sources:null, fontNote:'', importFrom:null, appFont:'brand'};
+  edits:null, sources:null, fontNote:'', importFrom:null, appFont:'brand', style:null};
 const S = {...DEFAULTS, ...PRESETS.graphite};
 const LOOK = ['primary','font','radius','density','motion'];
 
@@ -1042,10 +1044,27 @@ function undoDesign(){
 }
 const showColours = () => { const c = $('.ctab'); if (c) c.previousElementSibling.scrollIntoView({behavior:'smooth', block:'start'}); };
 
-function applyDesign(){
+/** A library design's ready-made look (built from its style.json by scripts/look.py) in parseDesign's shape, plus the
+ *  extras a plain file can't give: heading font, radius per element, button and card style, spacing. */
+function lookToDesign(L){
+  const pal = {...L.pal}; if (L.radius?.base != null) pal.radius = L.radius.base; if (L.font) pal.font = L.font;
+  return {kind:'style guide', light:L.mode === 'light' ? pal : {}, dark:L.mode === 'dark' ? pal : {},
+    sources:{light:L.mode === 'light' ? L.src : {}, dark:L.mode === 'dark' ? L.src : {}}, substitute:L.sub, look:L};
+}
+/** The design's extras, while they still fit: the heading font only while the body font is the design's, the per-element
+ *  radii only while the radius is the design's. Change either and everything follows your choice instead. */
+function activeStyle(){
+  const X = S.style; if (!X || !S.imported) return {};
+  const R = X.radius || {}, rad = S.radius === X.base, v = n => n == null ? null : n >= 999 ? '999px' : n + 'px';
+  return {'--hf':S.font === X.bodyStack ? X.headStack : null, '--hw':S.font === X.bodyStack ? X.headWeight : null,
+    '--ht':S.font === X.bodyStack && X.headTrack != null ? X.headTrack + 'em' : null,
+    '--rb':rad ? v(R.btn) : null, '--rc':rad ? v(R.card) : null, '--ri':rad ? v(R.input) : null, '--rt':rad ? v(R.tag) : null,
+    '--cs':X.cardShadow === false ? 'none' : null, ob:X.btn === 'outline'};
+}
+function applyDesign(given){
   const text = S.importText.trim();
   if (!text) { S.importNote = 'Paste or upload a file first.'; render(); return notify('Nothing to apply', 'Paste or upload a design file first.', 'err'); }
-  const d = parseDesign(text);
+  const d = given?.look ? given : parseDesign(text);
   if (d.error) { S.importNote = d.error; render(); return notify('Could not read that file', d.error, 'err'); }
   const {light, dark} = d, radius = light.radius ?? dark.radius, raw = light.font ?? dark.font, font = raw && (FREE_FONTS[raw.toLowerCase()]?.[1] || raw);
   for (const s of [light, dark]) { delete s.radius; delete s.font; }
@@ -1059,16 +1078,23 @@ function applyDesign(){
     return notify('Nothing applied', `No colours, radius or font found in this ${d.kind}.`, 'err');
   }
   lastUndo = JSON.stringify(snapshot());   // for the notification's Undo
-  if (!S.imported) S.beforeImport = {primary:S.primary, font:S.font, radius:S.radius, preset:S.preset};
+  if (!S.imported) S.beforeImport = {primary:S.primary, font:S.font, radius:S.radius, density:S.density, preset:S.preset};
   if (light.primary || dark.primary) S.primary = light.primary || dark.primary;
   delete light.primary;                                   // light primary lives in S.primary so the picker can change it
   if (radius != null) S.radius = radius;
   S.fontNote = '';
   if (font) { const alt = FREE_FAMILY[font.toLowerCase()] ? '' : GF_ALIAS[font] || lookalike(font, d.substitute);
     S.font = `'${font}'${alt && alt !== font ? `, '${alt}'` : ''}, system-ui, sans-serif`; loadFont(font); if (alt) loadFont(alt); checkFont(); }
+  S.style = null;
+  if (d.look) { const L = d.look, X = S.style = {bodyStack:S.font, base:S.radius, radius:L.radius, headWeight:L.headWeight, headTrack:L.headTrack,
+      cardShadow:L.cardShadow, btn:L.btn};
+    S.density = L.density || 1;
+    if (L.head) { const h = FREE_FONTS[L.head.toLowerCase()]?.[1] || L.head, alt = FREE_FAMILY[h.toLowerCase()] ? '' : GF_ALIAS[h] || lookalike(h, L.headSub);
+      X.headStack = `'${h}'${alt && alt !== h ? `, '${alt}'` : ''}, ${S.font}`; loadFont(h); if (alt) loadFont(alt); } }
   S.edits = null; S.sources = d.sources;
-  const darkOnly = !Object.keys(light).length && Object.keys(dark).length > 0;
+  const darkOnly = !Object.keys(light).length && Object.keys(dark).length > 0, lightOnly = Object.keys(light).length > 0 && !Object.keys(dark).length;
   if (darkOnly) S.mode = 'dark';
+  if (lightOnly) S.mode = 'light';   // after a dark design, a light one would otherwise show on the default dark palette
   S.imported = {light, dark}; S.preset = 'custom';
   if (radius != null) slots.add('radius'); if (font) slots.add('font');
   const missing = ['primary','bg','text','line','radius','font'].filter(k => !slots.has(k)).map(k => SLOT_LABEL[k]);
@@ -1747,7 +1773,7 @@ function showDesign(slug){
   $('#galDetail .gshot').scrollTop = 0;
 }
 function applyFromGallery(slug){ $('#galHint').textContent = 'Loading…';
-  const sc = Object.assign(document.createElement('script'), {src:`${DB}${slug}/style.js`});
+  const sc = Object.assign(document.createElement('script'), {src:`${DB}${slug}/style.js?v=2`});   // v: bump when style.js changes (cached a day)
   sc.onerror = () => { $('#galHint').textContent = 'Could not load that design. Try again, or pick another.';
     if (!$('#gal').open) notify('Design not loaded', 'That design could not load. Browse designs to pick another.', 'err'); };
   document.head.appendChild(sc); }
@@ -1786,12 +1812,13 @@ $('#galGrid').addEventListener('pointerleave', hidePop);
 $('#galGrid').addEventListener('pointerout', e => { const c = e.target.closest('.gcard'); if (c && !c.contains(e.relatedTarget)) hidePop(); });
 $('#galGrid').addEventListener('scroll', hidePop);
 $('#galGrid').addEventListener('click', hidePop);
-window.__designLoaded = (slug, md) => { const d = (window.DESIGNS || []).find(x => x.s === slug);
-  S.importText = md; S.importFrom = d ? (d.d || d.t) : slug; applyDesign(); $('#gal').close();   // site name, not Refero's long title
+// look: the design's ready-made look from style.json (newer style.js files); without it the style guide is parsed as text
+window.__designLoaded = (slug, md, look) => { const d = (window.DESIGNS || []).find(x => x.s === slug);
+  S.importText = md; S.importFrom = d ? (d.d || d.t) : slug; applyDesign(look && lookToDesign(look)); $('#gal').close();   // site name, not Refero's long title
   $('#galHint').textContent = 'Styles from real sites. Click one to see its full page before applying it.'; };
 
 /* ---------- auto-save in this browser, and share links ---------- */
-const SAVE_KEYS = ['preset','mode','device','appFont','locale','primary','font','radius','density','motion','tone','imported','importNote','edits','sources'];
+const SAVE_KEYS = ['preset','mode','device','appFont','locale','primary','font','radius','density','motion','tone','imported','importNote','edits','sources','style'];
 const snapshot = () => Object.fromEntries(SAVE_KEYS.map(k => [k, S[k]]));
 let saveTimer;
 function save(){ clearTimeout(saveTimer); saveTimer = setTimeout(() => {
@@ -1937,7 +1964,9 @@ function render(redrawRows = true){
   Object.entries({'--p':T.primary, '--p-fg':T.primaryFg, '--page':T.page, '--card':T.card, '--text':T.text, '--muted':T.muted,
     '--line':T.line, '--soft':T.soft, '--danger':T.danger, '--ok':T.ok,
     '--r':S.radius+'px', '--d':S.density, '--m':S.motion+'ms', '--font':S.font}).forEach(([k,v]) => st.style.setProperty(k,v));
-  st.className = `stage ${S.mode} ${S.device}`;
+  const X = activeStyle();
+  for (const k of ['--hf','--hw','--ht','--rb','--rc','--ri','--rt','--cs']) X[k] != null ? st.style.setProperty(k, X[k]) : st.style.removeProperty(k);
+  st.className = `stage ${S.mode} ${S.device}${X.ob ? ' ob' : ''}`;
   st.dir = S.locale.startsWith('ar') ? 'rtl' : 'ltr';
   st.innerHTML = S.device === 'ios' || S.device === 'android' ? appScreens(S.device)
     : `${site()}<div class="grid">${cards()}</div>`

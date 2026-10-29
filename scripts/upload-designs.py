@@ -3,6 +3,8 @@
 # Keys come from capabilities-lab .env (R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY) and are never printed.
 # Usage: python3 scripts/upload-designs.py [--dry-run]
 import json, os, shutil, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from look import look   # the builder's ready-made look per design, passed as style.js's third argument
 
 DESIGNS = '/Users/yogi/Projects/pramaan-capability-lab/designs'
 ENV = '/Users/yogi/Projects/capabilities-lab/.env'
@@ -28,8 +30,14 @@ keep = [d for d in D if d['s'] not in hidden]
 for d in keep:
     shots = [d['f']] if d.get('f') else (d.get('pv') or [])
     os.makedirs(os.path.join(STAGE, d['s']))
-    for f in {d['img'], 'style.js', *shots}:
+    for f in {d['img'], *shots}:
         os.link(os.path.join(DESIGNS, d['s'], f), os.path.join(STAGE, d['s'], f))
+    js = open(os.path.join(DESIGNS, d['s'], 'style.js')).read().rstrip()
+    assert js.startswith('window.__designLoaded(') and js.endswith(');'), d['s']
+    sj = os.path.join(DESIGNS, d['s'], 'style.json')
+    L = look(json.load(open(sj))) if os.path.exists(sj) else None
+    with open(os.path.join(STAGE, d['s'], 'style.js'), 'w') as out:
+        out.write(js[:-2] + (', ' + json.dumps(L, ensure_ascii=False, separators=(',', ':')) if L else '') + ');\n')
 with open(os.path.join(STAGE, '_gallery.js'), 'w') as out:
     out.write('window.DESIGNS = ' + json.dumps(keep, ensure_ascii=False, separators=(',', ':')) + ';\n')
 print(f'staged {len(keep)} designs in {STAGE}')
