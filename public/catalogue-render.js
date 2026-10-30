@@ -44,7 +44,7 @@ const mdLite = (s) => esc(s ?? '').replace(/`([^`]+)`/g, '<code>$1</code>');
 export const authorHtml = (a, slug) => {
   const name = a?.name || authorName(slug);
   const face = a?.photo
-    ? `<img src="${esc(a.photo)}" alt="" width="44" height="44" loading="lazy">`
+    ? `<img src="${esc(/^(\/|https?:)/.test(a.photo) ? a.photo : '/' + a.photo)}" alt="" width="44" height="44" loading="lazy">`
     : `<span aria-hidden="true">${esc(name.split(/\s+/).map((w) => w[0]).slice(0, 2).join(''))}</span>`;
   return `<div class="skill-author">${face}<div><b>${esc(name)}</b>${a?.title ? `<small>${esc(a.title)}</small>` : ''}${
     a?.linkedin ? `<a href="${esc(a.linkedin)}" target="_blank" rel="noopener">LinkedIn &rarr;</a>` : ''}</div></div>`;

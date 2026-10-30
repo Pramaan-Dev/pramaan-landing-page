@@ -1,8 +1,34 @@
 # Pramaan — landing page
 
-Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled with the Monad design system: parchment canvas, serif display type, mono UI, hairline borders, pill buttons.
+Static landing site for Pramaan, built with [Astro](https://astro.build) (static output, no framework JavaScript in the browser) and styled with the Monad design system: parchment canvas, serif display type, mono UI, hairline borders, pill buttons. Deployed on Vercel from `dist/`.
+
+## Develop and build
+
+```bash
+npm install
+npm run dev          # http://localhost:4321
+npm run build        # astro build, then the hidden-mission check (scripts/check-hidden.mjs)
+npm run preview      # serve dist/ (clean URLs like Vercel)
+npm run check:urls   # scripts/url-parity.mjs: every old URL must exist in dist/
+```
+
+Where things live:
+
+| Path | What |
+|---|---|
+| `src/layouts/Base.astro` | `<head>`, announcement bar, the one nav and footer, shared `script.js` |
+| `src/components/Nav.astro`, `Footer.astro` | the one top menu and ticket-stub footer (props pick the variant); `DetailPage.astro` is the catalogue detail layout |
+| `src/pages/*.astro` | top-level pages. Halftone footers are passed in per page (`slot="footer"`) |
+| `src/pages/superpowers/[family].astro`, `missions/[id].astro`, `skills/gtm/[skill].astro` | 317 + 876 + 418 detail pages, from `public/data/*.json`; cross-links are computed in `src/lib/catalogue.mjs` |
+| `src/content/legal/*.md` | legal pages (Markdown, written by `scripts/build-legal.mjs`), rendered by `src/pages/legal/[slug].astro` |
+| `src/content/blog/*.md` | blog posts (`title`, `description`, `date`, `draft`); `draft: true` posts are not built. `/blog`, `/blog/<slug>`, `/blog/rss.xml` |
+| `public/` | everything served as-is at the same URL: CSS, JS, `components/`, `media/`, `brands/`, `data/`, `catalogue/*.md`, `skills/**`, `skill.md`, `llms.txt`, `robots.txt`, `.well-known/` |
+
+Every existing `<script>` in a page is marked `is:inline` so it ships unchanged. The sitemap (`sitemap-index.xml`) is generated; `/sitemap.xml` redirects to it in `vercel.json`. Submit `sitemap-index.xml` in Google Search Console after launch.
 
 ## Pages
+
+File names below are the old `.html` names; each is now `src/pages/<name>.astro` and still served at `/<name>` (and `/<name>.html`).
 
 | File | Audience | What it is |
 |---|---|---|
@@ -14,15 +40,15 @@ Static landing page for Pramaan (HTML + CSS + vanilla JS, no build step), styled
 | `missions.html` | Everyone | Every mission (outcome), one card each, same categories. The side panel shows the price cap, approvals and the superpowers it runs, in order. `#<mission.id>` opens it directly. |
 | `legal/*.html` | Everyone | Terms, privacy, acceptable use, messaging, refunds, subprocessors, cookies, security. Drafts for legal review, marked "Not in force" and `noindex`. |
 
-The two catalogue pages share `catalogue.css` and `catalogue.js` and load `data/superpowers.json` and `data/missions.json`. Rebuild those after the lists change in capabilities-lab: `node scripts/build-catalogue.mjs` (expects `../capabilities-lab`; pass another path as the first argument). Categories and families live in `data/sorting.json`, sorted by hand per id; the build stops on any id that is not in it, so new ids must be sorted there first.
+The two catalogue pages share `catalogue.css` and `catalogue.js` and load `data/superpowers.json` and `data/missions.json`. Cards are rendered at build time by the pages (using `public/catalogue-render.js`); `catalogue.js` adds search and the panel. Rebuild the data after the lists change in capabilities-lab: `node scripts/build-catalogue.mjs` (expects `../capabilities-lab`; pass another path as the first argument). It writes `public/data/*.json` and the `public/catalogue/*.md` copy. Categories and families live in `data/sorting.json`, sorted by hand per id; the build stops on any id that is not in it, so new ids must be sorted there first.
 
-The legal pages are generated from `docs/legal/*.md` in capabilities-lab: `node scripts/build-legal.mjs ../capabilities-lab/docs/legal`. Reviewer notes (quote blocks) are dropped, and placeholders in square brackets are highlighted. Edit the Markdown there, not the HTML here.
+The legal pages are Markdown in `src/content/legal/`, generated from `docs/legal/*.md` in capabilities-lab: `node scripts/build-legal.mjs <path to docs/legal>`. Reviewer notes (quote blocks) are dropped, and placeholders in square brackets are highlighted. Edit the source Markdown there, not the copy here.
 
 Shared: `styles.css` (design tokens at the top in `:root`), `script.js` (scroll reveal, copy button, mobile nav, catalogue filter, FAQ, rotating example), `favicon.svg`.
 
 ## Components
 
-Reusable, dependency-free web components live in `components/` (one `.js` + one `.css` each). Include both files on any page, then use the tag.
+Reusable, dependency-free web components live in `components/` (one `.js` + one `.css` each). Both files are in `public/components/`. Include both on any page (in `slot="head"`), then use the tag.
 
 ### `<halftone-footer>`
 
@@ -93,11 +119,7 @@ A badge hanging from a printed lanyard (verlet-rope strap, side-release buckle, 
 
 ## Run locally
 
-```bash
-npx serve .        # or: python3 -m http.server 8000
-```
-
-Open `/` (home), `/simple.html` or `/developers.html`. Any static host works (e.g. `vercel --prod` from this folder).
+See "Develop and build" above. Open `/` (home), `/simple` or `/developers`.
 
 ## Videos
 
