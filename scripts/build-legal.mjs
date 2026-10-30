@@ -5,6 +5,7 @@
 // square brackets are highlighted with <mark>. Tables must be written as raw HTML inside <div class="legal-table">.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const src = process.argv[2];
 if (!src) throw new Error("Give the path to docs/legal, e.g. node scripts/build-legal.mjs ../capabilities-lab/docs/legal");
@@ -41,10 +42,12 @@ function clean(md) {
   return { title, body: body.trim() };
 }
 
-mkdirSync("src/content/legal", { recursive: true });
+// Relative to this script, not the folder it's run from
+const out = fileURLToPath(new URL("../src/content/legal", import.meta.url));
+mkdirSync(out, { recursive: true });
 PAGES.forEach((p, i) => {
   const { title, body } = clean(readFileSync(join(src, p.md), "utf8"));
   const fm = `---\ntitle: ${JSON.stringify(title)}\nnav: ${JSON.stringify(p.nav)}\norder: ${i + 1}\n---\n\n`;
-  writeFileSync(`src/content/legal/${p.slug}.md`, `${fm}${body}\n`);
+  writeFileSync(join(out, `${p.slug}.md`), `${fm}${body}\n`);
 });
 console.log(`wrote ${PAGES.length} pages to src/content/legal/`);
