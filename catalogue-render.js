@@ -34,9 +34,65 @@ const docsUrl = (family, id) =>
 export const missionDocsUrl = (m) =>
   `https://docs.pramaan.dev/missions/${m.category.toLowerCase().replace(/\s+/g, '-')}/${m.id.replace(/\./g, '')}`;
 
-// One shape for both pages: { key, name, category, summary, foot, search, panel() }
+const copyRow = (text) => `<div class="panel__id"><code>${esc(text)}</code><button type="button" data-copy-id="${esc(text)}">Copy</button></div>`;
+const authorName = (slug) => slug.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join(' ');
+// `id` in a pramaan.md cell becomes <code>id</code>; everything else is escaped text.
+const mdLite = (s) => esc(s ?? '').replace(/`([^`]+)`/g, '<code>$1</code>');
+
+// Skill author: photo (or initials), name, title, LinkedIn. Used by the skills panel below.
+export const authorHtml = (a, slug) => {
+  const name = a?.name || authorName(slug);
+  const face = a?.photo
+    ? `<img src="${esc(a.photo)}" alt="" width="44" height="44" loading="lazy">`
+    : `<span aria-hidden="true">${esc(name.split(/\s+/).map((w) => w[0]).slice(0, 2).join(''))}</span>`;
+  return `<div class="skill-author">${face}<div><b>${esc(name)}</b>${a?.title ? `<small>${esc(a.title)}</small>` : ''}${
+    a?.linkedin ? `<a href="${esc(a.linkedin)}" target="_blank" rel="noopener">LinkedIn &rarr;</a>` : ''}</div></div>`;
+};
+
+// "How it runs on Pramaan": the skill's pramaan.md as a numbered list, then a link to the file itself.
+export const skillHowHtml = (s) => `
+  <div class="skill-how"><span class="eyebrow">How it runs on Pramaan</span>
+    ${s.fast ? `<p>${mdLite(s.fast)}</p>` : ''}
+    ${s.steps?.length ? `<ol class="panel__list panel__steps">${s.steps
+      .map(([step, ids, note]) => `<li><b>${mdLite(step.replace(/^\d+[a-z]?\.\s*/, ''))}</b><p>${mdLite(ids)}</p>${note ? `<p>${mdLite(note)}</p>` : ''}</li>`)
+      .join('')}</ol>` : ''}
+    ${s.own ? `<p>${mdLite(s.own)}</p>` : ''}
+    <a class="panel__docs" href="skills/gtm/${esc(s.name)}/pramaan.md" target="_blank" rel="noopener">Open as a file for agents (pramaan.md) &rarr;</a>
+  </div>`;
+const SKILLS_REPO = 'https://github.com/Pramaan-OSS/skills/tree/main/skills/gtm';
+
+// Skills page: GTM skills (data/skills.json from scripts/gtm-skills.py), each mapped to Pramaan ids.
+const skillCards = (data) =>
+  data.skills.map((s) => ({
+    key: s.name,
+    name: s.title,
+    category: s.category,
+    summary: s.description,
+    foot: [
+      s.ids.length ? `<span class="pill pill--dark">${num(s.ids.length)} superpower${s.ids.length === 1 ? '' : 's'}</span>` : '<span class="pill">Thinking only</span>',
+      s.approval.length && '<span class="pill pill--warn">Waits for your OK</span>',
+    ]
+      .filter(Boolean)
+      .join(''),
+    search: [s.name, s.title, s.description, s.category, s.author, ...s.ids].join(' ').toLowerCase(),
+    panel: () => `
+      <span class="eyebrow">${esc(s.category)}</span>
+      <h2>${esc(s.title)}</h2>
+      <p class="panel__lead">${esc(s.description)}</p>
+      ${authorHtml(data.authors?.[s.author], s.author)}
+      <div><span class="eyebrow">1. Add it to your agent</span>${copyRow(`npx skills add Pramaan-OSS/skills --skill ${s.name}`)}</div>
+      <div><span class="eyebrow">2. Tell your agent</span>${copyRow(`Run the ${s.name} skill with Pramaan.`)}</div>
+      <p class="caption">The skill comes with its Pramaan map. Set up Pramaan once with <a href="skill.md">the agent skill</a>.</p>
+      ${s.approval.length ? `<div class="panel__facts"><span class="pill pill--warn">Waits for your OK</span><span class="caption">${s.approval.map(esc).join(', ')}</span></div>` : ''}
+      ${skillHowHtml(s)}
+      <a class="panel__docs" href="${SKILLS_REPO}/${esc(s.author)}/${esc(s.name)}" target="_blank" rel="noopener">Full skill on GitHub &rarr;</a>`,
+  }));
+
+// One shape for all three pages: { key, name, category, summary, foot, search, panel() }
 export const toCards = (kind, data) =>
-  kind === 'superpowers'
+  kind === 'skills'
+    ? skillCards(data)
+    : kind === 'superpowers'
     ? data.families.map((f) => ({
         key: f.name,
         name: f.name,

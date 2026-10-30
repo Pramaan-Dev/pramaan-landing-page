@@ -8,14 +8,17 @@ ids: []
 
 # Run "Skillify" with Pramaan
 
-This skill is built for the Swan workspace: it saves a proven procedure as a Swan skill, trigger or sequence. Pramaan does none of its steps.
-
-The skill says what to do. This page says which Pramaan superpowers do each step. Setup (key, MCP, SDK or HTTP): https://www.pramaan.dev/skill.md
+The skill says what to do. This page says which Pramaan calls do each step. Setup (key, MCP, SDK or HTTP): https://www.pramaan.dev/skill.md
 
 ## Step by step
 
-No Pramaan id does a step of this skill. The agent reconstructs the procedure itself and saves it with Swan's own tools.
+| Skill step | Pramaan call | Notes |
+|---|---|---|
+| 5. Confirm each id the new skill names | `describe_capability`, `describe_outcome` (MCP), or `GET /v1/capabilities/{id}`, `GET /v1/outcomes/{id}` | Free reads. Only ids the conversation used go into the new skill's `pramaan.md`. |
+
+The agent does the rest itself: reconstructing the procedure, generalising it, and writing the files into the skills folder.
 
 ## Before running
 
-1. Nothing here calls Pramaan or sends anything.
+1. Nothing here sends anything or costs anything.
+2. The agent confirms the name, category and scope before it writes any file.

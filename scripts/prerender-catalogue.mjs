@@ -11,9 +11,13 @@ import { toCards, groupsHtml, sideHtml } from "../catalogue-render.js";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
-for (const kind of ["superpowers", "missions"]) {
+// `node scripts/prerender-catalogue.mjs skills:skills` only writes the cards for the named pages
+// (data kind, then the html file name when it differs), and skips the markdown copy.
+const only = process.argv.slice(2);
+for (const arg of only.length ? only : ["superpowers", "missions"]) {
+  const [kind, page = kind] = arg.split(":");
   const data = JSON.parse(readFileSync(`${root}/data/${kind}.json`, "utf8"));
-  const file = `${root}/${kind}.html`;
+  const file = `${root}/${page}.html`;
   let html = readFileSync(file, "utf8");
   const put = (name, inner) => {
     const re = new RegExp(`<!-- ${name} -->[\\s\\S]*<!-- /${name} -->`);
@@ -23,8 +27,10 @@ for (const kind of ["superpowers", "missions"]) {
   put("cats", sideHtml(data));
   put("groups", groupsHtml(data, toCards(kind, data)));
   writeFileSync(file, html);
-  console.log(`${kind}.html: cards written.`);
+  console.log(`${page}.html: cards written.`);
 }
+
+if (only.length) process.exit(0);
 
 // Markdown copy.
 const site = "https://www.pramaan.dev";

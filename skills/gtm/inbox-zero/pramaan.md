@@ -3,7 +3,7 @@ skill: inbox-zero
 author: ido-goldberg
 source: https://github.com/swan-gtm/gtm-skills/tree/main/skills/ido-goldberg/inbox-zero
 pramaan_skills: [email, social-media, apps-connections]
-ids: [inbox.triage, apps.action.read, linkedin.inbox.digest, inbox.cleanup, reply.draft, email.reply.send]
+ids: [inbox.triage, apps.action.read, linkedin.inbox.digest, inbox.cleanup, reply.draft, email.reply.send, apps.catalog.search, apps.action.execute]
 ---
 
 # Run "Inbox zero" with Pramaan
@@ -21,7 +21,7 @@ The skill says what to do. This page says which Pramaan superpowers do each step
 | 4. Draft replies for bucket 3 | `reply.draft` | One draft per email, saved in the inbox. |
 | 6. Execute the user's decisions | `email.reply.send` | Sends one approved reply. |
 
-The agent does the four buckets and the single batched output itself. The Swan inbox needs Swan's own tools.
+The agent does the four buckets and the single batched output itself. CRM tasks are read and closed through the connected CRM app (`apps.catalog.search`, `apps.action.execute`) when one is connected.
 
 ## Before running
 
@@ -29,4 +29,5 @@ The agent does the four buckets and the single batched output itself. The Swan i
 2. `email.reply.send` needs approval. The agent shows the exact inputs and waits for the user's yes.
 3. `reply.draft` saves a draft. Nothing is sent, but the agent shows the exact inputs and waits for the user's yes first.
 4. `inbox.cleanup` relabels mail in the inbox. The agent shows the exact inputs and waits for the user's yes.
-5. None of the other ids send or change anything.
+5. `apps.action.execute` runs one action in a connected app, and here it also writes (closing a CRM task). The agent shows the exact action and inputs and waits for the user's yes.
+6. None of the other ids send or change anything.

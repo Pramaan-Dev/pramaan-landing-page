@@ -55,10 +55,11 @@
 .card:hover { border-color: var(--color-off-black); background: rgba(255, 255, 255, .8); transform: translateY(-2px); }
 .card__name { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 .card__summary {
-  flex: 1; font-size: var(--text-body-sm); color: var(--color-graphite);
+  font-size: var(--text-body-sm); color: var(--color-graphite);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-.card__foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+/* margin-top: auto pins the pills to the bottom; the summary must not stretch, or its 4th line shows under the clamp */
+.card__foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; }
 
 .pill {
   display: inline-flex; align-items: center; height: 24px; padding: 0 10px;
@@ -131,6 +132,16 @@ body.panel-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .panel, .panel-scrim, .card { transition: none; }
 }
+
+/* Skills: author block and "How it runs on Pramaan" (catalogue-render.js) */
+.skill-author { display: flex; gap: 12px; align-items: center; }
+.skill-author > img, .skill-author > span { flex: none; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: var(--color-ash); display: grid; place-items: center; font-size: var(--text-caption); }
+.skill-author b { display: block; font-weight: 500; }
+.skill-author small { display: block; color: var(--color-smoke); font-size: var(--text-caption); }
+.skill-author a { font-size: var(--text-caption); text-decoration: underline; text-underline-offset: 3px; }
+.skill-how { display: flex; flex-direction: column; gap: 12px; }
+.skill-how > p { font-size: var(--text-body-sm); color: var(--color-graphite); }
+.skill-how li b { font-weight: 500; font-size: var(--text-body-sm); }
 
 /* Filter dropdowns (dropdown.js): same trigger and menu as the UI builder's */
 :root { --surface-sunk: #efebe8; --line: #cecac8; --fg: #242424; --fg-3: #797776; --hover: rgba(36,36,36,.07); }

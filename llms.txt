@@ -34,9 +34,9 @@ One skill per category, on top of the main skill. [Index](https://www.pramaan.de
 - [Developer tools](https://www.pramaan.dev/skills/developer-tools/skill.md)
 - [Identity & checks](https://www.pramaan.dev/skills/identity-checks/skill.md)
 
-## GTM skills
+## Skills
 
-- [GTM skills](https://www.pramaan.dev/skills): 400+ open go-to-market skills; each has a map to the Pramaan ids that run it at https://www.pramaan.dev/gtm-skills/<skill>/pramaan.md
+- [Skills](https://www.pramaan.dev/skills): 418 open go-to-market skills, each with a map to the Pramaan ids that run it at https://www.pramaan.dev/skills/gtm/<skill>/pramaan.md. Install one with `npx skills add Pramaan-OSS/skills --skill <skill>`.
 
 ## Ways in
 

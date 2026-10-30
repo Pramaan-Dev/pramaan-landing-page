@@ -1,6 +1,6 @@
 // The UI builder's dropdown, without its font search: each <select> becomes a trigger button and a popover menu.
 // The select stays (hidden) and fires change, so the filter code doesn't know the difference.
-// Used by ui-inspiration.js and skills.js; styles in catalogue.css (.ddt, .ddm, .ddi).
+// Used by ui-inspiration.js; styles in catalogue.css (.ddt, .ddm, .ddi).
 const ICON = d => `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 const CHEVRON = ICON('m6 9 6 6 6-6'), CHECK = ICON('M20 6 9 17l-5-5');
 function dress(root){
@@ -10,7 +10,7 @@ function dress(root){
     const t = Object.assign(document.createElement('button'), {type:'button', className:`ddt${sel.classList.contains('set') ? ' set' : ''}`});
     const m = Object.assign(document.createElement('div'), {className:'ddm', popover:'auto'});
     t.setAttribute('aria-haspopup', 'listbox'); t.setAttribute('aria-expanded', 'false'); t.setAttribute('aria-label', cur.startsWith(name) ? cur : `${name}: ${cur}`);
-    t.innerHTML = `<span></span>${CHEVRON}`; t.firstChild.textContent = cur;
+    t.innerHTML = `<span></span>${CHEVRON}`; t.firstChild.textContent = cur.startsWith(name) ? cur : `${name}: ${cur}`;   // "Runs on: Email (40)", not just "Email (40)"
     m.setAttribute('role', 'listbox'); m.setAttribute('aria-label', name);
     for (const o of sel.options){
       const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:`<span class="ddc">${o.selected ? CHECK : ''}</span><span></span>`});

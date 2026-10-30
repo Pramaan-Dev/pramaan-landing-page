@@ -1,4 +1,4 @@
-// Superpowers and missions pages. <body data-kind="superpowers" | "missions"> picks the data file.
+// Superpowers, missions and skills pages. <body data-kind="superpowers" | "missions" | "skills"> picks the data file.
 // Cards are grouped by category; the sidebar filters, the search box narrows, a card opens the panel.
 // The cards are already in the HTML (scripts/prerender-catalogue.mjs); this adds search and the panel.
 
@@ -107,13 +107,14 @@ document.addEventListener('keydown', (e) => e.key === 'Escape' && close());
 panel.addEventListener('click', async (e) => {
   const btn = e.target.closest('[data-copy-id]');
   if (!btn) return;
+  const label = btn.dataset.label ?? (btn.dataset.label = btn.textContent);
   try {
     await navigator.clipboard.writeText(btn.dataset.copyId);
     btn.textContent = 'Copied';
   } catch {
     btn.textContent = 'Press ⌘C';
   }
-  setTimeout(() => (btn.textContent = 'Copy id'), 1600);
+  setTimeout(() => (btn.textContent = label), 1600);
 });
 
 // Opening a link like superpowers.html#TikTok shows that card's panel.
