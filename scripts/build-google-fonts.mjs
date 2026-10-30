@@ -13,5 +13,5 @@ const list = meta.familyMetadataList
   .sort((a, b) => (a.popularity ?? 1e9) - (b.popularity ?? 1e9))
   .map((f) => [f.family, CAT[f.category] ?? "s"]);
 if (list.length < 1000) throw new Error(`Only ${list.length} fonts found; the metadata format may have changed.`);
-writeFileSync(`${root}/data/google-fonts.json`, JSON.stringify(list));
+writeFileSync(`${root}/public/data/google-fonts.json`, JSON.stringify(list));
 console.log(`${list.length} Google fonts written to data/google-fonts.json`);

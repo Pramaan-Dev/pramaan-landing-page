@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import { toCards, groupsHtml, sideHtml } from '../../public/catalogue-render.js';
+import data from '../../public/data/missions.json';
+const groups = groupsHtml(data, toCards('missions', data));
+const cats = sideHtml(data);
+---
+<Base title={"Missions | Pramaan"} description={"Every mission Pramaan can run for you: a whole job, from researching a company to collecting a payment, done step by step with one price cap and a record of what happened."} nav="site" current="missions" bodyAttrs={{"data-kind":"missions"}} footerProps={{"variant":"catalogue","count":"876","countLabel":"Missions","eyebrow":"research","tools":["ui-builder","ui-inspiration"]}}>
+<Fragment slot="head">
+<link rel="stylesheet" href="/catalogue.css" />
+  <link rel="alternate" type="text/markdown" href="/catalogue/index.md" title="Full catalogue" />
+  <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+  <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+</Fragment>
+
+
+  
+
+  <main>
+    <section class="cat-hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Missions</span>
+        <h1 class="display display--md">Missions that use them.</h1>
+        <p class="lead">A mission is a whole job done for you, step by step: research a company, clean a lead list, collect a payment. One price cap for the run, a pause for your OK before anything is sent or paid, and a record of every step.</p>
+        <label class="cat-search">
+          <span aria-hidden="true">&#9906;</span>
+          <input type="search" placeholder="Search missions, e.g. research a company, payment link" aria-label="Search missions" data-short="Search missions" data-search />
+        </label>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Categories">
+        <p class="eyebrow cat-side__title">Categories</p>
+        <ul data-cats><Fragment set:html={cats} /></ul>
+      </aside>
+      <div data-groups><Fragment set:html={groups} /></div>
+    </div>
+  </main>
+
+  <div class="panel-scrim" hidden data-scrim></div>
+  <aside class="panel" hidden data-panel role="dialog" aria-modal="true" aria-label="Mission details">
+    <div class="panel__top">
+      <span class="caption">Missions</span>
+      <button type="button" class="panel__close" aria-label="Close" data-close>&times;</button>
+    </div>
+    <div class="panel__body" data-panel-body></div>
+  </aside>
+
+  
+<Fragment slot="foot">
+<script is:inline type="module" src="/catalogue.js"></script>
+</Fragment>
+</Base>

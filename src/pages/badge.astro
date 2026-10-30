@@ -1,47 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pramaan — Badges for founding members and contributors</title>
-  <meta name="description" content="Mint a Pramaan badge for founding members, contributors, provider partners and early testers." />
-  <meta name="theme-color" content="#f6f3f1" />
-  <link rel="icon" href="favicon.ico" sizes="48x48" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="components/lanyard-badge.css" />
-  <link rel="stylesheet" href="components/halftone-footer.css" />
-  <script src="components/lanyard-badge.js" defer></script>
-  <script src="components/halftone-footer.js" defer></script>
-</head>
-<body>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title={"Pramaan — Badges for founding members and contributors"} description={"Mint a Pramaan badge for founding members, contributors, provider partners and early testers."} nav="badge" footer="halftone">
+<Fragment slot="head">
+<link rel="stylesheet" href="/components/lanyard-badge.css" />
+  <link rel="stylesheet" href="/components/halftone-footer.css" />
+  <script is:inline src="/components/lanyard-badge.js" defer></script>
+  <script is:inline src="/components/halftone-footer.js" defer></script>
+</Fragment>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="index.html" class="logo" aria-label="Pramaan home">
-        <span class="logo__mark" aria-hidden="true"></span>
-        <span class="logo__word">pramaan</span>
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="index.html#how">How it works</a>
-        <a href="index.html#tasks">What you can do</a>
-        <a href="#mint">Badges</a>
-        <a href="index.html#faq">FAQ</a>
-      </nav>
-      <div class="nav__actions">
-        <a href="#login" class="btn btn--ghost">Log in</a>
-        <a href="index.html#start" class="btn btn--black">Get early access</a>
-      </div>
-      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
+
+  
 
   <main>
 
@@ -149,16 +118,17 @@
 
   </main>
 
-  <!-- Footer (component: components/halftone-footer.*) -->
-  <halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
-    <nav data-title="Product"><a href="index.html#how">How it works</a><a href="index.html#tasks">What you can do</a><a href="index.html#pricing">Pricing</a></nav>
-    <nav data-title="Community"><a href="#mint">Badges</a><a href="developers.html">For developers</a><a href="#">Contact</a></nav>
-    <nav data-title="Start"><a href="index.html#start">Get early access</a><a href="#login">Log in</a></nav>
-    <p data-legal>&copy; 2026 Pramaan &middot; <a href="legal/privacy.html">Privacy</a> &middot; <a href="legal/terms.html">Terms</a></p>
+  
+<Fragment slot="footer">
+<halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
+    <nav data-title="Product"><a href="/#how">How it works</a><a href="/#tasks">What you can do</a><a href="/#pricing">Pricing</a></nav>
+    <nav data-title="Community"><a href="#mint">Badges</a><a href="/developers">For developers</a><a href="#">Contact</a></nav>
+    <nav data-title="Start"><a href="/#start">Get early access</a><a href="#login">Log in</a></nav>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a></p>
   </halftone-footer>
-
-  <script src="script.js"></script>
-  <script>
+</Fragment>
+<Fragment slot="foot">
+<script is:inline>
     // Badge page: form ↔ <lanyard-badge> ↔ share link.
     (() => {
       const TIERS = {
@@ -231,5 +201,5 @@
       });
     })();
   </script>
-</body>
-</html>
+</Fragment>
+</Base>

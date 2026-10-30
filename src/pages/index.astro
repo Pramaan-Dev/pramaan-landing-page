@@ -1,17 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pramaan — Say what you need. Get it done, with proof.</title>
-  <meta name="description" content="Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed." />
-  <meta name="theme-color" content="#f6f3f1" />
-  <link rel="icon" href="favicon.ico" sizes="48x48" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
-  <link rel="alternate" type="text/markdown" href="skill.md" title="Agent skill" />
-  <script type="application/ld+json">
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title={"Pramaan — Say what you need. Get it done, with proof."} description={"Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed."} nav="home" announce footerProps={{"variant":"home","count":"300","countLabel":"Things you can ask for","eyebrow":"research","tools":["ui-builder","ui-inspiration"]}}>
+<Fragment slot="head">
+<link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+  <link rel="alternate" type="text/markdown" href="/skill.md" title="Agent skill" />
+  <script is:inline type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -45,58 +39,20 @@
     ]
   }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="components/ticket-stub-footer.css" />
-  <link rel="stylesheet" href="components/lanyard-badge.css" />
-  <script src="components/ticket-stub-footer.js" defer></script>
-  <script src="components/lanyard-badge.js" defer></script>
-</head>
-<body>
+  
+  
+  
+  
+  <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+  <link rel="stylesheet" href="/components/lanyard-badge.css" />
+  <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  <script is:inline src="/components/lanyard-badge.js" defer></script>
+</Fragment>
 
-  <!-- Announcement bar -->
-  <div class="announce" id="announce">
-    <div class="announce__inner">
-      <p>Early access is open. Start with $1 of free credit.</p>
-      <a class="announce__pill" href="#start">Join now</a>
-      <button class="announce__close" aria-label="Dismiss announcement" data-dismiss="announce">&times;</button>
-    </div>
-  </div>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="#" class="logo" aria-label="Pramaan home">
-        <span class="logo__mark" aria-hidden="true"></span>
-        <span class="logo__word">pramaan</span>
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#how">How it works</a>
-        <a href="superpowers.html">Superpowers</a>
-        <a href="missions.html">Missions</a>
-        <a href="#pricing">Pricing</a>
-        <a href="https://docs.pramaan.dev">Docs</a>
-        <details class="navres">
-          <summary>Resources</summary>
-          <div class="navres__menu">
-            <p class="navres__group">Tools</p>
-            <a href="ui-builder">UI builder</a>
-            <a href="skills">Skills</a>
-            <span class="navres__soon">Templates <em>Launching soon</em></span>
-          </div>
-        </details>
-      </nav>
-      <div class="nav__actions">
-        <a href="#login" class="btn btn--ghost">Log in</a>
-        <a href="#start" class="btn btn--black">Get early access</a>
-      </div>
-      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
+  
+
+  
 
   <main>
 
@@ -128,9 +84,9 @@
     <section class="watch" id="watch" aria-label="Watch Pramaan do a job">
       <div class="container">
         <figure class="watch__frame" data-reveal>
-          <video class="watch__video" autoplay muted loop playsinline preload="metadata" poster="media/watch-it-work-v2.jpg" aria-label="Five everyday jobs: research a company, check an email, send a proctored test, send a payment link and email new sign-ups. Lookups happen straight away; the three actions wait for approval. Everything is saved to your history.">
-            <source src="media/watch-it-work-v2.webm" type="video/webm" />
-            <source src="media/watch-it-work-v2.mp4" type="video/mp4" />
+          <video class="watch__video" autoplay muted loop playsinline preload="metadata" poster="/media/watch-it-work-v2.jpg" aria-label="Five everyday jobs: research a company, check an email, send a proctored test, send a payment link and email new sign-ups. Lookups happen straight away; the three actions wait for approval. Everything is saved to your history.">
+            <source src="/media/watch-it-work-v2.webm" type="video/webm" />
+            <source src="/media/watch-it-work-v2.mp4" type="video/mp4" />
           </video>
           <figcaption class="caption">Watch it work</figcaption>
         </figure>
@@ -143,56 +99,56 @@
         <p class="caption">Works with names you know</p>
         <div class="logos__track">
         <ul class="logos__row" data-loop>
-          <li style="--brand:#4285F4"><i role="img" aria-label="Google" title="Google" style="--icon:url(brands/google.svg)"></i></li>
-          <li style="--brand:#FF0000"><i role="img" aria-label="YouTube" title="YouTube" style="--icon:url(brands/youtube.svg)"></i></li>
-          <li style="--brand:#FF0069"><i role="img" aria-label="Instagram" title="Instagram" style="--icon:url(brands/instagram.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="TikTok" title="TikTok" style="--icon:url(brands/tiktok.svg)"></i></li>
-          <li style="--brand:#0A66C2"><i role="img" aria-label="LinkedIn" title="LinkedIn" style="--icon:url(brands/linkedin.svg)"></i></li>
-          <li style="--brand:#0866FF"><i role="img" aria-label="Facebook" title="Facebook" style="--icon:url(brands/facebook.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="X" title="X" style="--icon:url(brands/x.svg)"></i></li>
-          <li style="--brand:#FF4500"><i role="img" aria-label="Reddit" title="Reddit" style="--icon:url(brands/reddit.svg)"></i></li>
-          <li style="--brand:#25D366"><i role="img" aria-label="WhatsApp" title="WhatsApp" style="--icon:url(brands/whatsapp.svg)"></i></li>
-          <li style="--brand:#FF9900"><i role="img" aria-label="Amazon" title="Amazon" style="--icon:url(brands/amazon.svg)"></i></li>
-          <li style="--brand:#D97757"><i role="img" aria-label="Claude" title="Claude" style="--icon:url(brands/claude.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="GPT" title="GPT" style="--icon:url(brands/openai.svg)"></i></li>
-          <li style="--brand:#6467F2"><i role="img" aria-label="OpenRouter" title="OpenRouter" style="--icon:url(brands/openrouter.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="Hermes" title="Hermes" style="--icon:url(brands/nousresearch.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="SpaceX" title="SpaceX" style="--icon:url(brands/spacex.svg)"></i></li>
-          <li style="--brand:#4285F4"><i role="img" aria-label="Google Maps" title="Google Maps" style="--icon:url(brands/googlemaps.svg)"></i></li>
-          <li style="--brand:#1ED760"><i role="img" aria-label="Spotify" title="Spotify" style="--icon:url(brands/spotify.svg)"></i></li>
-          <li style="--brand:#BD081C"><i role="img" aria-label="Pinterest" title="Pinterest" style="--icon:url(brands/pinterest.svg)"></i></li>
-          <li style="--brand:#E6C800"><i role="img" aria-label="Snapchat" title="Snapchat" style="--icon:url(brands/snapchat.svg)"></i></li>
-          <li style="--brand:#000000"><i role="img" aria-label="Threads" title="Threads" style="--icon:url(brands/threads.svg)"></i></li>
-          <li style="--brand:#1185FE"><i role="img" aria-label="Bluesky" title="Bluesky" style="--icon:url(brands/bluesky.svg)"></i></li>
-          <li style="--brand:#9146FF"><i role="img" aria-label="Twitch" title="Twitch" style="--icon:url(brands/twitch.svg)"></i></li>
-          <li style="--brand:#26A5E4"><i role="img" aria-label="Telegram" title="Telegram" style="--icon:url(brands/telegram.svg)"></i></li>
-          <li style="--brand:#181717"><i role="img" aria-label="GitHub" title="GitHub" style="--icon:url(brands/github.svg)"></i></li>
-          <li style="--brand:#414141"><i role="img" aria-label="Google Play" title="Google Play" style="--icon:url(brands/googleplay.svg)"></i></li>
-          <li style="--brand:#0D96F6"><i role="img" aria-label="App Store" title="App Store" style="--icon:url(brands/appstore.svg)"></i></li>
-          <li style="--brand:#E53238"><i role="img" aria-label="eBay" title="eBay" style="--icon:url(brands/ebay.svg)"></i></li>
-          <li style="--brand:#0071CE"><i role="img" aria-label="Walmart" title="Walmart" style="--icon:url(brands/walmart.svg)"></i></li>
-          <li style="--brand:#34E0A1"><i role="img" aria-label="Tripadvisor" title="Tripadvisor" style="--icon:url(brands/tripadvisor.svg)"></i></li>
-          <li style="--brand:#00B67A"><i role="img" aria-label="Trustpilot" title="Trustpilot" style="--icon:url(brands/trustpilot.svg)"></i></li>
-          <li style="--brand:#FF1A1A"><i role="img" aria-label="Yelp" title="Yelp" style="--icon:url(brands/yelp.svg)"></i></li>
-          <li style="--brand:#E2B616"><i role="img" aria-label="IMDb" title="IMDb" style="--icon:url(brands/imdb.svg)"></i></li>
-          <li style="--brand:#F0652F"><i role="img" aria-label="Hacker News" title="Hacker News" style="--icon:url(brands/ycombinator.svg)"></i></li>
-          <li style="--brand:#F58025"><i role="img" aria-label="Stack Overflow" title="Stack Overflow" style="--icon:url(brands/stackoverflow.svg)"></i></li>
-          <li style="--brand:#FF5500"><i role="img" aria-label="SoundCloud" title="SoundCloud" style="--icon:url(brands/soundcloud.svg)"></i></li>
-          <li style="--brand:#FA243C"><i role="img" aria-label="Apple Music" title="Apple Music" style="--icon:url(brands/applemusic.svg)"></i></li>
-          <li style="--brand:#07C160"><i role="img" aria-label="WeChat" title="WeChat" style="--icon:url(brands/wechat.svg)"></i></li>
-          <li style="--brand:#FF2442"><i role="img" aria-label="Xiaohongshu" title="Xiaohongshu" style="--icon:url(brands/xiaohongshu.svg)"></i></li>
-          <li style="--brand:#00A1D6"><i role="img" aria-label="Bilibili" title="Bilibili" style="--icon:url(brands/bilibili.svg)"></i></li>
-          <li style="--brand:#E6162D"><i role="img" aria-label="Weibo" title="Weibo" style="--icon:url(brands/sinaweibo.svg)"></i></li>
-          <li style="--brand:#0084FF"><i role="img" aria-label="Zhihu" title="Zhihu" style="--icon:url(brands/zhihu.svg)"></i></li>
-          <li style="--brand:#03C75A"><i role="img" aria-label="Naver" title="Naver" style="--icon:url(brands/naver.svg)"></i></li>
-          <li style="--brand:#2932E1"><i role="img" aria-label="Baidu" title="Baidu" style="--icon:url(brands/baidu.svg)"></i></li>
-          <li style="--brand:#DE5833"><i role="img" aria-label="DuckDuckGo" title="DuckDuckGo" style="--icon:url(brands/duckduckgo.svg)"></i></li>
-          <li style="--brand:#85C742"><i role="img" aria-label="Rumble" title="Rumble" style="--icon:url(brands/rumble.svg)"></i></li>
-          <li style="--brand:#3BB80F"><i role="img" aria-label="Kick" title="Kick" style="--icon:url(brands/kick.svg)"></i></li>
-          <li style="--brand:#7360F2"><i role="img" aria-label="Viber" title="Viber" style="--icon:url(brands/viber.svg)"></i></li>
+          <li style="--brand:#4285F4"><i role="img" aria-label="Google" title="Google" style="--icon:url(/brands/google.svg)"></i></li>
+          <li style="--brand:#FF0000"><i role="img" aria-label="YouTube" title="YouTube" style="--icon:url(/brands/youtube.svg)"></i></li>
+          <li style="--brand:#FF0069"><i role="img" aria-label="Instagram" title="Instagram" style="--icon:url(/brands/instagram.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="TikTok" title="TikTok" style="--icon:url(/brands/tiktok.svg)"></i></li>
+          <li style="--brand:#0A66C2"><i role="img" aria-label="LinkedIn" title="LinkedIn" style="--icon:url(/brands/linkedin.svg)"></i></li>
+          <li style="--brand:#0866FF"><i role="img" aria-label="Facebook" title="Facebook" style="--icon:url(/brands/facebook.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="X" title="X" style="--icon:url(/brands/x.svg)"></i></li>
+          <li style="--brand:#FF4500"><i role="img" aria-label="Reddit" title="Reddit" style="--icon:url(/brands/reddit.svg)"></i></li>
+          <li style="--brand:#25D366"><i role="img" aria-label="WhatsApp" title="WhatsApp" style="--icon:url(/brands/whatsapp.svg)"></i></li>
+          <li style="--brand:#FF9900"><i role="img" aria-label="Amazon" title="Amazon" style="--icon:url(/brands/amazon.svg)"></i></li>
+          <li style="--brand:#D97757"><i role="img" aria-label="Claude" title="Claude" style="--icon:url(/brands/claude.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="GPT" title="GPT" style="--icon:url(/brands/openai.svg)"></i></li>
+          <li style="--brand:#6467F2"><i role="img" aria-label="OpenRouter" title="OpenRouter" style="--icon:url(/brands/openrouter.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="Hermes" title="Hermes" style="--icon:url(/brands/nousresearch.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="SpaceX" title="SpaceX" style="--icon:url(/brands/spacex.svg)"></i></li>
+          <li style="--brand:#4285F4"><i role="img" aria-label="Google Maps" title="Google Maps" style="--icon:url(/brands/googlemaps.svg)"></i></li>
+          <li style="--brand:#1ED760"><i role="img" aria-label="Spotify" title="Spotify" style="--icon:url(/brands/spotify.svg)"></i></li>
+          <li style="--brand:#BD081C"><i role="img" aria-label="Pinterest" title="Pinterest" style="--icon:url(/brands/pinterest.svg)"></i></li>
+          <li style="--brand:#E6C800"><i role="img" aria-label="Snapchat" title="Snapchat" style="--icon:url(/brands/snapchat.svg)"></i></li>
+          <li style="--brand:#000000"><i role="img" aria-label="Threads" title="Threads" style="--icon:url(/brands/threads.svg)"></i></li>
+          <li style="--brand:#1185FE"><i role="img" aria-label="Bluesky" title="Bluesky" style="--icon:url(/brands/bluesky.svg)"></i></li>
+          <li style="--brand:#9146FF"><i role="img" aria-label="Twitch" title="Twitch" style="--icon:url(/brands/twitch.svg)"></i></li>
+          <li style="--brand:#26A5E4"><i role="img" aria-label="Telegram" title="Telegram" style="--icon:url(/brands/telegram.svg)"></i></li>
+          <li style="--brand:#181717"><i role="img" aria-label="GitHub" title="GitHub" style="--icon:url(/brands/github.svg)"></i></li>
+          <li style="--brand:#414141"><i role="img" aria-label="Google Play" title="Google Play" style="--icon:url(/brands/googleplay.svg)"></i></li>
+          <li style="--brand:#0D96F6"><i role="img" aria-label="App Store" title="App Store" style="--icon:url(/brands/appstore.svg)"></i></li>
+          <li style="--brand:#E53238"><i role="img" aria-label="eBay" title="eBay" style="--icon:url(/brands/ebay.svg)"></i></li>
+          <li style="--brand:#0071CE"><i role="img" aria-label="Walmart" title="Walmart" style="--icon:url(/brands/walmart.svg)"></i></li>
+          <li style="--brand:#34E0A1"><i role="img" aria-label="Tripadvisor" title="Tripadvisor" style="--icon:url(/brands/tripadvisor.svg)"></i></li>
+          <li style="--brand:#00B67A"><i role="img" aria-label="Trustpilot" title="Trustpilot" style="--icon:url(/brands/trustpilot.svg)"></i></li>
+          <li style="--brand:#FF1A1A"><i role="img" aria-label="Yelp" title="Yelp" style="--icon:url(/brands/yelp.svg)"></i></li>
+          <li style="--brand:#E2B616"><i role="img" aria-label="IMDb" title="IMDb" style="--icon:url(/brands/imdb.svg)"></i></li>
+          <li style="--brand:#F0652F"><i role="img" aria-label="Hacker News" title="Hacker News" style="--icon:url(/brands/ycombinator.svg)"></i></li>
+          <li style="--brand:#F58025"><i role="img" aria-label="Stack Overflow" title="Stack Overflow" style="--icon:url(/brands/stackoverflow.svg)"></i></li>
+          <li style="--brand:#FF5500"><i role="img" aria-label="SoundCloud" title="SoundCloud" style="--icon:url(/brands/soundcloud.svg)"></i></li>
+          <li style="--brand:#FA243C"><i role="img" aria-label="Apple Music" title="Apple Music" style="--icon:url(/brands/applemusic.svg)"></i></li>
+          <li style="--brand:#07C160"><i role="img" aria-label="WeChat" title="WeChat" style="--icon:url(/brands/wechat.svg)"></i></li>
+          <li style="--brand:#FF2442"><i role="img" aria-label="Xiaohongshu" title="Xiaohongshu" style="--icon:url(/brands/xiaohongshu.svg)"></i></li>
+          <li style="--brand:#00A1D6"><i role="img" aria-label="Bilibili" title="Bilibili" style="--icon:url(/brands/bilibili.svg)"></i></li>
+          <li style="--brand:#E6162D"><i role="img" aria-label="Weibo" title="Weibo" style="--icon:url(/brands/sinaweibo.svg)"></i></li>
+          <li style="--brand:#0084FF"><i role="img" aria-label="Zhihu" title="Zhihu" style="--icon:url(/brands/zhihu.svg)"></i></li>
+          <li style="--brand:#03C75A"><i role="img" aria-label="Naver" title="Naver" style="--icon:url(/brands/naver.svg)"></i></li>
+          <li style="--brand:#2932E1"><i role="img" aria-label="Baidu" title="Baidu" style="--icon:url(/brands/baidu.svg)"></i></li>
+          <li style="--brand:#DE5833"><i role="img" aria-label="DuckDuckGo" title="DuckDuckGo" style="--icon:url(/brands/duckduckgo.svg)"></i></li>
+          <li style="--brand:#85C742"><i role="img" aria-label="Rumble" title="Rumble" style="--icon:url(/brands/rumble.svg)"></i></li>
+          <li style="--brand:#3BB80F"><i role="img" aria-label="Kick" title="Kick" style="--icon:url(/brands/kick.svg)"></i></li>
+          <li style="--brand:#7360F2"><i role="img" aria-label="Viber" title="Viber" style="--icon:url(/brands/viber.svg)"></i></li>
         </ul>
         </div>
-        <a class="link-arrow" href="superpowers.html">See all 3,510 superpowers &rarr;</a>
+        <a class="link-arrow" href="/superpowers">See all 3,510 superpowers &rarr;</a>
       </div>
     </section>
 
@@ -231,9 +187,9 @@
               <h3 class="h-card">Ask in plain words</h3>
               <p>Type it the way you'd say it to a friend.</p>
             </div>
-            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-research.jpg" aria-label="Asking Pramaan to research a company and getting a short brief">
-              <source src="media/clip-research.webm" type="video/webm" />
-              <source src="media/clip-research.mp4" type="video/mp4" />
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="/media/clip-research.jpg" aria-label="Asking Pramaan to research a company and getting a short brief">
+              <source src="/media/clip-research.webm" type="video/webm" />
+              <source src="/media/clip-research.mp4" type="video/mp4" />
             </video>
           </article>
 
@@ -244,9 +200,9 @@
               <h3 class="h-card">Nothing happens without your OK</h3>
               <p>Contacting people or moving money? Pramaan shows you first and waits.</p>
             </div>
-            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-approval.jpg" aria-label="Pramaan asks for approval before sending a proctored test to three candidates">
-              <source src="media/clip-approval.webm" type="video/webm" />
-              <source src="media/clip-approval.mp4" type="video/mp4" />
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="/media/clip-approval.jpg" aria-label="Pramaan asks for approval before sending a proctored test to three candidates">
+              <source src="/media/clip-approval.webm" type="video/webm" />
+              <source src="/media/clip-approval.mp4" type="video/mp4" />
             </video>
           </article>
 
@@ -300,9 +256,9 @@
       </div>
       <div class="container band__clip" data-reveal>
         <span class="eyebrow">And more on the way</span>
-        <video class="clip clip--wide" autoplay muted loop playsinline preload="metadata" poster="media/clip-more.jpg" aria-label="More jobs: AI visibility checks, review replies, résumé checks and invoice matching">
-          <source src="media/clip-more.webm" type="video/webm" />
-          <source src="media/clip-more.mp4" type="video/mp4" />
+        <video class="clip clip--wide" autoplay muted loop playsinline preload="metadata" poster="/media/clip-more.jpg" aria-label="More jobs: AI visibility checks, review replies, résumé checks and invoice matching">
+          <source src="/media/clip-more.webm" type="video/webm" />
+          <source src="/media/clip-more.mp4" type="video/mp4" />
         </video>
       </div>
     </section>
@@ -525,32 +481,5 @@
   </main>
 
   <!-- Closing section + footer (component: components/ticket-stub-footer.*) -->
-  <ticket-stub-footer id="start" wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
-    <nav data-slot="sections">
-      <a href="#watch">Watch it work</a>
-      <a href="#how">How it works</a>
-      <a href="#tasks">What you can do</a>
-      <a href="#why">Why Pramaan</a>
-      <a href="#get-started">Get started</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <p data-slot="eyebrow">Research Acme before my meeting|Send a proctored test to 3 candidates|Send Priya a payment link for $200</p>
-    <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
-    <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
-    <a data-slot="cta" href="#start">Get early access</a>
-    <div data-slot="badge">
-      <lanyard-badge heading="Founding Member" year="2026" wash="gold,coral" ink="gold" ornament="seal" card-width="168" flip-button="false"></lanyard-badge>
-      <a class="btn btn--ghost" href="badge.html?tier=founding">Get badge <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
-    </div>
-    <nav data-slot="links" data-title="Product"><a href="#how">How it works</a><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-    <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="ui-builder">UI builder</a><a href="ui-inspiration">UI inspiration</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="#login">Log in</a><a href="#">Contact</a></nav>
-    <span data-slot="status" data-caption="Early access">Open</span>
-    <span data-slot="count" data-value="300">Things you can ask for</span>
-    <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
-    <p data-slot="legal"><a href="legal/privacy.html">Privacy</a><a href="legal/terms.html">Terms</a></p>
-  </ticket-stub-footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  
+</Base>

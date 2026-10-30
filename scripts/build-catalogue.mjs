@@ -1,4 +1,4 @@
-// Builds data/superpowers.json and data/missions.json for superpowers.html and missions.html.
+// Builds public/data/superpowers.json and missions.json (read by the Astro pages at build time), then the catalogue/*.md copy.
 // Run: node scripts/build-catalogue.mjs [path-to-capabilities-lab]
 // Ids, descriptions and steps come from capabilities-lab. Categories and families come from
 // data/sorting.json, where every id was sorted by hand into one category (and, for a
@@ -16,8 +16,8 @@ const { OUTCOMES } = await import(`${lab}/packages/sdk/src/generated/outcomes.ts
 // Missions the owner hid everywhere: never on this site, not even in data files.
 const { HIDDEN_OUTCOME_IDS } = await import(`${lab}/apps/api/src/outcomes-registry.ts`);
 const visible = Object.values(OUTCOMES).filter((o) => !HIDDEN_OUTCOME_IDS.has(o.id));
-const sorting = JSON.parse(readFileSync(`${root}/data/sorting.json`, "utf8"));
-const missionNames = JSON.parse(readFileSync(`${root}/data/mission-names.json`, "utf8"));
+const sorting = JSON.parse(readFileSync(`${root}/public/data/sorting.json`, "utf8"));
+const missionNames = JSON.parse(readFileSync(`${root}/public/data/mission-names.json`, "utf8"));
 
 export const CATEGORIES = [
   ["Data", "Companies, people and contacts: research, lead lists, work emails and company signals."],
@@ -100,17 +100,17 @@ const byName = (a, b) => a.name.localeCompare(b.name);
 const count = (list, n) => CATEGORIES.map((c) => ({ ...c, count: list.filter((x) => x.category === c.name).reduce((s, x) => s + n(x), 0) }));
 const fams = [...families.values()].sort(byName);
 
-writeFileSync(`${root}/data/superpowers.json`, JSON.stringify({
+writeFileSync(`${root}/public/data/superpowers.json`, JSON.stringify({
   total: Object.keys(CATALOG).length,
   categories: count(fams, (f) => f.items.length),
   featured: sorting.featured.superpowers.filter((f) => families.has(f)),
   families: fams,
 }));
-writeFileSync(`${root}/data/missions.json`, JSON.stringify({
+writeFileSync(`${root}/public/data/missions.json`, JSON.stringify({
   total: missions.length,
   categories: count(missions, () => 1),
   featured: sorting.featured.missions.filter((id) => OUTCOMES[id] && !HIDDEN_OUTCOME_IDS.has(id)),
   missions: missions.sort(byName),
 }));
 console.log(`${Object.keys(CATALOG).length} superpowers in ${fams.length} families, ${missions.length} missions.`);
-await import("./prerender-catalogue.mjs");
+await import("./build-catalogue-md.mjs");

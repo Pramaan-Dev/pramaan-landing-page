@@ -1,0 +1,53 @@
+---
+// The one closing footer (ticket stub). Halftone footers stay page-specific: pages pass them in Base's `footer` slot.
+// variant: home | catalogue | tool | legal.  tools: which tool links appear under "More".
+const { variant = 'catalogue', count, countLabel, eyebrow = 'research', tools = [] } = Astro.props;
+const home = variant === 'home';
+const legal = variant === 'legal';
+const EYEBROW = {
+  find: "Find a company's work emails|Scrape a page|Send a text|Take a payment",
+  research: 'Research Acme before my meeting|Send a proctored test to 3 candidates|Send Priya a payment link for $200',
+}[eyebrow];
+const sections = home
+  ? [['#watch', 'Watch it work'], ['#how', 'How it works'], ['#tasks', 'What you can do'], ['#why', 'Why Pramaan'], ['#get-started', 'Get started'], ['#pricing', 'Pricing'], ['#faq', 'FAQ']]
+  : [['/', 'Home'], ['/superpowers', 'Superpowers'], ['/missions', 'Missions'], ['/#pricing', 'Pricing'], ['/#faq', 'FAQ']];
+const a = home ? '' : '/';
+const product = [...(home ? [['#how', 'How it works']] : []), ['/superpowers', 'Superpowers'], ['/missions', 'Missions'], [`${a}#pricing`, 'Pricing'], [`${a}#faq`, 'FAQ']];
+const TOOL = { 'ui-builder': ['/ui-builder', 'UI builder'], 'ui-inspiration': ['/ui-inspiration', 'UI inspiration'], skills: ['/skills', 'Skills'] };
+const more = legal
+  ? [['https://docs.pramaan.dev', 'Docs'], ['/developers', 'For developers'], ['/#login', 'Log in'], ['/legal/security', 'Security']]
+  : [
+      ['https://docs.pramaan.dev', 'Docs'],
+      ...tools.map((t) => TOOL[t]),
+      ['/developers', 'For developers'],
+      ['/skill.md', 'Agent skill'],
+      ['/llms.txt', 'llms.txt'],
+      [`${a}#login`, 'Log in'],
+      ['#', 'Contact'],
+    ];
+const tool = variant === 'tool';
+const legalLinks = tool ? [['#', 'Privacy'], ['#', 'Terms']] : [['/legal/privacy', 'Privacy'], ['/legal/terms', 'Terms']];
+const id = home || variant === 'catalogue' ? 'start' : undefined;
+const ctaHref = home ? '#start' : '/#start';
+---
+<ticket-stub-footer id={id} wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="© 2026 Pramaan">
+  <nav data-slot="sections">
+    {sections.map(([h, t]) => <a href={h}>{t}</a>)}
+  </nav>
+  <p data-slot="eyebrow">{EYEBROW}</p>
+  <h2 data-slot="headline">Say what you need.<br />Keep the proof.</h2>
+  <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
+  <a data-slot="cta" href={ctaHref}>Get early access</a>
+  {home && (
+    <div data-slot="badge">
+      <lanyard-badge heading="Founding Member" year="2026" wash="gold,coral" ink="gold" ornament="seal" card-width="168" flip-button="false"></lanyard-badge>
+      <a class="btn btn--ghost" href="/badge?tier=founding">Get badge <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+    </div>
+  )}
+  <nav data-slot="links" data-title="Product">{product.map(([h, t]) => <a href={h}>{t}</a>)}</nav>
+  <nav data-slot="links" data-title="More">{more.map(([h, t]) => <a href={h}>{t}</a>)}</nav>
+  <span data-slot="status" data-caption="Early access">Open</span>
+  <span data-slot="count" data-value={count}>{countLabel}</span>
+  <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+  <p data-slot="legal">{legalLinks.map(([h, t]) => <a href={h}>{t}</a>)}</p>
+</ticket-stub-footer>

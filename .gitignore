@@ -1,5 +1,10 @@
 .DS_Store
 node_modules/
+dist/
+.astro/
+.sort/
+ASTRO-PLAN.md
+/*.png
 
 # local tool caches (contain machine-specific paths)
 .gstack/

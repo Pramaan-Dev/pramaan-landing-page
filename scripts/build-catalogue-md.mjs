@@ -1,38 +1,10 @@
-// Writes the superpowers and missions cards into superpowers.html and missions.html, between the
-// <!-- cats --> and <!-- groups --> markers, so the lists are in the page without JavaScript.
-// It also writes a markdown copy of both lists under catalogue/, one file per category, so agents
-// can read every id without parsing HTML.
-// Run: node scripts/prerender-catalogue.mjs (build-catalogue.mjs runs it at the end).
-
+// Writes a markdown copy of the superpowers and missions lists to public/catalogue/, one file per category,
+// so agents can read every id without parsing HTML. Run by build-catalogue.mjs; or alone: node scripts/build-catalogue-md.mjs
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { toCards, groupsHtml, sideHtml } from "../catalogue-render.js";
 
-const root = dirname(dirname(fileURLToPath(import.meta.url)));
-
-// `node scripts/prerender-catalogue.mjs skills:skills` only writes the cards for the named pages
-// (data kind, then the html file name when it differs), and skips the markdown copy.
-const only = process.argv.slice(2);
-for (const arg of only.length ? only : ["superpowers", "missions"]) {
-  const [kind, page = kind] = arg.split(":");
-  const data = JSON.parse(readFileSync(`${root}/data/${kind}.json`, "utf8"));
-  const file = `${root}/${page}.html`;
-  let html = readFileSync(file, "utf8");
-  const put = (name, inner) => {
-    const re = new RegExp(`<!-- ${name} -->[\\s\\S]*<!-- /${name} -->`);
-    if (!re.test(html)) throw new Error(`${kind}.html has no <!-- ${name} --> markers.`);
-    html = html.replace(re, () => `<!-- ${name} -->${inner}<!-- /${name} -->`);
-  };
-  put("cats", sideHtml(data));
-  put("groups", groupsHtml(data, toCards(kind, data)));
-  writeFileSync(file, html);
-  console.log(`${page}.html: cards written.`);
-}
-
-if (only.length) process.exit(0);
-
-// Markdown copy.
+const root = dirname(dirname(fileURLToPath(import.meta.url))) + "/public";
 const site = "https://www.pramaan.dev";
 const slug = (name) => name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const flat = (text) => (text ?? "").replace(/\s+/g, " ").trim();

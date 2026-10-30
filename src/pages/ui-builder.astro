@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UI builder | Pramaan</title>
-<meta name="description" content="Free UI builder: pick a colour, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code.">
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#f6f3f1">
-<link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title={"UI builder | Pramaan"} description={"Free UI builder: pick a colour, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code."} robots="noindex" nav="site" navSkin="builder" current="ui-builder" appCss={false} sharedScript={false} fonts={"https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&family=Nunito:wght@400;600;800&display=swap"} footerProps={{"variant":"tool","count":"3510","countLabel":"Superpowers","eyebrow":"find","tools":["ui-inspiration"]}}>
+<Fragment slot="head">
 <!-- Newsreader and JetBrains Mono are the website's fonts; the rest are the preview's font choices. -->
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="components/ticket-stub-footer.css">
-<script src="components/ticket-stub-footer.js" defer></script>
-<style>
+
+<link rel="stylesheet" href="/components/ticket-stub-footer.css">
+<script is:inline src="/components/ticket-stub-footer.js" defer></script>
+<style is:inline>
 /* ---------- Builder chrome: the website's look (parchment, serif headings, mono UI; styles.css) ----------
    Only the builder's own frame uses these. The preview inside .stage is the user's design.
    styles.css is not loaded: its bare element rules would leak into the preview. */
@@ -580,34 +571,9 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   .top{padding:0 16px}
 }
 </style>
-</head>
-<body>
-<header class="site-nav">
-  <div class="site-wrap site-nav__inner">
-    <a href="index.html" class="site-logo" aria-label="Pramaan home"><span class="site-logo__mark" aria-hidden="true"></span><span class="site-logo__word">pramaan</span></a>
-    <nav class="site-nav__links" aria-label="Primary">
-      <a href="index.html#how">How it works</a>
-      <a href="superpowers.html">Superpowers</a>
-      <a href="missions.html">Missions</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="https://docs.pramaan.dev">Docs</a>
-      <details class="navres">
-        <summary>Resources</summary>
-        <div class="navres__menu">
-          <p class="navres__group">Tools</p>
-          <a href="ui-builder" aria-current="page">UI builder</a>
-          <a href="skills">Skills</a>
-          <span class="navres__soon">Templates <em>Launching soon</em></span>
-        </div>
-      </details>
-    </nav>
-    <div class="site-nav__actions">
-      <a href="index.html#login" class="site-btn site-btn--ghost">Log in</a>
-      <a href="index.html#start" class="site-btn site-btn--black">Get early access</a>
-    </div>
-    <button class="site-nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle><span></span><span></span></button>
-  </div>
-</header>
+</Fragment>
+
+
 
 <section class="uib-hero site-wrap">
   <span class="uib-tag"><i></i>Free tool</span>
@@ -655,29 +621,11 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   <div class="df"><span id="galHint">Styles from real sites. Click one to see its full page before applying it.</span><span style="display:flex;gap:8px"><button class="ghost" id="galMore">Show more</button><button class="ghost" id="galClose">Close</button></span></div>
 </dialog>
 
-<ticket-stub-footer wordmark="pramaan" wordmark-style="dots" ticket-surface="plain" copyright="&copy; 2026 Pramaan">
-  <nav data-slot="sections">
-    <a href="index.html">Home</a>
-    <a href="superpowers.html">Superpowers</a>
-    <a href="missions.html">Missions</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#faq">FAQ</a>
-  </nav>
-  <p data-slot="eyebrow">Find a company's work emails|Scrape a page|Send a text|Take a payment</p>
-  <h2 data-slot="headline">Say what you need.<br>Keep the proof.</h2>
-  <p data-slot="description">$1 free to start. No code. No monthly fee.</p>
-  <a data-slot="cta" href="index.html#start">Get early access</a>
-  <nav data-slot="links" data-title="Product"><a href="superpowers.html">Superpowers</a><a href="missions.html">Missions</a><a href="index.html#pricing">Pricing</a><a href="index.html#faq">FAQ</a></nav>
-  <nav data-slot="links" data-title="More"><a href="https://docs.pramaan.dev">Docs</a><a href="ui-inspiration">UI inspiration</a><a href="developers.html">For developers</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a><a href="index.html#login">Log in</a><a href="#">Contact</a></nav>
-  <span data-slot="status" data-caption="Early access">Open</span>
-  <span data-slot="count" data-value="3510">Superpowers</span>
-  <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
-  <p data-slot="legal"><a href="#">Privacy</a><a href="#">Terms</a></p>
-</ticket-stub-footer>
 
+<Fragment slot="foot">
 <!-- Design library: index, images and style guides live on the designs host; without it the gallery buttons stay hidden. -->
-<script src="https://design.pramaan.dev/_gallery.js"></script>
-<script>
+<script is:inline src="https://design.pramaan.dev/_gallery.js"></script>
+<script is:inline>
 const DB = 'https://design.pramaan.dev/';
 const $ = s => document.querySelector(s);
 
@@ -2036,5 +1984,5 @@ document.addEventListener('pointerdown', () => { delete document.documentElement
 // a shared link pasted into a tab that already shows the builder only changes the hash
 window.addEventListener('hashchange', () => { if (/^#t=/.test(location.hash)) { restore(); render(); openedFromLink(); } });
 </script>
-</body>
-</html>
+</Fragment>
+</Base>

@@ -1,55 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pramaan — Every capability your agent needs, with proof</title>
-  <meta name="description" content="Pramaan puts 300 capabilities from 67 providers behind one API, one key and one bill. Name the capability; Pramaan picks the provider and returns a neutral result." />
-  <meta name="theme-color" content="#f6f3f1" />
-  <link rel="icon" href="favicon.ico" sizes="48x48" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="components/halftone-footer.css" />
-  <script src="components/halftone-footer.js" defer></script>
-</head>
-<body>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title={"Pramaan — Every capability your agent needs, with proof"} description={"Pramaan puts 300 capabilities from 67 providers behind one API, one key and one bill. Name the capability; Pramaan picks the provider and returns a neutral result."} nav="dev" announce="dev" footer="halftone">
+<Fragment slot="head">
+<link rel="stylesheet" href="/components/halftone-footer.css" />
+  <script is:inline src="/components/halftone-footer.js" defer></script>
+</Fragment>
 
-  <!-- Announcement bar -->
-  <div class="announce" id="announce">
-    <div class="announce__inner">
-      <p>Early access is open. API keys are issued by the Pramaan team, with $1.00 starter credit.</p>
-      <a class="announce__pill" href="#start">Request a key</a>
-      <button class="announce__close" aria-label="Dismiss announcement" data-dismiss="announce">&times;</button>
-    </div>
-  </div>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="#" class="logo" aria-label="Pramaan home">
-        <span class="logo__mark" aria-hidden="true"></span>
-        <span class="logo__word">pramaan</span>
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#catalog">Capabilities</a>
-        <a href="#how">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://docs.pramaan.dev">Docs</a>
-      </nav>
-      <div class="nav__actions">
-        <a href="#login" class="btn btn--ghost">Login</a>
-        <a href="#start" class="btn btn--black">Request access</a>
-      </div>
-      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
+  
+
+  
 
   <main>
 
@@ -65,7 +26,7 @@
         <div class="install" role="group" aria-label="Example call">
           <span class="install__label">One call, any provider</span>
           <div class="install__box">
-            <code><span class="install__prompt">&gt;</span> p.run("companies.enrich", { domain: "stripe.com" })</code>
+            <code><span class="install__prompt">&gt;</span> p.run("companies.enrich", &#123; domain: "stripe.com" &#125;)</code>
             <button class="install__copy" data-copy='p.run("companies.enrich", { domain: "stripe.com" })'>Copy</button>
           </div>
           <span class="install__agents">Built for Claude Code &middot; Codex &middot; Cursor &middot; any MCP client &middot; your own app</span>
@@ -128,7 +89,7 @@
             <span class="node"><span class="node__icon">&gt;_</span>Claude Code</span>
             <span class="node"><span class="node__icon">&gt;_</span>Codex</span>
             <span class="node"><span class="node__icon">&#9671;</span>Cursor</span>
-            <span class="node"><span class="node__icon">{ }</span>Your app</span>
+            <span class="node"><span class="node__icon">&#123; &#125;</span>Your app</span>
           </div>
 
           <div class="diagram__hub">
@@ -153,13 +114,13 @@
             <span class="step__num">01</span>
             <h3 class="h-card">Find &amp; describe</h3>
             <p>Your agent lists capabilities by namespace and reads the exact request schema and example. No guessing fields.</p>
-            <pre class="code"><code>list_capabilities({ namespace: "web" })</code></pre>
+            <pre class="code"><code>list_capabilities(&#123; namespace: "web" &#125;)</code></pre>
           </li>
           <li class="step">
             <span class="step__num">02</span>
             <h3 class="h-card">Run one call</h3>
             <p>Pramaan picks the source, fails over if it has to, strips provider traces and returns the same shape every time.</p>
-            <pre class="code"><code>p.run("web.search", { query: "..." })</code></pre>
+            <pre class="code"><code>p.run("web.search", &#123; query: "..." &#125;)</code></pre>
           </li>
           <li class="step">
             <span class="step__num">03</span>
@@ -344,9 +305,9 @@
             <h3 class="h-lg">Want the result, not the steps?</h3>
             <p>An outcome is a fixed recipe of capability steps under one business name. Ask for <code>company.research</code> and get the answer &mdash; Pramaan shows the plan before anything acts.</p>
           </div>
-          <pre class="code code--block"><code>p.outcomes.run("company.research", {
+          <pre class="code code--block"><code>p.outcomes.run("company.research", &#123;
   domain: "stripe.com"
-})
+&#125;)
 
 → plan: web.search, web.read,
         companies.enrich, companies.news
@@ -490,14 +451,13 @@
 
   </main>
 
-  <!-- Footer (component: components/halftone-footer.*) -->
-  <halftone-footer wordmark="pramaan" label="Pramaan" meta="One API, one key, one bill.">
+  
+<Fragment slot="footer">
+<halftone-footer wordmark="pramaan" label="Pramaan" meta="One API, one key, one bill.">
     <nav data-title="Product"><a href="#catalog">Capabilities</a><a href="#pricing">Pricing</a><a href="#how">How it works</a></nav>
-    <nav data-title="Developers"><a href="https://docs.pramaan.dev">Docs</a><a href="https://docs.pramaan.dev/platform">API reference</a><a href="https://api.pramaan.dev/openapi.json">OpenAPI</a><a href="skill.md">Agent skill</a><a href="llms.txt">llms.txt</a></nav>
-    <nav data-title="Company"><a href="index.html">Pramaan for everyone</a><a href="#">Blog</a><a href="#">Contact</a></nav>
-    <p data-legal>&copy; 2026 Pramaan &middot; <a href="legal/privacy.html">Privacy</a> &middot; <a href="legal/terms.html">Terms</a></p>
+    <nav data-title="Developers"><a href="https://docs.pramaan.dev">Docs</a><a href="https://docs.pramaan.dev/platform">API reference</a><a href="https://api.pramaan.dev/openapi.json">OpenAPI</a><a href="/skill.md">Agent skill</a><a href="/llms.txt">llms.txt</a></nav>
+    <nav data-title="Company"><a href="/">Pramaan for everyone</a><a href="#">Blog</a><a href="#">Contact</a></nav>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a></p>
   </halftone-footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+</Fragment>
+</Base>

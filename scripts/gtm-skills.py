@@ -5,12 +5,12 @@ Usage: python3 scripts/gtm-skills.py <clone-dir> [--check | --export <dir> | --a
 --check only validates: every pramaan.md id must exist in catalogue/*.md.
 --export writes the GTM part of the Pramaan-OSS/skills repo into <dir>/skills/gtm: each skill folder with its
 SKILL.md (plus a pointer to pramaan.md), references/, the author's author.md and our pramaan.md; no swan.md.
-After writing data/skills.json, run `node scripts/prerender-catalogue.mjs skills:skills` to put the cards in skills.html.
+After writing public/data/skills.json, rebuild the site (`npm run build`); the skills page and its detail pages read it.
 """
 import json, re, shutil, subprocess, sys, urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent / "public"  # served files live in public/
 FRONT = re.compile(r"^---\n(.*?)\n---\n", re.S)
 
 

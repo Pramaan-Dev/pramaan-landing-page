@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { toCards, groupsHtml, sideHtml } from '../../public/catalogue-render.js';
+import data from '../../public/data/skills.json';
+const groups = groupsHtml(data, toCards('skills', data));
+const cats = sideHtml(data);
+---
+<Base title={"Skills | Pramaan"} description={"418 open go-to-market skills for AI agents, each mapped to the Pramaan superpowers that run it: prospecting, signals, outreach, research, ads and more."} nav="site" bodyAttrs={{"data-kind":"skills"}} footerProps={{"variant":"catalogue","count":"418","countLabel":"Skills","eyebrow":"research","tools":["ui-builder","ui-inspiration","skills"]}}>
+<Fragment slot="head">
+<link rel="stylesheet" href="/catalogue.css" />
+  <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+  <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+</Fragment>
+
+
+  
+
+  <main>
+    <section class="cat-hero">
+      <div class="wash wash--hero-a" aria-hidden="true"></div>
+      <div class="wash wash--hero-b" aria-hidden="true"></div>
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Skills</span>
+        <h1 class="display display--md">Skills that actually run.</h1>
+        <p class="lead">Playbooks for AI agents, written by operators. Each one comes with a map of the Pramaan superpowers that do its steps, so your agent can find the leads, read the signals and send the emails, not just plan them. Starting with 418 go-to-market skills from <a href="https://www.gtmskills.com">GTM Skills</a>.</p>
+        <label class="cat-search">
+          <span aria-hidden="true">&#9906;</span>
+          <input type="search" placeholder="Search skills, e.g. cold email, buying signals, meeting prep" aria-label="Search skills" data-short="Search skills" data-search />
+        </label>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Categories">
+        <p class="eyebrow cat-side__title">Categories</p>
+        <ul data-cats><Fragment set:html={cats} /></ul>
+      </aside>
+      <div data-groups><Fragment set:html={groups} /></div>
+    </div>
+  </main>
+
+  <div class="panel-scrim" hidden data-scrim></div>
+  <aside class="panel" hidden data-panel role="dialog" aria-modal="true" aria-label="Skill details">
+    <div class="panel__top">
+      <span class="caption">Skills</span>
+      <button type="button" class="panel__close" aria-label="Close" data-close>&times;</button>
+    </div>
+    <div class="panel__body" data-panel-body></div>
+  </aside>
+
+  
+<Fragment slot="foot">
+<script is:inline type="module" src="/catalogue.js"></script>
+</Fragment>
+</Base>

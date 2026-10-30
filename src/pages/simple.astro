@@ -1,54 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pramaan — Say what you need. Get it done, with proof.</title>
-  <meta name="description" content="Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed." />
-  <meta name="theme-color" content="#f6f3f1" />
-  <link rel="icon" href="favicon.ico" sizes="48x48" />
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="components/halftone-footer.css" />
-  <script src="components/halftone-footer.js" defer></script>
-</head>
-<body>
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title={"Pramaan — Say what you need. Get it done, with proof."} description={"Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed."} nav="simple" announce footer="halftone">
+<Fragment slot="head">
+<link rel="stylesheet" href="/components/halftone-footer.css" />
+  <script is:inline src="/components/halftone-footer.js" defer></script>
+</Fragment>
 
-  <!-- Announcement bar -->
-  <div class="announce" id="announce">
-    <div class="announce__inner">
-      <p>Early access is open. Start with $1 of free credit.</p>
-      <a class="announce__pill" href="#start">Join now</a>
-      <button class="announce__close" aria-label="Dismiss announcement" data-dismiss="announce">&times;</button>
-    </div>
-  </div>
 
-  <!-- Navigation -->
-  <header class="nav">
-    <div class="container nav__inner">
-      <a href="#" class="logo" aria-label="Pramaan home">
-        <span class="logo__mark" aria-hidden="true"></span>
-        <span class="logo__word">pramaan</span>
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#how">How it works</a>
-        <a href="#tasks">What you can do</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <div class="nav__actions">
-        <a href="#login" class="btn btn--ghost">Log in</a>
-        <a href="#start" class="btn btn--black">Get early access</a>
-      </div>
-      <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
-        <span></span><span></span>
-      </button>
-    </div>
-  </header>
+  
+
+  
 
   <main>
 
@@ -80,9 +42,9 @@
     <section class="watch" aria-label="Watch Pramaan do a job">
       <div class="container">
         <figure class="watch__frame" data-reveal>
-          <video class="watch__video" autoplay muted loop playsinline preload="metadata" poster="media/watch-it-work-v2.jpg" aria-label="Five everyday jobs: research a company, check an email, send a proctored test, send a payment link and email new sign-ups. Lookups happen straight away; the three actions wait for approval. Everything is saved to your history.">
-            <source src="media/watch-it-work-v2.webm" type="video/webm" />
-            <source src="media/watch-it-work-v2.mp4" type="video/mp4" />
+          <video class="watch__video" autoplay muted loop playsinline preload="metadata" poster="/media/watch-it-work-v2.jpg" aria-label="Five everyday jobs: research a company, check an email, send a proctored test, send a payment link and email new sign-ups. Lookups happen straight away; the three actions wait for approval. Everything is saved to your history.">
+            <source src="/media/watch-it-work-v2.webm" type="video/webm" />
+            <source src="/media/watch-it-work-v2.mp4" type="video/mp4" />
           </video>
           <figcaption class="caption">Watch it work</figcaption>
         </figure>
@@ -139,9 +101,9 @@
               <h3 class="h-card">Ask in plain words</h3>
               <p>Type it the way you'd say it to a friend.</p>
             </div>
-            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-research.jpg" aria-label="Asking Pramaan to research a company and getting a short brief">
-              <source src="media/clip-research.webm" type="video/webm" />
-              <source src="media/clip-research.mp4" type="video/mp4" />
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="/media/clip-research.jpg" aria-label="Asking Pramaan to research a company and getting a short brief">
+              <source src="/media/clip-research.webm" type="video/webm" />
+              <source src="/media/clip-research.mp4" type="video/mp4" />
             </video>
           </article>
 
@@ -152,9 +114,9 @@
               <h3 class="h-card">Nothing happens without your OK</h3>
               <p>Contacting people or moving money? Pramaan shows you first and waits.</p>
             </div>
-            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="media/clip-approval.jpg" aria-label="Pramaan asks for approval before sending a proctored test to three candidates">
-              <source src="media/clip-approval.webm" type="video/webm" />
-              <source src="media/clip-approval.mp4" type="video/mp4" />
+            <video class="clip" autoplay muted loop playsinline preload="metadata" poster="/media/clip-approval.jpg" aria-label="Pramaan asks for approval before sending a proctored test to three candidates">
+              <source src="/media/clip-approval.webm" type="video/webm" />
+              <source src="/media/clip-approval.mp4" type="video/mp4" />
             </video>
           </article>
 
@@ -208,9 +170,9 @@
       </div>
       <div class="container band__clip" data-reveal>
         <span class="eyebrow">And more on the way</span>
-        <video class="clip clip--wide" autoplay muted loop playsinline preload="metadata" poster="media/clip-more.jpg" aria-label="More jobs: AI visibility checks, review replies, résumé checks and invoice matching">
-          <source src="media/clip-more.webm" type="video/webm" />
-          <source src="media/clip-more.mp4" type="video/mp4" />
+        <video class="clip clip--wide" autoplay muted loop playsinline preload="metadata" poster="/media/clip-more.jpg" aria-label="More jobs: AI visibility checks, review replies, résumé checks and invoice matching">
+          <source src="/media/clip-more.webm" type="video/webm" />
+          <source src="/media/clip-more.mp4" type="video/mp4" />
         </video>
       </div>
     </section>
@@ -463,14 +425,13 @@
 
   </main>
 
-  <!-- Footer (component: components/halftone-footer.*) -->
-  <halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
+  
+<Fragment slot="footer">
+<halftone-footer wordmark="pramaan" label="Pramaan" meta="Say what you need. Keep the proof.">
     <nav data-title="Product"><a href="#how">How it works</a><a href="#tasks">What you can do</a><a href="#pricing">Pricing</a></nav>
-    <nav data-title="Help"><a href="#faq">FAQ</a><a href="#">Contact</a><a href="developers.html">For developers</a></nav>
+    <nav data-title="Help"><a href="#faq">FAQ</a><a href="#">Contact</a><a href="/developers">For developers</a></nav>
     <nav data-title="Start"><a href="#start">Get early access</a><a href="#login">Log in</a></nav>
-    <p data-legal>&copy; 2026 Pramaan &middot; <a href="legal/privacy.html">Privacy</a> &middot; <a href="legal/terms.html">Terms</a></p>
+    <p data-legal>&copy; 2026 Pramaan &middot; <a href="/legal/privacy">Privacy</a> &middot; <a href="/legal/terms">Terms</a></p>
   </halftone-footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+</Fragment>
+</Base>

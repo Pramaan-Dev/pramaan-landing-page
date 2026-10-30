@@ -1,0 +1,69 @@
+---
+// The one top menu. `variant` picks the link set; `current` marks the active page; `skin="builder"` uses the UI builder's own class names.
+const { variant = 'site', current, skin = 'site' } = Astro.props;
+
+const resources = [
+  { href: '/ui-builder', label: 'UI builder', key: 'ui-builder' },
+  { href: '/skills', label: 'Skills', key: 'skills' },
+];
+const main = (a) => [
+  { href: `${a}#how`, label: 'How it works' },
+  { href: '/superpowers', label: 'Superpowers', key: 'superpowers' },
+  { href: '/missions', label: 'Missions', key: 'missions' },
+  { href: `${a}#pricing`, label: 'Pricing' },
+];
+const docs = { href: 'https://docs.pramaan.dev', label: 'Docs' };
+const V = {
+  home: { logo: '#', links: [...main(''), docs], res: true, login: ['#login', 'Log in'], cta: ['#start', 'Get early access'] },
+  site: { logo: '/', links: [...main('/'), docs], res: true, login: ['/#login', 'Log in'], cta: ['/#start', 'Get early access'] },
+  legal: { logo: '/', links: main('/'), login: ['/#login', 'Log in'], cta: ['/#start', 'Get early access'] },
+  simple: {
+    logo: '#',
+    links: [{ href: '#how', label: 'How it works' }, { href: '#tasks', label: 'What you can do' }, { href: '#pricing', label: 'Pricing' }, { href: '#faq', label: 'FAQ' }],
+    login: ['#login', 'Log in'], cta: ['#start', 'Get early access'],
+  },
+  dev: {
+    logo: '#',
+    links: [{ href: '#catalog', label: 'Capabilities' }, { href: '#how', label: 'How it works' }, { href: '#pricing', label: 'Pricing' }, { href: '#faq', label: 'FAQ' }, docs],
+    login: ['#login', 'Login'], cta: ['#start', 'Request access'],
+  },
+  badge: {
+    logo: '/',
+    links: [{ href: '/#how', label: 'How it works' }, { href: '/#tasks', label: 'What you can do' }, { href: '#mint', label: 'Badges' }, { href: '/#faq', label: 'FAQ' }],
+    login: ['#login', 'Log in'], cta: ['/#start', 'Get early access'],
+  },
+}[variant];
+
+const b = skin === 'builder';
+const c = b
+  ? { nav: 'site-nav', inner: 'site-wrap site-nav__inner', logo: 'site-logo', mark: 'site-logo__mark', word: 'site-logo__word', links: 'site-nav__links', actions: 'site-nav__actions', ghost: 'site-btn site-btn--ghost', black: 'site-btn site-btn--black', toggle: 'site-nav__toggle' }
+  : { nav: 'nav', inner: 'container nav__inner', logo: 'logo', mark: 'logo__mark', word: 'logo__word', links: 'nav__links', actions: 'nav__actions', ghost: 'btn btn--ghost', black: 'btn btn--black', toggle: 'nav__toggle' };
+---
+<header class={c.nav}>
+  <div class={c.inner}>
+    <a href={V.logo} class={c.logo} aria-label="Pramaan home">
+      <span class={c.mark} aria-hidden="true"></span>
+      <span class={c.word}>pramaan</span>
+    </a>
+    <nav class={c.links} aria-label="Primary">
+      {V.links.map((l) => <a href={l.href} aria-current={l.key && l.key === current ? 'page' : undefined}>{l.label}</a>)}
+      {V.res && (
+        <details class="navres">
+          <summary>Resources</summary>
+          <div class="navres__menu">
+            <p class="navres__group">Tools</p>
+            {resources.map((r) => <a href={r.href} aria-current={r.key === current ? 'page' : undefined}>{r.label}</a>)}
+            <span class="navres__soon">Templates <em>Launching soon</em></span>
+          </div>
+        </details>
+      )}
+    </nav>
+    <div class={c.actions}>
+      <a href={V.login[0]} class={c.ghost}>{V.login[1]}</a>
+      <a href={V.cta[0]} class={c.black}>{V.cta[1]}</a>
+    </div>
+    <button class={c.toggle} aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
