@@ -1,12 +1,16 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { posts, fmtDate } from '../../lib/blog.mjs';
+import ViewToggle from '../../components/ViewToggle.astro';
+import AgentView from '../../components/AgentView.astro';
+import { posts, fmtDate, coverOf, metaLine } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
-  return (await posts()).map((p) => ({ params: { slug: p.id }, props: { p } }));
+  const all = await posts();
+  return all.map((p) => ({ params: { slug: p.id }, props: { p, related: all.filter((x) => x !== p).slice(0, 3) } }));
 }
-const { p } = Astro.props;
+const { p, related } = Astro.props;
+const md = `# ${p.data.title}\n\n${p.data.author}, ${fmtDate(p.data.date)}\n\n${p.body}\n`;
 const { Content } = await render(p);
 const url = `https://www.pramaan.dev/blog/${p.id}`;
 const ld = JSON.stringify({
@@ -25,18 +29,36 @@ const ld = JSON.stringify({
     <meta property="og:description" content={p.data.description} />
     <meta property="og:url" content={url} />
     <script is:inline type="application/ld+json" set:html={ld}></script>
+    <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
   <main>
     <div class="container">
-      <article class="post">
+      <ViewToggle />
+      <article class="post" data-human-view>
         <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/blog">Blog</a> / <span>{p.data.title}</span></nav>
-        <span class="eyebrow">{fmtDate(p.data.date)}</span>
+        <span class="post__meta">{metaLine(p)}</span>
         <h1>{p.data.title}</h1>
-        <Content />
+        <div class="post__body"><Content /></div>
       </article>
+      <AgentView md={md} url={url} />
+      {related.length > 0 && (
+        <section class="related" data-human-view>
+          <h2>Related posts</h2>
+          <div class="posts__grid">
+            {related.map((r) => (
+              <a class="pcard" href={`/blog/${r.id}`}>
+                <div class={`pcard__cover cover cover--${coverOf(r.id)}`} aria-hidden="true"></div>
+                <span class="pcard__meta">{metaLine(r)}</span>
+                <b class="pcard__title">{r.data.title}</b>
+                <span class="pcard__more">Read more</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </main>
 </Base>

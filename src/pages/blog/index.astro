@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { posts, fmtDate } from '../../lib/blog.mjs';
+import { posts, coverOf, metaLine } from '../../lib/blog.mjs';
 const list = await posts();
+const big = list.slice(0, 2), rest = list.slice(2);
 ---
 <Base title="Blog | Pramaan" description="Notes from the Pramaan team." canonical="https://www.pramaan.dev/blog" footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
@@ -13,20 +14,38 @@ const list = await posts();
   <main>
     <section class="cat-hero">
       <div class="container cat-hero__inner">
-        <span class="tag"><span class="tag__dot"></span>Blog</span>
-        <h1 class="display display--md">Blog</h1>
+        <h1 class="display">Blog</h1>
+        <p class="lead">Notes from the Pramaan team: what we ship, how agents use it, and what we learn along the way.</p>
       </div>
     </section>
     <div class="container">
-      <div class="post-list">
+      <div class="posts">
         {list.length === 0 && <p class="caption">No posts yet.</p>}
-        {list.map((p) => (
-          <a href={`/blog/${p.id}`}>
-            <span class="caption">{fmtDate(p.data.date)}</span>
-            <b>{p.data.title}</b>
-            <span>{p.data.description}</span>
-          </a>
-        ))}
+        {big.length > 0 && (
+          <div class="posts__big">
+            {big.map((p) => (
+              <a class="pcard pcard--big" href={`/blog/${p.id}`}>
+                <div class={`pcard__cover cover cover--${coverOf(p.id)}`} aria-hidden="true"></div>
+                <span class="pcard__meta">{metaLine(p)}</span>
+                <b class="pcard__title">{p.data.title}</b>
+                <span class="pcard__sub">{p.data.description}</span>
+                <span class="pcard__more">Read more</span>
+              </a>
+            ))}
+          </div>
+        )}
+        {rest.length > 0 && (
+          <div class="posts__grid">
+            {rest.map((p) => (
+              <a class="pcard" href={`/blog/${p.id}`}>
+                <div class={`pcard__cover cover cover--${coverOf(p.id)}`} aria-hidden="true"></div>
+                <span class="pcard__meta">{metaLine(p)}</span>
+                <b class="pcard__title">{p.data.title}</b>
+                <span class="pcard__more">Read more</span>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   </main>

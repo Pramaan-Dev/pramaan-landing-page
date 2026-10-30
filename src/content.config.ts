@@ -13,6 +13,7 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    author: z.string().default('Pramaan'),
     date: z.coerce.date(),
     draft: z.boolean().default(false),
   }),
