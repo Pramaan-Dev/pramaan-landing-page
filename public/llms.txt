@@ -123,14 +123,14 @@ One skill per category, on top of the agent skill. Each lists every superpower a
 
 ## Legal
 
-- [Terms of Service](https://www.pramaan.dev/legal/terms)
-- [Privacy Policy](https://www.pramaan.dev/legal/privacy)
-- [Acceptable Use Policy](https://www.pramaan.dev/legal/acceptable-use)
-- [SMS and Messaging Policy](https://www.pramaan.dev/legal/messaging)
-- [Credit and Refund Policy](https://www.pramaan.dev/legal/refunds)
-- [Subprocessors](https://www.pramaan.dev/legal/subprocessors)
-- [Cookie Notice](https://www.pramaan.dev/legal/cookies)
-- [Security Overview](https://www.pramaan.dev/legal/security)
+- [Terms of Service](https://www.pramaan.dev/legal/terms): the terms for using Pramaan
+- [Privacy Policy](https://www.pramaan.dev/legal/privacy): what personal data Pramaan handles and how
+- [Acceptable Use Policy](https://www.pramaan.dev/legal/acceptable-use): what Pramaan may not be used for
+- [SMS and Messaging Policy](https://www.pramaan.dev/legal/messaging): rules for texts and messages sent through Pramaan
+- [Credit and Refund Policy](https://www.pramaan.dev/legal/refunds): prepaid credit and refunds
+- [Subprocessors](https://www.pramaan.dev/legal/subprocessors): the companies that process data for Pramaan
+- [Cookie Notice](https://www.pramaan.dev/legal/cookies): cookies used on Pramaan's sites
+- [Security Overview](https://www.pramaan.dev/legal/security): how Pramaan protects data and keys
 
 ## Optional
 
