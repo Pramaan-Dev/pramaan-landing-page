@@ -34,6 +34,10 @@ One skill per category, on top of the main skill. [Index](https://www.pramaan.de
 - [Developer tools](https://www.pramaan.dev/skills/developer-tools/skill.md)
 - [Identity & checks](https://www.pramaan.dev/skills/identity-checks/skill.md)
 
+## GTM skills
+
+- [GTM skills](https://www.pramaan.dev/skills): 400+ open go-to-market skills; each has a map to the Pramaan ids that run it at https://www.pramaan.dev/gtm-skills/<skill>/pramaan.md
+
 ## Ways in
 
 - MCP server: `PRAMAAN_API_KEY=... npx @pramaan/mcp` ([npm](https://www.npmjs.com/package/@pramaan/mcp))

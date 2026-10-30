@@ -131,3 +131,14 @@ body.panel-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .panel, .panel-scrim, .card { transition: none; }
 }
+
+/* Filter dropdowns (dropdown.js): same trigger and menu as the UI builder's */
+:root { --surface-sunk: #efebe8; --line: #cecac8; --fg: #242424; --fg-3: #797776; --hover: rgba(36,36,36,.07); }
+.ddt { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 14px; border-radius: var(--radius-pills); border: 1px solid var(--line); background: var(--surface-sunk); color: var(--fg); font: inherit; font-size: var(--text-body-sm); white-space: nowrap; cursor: pointer; }
+.ddt svg { opacity: .6; transition: transform .15s ease; } .ddt[aria-expanded="true"] svg { transform: rotate(180deg); }
+.ddt:hover, .ddt[aria-expanded="true"] { background: var(--hover); } .ddt.set { border-color: var(--fg); background: var(--hover); }
+.ddm { position: fixed; inset: auto; margin: 0; padding: 4px; min-width: 160px; max-width: calc(100vw - 16px); overflow-y: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--fg); font-size: 13px; line-height: 1.4; box-shadow: 0 12px 32px rgba(0,0,0,.18); }
+.ddi { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 10px 6px 8px; border: 0; border-radius: 8px; background: none; color: inherit; font: inherit; text-align: left; white-space: nowrap; cursor: default; }
+.ddi:hover, .ddi:focus-visible { background: var(--hover); outline: none; } .ddi[aria-selected="true"] { font-weight: 500; }
+.ddc { display: inline-flex; flex: none; width: 16px; height: 16px; } .dds { height: 1px; margin: 4px -4px; background: var(--line); }
+@media (prefers-reduced-motion: reduce) { .ddt svg { transition: none; } }
