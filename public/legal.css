@@ -10,9 +10,10 @@
 .cat-side a:hover { background: rgba(36, 36, 36, .05); }
 .cat-side a[aria-current="page"] { background: var(--color-off-black); color: var(--color-parchment); }
 
-.legal { min-width: 0; overflow-wrap: anywhere; max-width: 760px; font-size: var(--text-body); line-height: 1.6; color: var(--color-off-black); }
-.legal h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-heading-sm); line-height: 1.2; margin: 48px 0 16px; }
-.legal h3 { font-size: var(--text-label); font-weight: 500; margin: 32px 0 12px; }
+.legal { min-width: 0; overflow-wrap: anywhere; max-width: 800px; font-family: var(--font-sans); font-size: 20px; line-height: 30px; letter-spacing: 0; color: var(--color-off-black); }
+.legal h2 { font-family: var(--font-serif); font-weight: 400; font-size: 48px; line-height: 1.2; letter-spacing: -0.02em; margin: 56px 0 16px; }
+.legal h3 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; line-height: 32px; letter-spacing: -0.02em; margin: 32px 0 12px; }
+@media (max-width: 600px) { .legal { font-size: 18px; line-height: 27px; } .legal h2 { font-size: 32px; } }
 .legal > :first-child { margin-top: 0; }
 .legal p, .legal ul, .legal ol, .legal-table { margin-bottom: 16px; }
 .legal ul, .legal ol { padding-left: 24px; }
@@ -24,7 +25,7 @@
 .legal code { font-family: var(--font-mono); font-size: .9em; }
 .legal mark { background: var(--color-gold); padding: 0 2px; }
 .legal-table { overflow-x: auto; }
-.legal table { border-collapse: collapse; font-size: var(--text-body-sm); width: 100%; }
+.legal table { border-collapse: collapse; font-size: var(--text-body); width: 100%; }
 .legal th, .legal td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--color-ash); }
 .legal th { font-weight: 500; }
 

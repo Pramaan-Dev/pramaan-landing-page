@@ -21,9 +21,11 @@
   /* Fonts */
   --font-mono: 'ABC Diatype Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-serif: 'Untitled Serif', 'Newsreader', Georgia, 'Times New Roman', serif;
+  /* long reading text (legal, posts, step notes); Inter stands in for Untitled Sans */
+  --font-sans: 'Untitled Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Type scale */
-  --text-caption: 12px;
+  --text-caption: 14px;
   --text-body-sm: 14px;
   --text-body: 16px;
   --text-label: 18px;
@@ -126,7 +128,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
   padding: 16px 32px;
   border-radius: var(--radius-buttons);
   border: 1px solid transparent;
-  font-size: var(--text-body-sm);
+  font-size: var(--text-body);
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -276,17 +278,19 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 }
 .navres[open] summary::after { transform: translateY(1px) rotate(-135deg); }
 .navres__menu {
-  position: absolute; top: calc(100% + 14px); left: -12px; z-index: 30; display: grid; gap: 2px; min-width: 270px; padding: 10px;
-  background: var(--color-parchment); border: 1px solid var(--color-ash); border-radius: 16px; box-shadow: 0 12px 32px rgba(0, 0, 0, .08);
+  position: absolute; top: calc(100% + 14px); left: -12px; z-index: 30; display: grid; gap: 8px; min-width: 300px; padding: 8px;
+  background: var(--color-parchment); border: 1px solid var(--color-ash); border-radius: 16px; box-shadow: 0 16px 40px rgba(36, 36, 36, .12);
 }
-.navres__group { margin: 6px 10px 2px; font-size: 12px; text-transform: uppercase; color: var(--color-smoke); }
-.navres__menu a, .navres__soon {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px; border-radius: 10px;
-  font-size: 15px; text-transform: none; letter-spacing: 0; white-space: nowrap;
+/* Each link is a bordered card: 44px icon tile on the left, serif label */
+.nav__links .navres__menu .navres__card {
+  display: flex; color: var(--color-off-black); align-items: center; gap: 14px; min-height: 60px; padding: 7px 14px 7px 7px; border: 1px solid var(--color-ash); border-radius: 14px;
+  font-family: var(--font-serif); font-size: 18px; text-transform: none; letter-spacing: -0.01em; white-space: nowrap; transition: border-color .2s, background-color .2s;
 }
-.navres__menu a:hover { background: rgba(0, 0, 0, .05); color: inherit; }
-.navres__soon { color: var(--color-smoke); cursor: default; }
-.navres__soon em { font-style: normal; font-size: 11px; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--color-ash); border-radius: 100px; }
+.nav__links .navres__menu a.navres__card:hover { border-color: var(--color-off-black); background: rgba(255, 255, 255, .6); color: inherit; }
+.navres__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: #ebe6e3; }
+.navres__label { flex: 1; }
+.nav__links .navres__menu .navres__soon { color: var(--color-smoke); cursor: default; background: rgba(36, 36, 36, .03); }
+.navres__soon em { font-family: var(--font-mono); font-style: normal; font-size: 12px; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--color-ash); border-radius: 100px; }
 
 .nav__toggle { display: none; background: none; border: 0; width: 40px; height: 40px; margin-left: auto; position: relative; }
 .nav__toggle span { position: absolute; left: 8px; right: 8px; height: 1.5px; background: var(--color-off-black); transition: transform .2s; }
@@ -364,6 +368,8 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 }
 .logos__row { display: flex; width: max-content; animation: logos 90s linear infinite; }
 .logos__track:hover .logos__row { animation-play-state: paused; }
+/* A row placed straight in the strip (developers page, no track): wrap it instead of running off the page */
+.logos__inner > .logos__row { width: auto; max-width: 100%; flex-wrap: wrap; animation: none; }
 .logos__row li {
   display: inline-flex; padding-right: 48px;
 }
@@ -749,8 +755,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
   .nav-open .nav__links a { font-size: var(--text-label); }
   .nav-open .nav__actions { top: 300px; border-bottom: 1px solid var(--color-ash); }
   /* in the phone menu the Resources items open in place, under the word */
-  .nav-open .navres__menu { position: static; min-width: 0; margin-top: 12px; padding: 0 0 0 12px; border: 0; border-radius: 0; box-shadow: none; background: none; }
-  .nav-open .navres__menu a { font-size: 15px; }
+  .nav-open .navres__menu { position: static; min-width: 0; margin-top: 12px; padding: 0; border: 0; border-radius: 0; box-shadow: none; background: none; }
   .nav-open .navres summary { font-size: var(--text-label); }
 }
 
@@ -772,6 +777,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
   .hero { padding: 80px 0 72px; }
   .display { font-size: 48px; }
   .display--md { font-size: 40px; }
+  .btn { font-size: var(--text-body); }
   .h-lg { font-size: var(--text-heading-sm); }
   .lead { font-size: var(--text-body); }
   .section { padding: 80px 0; }
@@ -789,7 +795,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
   .steps,
   .features__grid,
   .connect__grid,
-  .pricing__notes { grid-template-columns: 1fr; }
+  .pricing__notes { grid-template-columns: minmax(0, 1fr); }
 
   .catalog__grid { grid-template-columns: 1fr; }
   .logos__inner { gap: 16px; }

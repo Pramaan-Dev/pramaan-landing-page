@@ -22,6 +22,18 @@ if (!side.children.length) side.innerHTML = sideHtml(data);
 // ---------- Filter and search ----------
 
 const groups = [...document.querySelectorAll('.cat-group')];
+
+// "Show all N": a group shows its first 9 cards until opened (CSS in catalogue.css). Any search or category filter shows every match.
+groupsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-more]');
+  if (!btn) return;
+  const g = btn.closest('.cat-group');
+  const open = g.classList.toggle('is-open');
+  const n = g.querySelectorAll('.card').length;
+  btn.textContent = open ? 'Show fewer' : `Show all ${n.toLocaleString('en-US')}`;
+  btn.setAttribute('aria-expanded', String(open));
+  if (!open) g.scrollIntoView({ block: 'start' });
+});
 const search = document.querySelector('[data-search]');
 // Phones get the short placeholder; the long one with examples doesn't fit.
 const phone = matchMedia('(max-width: 600px)');
@@ -33,6 +45,7 @@ let category = 'All';
 
 function apply() {
   const words = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+  groupsEl.classList.toggle('is-filtering', words.length > 0 || category !== 'All');
   let shown = 0;
   for (const g of groups) {
     const isFeatured = g.dataset.group === 'Featured';

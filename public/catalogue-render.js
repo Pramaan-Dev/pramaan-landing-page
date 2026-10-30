@@ -28,7 +28,7 @@ const pills = (x) =>
     .join('');
 
 // Docs page for a superpower: Mintlify slugs the family (tag) and the id (operation).
-const docsUrl = (family, id) =>
+export const docsUrl = (family, id) =>
   `https://docs.pramaan.dev/superpowers/${family.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-')}/${id.toLowerCase().replace(/[^a-z0-9-]/g, '')}`;
 
 // Docs page for a mission: the category slug keeps its "&" ("crypto-&-defi"); the id loses its dots.
@@ -146,17 +146,20 @@ const cardHtml = (c) => `
     <span class="card__foot">${c.foot}</span>
   </a>`;
 
-const groupHtml = (id, title, blurb, list) => `
+// A group longer than SHOW_FIRST gets a "Show all N" button; CSS hides the extra cards (catalogue.css), they stay in the HTML.
+const SHOW_FIRST = 9;
+const groupHtml = (id, title, blurb, list, collapse = true) => `
   <section class="cat-group" data-group="${esc(id)}">
     <div class="cat-group__head"><h2>${esc(title)}</h2>${blurb ? `<p>${esc(blurb)}</p>` : ''}</div>
     <div class="cards">${list.map(cardHtml).join('')}</div>
+    ${collapse && list.length > SHOW_FIRST ? `<button type="button" class="cat-more" data-more aria-expanded="false">Show all ${num(list.length)}</button>` : ''}
   </section>`;
 
 export const groupsHtml = (data, cards) => {
   const byKey = new Map(cards.map((c) => [c.key, c]));
   const featured = data.featured.map((k) => byKey.get(k)).filter(Boolean);
   return (
-    (featured.length ? groupHtml('Featured', 'Featured', 'Where most people start.', featured) : '') +
+    (featured.length ? groupHtml('Featured', 'Featured', 'Where most people start.', featured, false) : '') +
     data.categories
       .filter((cat) => cat.count)
       .map((cat) => groupHtml(cat.name, cat.name, cat.blurb, cards.filter((c) => c.category === cat.name)))

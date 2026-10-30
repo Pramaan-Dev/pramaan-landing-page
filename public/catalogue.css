@@ -3,9 +3,12 @@
 [hidden] { display: none !important; }
 
 .cat-hero { position: relative; padding: 96px 0 56px; overflow: hidden; }
-.cat-hero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; }
-.cat-hero__inner > * { max-width: 900px; }
-.cat-hero .tag { align-self: flex-start; }
+/* The page template's hero row: tag on top, H1 left and blurb right, then the search box */
+.cat-hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 64px; align-items: end; }
+.cat-hero__inner > .tag, .cat-hero__inner > .cat-search { grid-column: 1 / -1; }
+.cat-hero .tag { justify-self: start; }
+.cat-hero .lead { max-width: none; padding-bottom: 8px; }
+@media (max-width: 900px) { .cat-hero__inner { grid-template-columns: minmax(0, 1fr); gap: 20px; } .cat-hero .lead { padding-bottom: 0; } }
 
 .cat-search {
   display: flex; align-items: center; gap: 12px;
@@ -55,7 +58,7 @@
 .card:hover { border-color: var(--color-off-black); background: rgba(255, 255, 255, .8); transform: translateY(-2px); }
 .card__name { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.02em; line-height: 1.2; }
 .card__summary {
-  font-size: var(--text-body-sm); color: var(--color-graphite);
+  font-size: var(--text-body); color: var(--color-graphite);
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 /* margin-top: auto pins the pills to the bottom; the summary must not stretch, or its 4th line shows under the clamp */
@@ -71,6 +74,12 @@
 .pill--warn { border-color: var(--color-coral); color: #b4462a; }
 
 .cat-empty { padding: 48px 0; color: var(--color-graphite); }
+
+/* Long groups show 9 cards and a button; all cards stay in the HTML. Without JS nothing is hidden. */
+.cat-more { margin-top: 24px; height: 48px; padding: 0 28px; border: 1px solid var(--color-off-black); border-radius: var(--radius-buttons); background: none; font-size: var(--text-body); text-transform: uppercase; letter-spacing: -0.02em; }
+.cat-more:hover { background: var(--color-off-black); color: var(--color-parchment); }
+.js [data-groups]:not(.is-filtering) .cat-group:not(.is-open) .card:nth-child(n+10) { display: none; }
+.is-filtering .cat-more { display: none; }
 
 /* Side panel */
 
@@ -113,7 +122,8 @@
 /* Detail pages (/superpowers/<family>, /missions/<id>, /skills/gtm/<skill>) and blog posts */
 .detail { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; padding: 48px 0 96px; }
 .detail__main { display: flex; flex-direction: column; gap: 24px; max-width: 720px; }
-.detail__main h1, .post h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.03em; line-height: 1.05; }
+.detail__main h1, .post h1 { font-family: var(--font-serif); font-weight: 400; font-size: 48px; letter-spacing: -0.03em; line-height: 58px; }
+@media (max-width: 600px) { .detail__main h1, .post h1 { font-size: 32px; line-height: 1.2; } }
 .detail__crumbs { font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); }
 .detail__crumbs a { text-decoration: underline; text-underline-offset: 3px; }
 .detail__side { display: flex; flex-direction: column; gap: 32px; }
@@ -123,12 +133,51 @@
 .detail__rel small { font-size: var(--text-caption); color: var(--color-smoke); }
 .detail__cta { padding: 20px; border: 1px solid var(--color-ash); border-radius: 16px; display: flex; flex-direction: column; gap: 12px; }
 .detail__cta .btn { align-self: flex-start; }
-.post { max-width: 680px; padding: 48px 0 96px; display: flex; flex-direction: column; gap: 20px; font-size: var(--text-body-lg); }
-.post h2 { font-family: var(--font-serif); font-weight: 400; font-size: 28px; margin-top: 16px; }
-.post a { text-decoration: underline; text-underline-offset: 3px; }
-.post-list { display: flex; flex-direction: column; padding: 48px 0 96px; max-width: 680px; }
-.post-list a { display: flex; flex-direction: column; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--color-ash); }
-.post-list a:first-child { border-top: 1px solid var(--color-ash); }
+.post { max-width: 760px; padding: 16px 0 64px; display: flex; flex-direction: column; gap: 20px; }
+.post__meta { font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); letter-spacing: -0.033em; }
+.post__body { display: flex; flex-direction: column; gap: 20px; font-family: var(--font-sans); font-size: 20px; line-height: 30px; letter-spacing: 0; }
+.post__body h2 { font-family: var(--font-serif); font-weight: 400; font-size: 32px; line-height: 1.2; letter-spacing: -0.02em; margin-top: 16px; }
+.post__body h3 { font-family: var(--font-serif); font-weight: 400; font-size: 24px; line-height: 32px; margin-top: 8px; }
+.post__body ul, .post__body ol { padding-left: 24px; } .post__body ul { list-style: disc; } .post__body ol { list-style: decimal; }
+.post__body a { text-decoration: underline; text-underline-offset: 3px; }
+.post__body pre { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; padding: 16px; border: 1px solid var(--color-ash); border-radius: 16px; overflow-x: auto; }
+@media (max-width: 600px) { .post__body { font-size: 18px; line-height: 27px; } }
+
+/* Blog index (Monad style): two big cards, then a three-column grid */
+.posts { padding: 48px 0 96px; display: flex; flex-direction: column; gap: 48px; }
+.posts__big { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.posts__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
+.pcard { display: flex; flex-direction: column; gap: 16px; color: inherit; }
+.pcard__cover { aspect-ratio: 16 / 9; border-radius: 24px; border: 1px solid var(--color-ash); overflow: hidden; }
+.pcard--big .pcard__cover { aspect-ratio: 4 / 3; border-radius: 32px; }
+.pcard__meta { font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); letter-spacing: -0.033em; }
+.pcard__title { font-family: var(--font-serif); font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; }
+.pcard--big .pcard__title { font-size: 32px; }
+.pcard__sub { color: var(--color-graphite); }
+.pcard__more { align-self: flex-start; display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); font-size: var(--text-caption); text-transform: uppercase; }
+.pcard:hover .pcard__more { border-color: var(--color-off-black); }
+.related { padding: 48px 0 96px; border-top: 1px solid var(--color-ash); display: flex; flex-direction: column; gap: 32px; }
+.related h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-heading-lg); line-height: 1.2; letter-spacing: -0.02em; }
+/* Covers: gradients from the site palette with thin line arcs, one of four picked by slug */
+.cover { background-color: var(--color-parchment); }
+.cover--0 { background: repeating-radial-gradient(circle at 100% 100%, transparent 0 34px, rgba(36,36,36,.2) 34px 35px), linear-gradient(135deg, var(--color-periwinkle-mist), var(--color-mint)); }
+.cover--1 { background: repeating-radial-gradient(circle at 0% 100%, transparent 0 34px, rgba(36,36,36,.2) 34px 35px), linear-gradient(160deg, var(--color-gold), var(--color-coral)); }
+.cover--2 { background: repeating-radial-gradient(circle at 50% 130%, transparent 0 28px, rgba(36,36,36,.2) 28px 29px), linear-gradient(120deg, var(--color-sky-blue), var(--color-periwinkle-mist) 60%, var(--color-parchment)); }
+.cover--3 { background: repeating-radial-gradient(circle at 100% 0%, transparent 0 40px, rgba(36,36,36,.2) 40px 41px), linear-gradient(200deg, var(--color-mint), var(--color-gold)); }
+@media (max-width: 900px) { .posts__big, .posts__grid { grid-template-columns: minmax(0, 1fr); } .posts { gap: 32px; } .related h2 { font-size: var(--text-heading-sm); } }
+
+/* For humans / For agents */
+.view-bar { display: flex; justify-content: flex-end; padding-top: 32px; }
+.view-toggle { display: inline-flex; padding: 3px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); }
+.view-toggle button { padding: 6px 14px; border: 0; border-radius: var(--radius-pills); background: none; font-size: var(--text-caption); text-transform: uppercase; color: var(--color-graphite); }
+.view-toggle button[aria-pressed="true"] { background: var(--color-off-black); color: var(--color-parchment); }
+.agent-view { margin: 24px 0 96px; border: 1px solid var(--color-ash); border-radius: 16px; overflow: hidden; }
+.agent-view__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--color-ash); }
+.agent-view__bar > span:last-child { display: flex; gap: 12px; align-items: center; font-size: var(--text-caption); text-transform: uppercase; }
+.agent-view__bar button { padding: 6px 14px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); background: none; font-size: var(--text-caption); text-transform: uppercase; }
+.agent-view__bar a { text-decoration: underline; text-underline-offset: 3px; }
+.agent-view pre { margin: 0; padding: 24px; font-size: 14px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.detail { padding-top: 16px; }
 @media (max-width: 900px) { .detail { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
 .panel__docs { align-self: flex-start; font-size: var(--text-body-sm); text-decoration: underline; text-underline-offset: 3px; }
 .panel__steps { counter-reset: step; }
@@ -163,7 +212,8 @@ body.panel-open { overflow: hidden; }
 .skill-author small { display: block; color: var(--color-smoke); font-size: var(--text-caption); }
 .skill-author a { font-size: var(--text-caption); text-decoration: underline; text-underline-offset: 3px; }
 .skill-how { display: flex; flex-direction: column; gap: 12px; }
-.skill-how > p { font-size: var(--text-body-sm); color: var(--color-graphite); }
+.skill-how > p, .skill-how .panel__steps p, .panel__steps li p { font-family: var(--font-sans); font-size: 20px; line-height: 30px; letter-spacing: 0; color: var(--color-graphite); }
+@media (max-width: 600px) { .skill-how > p, .skill-how .panel__steps p, .panel__steps li p { font-size: 18px; line-height: 27px; } }
 .skill-how li b { font-weight: 500; font-size: var(--text-body-sm); }
 
 /* Filter dropdowns (dropdown.js): same trigger and menu as the UI builder's */
