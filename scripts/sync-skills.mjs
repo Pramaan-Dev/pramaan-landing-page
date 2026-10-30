@@ -1,4 +1,6 @@
-// Copies the agent skill files from the product repo's origin/main into public/, then checks llms.txt counts.
+// Copies the agent skill files from the product repo, at the commit the live API serves, into public/,
+// then checks llms.txt counts. Syncing ahead of the API would list ids it doesn't serve yet.
+// After each API deploy, update DEPLOYED (or run once with SKILLS_REF=<commit>).
 //   node scripts/sync-skills.mjs [path to capabilities-lab]   (default ../capabilities-lab, next to this repo)
 //   node scripts/sync-skills.mjs --check                      (llms.txt counts only, no product repo needed)
 // Sources: docs/skills/pramaan-capabilities/SKILL.md -> public/skill.md,
@@ -50,12 +52,14 @@ function checkLlms() {
 
 if (process.argv[2] === '--check') { checkLlms(); process.exit(0); }
 
+const DEPLOYED = '096d2d59c'; // live API commit, 2026-10-30 (from the orchestrator)
+const REF = process.env.SKILLS_REF || DEPLOYED;
 const lab = resolve(root, process.argv[2] ?? '../capabilities-lab');
-const show = (path) => execFileSync('git', ['-C', lab, 'show', `origin/main:${path}`], { encoding: 'utf8', maxBuffer: 64 << 20 });
-const sha = execFileSync('git', ['-C', lab, 'rev-parse', '--short', 'origin/main'], { encoding: 'utf8' }).trim();
+const show = (path) => execFileSync('git', ['-C', lab, 'show', `${REF}:${path}`], { encoding: 'utf8', maxBuffer: 64 << 20 });
+const sha = execFileSync('git', ['-C', lab, 'rev-parse', '--short', REF], { encoding: 'utf8' }).trim();
 
 const catDir = 'docs/skills/categories';
-const cats = execFileSync('git', ['-C', lab, 'ls-tree', '--name-only', `origin/main:${catDir}`], { encoding: 'utf8' })
+const cats = execFileSync('git', ['-C', lab, 'ls-tree', '--name-only', `${REF}:${catDir}`], { encoding: 'utf8' })
   .split('\n').filter((n) => n && !n.includes('.'));
 const files = [
   ['docs/skills/pramaan-capabilities/SKILL.md', 'skill.md'],
@@ -87,5 +91,5 @@ for (const [src, dest] of files) {
   writeFileSync(`${pub}/${dest}`, text);
   console.log(`${dest}: ${text.length} bytes${dropped ? `, ${dropped} hidden lines dropped` : ''}`);
 }
-console.log(`Synced ${files.length} files from capabilities-lab origin/main ${sha}.`);
+console.log(`Synced ${files.length} files from capabilities-lab ${sha}${REF === DEPLOYED ? ' (the deployed API commit)' : ''}.`);
 checkLlms();

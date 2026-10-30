@@ -115,14 +115,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `aeo.mentions.summary` | Aggregated mention counts and AI search volume for a keyword or domain across AI answers. | Per successful call; quote exact input for the maximum price. |
 | `aeo.pages.top` | Pages most frequently cited in AI answers for a keyword or domain. | Per successful call; quote exact input for the maximum price. |
 | `aeo.perplexity.answer` | Ask the Perplexity answer engine a prompt; returns its answer text and cited sources. | Per successful call; quote exact input for the maximum price. |
-| `agriculture.data-layers.list` | List available US agricultural map-data layers. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.asteroid-encounters.list` | List recent near-Earth asteroid encounters. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.asteroid.get` | Read the diameter, brightness and hazard classification of an asteroid. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.asteroids.list` | Browse the first page of known near-Earth asteroids. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.earth-images.list` | List Earth observation image metadata for a date. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.exoplanets.search` | Read exoplanet names and discovery years from a published astronomy table. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.space-weather.current` | Read current solar wind, sunspot and geomagnetic measurements. | Per successful call; quote exact input for the maximum price. |
-| `astronomy.space-weather.report` | Read the current public space-weather report. | Per successful call; quote exact input for the maximum price. |
 | `autos.auctions.search-listings` | Search auction listings. | Per successful call; quote exact input for the maximum price. |
 | `autos.lease-deals` | Get lease deals. | Per successful call; quote exact input for the maximum price. |
 | `autos.makes` | List makes. | Per successful call; quote exact input for the maximum price. |
@@ -132,21 +124,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `autos.search-new-listings` | Search new car listings. | Per successful call; quote exact input for the maximum price. |
 | `autos.search-used-listings` | Search used car listings. | Per successful call; quote exact input for the maximum price. |
 | `autos.years` | List model years. | Per successful call; quote exact input for the maximum price. |
-| `aviation.airport-events.list` | List active US airport traffic-management events. | Per successful call; quote exact input for the maximum price. |
-| `aviation.airport-status.get` | Read traffic-management conditions for a US airport. | Per successful call; quote exact input for the maximum price. |
-| `aviation.announcements.list` | List US air-traffic coordination announcements. | Per successful call; quote exact input for the maximum price. |
-| `aviation.disruptions.summary` | Read counts of current US aviation disruptions. | Per successful call; quote exact input for the maximum price. |
-| `books.search` | Search books by title or subject. | Per successful call; quote exact input for the maximum price. |
-| `botany.families.list` | List plant families in a flora. | Per successful call; quote exact input for the maximum price. |
-| `botany.families.search` | Find plant families by scientific name. | Per successful call; quote exact input for the maximum price. |
-| `botany.family.genera` | List genera within a plant family. | Per successful call; quote exact input for the maximum price. |
-| `botany.family.get` | Read the names and species count of a plant family. | Per successful call; quote exact input for the maximum price. |
-| `botany.floras.list` | List named plant floras available for taxonomy lookups. | Per successful call; quote exact input for the maximum price. |
-| `botany.genera.list` | List plant genera in a flora. | Per successful call; quote exact input for the maximum price. |
-| `botany.species.get` | Read the names and taxonomy of a plant species. | Per successful call; quote exact input for the maximum price. |
-| `botany.species.list` | List plant species in a flora. | Per successful call; quote exact input for the maximum price. |
-| `botany.species.search` | Find plant species by scientific name within a flora. | Per successful call; quote exact input for the maximum price. |
-| `botany.species.trends` | Read recorded plant-image counts by organ and period. | Per successful call; quote exact input for the maximum price. |
 | `browser.captcha.solve` | Request solving of selected challenges in your own live browser, up to 10 tasks. Selection is required; all explicitly selects a capped snapshot. Completed solves cost at most $0.003 each ($0.03 for ten). An unconfirmed request is never repeated. | Per successful call; quote exact input for the maximum price. |
 | `browser.captcha.solve-image` | Request solving one image challenge in your own live browser. Page and image content may contain personal data. A completed solve costs at most $0.003. An unconfirmed request is never repeated. | Per successful call; quote exact input for the maximum price. |
 | `browser.captcha.status` | Read challenge states on your own live browser pages. Page addresses may contain personal data. At most 10 pages and 100 tasks; task and page handles work only with the same session. | Per successful call; quote exact input for the maximum price. |
@@ -196,8 +173,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `commerce.products.extract` | Extract Products. | Per successful call; quote exact input for the maximum price. |
 | `commerce.products.list` | Products in one of your shopping catalogs: SKU, name, price, sale price, availability, stock and review status. | Per successful call; quote exact input for the maximum price. |
 | `commerce.reviews.extract` | Read a product or review page and return the average rating, rating spread and recurring praise and complaints. | Per successful call; quote exact input for the maximum price. |
-| `earth.earthquakes.search` | Find earthquakes within a time range and optional geographic bounds. | Per successful call; quote exact input for the maximum price. |
-| `earth.natural-events.list` | List natural events with their public titles. | Per successful call; quote exact input for the maximum price. |
 | `ev.charger.availability` | Read current point availability for a charger returned by charger search. Only reported point states are returned; unknown states stay unknown. | Per successful call; quote exact input for the maximum price. |
 | `ev.chargers.search` | Find electric-vehicle chargers in a circle, rectangle or route corridor, with connector, power and availability filters. Returns station names, addresses, precise locations and charging point states. | Per successful call; quote exact input for the maximum price. |
 | `ev.operators.list` | List electric-vehicle charging operators or payment-service companies by country, with region codes and relative coverage rank where reported. Returns organisation names. | Per successful call; quote exact input for the maximum price. |
@@ -259,10 +234,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `geo.property.lookup-bulk` | Run geo.property.lookup for up to 2 fresh rows as one background job. Each result is keyed by your row id; no references in rows. Two full records fit below the 4 MB job output limit; financial history allows at most five transactions per record. | Per successful call; quote exact input for the maximum price. |
 | `geo.regions.list` | List public geographic regions and their country codes. | Per successful call; quote exact input for the maximum price. |
 | `geo.states.search` | Search public states by name, returning the first page. | Per successful call; quote exact input for the maximum price. |
-| `government.spending-agencies.list` | List US agencies with budget-authority totals. | Per successful call; quote exact input for the maximum price. |
-| `housing.statistic-tables.search` | Find published census tables about housing. | Per successful call; quote exact input for the maximum price. |
-| `housing.statistic-variables.list` | List variables in a published census table. | Per successful call; quote exact input for the maximum price. |
-| `housing.statistics.search` | Read US housing and household statistics by census geography. | Per successful call; quote exact input for the maximum price. |
 | `links.short.clicks.get` | Total clicks on one short link per day over a bounded window (at most 90 days). Totals only: no visitor-level data. | Per successful call; quote exact input for the maximum price. |
 | `links.short.create` | Create a short link in your connected link-shortening app. The destination is your data and is shown only to you. | Per successful call; quote exact input for the maximum price. |
 | `links.short.delete` | Permanently delete one short link you created. Pass the ref that links.short.create returned and confirm. | Per successful call; quote exact input for the maximum price. |
@@ -323,9 +294,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `news.news-ticker-summary` | News Ticker Summary. | Per successful call; quote exact input for the maximum price. |
 | `news.pm-scorings` | Pm Scorings. | Per successful call; quote exact input for the maximum price. |
 | `news.signals.search` | News for a company, an industry or any open topic, with per-article sentiment, event tags, industry codes, mentioned companies and named people, products and locations. | Per successful call; quote exact input for the maximum price. |
-| `nutrition.food.get` | Read a food record name, public identifier and classification. | Per successful call; quote exact input for the maximum price. |
-| `nutrition.food.serving-size` | Read the stated serving size and unit of a food product. | Per successful call; quote exact input for the maximum price. |
-| `nutrition.foods.list` | Browse a page of food descriptions in public nutrition data. | Per successful call; quote exact input for the maximum price. |
 | `papers.affiliations.search` | Search academic affiliation strings as published; may identify people. Returns matched institution handles where available. | Per successful call; quote exact input for the maximum price. |
 | `papers.author.get` | Get a public academic author’s name, ORCID, alternate names and affiliations; no scores or contact details. | Per successful call; quote exact input for the maximum price. |
 | `papers.author.get-bulk` | Look up public academic identifiers as a background job, at most 1000 rows. Each row echoes your id; failed rows are free. Returns published author names and affiliations. Public identifiers only; refs are not accepted. Worst-case upstream cost USD 0 using free singleton lookups. | Per successful call; quote exact input for the maximum price. |
@@ -417,11 +385,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `transit.departures.list` | List transit departures using exactly one station handle or point. Precise input locations may be personal data. Worst case $0.00292. | Per successful call; quote exact input for the maximum price. |
 | `transit.station.get` | Read one transit station using its earlier handle. Worst case $0.00292. | Per successful call; quote exact input for the maximum price. |
 | `transit.stations.search` | Find transit stations by name and a bounded circle. Precise search locations may be personal data. Worst case $0.00292. | Per successful call; quote exact input for the maximum price. |
-| `travel.activities.search` | Find things to do in a named city. | Per successful call; quote exact input for the maximum price. |
-| `travel.city-event.get` | Read the public description of a city event. | Per successful call; quote exact input for the maximum price. |
-| `travel.city-events.list` | List public events in a named city. | Per successful call; quote exact input for the maximum price. |
-| `travel.city-guides.list` | List cities with public visitor guides. | Per successful call; quote exact input for the maximum price. |
-| `travel.family-events.list` | List family-friendly events in a city. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offer.get` | Retrieve current flight details, fare, expiry and optional ancillary prices from a private offer reference. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offer.price` | Refresh a flight fare for account-balance payment; service and card references require a future scoped resolver. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offers.search` | Search bookable flight offers for at most six journey legs and nine passengers; returns no traveler names. Unsupported split tickets and auxiliary credit references are refused. | Per successful call; quote exact input for the maximum price. |
@@ -430,24 +393,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `travel.hotel-offers.search` | Search rates near coordinates, then fetch complete room details one property per job step; at most twenty properties and 100 rates. Only guest ages and categories are sent. | Per successful call; quote exact input for the maximum price. |
 | `travel.hotels.search` | Find hotel suggestions by name or nearby properties by coordinates; returns private hotel references, no booking availability. | Per successful call; quote exact input for the maximum price. |
 | `travel.locations.search` | Find airports and cities by name or coordinates; public airport codes are returned, private source identifiers are hidden. | Per successful call; quote exact input for the maximum price. |
-| `travel.music-events.list` | List live music events in a city guide. | Per successful call; quote exact input for the maximum price. |
-| `travel.restaurant-guide.get` | Read the public description of a restaurant in a city guide. | Per successful call; quote exact input for the maximum price. |
-| `travel.restaurant-guides.list` | List restaurant recommendations in a city guide. | Per successful call; quote exact input for the maximum price. |
-| `travel.restaurant-openings.list` | List new restaurant openings in a city. | Per successful call; quote exact input for the maximum price. |
-| `travel.sights.list` | List visitor sights and landmarks in a city guide. | Per successful call; quote exact input for the maximum price. |
-| `travel.today-events.list` | List events happening today in a city. | Per successful call; quote exact input for the maximum price. |
 | `units.convert` | Convert a value between units of length, weight, volume, temperature, area, speed or data size. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.lawn-tractor-brands.list` | List lawn tractor brands and their published model ranges. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.makes.list` | List vehicle makes for a model year. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.models.list` | List vehicle models for a make and model year. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.recall.get` | Read a vehicle safety recall by its public campaign number. | Per successful call; quote exact input for the maximum price. |
 | `vehicles.registration.verify` | Read vehicle registration facts. Keeper name and address are returned only when requested; no driver assessment. Maximum estimate USD 0.57. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-brands.list` | List agricultural tractor brands and their published model ranges. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-models.list` | List tractor models for a brand. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-news.list` | List public tractor news article titles and paths. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-series.list` | List related tractor models in a product series. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-shows.list` | List tractor shows with their stated dates and locations. | Per successful call; quote exact input for the maximum price. |
-| `vehicles.tractor-transmission.get` | Read a tractor transmission type and gear description. | Per successful call; quote exact input for the maximum price. |
 | `weather.accumulation.precipitation` | Accumulated precipitation at geographic coordinates over a bounded date window, up to 50 rows. All precipitation is included; no threshold is applied. | Per successful call; quote exact input for the maximum price. |
 | `weather.accumulation.temperature` | Accumulated temperature at geographic coordinates over a bounded date window, up to 50 rows. Returns a Kelvin indicator; no degree-day calculation is claimed. | Per successful call; quote exact input for the maximum price. |
 | `weather.air-quality.current` | Air quality current at geographic coordinates, with explicit index scales and pollutant units. At most 50 series records. | Per successful call; quote exact input for the maximum price. |
@@ -472,7 +419,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `weather.history.daily` | Historical daily weather for geographic coordinates, within a 31-day window and 50 records per page. Archive retrieval is explicit. | Per successful call; quote exact input for the maximum price. |
 | `weather.history.get` | Historical hourly weather for geographic coordinates, within a 31-day window and 50 records per page. Archive retrieval is explicit. | Per successful call; quote exact input for the maximum price. |
 | `weather.list-cities` | List cities. | Per successful call; quote exact input for the maximum price. |
-| `weather.periods.list` | Read official forecast periods for US geographic coordinates. | Per successful call; quote exact input for the maximum price. |
 | `weather.precipitation.forecast` | Minute precipitation rates at geographic coordinates, for up to 60 minutes; missing rates are omitted. | Per successful call; quote exact input for the maximum price. |
 | `weather.route-conditions.get` | Evaluate weather conditions along up to 20 geographic route segments, returning your own segment keys. Estimated maximum $0.36 per route. | Per successful call; quote exact input for the maximum price. |
 | `weather.route-conditions.get-bulk` | Evaluate weather conditions for up to 10 routes as one background job, up to 20 segments per route. Each row is echoed by your own id. Estimated maximum $3.60; failed rows are free. | Per successful call; quote exact input for the maximum price. |

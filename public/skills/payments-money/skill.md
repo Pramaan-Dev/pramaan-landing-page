@@ -223,8 +223,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.yield.loops` | Looping strategies (borrowing against a deposit to deposit again), with their net yields. | Per successful call; quote exact input for the maximum price. |
 | `crypto.yield.pools` | DeFi yield pools ranked by annual yield or by value locked. | Per successful call; quote exact input for the maximum price. |
 | `crypto.yield.pools-list` | DeFi yield pools with their annual yield, value locked, chain and project. | Per successful call; quote exact input for the maximum price. |
-| `economy.datasets.list` | List published European monetary and economic datasets. | Per successful call; quote exact input for the maximum price. |
-| `economy.series.observations` | Read dated observations for a European economic data series. | Per successful call; quote exact input for the maximum price. |
 | `edi.einvoice.status.get` | Check the exchange state of an invoice you submitted, using its original connected account. Pending includes states without a definitive receipt. Acceptance by the exchange is separate from delivery or the recipient's business acceptance. | Per successful call; quote exact input for the maximum price. |
 | `edi.einvoice.submit` | Submit one Italian national XML invoice using your connected invoicing account. Select that account with Pramaan-Account and use an idempotency key. Queued means pending, not acceptance. An uncertain submission must be checked manually and never automatically resent. The invoice service bills your connected account directly; no platform key is used. | Per successful call; quote exact input for the maximum price. |
 | `finance.account-availability.check` | Check whether a person’s mobile has financial accounts and return opaque consent choices; requires their permission. | Per successful call; quote exact input for the maximum price. |
@@ -511,7 +509,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `stocks.tracked-companies.list` | Public companies tracked with market and financial data, with ticker and country. | Per successful call; quote exact input for the maximum price. |
 | `trade.companies.search` | Find trading companies whose names match, optionally in given countries. | Per successful call; quote exact input for the maximum price. |
 | `trade.company.profile` | A trading company's registration, industry, addresses and import and export totals. | Per successful call; quote exact input for the maximum price. |
-| `trade.countries.list` | List countries with their public region and income group. | Per successful call; quote exact input for the maximum price. |
 | `trade.country.stats` | A country's trade balance, top exports and imports and main trading partners. | Per successful call; quote exact input for the maximum price. |
 | `trade.customs-duty.lookup` | The EU customs duty for goods by tariff (HS) code and origin, with any preferential or anti-dumping rate. | Per successful call; quote exact input for the maximum price. |
 | `trade.destinations.rank` | Rank the destination countries of the shipments matching a trade search, by value and volume. | Per successful call; quote exact input for the maximum price. |
@@ -519,7 +516,6 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `trade.hs-codes.rank` | Rank the tariff (HS) codes of the shipments matching a trade search, by value and volume. | Per successful call; quote exact input for the maximum price. |
 | `trade.importers.rank` | Rank the importers behind the shipments matching a trade search, by value, volume and deal count. | Per successful call; quote exact input for the maximum price. |
 | `trade.origins.rank` | Rank the origin countries of the shipments matching a trade search, by value and volume. | Per successful call; quote exact input for the maximum price. |
-| `trade.partners.summary` | Read annual import and export values by trade partner. | Per successful call; quote exact input for the maximum price. |
 | `trade.shipments.count` | Count trade records matching a company or product over a date range. | Per successful call; quote exact input for the maximum price. |
 | `trade.shipments.search` | Search customs shipment records by product, tariff code, importer, exporter, country or port. | Per successful call; quote exact input for the maximum price. |
 | `trade.volume.history` | Trade value and volume over time (by month, quarter or year) for the shipments matching a trade search. | Per successful call; quote exact input for the maximum price. |
