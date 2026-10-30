@@ -49,9 +49,23 @@ document.querySelectorAll('[data-copy]').forEach((btn) => {
 
 // Mobile nav
 const toggle = document.querySelector('[data-nav-toggle]');
+// In the phone menu the buttons sit under the links, which grow when Resources opens
+const placeNavActions = () => {
+  const links = document.querySelector('.nav__links'), acts = document.querySelector('.nav__actions');
+  if (links && acts) acts.style.top = document.body.classList.contains('nav-open') && matchMedia('(max-width: 1040px)').matches
+    ? `${links.offsetTop + links.offsetHeight}px` : '';
+};
 toggle?.addEventListener('click', () => {
   const open = document.body.classList.toggle('nav-open');
   toggle.setAttribute('aria-expanded', String(open));
+  placeNavActions();
+});
+// Resources dropdown: closes on a click elsewhere or Esc
+const navRes = document.querySelector('.navres');
+navRes?.addEventListener('toggle', placeNavActions);
+document.addEventListener('click', (e) => { if (navRes?.open && !navRes.contains(e.target)) navRes.open = false; });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navRes?.open) { navRes.open = false; navRes.querySelector('summary').focus(); }
 });
 document.querySelectorAll('.nav__links a').forEach((a) =>
   a.addEventListener('click', () => {

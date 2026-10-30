@@ -72,15 +72,32 @@ body{margin:0;background:transparent;color:var(--fg);font:14px/1.5 var(--sans);l
 .uib-tag i{width:8px;height:8px;border-radius:50%;background:var(--color-coral)}
 .uib-hero h1{margin:20px 0 16px;font:400 64px/1.1 var(--font-serif);letter-spacing:-.02em;color:var(--color-off-black)}
 .uib-hero p{margin:0;max-width:760px;font-size:20px;line-height:1.5;letter-spacing:-.02em;color:var(--color-graphite)}
-@media (max-width:1240px){ .site-nav__inner{gap:24px} .site-nav__links{gap:20px} }
-@media (max-width:1100px){ .site-nav__links{gap:20px} .site-nav__links a{font-size:14px} .uib-hero h1{font-size:52px} }
-@media (max-width:980px){
-  :root{--gutter:24px}
+/* Resources menu: same as styles.css .navres (not loaded here) */
+.navres{position:relative}
+.navres summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:18px;text-transform:uppercase;letter-spacing:-.022em;line-height:1.2;white-space:nowrap;color:var(--color-off-black);transition:color .2s}
+.navres summary::-webkit-details-marker{display:none} .navres summary:hover{color:var(--color-smoke)}
+.navres summary::after{content:"";flex:none;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .2s}
+.navres[open] summary::after{transform:translateY(1px) rotate(-135deg)}
+.navres__menu{position:absolute;top:calc(100% + 14px);left:-12px;z-index:30;display:grid;gap:2px;min-width:270px;padding:10px;background:var(--color-parchment);border:1px solid var(--color-ash);border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.navres__group{margin:6px 10px 2px;font-size:12px;text-transform:uppercase;color:var(--color-smoke)}
+.site-nav__links .navres__menu a,.navres__soon{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border-radius:10px;font-size:15px;text-transform:none;letter-spacing:0;white-space:nowrap}
+.site-nav__links .navres__menu a:hover{background:rgba(0,0,0,.05);color:var(--color-off-black)}
+.navres__soon{color:var(--color-smoke);cursor:default}
+.navres__soon em{font-style:normal;font-size:11px;text-transform:uppercase;padding:3px 8px;border:1px solid var(--color-ash);border-radius:100px}
+@media (max-width:1300px){ .site-nav__inner{gap:20px} .site-nav__links{gap:14px} .site-nav__actions .site-btn{padding-left:20px;padding-right:20px} }
+@media (max-width:1140px){ .site-nav__links a,.navres summary{font-size:14px} }
+@media (max-width:1100px){ .uib-hero h1{font-size:52px} }
+@media (max-width:1040px){
   .site-nav__links,.site-nav__actions{display:none}
   .site-nav__toggle{display:block}
   .nav-open .site-nav__links,.nav-open .site-nav__actions{display:flex;flex-direction:column;position:absolute;left:0;right:0;background:var(--color-parchment);padding:24px var(--gutter)}
   .nav-open .site-nav__links{top:80px;gap:20px;border-top:1px solid var(--color-ash)}
   .nav-open .site-nav__actions{top:300px;border-bottom:1px solid var(--color-ash)}
+  .nav-open .navres__menu{position:static;min-width:0;margin-top:12px;padding:0 0 0 12px;border:0;border-radius:0;box-shadow:none;background:none}
+  .nav-open .navres summary{font-size:18px}
+}
+@media (max-width:980px){
+  :root{--gutter:24px}
   .uib-hero{padding-top:32px;padding-bottom:8px} .uib-hero h1{font-size:40px}
 }
 button{font:inherit;color:inherit}
@@ -574,6 +591,15 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
       <a href="missions.html">Missions</a>
       <a href="index.html#pricing">Pricing</a>
       <a href="https://docs.pramaan.dev">Docs</a>
+      <details class="navres">
+        <summary>Resources</summary>
+        <div class="navres__menu">
+          <p class="navres__group">Tools</p>
+          <a href="ui-builder" aria-current="page">UI builder</a>
+          <span class="navres__soon">Skills <em>Launching soon</em></span>
+          <span class="navres__soon">Templates <em>Launching soon</em></span>
+        </div>
+      </details>
     </nav>
     <div class="site-nav__actions">
       <a href="index.html#login" class="site-btn site-btn--ghost">Log in</a>
@@ -1984,7 +2010,15 @@ function render(redrawRows = true){
 if (!window.DESIGNS) document.querySelectorAll('.top [data-open-gallery]').forEach(b => b.style.display = 'none');
 // Website mobile menu
 const navToggle = document.querySelector('[data-nav-toggle]');
-navToggle.onclick = () => navToggle.setAttribute('aria-expanded', String(document.body.classList.toggle('nav-open')));
+// In the phone menu the buttons sit under the links, which grow when Resources opens
+const placeNavActions = () => { const l = $('.site-nav__links'), a = $('.site-nav__actions');
+  a.style.top = document.body.classList.contains('nav-open') && matchMedia('(max-width:1040px)').matches ? `${l.offsetTop + l.offsetHeight}px` : ''; };
+navToggle.onclick = () => { navToggle.setAttribute('aria-expanded', String(document.body.classList.toggle('nav-open'))); placeNavActions(); };
+// Resources dropdown: closes on a click elsewhere or Esc
+const navRes = $('.navres');
+navRes.addEventListener('toggle', placeNavActions);
+document.addEventListener('click', e => { if (navRes.open && !navRes.contains(e.target)) navRes.open = false; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && navRes.open) { navRes.open = false; navRes.querySelector('summary').focus(); } });
 
 const openedFromLink = () => { $('#sharedTag').hidden = false; };
 const fromLink = /^#t=/.test(location.hash);
