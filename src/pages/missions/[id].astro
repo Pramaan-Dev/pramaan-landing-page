@@ -1,7 +1,7 @@
 ---
 import DetailPage from '../../components/DetailPage.astro';
 import { esc } from '../../../public/catalogue-render.js';
-import { ms, detailBody, linkList, items, familiesOf, skillsRunning, missionDocsUrl } from '../../lib/catalogue.mjs';
+import { ms, missionMd, detailBody, linkList, items, familiesOf, skillsRunning, missionDocsUrl } from '../../lib/catalogue.mjs';
 
 export function getStaticPaths() {
   return ms.missions.map((m) => ({ params: { id: m.id }, props: { m } }));
@@ -19,5 +19,6 @@ const side =
   path={`/missions/${m.id}`}
   trail={[['/missions', 'Missions'], [`/missions#${encodeURIComponent(m.category)}`, m.category], [null, m.name]]}
   body={detailBody('missions', m.id)}
+  md={missionMd(m)}
   side={side}
 />

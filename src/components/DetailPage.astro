@@ -1,7 +1,9 @@
 ---
 // A catalogue detail page: breadcrumb + panel body on the left, call-to-action and link lists on the right.
 import Base from '../layouts/Base.astro';
-const { title, description, path, trail, body, side, kind } = Astro.props;
+import ViewToggle from './ViewToggle.astro';
+import AgentView from './AgentView.astro';
+const { title, description, path, trail, body, side, kind, md } = Astro.props;
 const url = `https://www.pramaan.dev${path}`;
 const abs = (h) => `https://www.pramaan.dev${h}`;
 const ld = JSON.stringify({
@@ -23,13 +25,15 @@ const FOOT = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
     <script is:inline type="application/ld+json" set:html={ld}></script>
+    <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
   <main>
     <div class="container">
-      <div class="detail">
+      <ViewToggle />
+      <div class="detail" data-human-view>
         <article class="detail__main">
           <nav class="detail__crumbs" aria-label="Breadcrumb">
             {trail.map(([h, n], i) => <Fragment>{i > 0 && ' / '}{h ? <a href={h}>{n}</a> : <span>{n}</span>}</Fragment>)}
@@ -38,6 +42,7 @@ const FOOT = {
         </article>
         <aside class="detail__side"><Fragment set:html={side} /></aside>
       </div>
+      <AgentView md={md} url={url} />
     </div>
   </main>
 </Base>

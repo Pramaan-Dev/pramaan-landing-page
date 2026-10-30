@@ -1,0 +1,11 @@
+---
+// The page's Markdown in a bordered box, with Copy and a link to the real .md file.
+const { md, url } = Astro.props;
+---
+<section class="agent-view" data-agent-view hidden>
+  <div class="agent-view__bar">
+    <span class="caption">Markdown &middot; what an agent reads</span>
+    <span><button type="button" data-copy-pre>Copy</button><a href={`${url}.md`}>Open .md</a></span>
+  </div>
+  <pre>{md}</pre>
+</section>

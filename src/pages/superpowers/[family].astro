@@ -1,6 +1,6 @@
 ---
 import DetailPage from '../../components/DetailPage.astro';
-import { sp, slug, detailBody, linkList, items, missionsUsing, skillsUsing } from '../../lib/catalogue.mjs';
+import { sp, slug, familyMd, detailBody, linkList, items, missionsUsing, skillsUsing } from '../../lib/catalogue.mjs';
 
 export function getStaticPaths() {
   return sp.families.map((f) => ({ params: { family: slug(f.name) }, props: { f } }));
@@ -19,5 +19,6 @@ const side =
   path={`/superpowers/${slug(f.name)}`}
   trail={[['/superpowers', 'Superpowers'], [`/superpowers#${encodeURIComponent(f.category)}`, f.category], [null, f.name]]}
   body={detailBody('superpowers', f.name)}
+  md={familyMd(f)}
   side={side}
 />

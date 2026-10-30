@@ -118,6 +118,30 @@ document.addEventListener('click', async (e) => {
   setTimeout(() => (b.textContent = label), 1600);
 });
 
+// For humans / For agents (detail pages and blog posts): the choice is kept in localStorage; ?view=agent opens the Markdown view
+{
+  const set = (v) => {
+    document.querySelectorAll('[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+    document.querySelectorAll('[data-human-view]').forEach((e) => (e.hidden = v === 'agent'));
+    document.querySelectorAll('[data-agent-view]').forEach((e) => (e.hidden = v !== 'agent'));
+    try { localStorage.setItem('pramaan-view', v); } catch {}
+  };
+  if (document.querySelector('[data-view]')) {
+    document.addEventListener('click', async (e) => {
+      const b = e.target.closest('[data-view]');
+      if (b) return set(b.dataset.view);
+      const c = e.target.closest('[data-copy-pre]');
+      if (!c) return;
+      try { await navigator.clipboard.writeText(c.closest('.agent-view').querySelector('pre').textContent); c.textContent = 'Copied'; } catch { c.textContent = 'Press ⌘C'; }
+      setTimeout(() => (c.textContent = 'Copy'), 1600);
+    });
+    let saved = null;
+    try { saved = localStorage.getItem('pramaan-view'); } catch {}
+    const q = new URLSearchParams(location.search).get('view');
+    set(q === 'agent' || q === 'human' ? q : saved === 'agent' ? 'agent' : 'human');
+  }
+}
+
 // Only one FAQ open at a time
 const faqs = document.querySelectorAll('.faq__item');
 faqs.forEach((d) =>

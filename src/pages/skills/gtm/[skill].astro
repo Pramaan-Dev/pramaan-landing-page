@@ -1,6 +1,6 @@
 ---
 import DetailPage from '../../../components/DetailPage.astro';
-import { sk, detailBody, linkList, items, familiesOf, missionsOfSkill, moreFromAuthor, firstSentence } from '../../../lib/catalogue.mjs';
+import { sk, skillMd, detailBody, linkList, items, familiesOf, missionsOfSkill, moreFromAuthor, firstSentence } from '../../../lib/catalogue.mjs';
 
 export function getStaticPaths() {
   return sk.skills.map((s) => ({ params: { skill: s.name }, props: { s } }));
@@ -18,5 +18,6 @@ const side =
   path={`/skills/gtm/${s.name}`}
   trail={[['/skills', 'Skills'], ['/skills#GTM', 'Go-to-market'], [`/skills#${encodeURIComponent(s.category)}`, s.category], [null, s.title]]}
   body={detailBody('skills', s.name)}
+  md={skillMd(s)}
   side={side}
 />
