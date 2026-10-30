@@ -16,7 +16,7 @@ How it is delivered: a REST API at `https://api.pramaan.dev` with an OpenAPI spe
 
 Who it is for: developers building agents and apps (Claude Code, Codex, Cursor, any MCP client, or their own code), and people who want a job done by asking in plain words. Accounts open by approval during early access.
 
-Markdown copies: every catalogue category, category skill and go-to-market skill below is a `.md` file, and any page on https://docs.pramaan.dev has a markdown version at the same URL plus `.md` (for example https://docs.pramaan.dev/guides/jobs.md).
+Markdown copies: every catalogue category, category skill and go-to-market skill below is a `.md` file. Every superpower family, mission and skill page has one at the same URL plus `.md` (for example https://www.pramaan.dev/missions/ads.account.health.md and https://www.pramaan.dev/skills/gtm/google-ads-audit.md). Any page on https://docs.pramaan.dev has a markdown version at the same URL plus `.md` (for example https://docs.pramaan.dev/guides/jobs.md).
 
 ## Start here
 

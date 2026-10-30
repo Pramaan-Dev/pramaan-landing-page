@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-hidden.mjs",
+    "build": "astro build && node scripts/check-hidden.mjs && node scripts/sync-skills.mjs --check",
     "preview": "astro preview",
     "check:urls": "node scripts/url-parity.mjs"
   },
