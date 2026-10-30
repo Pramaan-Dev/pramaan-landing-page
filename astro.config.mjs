@@ -11,8 +11,8 @@ export default defineConfig({
   markdown: { gfm: false, smartypants: false },
   integrations: [
     sitemap({
-      // legal drafts and the UI builder are noindex
-      filter: (url) => !/\/(legal|ui-builder)(\/|$)/.test(url),
+      // legal drafts and the UI builder are noindex; /simple repeats the home page and was never listed
+      filter: (url) => !/\/(legal|ui-builder|simple)(\/|$)/.test(url),
     }),
   ],
 });
