@@ -1,0 +1,23 @@
+---
+import DetailPage from '../../components/DetailPage.astro';
+import { esc } from '../../../public/catalogue-render.js';
+import { ms, detailBody, linkList, items, familiesOf, skillsRunning, missionDocsUrl } from '../../lib/catalogue.mjs';
+
+export function getStaticPaths() {
+  return ms.missions.map((m) => ({ params: { id: m.id }, props: { m } }));
+}
+const { m } = Astro.props;
+const side =
+  `<div class="detail__cta"><span class="eyebrow">Run it</span><p class="caption">One call runs every step in order, within the price cap.</p><a class="btn btn--black" href="${esc(missionDocsUrl(m))}">API docs</a></div>` +
+  linkList('Superpowers it uses', items.fam(familiesOf(m.steps.map((s) => s.id)))) +
+  linkList('Skills that run it', items.skl(skillsRunning(m.id)));
+---
+<DetailPage
+  kind="missions"
+  title={m.name}
+  description={m.description}
+  path={`/missions/${m.id}`}
+  trail={[['/missions', 'Missions'], [`/missions#${encodeURIComponent(m.category)}`, m.category], [null, m.name]]}
+  body={detailBody('missions', m.id)}
+  side={side}
+/>

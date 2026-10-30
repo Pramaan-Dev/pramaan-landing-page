@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const pages = (await getCollection('legal')).sort((a, b) => a.data.order - b.data.order);
+  return pages.map((p) => ({ params: { slug: p.id }, props: { page: p, pages } }));
+}
+const { page, pages } = Astro.props;
+const { Content } = await render(page);
+---
+<Base title={`${page.data.title} | Pramaan`} nav="legal" footerProps={{ variant: 'legal', count: '3483', countLabel: 'Superpowers', eyebrow: 'find' }}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/legal.css" />
+    <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+    <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  </Fragment>
+  <main>
+    <section class="cat-hero">
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>Legal</span>
+        <h1 class="display display--md">{page.data.title.replace(/^Pramaan /, '')}</h1>
+      </div>
+    </section>
+
+    <div class="container cat-layout">
+      <aside class="cat-side" aria-label="Legal pages">
+        <p class="eyebrow cat-side__title">Legal</p>
+        <ul>
+          {pages.map((q) => <li><a href={`/legal/${q.id}`} aria-current={q.id === page.id ? 'page' : undefined}>{q.data.nav}</a></li>)}
+        </ul>
+      </aside>
+      <article class="legal"><Content /></article>
+    </div>
+  </main>
+</Base>

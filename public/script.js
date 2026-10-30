@@ -104,6 +104,20 @@ document.querySelectorAll('[data-typer]').forEach((el) => {
   }, 3200);
 });
 
+// Copy buttons on detail pages and blog posts (the catalogue side panel has its own handler in catalogue.js)
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-copy-id]');
+  if (!b || b.closest('[data-panel]')) return;
+  const label = b.dataset.label ?? (b.dataset.label = b.textContent);
+  try {
+    await navigator.clipboard.writeText(b.dataset.copyId);
+    b.textContent = 'Copied';
+  } catch {
+    b.textContent = 'Press ⌘C';
+  }
+  setTimeout(() => (b.textContent = label), 1600);
+});
+
 // Only one FAQ open at a time
 const faqs = document.querySelectorAll('.faq__item');
 faqs.forEach((d) =>

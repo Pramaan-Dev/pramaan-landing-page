@@ -1,0 +1,23 @@
+---
+import DetailPage from '../../components/DetailPage.astro';
+import { sp, slug, detailBody, linkList, items, missionsUsing, skillsUsing } from '../../lib/catalogue.mjs';
+
+export function getStaticPaths() {
+  return sp.families.map((f) => ({ params: { family: slug(f.name) }, props: { f } }));
+}
+import { esc } from '../../../public/catalogue-render.js';
+const { f } = Astro.props;
+const side =
+  `<div class="detail__cta"><span class="eyebrow">Use it</span><p class="caption">Ask your agent in plain words, or call any id above through the API.</p><a class="btn btn--black" href="/#start">Get early access</a></div>` +
+  linkList('Missions that use it', items.mis(missionsUsing(f))) +
+  linkList('Skills that use it', items.skl(skillsUsing(f)));
+---
+<DetailPage
+  kind="superpowers"
+  title={f.name}
+  description={f.summary}
+  path={`/superpowers/${slug(f.name)}`}
+  trail={[['/superpowers', 'Superpowers'], [`/superpowers#${encodeURIComponent(f.category)}`, f.category], [null, f.name]]}
+  body={detailBody('superpowers', f.name)}
+  side={side}
+/>

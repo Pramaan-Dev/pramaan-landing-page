@@ -1,0 +1,43 @@
+---
+// A catalogue detail page: breadcrumb + panel body on the left, call-to-action and link lists on the right.
+import Base from '../layouts/Base.astro';
+const { title, description, path, trail, body, side, kind } = Astro.props;
+const url = `https://www.pramaan.dev${path}`;
+const abs = (h) => `https://www.pramaan.dev${h}`;
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map(([h, n], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: h ? abs(h) : url })),
+}).replace(/</g, '\\u003c');
+const FOOT = {
+  superpowers: { variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] },
+  missions: { variant: 'catalogue', count: '876', countLabel: 'Missions', eyebrow: 'research', tools: ['ui-builder', 'ui-inspiration'] },
+  skills: { variant: 'catalogue', count: '418', countLabel: 'Skills', eyebrow: 'research', tools: ['ui-builder', 'ui-inspiration', 'skills'] },
+}[kind];
+---
+<Base title={`${title} | Pramaan`} description={description} canonical={url} nav="site" current={kind === 'skills' ? undefined : kind} footerProps={FOOT}>
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pramaan" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <script is:inline type="application/ld+json" set:html={ld}></script>
+    <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+    <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  </Fragment>
+  <main>
+    <div class="container">
+      <div class="detail">
+        <article class="detail__main">
+          <nav class="detail__crumbs" aria-label="Breadcrumb">
+            {trail.map(([h, n], i) => <Fragment>{i > 0 && ' / '}{h ? <a href={h}>{n}</a> : <span>{n}</span>}</Fragment>)}
+          </nav>
+          <Fragment set:html={body} />
+        </article>
+        <aside class="detail__side"><Fragment set:html={side} /></aside>
+      </div>
+    </div>
+  </main>
+</Base>

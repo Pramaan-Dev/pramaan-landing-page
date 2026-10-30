@@ -3,6 +3,7 @@
 // crawlers that don't run JavaScript still see every card.
 
 export const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+export const slug = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 export const num = (n) => n.toLocaleString('en-US');
 const usd = (micro) => {
   const v = micro / 1e6;
@@ -57,7 +58,7 @@ export const skillHowHtml = (s) => `
       .map(([step, ids, note]) => `<li><b>${mdLite(step.replace(/^\d+[a-z]?\.\s*/, ''))}</b><p>${mdLite(ids)}</p>${note ? `<p>${mdLite(note)}</p>` : ''}</li>`)
       .join('')}</ol>` : ''}
     ${s.own ? `<p>${mdLite(s.own)}</p>` : ''}
-    <a class="panel__docs" href="skills/gtm/${esc(s.name)}/pramaan.md" target="_blank" rel="noopener">Open as a file for agents (pramaan.md) &rarr;</a>
+    <a class="panel__docs" href="/skills/gtm/${esc(s.name)}/pramaan.md" target="_blank" rel="noopener">Open as a file for agents (pramaan.md) &rarr;</a>
   </div>`;
 const SKILLS_REPO = 'https://github.com/Pramaan-OSS/skills/tree/main/skills/gtm';
 
@@ -65,6 +66,7 @@ const SKILLS_REPO = 'https://github.com/Pramaan-OSS/skills/tree/main/skills/gtm'
 const skillCards = (data) =>
   data.skills.map((s) => ({
     key: s.name,
+    href: `/skills/gtm/${s.name}`,
     name: s.title,
     category: s.category,
     summary: s.description,
@@ -82,7 +84,7 @@ const skillCards = (data) =>
       ${authorHtml(data.authors?.[s.author], s.author)}
       <div><span class="eyebrow">1. Add it to your agent</span>${copyRow(`npx skills add Pramaan-OSS/skills --skill ${s.name}`)}</div>
       <div><span class="eyebrow">2. Tell your agent</span>${copyRow(`Run the ${s.name} skill with Pramaan.`)}</div>
-      <p class="caption">The skill comes with its Pramaan map. Set up Pramaan once with <a href="skill.md">the agent skill</a>.</p>
+      <p class="caption">The skill comes with its Pramaan map. Set up Pramaan once with <a href="/skill.md">the agent skill</a>.</p>
       ${s.approval.length ? `<div class="panel__facts"><span class="pill pill--warn">Waits for your OK</span><span class="caption">${s.approval.map(esc).join(', ')}</span></div>` : ''}
       ${skillHowHtml(s)}
       <a class="panel__docs" href="${SKILLS_REPO}/${esc(s.author)}/${esc(s.name)}" target="_blank" rel="noopener">Full skill on GitHub &rarr;</a>`,
@@ -95,6 +97,7 @@ export const toCards = (kind, data) =>
     : kind === 'superpowers'
     ? data.families.map((f) => ({
         key: f.name,
+        href: `/superpowers/${slug(f.name)}`,
         name: f.name,
         category: f.category,
         summary: f.summary,
@@ -107,12 +110,13 @@ export const toCards = (kind, data) =>
           <p class="caption">${num(f.items.length)} superpower${f.items.length === 1 ? '' : 's'}</p>
           <ul class="panel__list">${f.items
             .map(
-              (i) => `<li id="${esc(i.id)}"><code>${esc(i.id)}</code><p>${esc(i.description)}</p><div class="panel__facts">${pills(i)}</div><a class="panel__docs" href="${docsUrl(f.name, i.id)}" target="_blank" rel="noopener">API docs &rarr;</a></li>`
+              (i) => `<li id="${esc(i.id)}"><code>${esc(i.id)}</code><p>${esc(i.description)}</p><div class="panel__facts">${pills(i)}<a class="panel__docs" href="${docsUrl(f.name, i.id)}" target="_blank" rel="noopener">API docs &rarr;</a></div></li>`
             )
             .join('')}</ul>`,
       }))
     : data.missions.map((m) => ({
         key: m.id,
+        href: `/missions/${m.id}`,
         name: m.name,
         category: m.category,
         summary: m.description,
@@ -136,11 +140,11 @@ export const toCards = (kind, data) =>
       }));
 
 const cardHtml = (c) => `
-  <button type="button" class="card" data-key="${esc(c.key)}">
+  <a class="card" href="${esc(c.href)}" data-key="${esc(c.key)}">
     <span class="card__name">${esc(c.name)}</span>
     <span class="card__summary">${esc(c.summary)}</span>
     <span class="card__foot">${c.foot}</span>
-  </button>`;
+  </a>`;
 
 const groupHtml = (id, title, blurb, list) => `
   <section class="cat-group" data-group="${esc(id)}">

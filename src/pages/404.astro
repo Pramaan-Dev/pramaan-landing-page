@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found | Pramaan" robots="noindex" footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+    <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  </Fragment>
+  <main>
+    <section class="cat-hero">
+      <div class="container cat-hero__inner">
+        <span class="tag"><span class="tag__dot"></span>404</span>
+        <h1 class="display display--md">That page is not here.</h1>
+        <p class="lead">Try <a href="/superpowers">superpowers</a>, <a href="/missions">missions</a> or the <a href="/">home page</a>.</p>
+      </div>
+    </section>
+  </main>
+</Base>

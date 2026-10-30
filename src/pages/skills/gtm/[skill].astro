@@ -1,0 +1,22 @@
+---
+import DetailPage from '../../../components/DetailPage.astro';
+import { sk, detailBody, linkList, items, familiesOf, missionsOfSkill, moreFromAuthor, firstSentence } from '../../../lib/catalogue.mjs';
+
+export function getStaticPaths() {
+  return sk.skills.map((s) => ({ params: { skill: s.name }, props: { s } }));
+}
+const { s } = Astro.props;
+const side =
+  linkList('Superpowers it uses', items.fam(familiesOf(s.ids))) +
+  linkList('Missions it uses', items.mis(missionsOfSkill(s))) +
+  linkList('More from this author', items.skl(moreFromAuthor(s)));
+---
+<DetailPage
+  kind="skills"
+  title={s.title}
+  description={firstSentence(s.description)}
+  path={`/skills/gtm/${s.name}`}
+  trail={[['/skills', 'Skills'], ['/skills#GTM', 'Go-to-market'], [`/skills#${encodeURIComponent(s.category)}`, s.category], [null, s.title]]}
+  body={detailBody('skills', s.name)}
+  side={side}
+/>

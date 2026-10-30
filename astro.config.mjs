@@ -7,6 +7,8 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file' },
+  // legal text must stay as written: no curly quotes, no auto-linked emails
+  markdown: { gfm: false, smartypants: false },
   integrations: [
     sitemap({
       // legal drafts and the UI builder are noindex

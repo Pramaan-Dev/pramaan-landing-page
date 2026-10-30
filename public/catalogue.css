@@ -49,7 +49,7 @@
   padding: 24px; min-height: 180px;
   background: rgba(255, 255, 255, .45);
   border: 1px solid var(--color-ash); border-radius: 24px;
-  text-align: left; font: inherit;
+  text-align: left; font: inherit; color: inherit; text-decoration: none;
   transition: border-color .2s, transform .2s, background-color .2s;
 }
 .card:hover { border-color: var(--color-off-black); background: rgba(255, 255, 255, .8); transform: translateY(-2px); }
@@ -107,6 +107,29 @@
 .panel__list code { font-size: var(--text-body-sm); }
 .panel__list p { font-size: var(--text-body-sm); color: var(--color-graphite); }
 .panel__list .panel__facts { gap: 6px; }
+.panel__facts { align-items: center; }
+.panel__facts .panel__docs { margin-left: 4px; }
+
+/* Detail pages (/superpowers/<family>, /missions/<id>, /skills/gtm/<skill>) and blog posts */
+.detail { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; padding: 48px 0 96px; }
+.detail__main { display: flex; flex-direction: column; gap: 24px; max-width: 720px; }
+.detail__main h1, .post h1 { font-family: var(--font-serif); font-weight: 400; font-size: clamp(36px, 5vw, 56px); letter-spacing: -0.03em; line-height: 1.05; }
+.detail__crumbs { font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); }
+.detail__crumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.detail__side { display: flex; flex-direction: column; gap: 32px; }
+.detail__rel ul { display: flex; flex-direction: column; border-top: 1px solid var(--color-ash); margin-top: 8px; }
+.detail__rel li { padding: 10px 0; border-bottom: 1px solid var(--color-ash); display: flex; flex-direction: column; }
+.detail__rel a { text-decoration: underline; text-underline-offset: 3px; }
+.detail__rel small { font-size: var(--text-caption); color: var(--color-smoke); }
+.detail__cta { padding: 20px; border: 1px solid var(--color-ash); border-radius: 16px; display: flex; flex-direction: column; gap: 12px; }
+.detail__cta .btn { align-self: flex-start; }
+.post { max-width: 680px; padding: 48px 0 96px; display: flex; flex-direction: column; gap: 20px; font-size: var(--text-body-lg); }
+.post h2 { font-family: var(--font-serif); font-weight: 400; font-size: 28px; margin-top: 16px; }
+.post a { text-decoration: underline; text-underline-offset: 3px; }
+.post-list { display: flex; flex-direction: column; padding: 48px 0 96px; max-width: 680px; }
+.post-list a { display: flex; flex-direction: column; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--color-ash); }
+.post-list a:first-child { border-top: 1px solid var(--color-ash); }
+@media (max-width: 900px) { .detail { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
 .panel__docs { align-self: flex-start; font-size: var(--text-body-sm); text-decoration: underline; text-underline-offset: 3px; }
 .panel__steps { counter-reset: step; }
 .panel__steps li { padding-left: 40px; position: relative; }

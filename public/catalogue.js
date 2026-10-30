@@ -99,7 +99,10 @@ function close() {
 
 document.querySelector('[data-groups]').addEventListener('click', (e) => {
   const card = e.target.closest('.card');
-  if (card) open(card.dataset.key, card);
+  // A plain click opens the panel; ctrl/cmd/shift/middle click follows the link to the page.
+  if (!card || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  open(card.dataset.key, card);
 });
 panel.querySelector('[data-close]').addEventListener('click', close);
 scrim.addEventListener('click', close);
