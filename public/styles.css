@@ -238,7 +238,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 .nav { position: sticky; top: 0; z-index: 20; background: rgba(246, 243, 241, .88); backdrop-filter: blur(12px); }
 
-.nav__inner { height: 80px; display: flex; align-items: center; gap: 40px; }
+.nav__inner { height: 104px; display: flex; align-items: center; gap: 40px; }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; }
 .logo__word { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1; }
@@ -738,6 +738,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 /* Below this the menu links no longer fit on one line: switch to the menu button (script.js uses the same width) */
 @media (max-width: 1040px) {
+  .nav__inner { height: 80px; }
   .nav__links,
   .nav__actions { display: none; }
   .nav__toggle { display: block; }

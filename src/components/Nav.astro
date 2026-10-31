@@ -43,8 +43,8 @@ const V = {
 
 const b = skin === 'builder';
 const c = b
-  ? { nav: 'site-nav', inner: 'site-wrap site-nav__inner', logo: 'site-logo', mark: 'site-logo__mark', word: 'site-logo__word', links: 'site-nav__links', actions: 'site-nav__actions', ghost: 'site-btn site-btn--ghost', black: 'site-btn site-btn--black', toggle: 'site-nav__toggle' }
-  : { nav: 'nav', inner: 'container nav__inner', logo: 'logo', mark: 'logo__mark', word: 'logo__word', links: 'nav__links', actions: 'nav__actions', ghost: 'btn btn--ghost', black: 'btn btn--black', toggle: 'nav__toggle' };
+  ? { nav: 'site-nav', inner: 'site-wrap site-nav__inner', logo: 'site-logo', mark: 'site-logo__mark', word: 'site-logo__word', links: 'site-nav__links', actions: 'site-nav__actions', login: 'site-btn site-btn--ghost', cta: 'site-btn site-btn--black', toggle: 'site-nav__toggle' }
+  : { nav: 'nav', inner: 'container nav__inner', logo: 'logo', mark: 'logo__mark', word: 'logo__word', links: 'nav__links', actions: 'nav__actions', login: 'btn btn--black', cta: 'btn btn--blue', toggle: 'nav__toggle' };
 ---
 <header class={c.nav}>
   <div class={c.inner}>
@@ -71,8 +71,8 @@ const c = b
       )}
     </nav>
     <div class={c.actions}>
-      <a href={V.login[0]} class={c.ghost}>{V.login[1]}</a>
-      <a href={V.cta[0]} class={c.black}>{V.cta[1]}</a>
+      <a href={V.login[0]} class={c.login}>{V.login[1]} <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+      <a href={V.cta[0]} class={c.cta}>{V.cta[1]} <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
     </div>
     <button class={c.toggle} aria-label="Open menu" aria-expanded="false" data-nav-toggle>
       <span></span><span></span>
