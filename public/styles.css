@@ -238,7 +238,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 .nav { position: sticky; top: 0; z-index: 20; background: rgba(246, 243, 241, .88); backdrop-filter: blur(12px); }
 
-.nav__inner { height: 104px; display: flex; align-items: center; gap: 40px; }
+.nav__inner { max-width: none; height: 104px; display: flex; align-items: center; gap: 40px; }
 
 .logo { display: inline-flex; align-items: center; gap: 10px; }
 .logo__word { font-family: var(--font-serif); font-size: 28px; letter-spacing: -0.02em; line-height: 1; }
