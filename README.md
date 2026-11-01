@@ -129,7 +129,7 @@ All videos are built with [HyperFrames](https://github.com/heygen-com/hyperframe
 |---|---|---|---|
 | `media/watch-it-work-v2.*` | 51.5 s | `simple.html` — "Watch it work" | `video/watch-it-work-v2` |
 | `media/clip-research.*` | 10 s | "Ask in plain words" card | `video/clip-research` |
-| `media/clip-approval.*` | 10 s | "Nothing happens without your OK" card | `video/clip-approval` |
+| `media/clip-approval.*` | 10 s | "Critical tasks wait for your approval" card | `video/clip-approval` |
 | `media/clip-more.*` | 18 s | "What you can do" band (coming-soon ideas) | `video/clip-more` |
 | `media/watch-it-work.*` | 12 s | Not used (first version, kept for reference) | `video/watch-it-work` |
 
