@@ -1645,7 +1645,7 @@ const TAB_ORDER = ['shadcn','Tailwind v4','Tailwind v3','CSS','SCSS','MUI','Mant
 function drawExport(){
   $('#exTabs').innerHTML = TAB_ORDER.map(k=>`<button data-v="${k}" aria-pressed="${S.ex===k}">${k}</button>`).join('');
   $('#exOut').textContent = EX[S.ex](); $('#exHint').textContent = HINT[S.ex];
-  $('#exSub').textContent = `${FILE[S.ex]} · light and dark · ${fontName()} · radius ${S.radius}px`;
+  $('#exSub').textContent = 'Choose your format, then copy or download.';
 }
 $('#download').onclick = () => {
   const url = URL.createObjectURL(new Blob([$('#exOut').textContent], {type:'text/plain'}));
