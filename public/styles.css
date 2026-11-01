@@ -842,7 +842,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 }
 
 /* Bento */
-.bento { display: grid; grid-template-columns: 1fr 1.5fr; grid-template-rows: repeat(3, auto); gap: var(--element-gap); }
+.bento { display: grid; grid-template-columns: 1fr 1.5fr; grid-template-rows: repeat(4, auto); gap: var(--element-gap); }
 .bento__card {
   position: relative;
   display: grid;
@@ -857,8 +857,9 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 .bento__card p { color: var(--color-graphite); font-size: var(--text-body-sm); }
 .bento__copy { display: flex; flex-direction: column; gap: 12px; }
 /* the flow takes the card's spare height, so the tall card has no empty bottom */
-.bento__card--tall { grid-row: 1 / span 3; grid-template-columns: 1fr; grid-template-rows: auto auto auto 1fr; gap: 12px; }
-.bento__card--tall .vflow { align-self: stretch; }
+.bento__card--tall { grid-column: 1; grid-row: 1 / span 3; grid-template-columns: 1fr; align-content: start; gap: 12px; }
+.bento__card--under { grid-column: 1; grid-row: 4; grid-template-columns: 1fr; }
+.bento__card--media { grid-column: 2; grid-row: span 2; }
 .card__icon-line { font-size: 20px; line-height: 1; }
 
 /* Clips (HyperFrames renders) inside cards */
@@ -868,7 +869,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 .clip--wide { max-width: 960px; border-radius: 32px; background: var(--color-parchment); }
 
 /* Vertical flow */
-.vflow { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly; gap: 8px; margin-top: 24px; padding: 32px 16px; border-radius: 24px; overflow: hidden; }
+.vflow { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 24px; padding: 32px 16px; border-radius: 24px; overflow: hidden; }
 .vflow__wash { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,148,115,.35), rgba(160,181,235,.4) 55%, rgba(167,252,205,.35)); filter: blur(30px); }
 .vflow__step {
   position: relative;
@@ -983,7 +984,7 @@ code, pre, kbd, samp { font-family: var(--font-mono); font-size: inherit; }
 
 @media (max-width: 1100px) {
   .bento { grid-template-columns: 1fr; }
-  .bento__card--tall { grid-row: auto; }
+  .bento__card--tall, .bento__card--under, .bento__card--media { grid-column: auto; grid-row: auto; }
 }
 
 @media (max-width: 900px) {
