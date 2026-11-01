@@ -286,7 +286,9 @@ svg{flex:none}
 /* export dialog */
 dialog{border:1px solid var(--c-line);border-radius:16px;padding:0;width:min(720px,calc(100vw - 32px));background:var(--c-panel);color:var(--c-text);box-shadow:0 20px 60px rgba(0,0,0,.3)}
 dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
-.dh{padding:18px 20px 0}
+.dh{padding:18px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dh__acts{display:flex;align-items:center;gap:8px;flex:none}
+.dx{border:0;background:none;color:var(--c-muted);font-size:24px;line-height:1;cursor:pointer;padding:2px 4px;margin-left:4px} .dx:hover{color:var(--c-text)}
 .dh h3{margin:0;font-size:16px}
 .dh p{margin:4px 0 0;color:var(--c-muted);font-size:13px}
 .tabs{display:flex;gap:2px;padding:14px 20px 0;flex-wrap:wrap}
@@ -607,19 +609,19 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 </div>
 
 <dialog id="ex">
-  <div class="dh"><h3>Get code</h3><p id="exSub"></p></div>
+  <div class="dh"><div><h3>Get code</h3><p id="exSub"></p></div><span class="dh__acts"><button class="ghost" id="download">Download</button><button class="cta" id="copy">Copy</button><button class="dx" id="exClose" aria-label="Close">&times;</button></span></div>
   <div class="tabs" id="exTabs"></div>
   <pre id="exOut"></pre>
-  <div class="df"><span id="exHint"></span><span style="display:flex;gap:8px"><button class="ghost" id="exClose">Close</button><button class="ghost" id="download">Download</button><button class="cta" id="copy">Copy</button></span></div>
+  <div class="df"><span id="exHint"></span></div>
 </dialog>
 
 <dialog id="gal">
-  <div class="dh"><h3>Browse designs</h3><p id="galSub"></p></div>
+  <div class="dh"><div><h3>Browse designs</h3><p id="galSub"></p></div><button class="dx" id="galClose" aria-label="Close">&times;</button></div>
   <div class="gbar"><input id="galQ" type="search" placeholder="Search: fintech, rounded, blue, pricing, linear…" aria-label="Search designs"><span class="tabs" id="galTh" style="padding:0"></span></div>
   <div class="gfil" id="galFil"></div>
   <div class="ggrid" id="galGrid"></div>
   <div class="gdet" id="galDetail" hidden></div>
-  <div class="df"><span id="galHint">Styles from real sites. Click one to see its full page before applying it.</span><span style="display:flex;gap:8px"><button class="ghost" id="galMore">Show more</button><button class="ghost" id="galClose">Close</button></span></div>
+  <div class="df"><span id="galHint">Styles from real sites. Click one to see its full page before applying it.</span><span style="display:flex;gap:8px"><button class="ghost" id="galMore">Show more</button></span></div>
 </dialog>
 
 
@@ -1604,6 +1606,8 @@ $('#download').onclick = () => {
 $('#exTabs').onclick = e => { const v = e.target.dataset.v; if (v){ S.ex = v; drawExport(); } };
 document.querySelectorAll('[data-open-export]').forEach(b => b.onclick = () => { drawExport(); $('#ex').showModal(); });
 $('#exClose').onclick = () => $('#ex').close();
+// a click on the dimmed area outside a dialog lands on the <dialog> itself: close it
+document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
 $('#copy').onclick = () => { try { navigator.clipboard.writeText($('#exOut').textContent); $('#copy').textContent='Copied'; setTimeout(()=>$('#copy').textContent='Copy',1200); } catch(e){} };
 
 /* ---------- readability check: every text/background pair, WCAG AA ---------- */
