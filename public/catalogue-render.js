@@ -164,7 +164,7 @@ export const groupsHtml = (data, cards) => {
       .filter((cat) => cat.count)
       .map((cat) => groupHtml(cat.name, cat.name, cat.blurb, cards.filter((c) => c.category === cat.name)))
       .join('') +
-    '<p class="cat-empty" hidden data-empty>Nothing matches. Try fewer words, or pick All.</p>'
+    '<div class="cat-empty" hidden data-empty><img class="mascot" src="/mascot/detective.webp" width="365" height="440" alt="" loading="lazy" decoding="async" /><p>Nothing matches. Try fewer words, or pick All.</p></div>'
   );
 };
 

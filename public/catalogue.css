@@ -74,6 +74,12 @@
 .pill--warn { border-color: var(--color-coral); color: #b4462a; }
 
 .cat-empty { padding: 48px 0; color: var(--color-graphite); }
+.cat-empty:not([hidden]) { display: flex; align-items: center; gap: 24px; }
+.cat-empty .mascot { height: 120px; }
+/* 404: the detective stands above the suggestion, in the hero's right column */
+.nf-side { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.nf-side .mascot { height: 200px; }
+@media (max-width: 900px) { .nf-side .mascot { height: 140px; } }
 
 /* Long groups show 9 cards and a button; all cards stay in the HTML. Without JS nothing is hidden. */
 .cat-more { margin-top: 24px; height: 48px; padding: 0 28px; border: 1px solid var(--color-off-black); border-radius: var(--radius-buttons); background: none; font-size: var(--text-body); text-transform: uppercase; letter-spacing: -0.02em; }
