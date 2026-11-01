@@ -23,10 +23,7 @@ const isHidden = (line) => HIDDEN.some((id) => line.includes(id)) || /background
 
 // Safety fixes applied after the copy, until the product repo carries them. Each must still match, or the run fails.
 // [file, exact text, replacement, why]
-const FIXES = [
-  ['skill.md', 'before the workspace accepted the background-checks addendum.', 'before the workspace accepted the required addendum.',
-    'keeps the addendum_required error row without background-check wording'],
-];
+const FIXES = [];
 
 const slug = (name) => name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -52,7 +49,7 @@ function checkLlms() {
 
 if (process.argv[2] === '--check') { checkLlms(); process.exit(0); }
 
-const DEPLOYED = '096d2d59c'; // live API commit, 2026-10-30 (from the orchestrator)
+const DEPLOYED = '894a02364'; // live API commit, 2026-11-01 (from the orchestrator)
 const REF = process.env.SKILLS_REF || DEPLOYED;
 const lab = resolve(root, process.argv[2] ?? '../capabilities-lab');
 const show = (path) => execFileSync('git', ['-C', lab, 'show', `${REF}:${path}`], { encoding: 'utf8', maxBuffer: 64 << 20 });

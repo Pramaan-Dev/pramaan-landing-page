@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -23,6 +23,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `data.author-vizzes.list` | List author vizzes on public.tableau.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `data.channel-vizzes.list` | List channel vizzes on public.tableau.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `data.csv.clean` | Tidy messy CSV text (delimiters, encodings, quotes, stray commas) and return clean CSV. | Per successful call; quote exact input for the maximum price. |
 | `data.csv.to-json` | Convert CSV text to JSON rows, with the detected delimiter and columns. | Per successful call; quote exact input for the maximum price. |
 | `data.fake.generate` | Make up realistic example records (names, addresses, emails) for testing, in a chosen locale. | Per successful call; quote exact input for the maximum price. |
@@ -37,6 +39,13 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `data.monitor.search.preview` | Check a saved-search monitor before creating it: whether the search can be watched, how many records it covers, a sample of them, and what one delivered record will cost on the tier you chose. Nothing is created and nothing is charged. | Per successful call; quote exact input for the maximum price. |
 | `data.monitor.track.preview` | Try a watched-list monitor's track before creating anything: the sample change and record a real delivery would carry, with the track validated exactly as the create capabilities would validate it. Nothing is saved and nothing is charged. | Per successful call; quote exact input for the maximum price. |
 | `data.monitor.update` | Pause, resume, reschedule or edit a monitor you own: the schedule, the per-run cap, the freshness tier (watched-list people) and the watched list (watched-list monitors). Filters and track are fixed at creation. A change that would raise the monthly worst case is declined. Returns the monitor's current state. | Per successful call; quote exact input for the maximum price. |
+| `data.trending-vizzes.list` | List trending vizzes on public.tableau.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `data.vehicle-datasets.list` | List public vehicle image datasets on roboflow.com. | Per successful call; quote exact input for the maximum price. |
+| `data.vision-dataset.get` | Read a public computer vision dataset and its image counts on roboflow.com. | Per successful call; quote exact input for the maximum price. |
+| `data.vision-datasets.search` | Search public computer vision datasets by keyword on roboflow.com. | Per successful call; quote exact input for the maximum price. |
+| `data.visualization-catalog.get` | List curated public visualization channels and descriptions on public.tableau.com. | Per successful call; quote exact input for the maximum price. |
+| `data.viz.get` | Read viz on public.tableau.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `data.vizzes.search` | Search vizzes on public.tableau.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `document.contract.extract` | Read a contract and pull out its parties, dates, payment terms, governing law and other key terms. | Per successful call; quote exact input for the maximum price. |
 | `document.convert` | Convert one image or PDF up to 1 MiB into another format, or one DOCX up to 100 MB into PDF, returning a hosted file. Office layout can shift when fonts are missing or documents contain SmartArt, fields, tracked changes or charts. DOCX conversion usually costs USD 0.06, with up to USD 0.30 held per file at a provisional rate. May process personal document contents; conversion is not verification. | Per successful call; quote exact input for the maximum price. |
 | `document.convert-bulk` | Convert up to 10 documents as one background job, up to 100 MB in total. DOCX conversion usually costs USD 0.06 per row, with up to USD 3.00 held for 10 rows at a provisional rate. Each result carries your row id. Unanswered rows are free. DOCX to PDF may shift Office layout and may process personal document contents. | Per successful call; quote exact input for the maximum price. |

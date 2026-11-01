@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 

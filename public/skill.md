@@ -25,17 +25,19 @@ API paths still read `/v1/capabilities` and `/v1/outcomes`; SDK and MCP names ke
 1. Join the waitlist at https://app.pramaan.dev. Accounts open by approval.
 2. Once approved, make a key in the app: **Settings > Keys**. Keep it on your server, out of
    chats, logs and browser code.
-3. Choose MCP, the TypeScript SDK, or HTTP (full reference below):
+3. Choose MCP, the TypeScript SDK, HTTP (full reference below), or the CLI:
    - MCP: `PRAMAAN_API_KEY=... npx @pramaan/mcp`.
    - SDK: `npm install @pramaan/sdk`, then `new Pramaan({ apiKey: process.env.PRAMAAN_API_KEY! })`.
    - HTTP: `https://api.pramaan.dev`, with `Authorization: Bearer <key>`.
+   - CLI: `npx @pramaan/cli` (command `pramaan`: `list`, `describe`, `quote`, `run`, `missions`,
+     `job`, `balance`), for example `pramaan quote web.search --input '{"query":"..."}'`.
 
 Hosted MCP: `https://mcp.pramaan.dev` (OAuth sign-in or a Pramaan API key).
-The API is live; `@pramaan/mcp` and `@pramaan/sdk` are on npm.
+The API is live; `@pramaan/mcp`, `@pramaan/sdk` and `@pramaan/cli` are on npm.
 
 ## Search first, every time
 
-1. **Search the catalogue.** Search about 3,400 superpowers with `list_capabilities` and a
+1. **Search the catalogue.** Search about 3,600 superpowers with `list_capabilities` and a
    focused `query`, or list missions. Filter by namespace (`web`, `email`, `voice`).
 2. **Read the schema.** Describe the match. Never guess a field.
 3. **Quote.** Call `quote` with the exact input. Check `can_run`, show `price_max_micro`,
@@ -51,8 +53,11 @@ options apply only to missions. Superpowers also accept `account`, `end_user` an
 It returns `price_max_micro`, `can_run`, `message`, and a `plan` for missions.
 If `can_run` is false, resolve the stated need before running. Show the maximum price
 before asking for approval. A quote changes nothing and is not approval.
-Quote again when input or options change. `run_outcome` checks a fresh plan and asks
-for approval when needed.
+Quote again when input or options change. Every mission run checks a fresh plan. Who asks for
+approval depends on the path: over MCP, `run_outcome` asks the person when the plan needs a yes.
+Over the SDK and HTTP nothing asks; a plan that needs approval is refused (`approval_required`)
+unless you send the approved plan (`Pramaan-Plan` header) or a signed-in member approves it in
+the app (see `/v1/approvals` below).
 
 Prefer a mission when the person wants a business result ("research this company"). Prefer a
 superpower when they want one action ("search the web").
@@ -115,7 +120,7 @@ These seven ids are listed in the `db` catalogue even when their source is switc
 are built but not live-verified; availability must not be inferred from being listed. Each
 uses the caller's project and environment, never an input resource id. This is a database to
 connect to directly, separate from `db.backend.*` app backends and connected-account row calls;
-there is no SQL query superpower. See [the builder guide](https://github.com/Pramaan-Dev/capabilities-lab/blob/main/docs/guides/postgres.md).
+there is no SQL query superpower.
 
 | Id | Input | Result and safety |
 |---|---|---|
@@ -188,9 +193,10 @@ chat. Check credit and spending limits with `get_balance` / `p.balance()` / `GET
 and daily usage with `get_usage` / `p.usage()` / `GET /v1/usage`. Stop on a spending cap and let
 the person adjust their balance or limits; do not work around it with another key.
 
-## Three ways in
+## Four ways in
 
-All three reach the same API and obey the same rules.
+All four reach the same API and obey the same rules. The CLI (`npx @pramaan/cli`) wraps the
+same calls as the SDK; the other three are below.
 
 ### 1. MCP tools
 
@@ -327,12 +333,18 @@ Base URL `https://api.pramaan.dev`. Every `/v1` request carries `Authorization: 
 | `POST /v1/outcomes/{id}` | Run. The body is `{ input, options, basis }`; an approved plan goes in the `Pramaan-Plan` header |
 | `GET /v1/accounts` | Connected accounts |
 | `GET /v1/balance` | `balance_micro`, `today_spend_micro`, `daily_cap_micro` (null means no daily cap), `daily_cap_message`, `held_micro` |
+| `GET /v1/approvals`, `GET /v1/approvals/{id}` | Calls waiting for a person's yes. `?status=pending` (default), `decided`, `expired` or `all` for the history; each row has `status`, and once decided `decided_by`, `decided_at` and `note`. Only a person sees them: a member's session, or an app's member token (OAuth sign-in, `pramaan:approve`); a key gets 403 |
+| `POST /v1/approvals/{id}/decide` | Approve or reject a waiting call: `{ "decision": "approve" \| "deny", "note"?: "..." }` (note: the person's own words, at most 500 characters, never logged). Only a member signed in to the workspace who may approve can decide; a key, an app or an agent on its own gets 403. Already decided or expired: 409. An approved call runs once, as the caller who sent it |
+| `GET /v1/members/me` | Who the caller is: `member_id`, `role`, `may_approve`, and `can_decide` (whether this caller may decide approvals now; a key never). A key acting for the workspace gets 403 |
 | `GET /v1/usage` | Spend per day and superpower. `?from=` and `?to=` are dates (`YYYY-MM-DD`); the default is the last 30 days |
 | `GET /openapi.json` | The full machine-readable reference. Needs no key |
 
 Headers on a superpower run:
 
 - `Idempotency-Key: <your key>`: required on any call that acts outside. 1 to 255 characters.
+- `Pramaan-Max-Price-Micro: <n>`: the most this call may cost, in micro-USD (a whole number
+  above 0); the SDK's `maxPriceMicro`. Sources that could cost more are left out, and the call
+  is refused if none is left.
 - `Pramaan-Account`, `Pramaan-End-User`, `Pramaan-End-User-Group`: the same as `account`,
   `end_user` and `end_user_group`. They are refused on a mission.
 - The price charged for a sync call comes back in the `X-Pramaan-Price-Micro` response header.

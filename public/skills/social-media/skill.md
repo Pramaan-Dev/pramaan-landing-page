@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -44,6 +44,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `bilibili.video.parts` | List a Bilibili video's parts (pages), with each part's title and length. | Per successful call; quote exact input for the maximum price. |
 | `bilibili.video.resolve` | Turn a Bilibili video's BV id (as in its address) into its older numeric AV id. | Per successful call; quote exact input for the maximum price. |
 | `bilibili.video.subtitles` | Get a video's subtitles on Bilibili. | Per successful call; quote exact input for the maximum price. |
+| `bilibili.videos.ranking.list` | List ranked Bilibili videos for a content category on t.bilibili.com. | Per successful call; quote exact input for the maximum price. |
 
 ### Bluesky
 
@@ -246,6 +247,27 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `brand.styleguide` | A website's visual identity: colors, fonts (with font links) and spacing, from its domain. | Per successful call; quote exact input for the maximum price. |
 | `brand.transaction.enrich` | Identify a merchant or clean a transaction descriptor, with optional real transaction and account-holder context. May return personal names. No person is scored or ranked. Optional logo copies cost at most $0.06; each file is capped at 10 MiB. | Per successful call; quote exact input for the maximum price. |
 | `brand.typography.get` | Curated title and body fonts; does not report measured font stacks. Worst-case lookup $0.10. | Per successful call; quote exact input for the maximum price. |
+| `communities.arabic-posts.list` | List recent Arabic community discussions without member profiles on io.hsoub.com. | Per successful call; quote exact input for the maximum price. |
+| `communities.archive-boards.list` | List the public discussion boards available in the archive on archive.4plebs.org. | Per successful call; quote exact input for the maximum price. |
+| `communities.blog-groups.search` | Search public blogging communities by topic on tumblr.com. | Per successful call; quote exact input for the maximum price. |
+| `communities.community-threads.get` | Read community threads on kaskus.co.id. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `communities.game-thread.get` | Read a game discussion title and opening message without its author profile on steamcommunity.com. | Per successful call; quote exact input for the maximum price. |
+| `communities.hot-threads.get` | Read hot threads on kaskus.co.id. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `communities.indonesian-groups.list` | List popular Indonesian discussion communities and activity counts on kaskus.co.id. | Per successful call; quote exact input for the maximum price. |
+| `communities.indonesian-threads.search` | Search Indonesian discussion titles and opening text on kaskus.co.id. | Per successful call; quote exact input for the maximum price. |
+| `communities.industry-posts.list` | List recent industry discussion titles and content previews on gfy.com. | Per successful call; quote exact input for the maximum price. |
+| `communities.post-comments.get` | Read post comments on io.hsoub.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `communities.stories.best.list` | List highest rated community story titles and previews without author profiles on pikabu.ru. | Per successful call; quote exact input for the maximum price. |
+| `communities.stories.community.list` | List community community story titles and previews without author profiles on pikabu.ru. | Per successful call; quote exact input for the maximum price. |
+| `communities.stories.hot.list` | List trending community story titles and previews without author profiles on pikabu.ru. | Per successful call; quote exact input for the maximum price. |
+| `communities.stories.new.list` | List newest community story titles and previews without author profiles on pikabu.ru. | Per successful call; quote exact input for the maximum price. |
+| `communities.story-details.get` | Read story details on pikabu.ru. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `communities.thread-posts.get` | Read thread posts on kaskus.co.id. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `communities.thread.get` | Read thread — car forum. | Per successful call; quote exact input for the maximum price. |
+| `communities.user-profile.get` | Read user profile on pikabu.ru. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `community.board.info.get` | Read an investor discussion board's metadata and follower count. | Per successful call; quote exact input for the maximum price. |
+| `community.forum-categories.list` | List a consumer-finance forum's categories with activity counts. | Per successful call; quote exact input for the maximum price. |
+| `community.trending-stocks.list` | List tickers ranked by discussion activity. | Per successful call; quote exact input for the maximum price. |
 | `creators.analytics` | Read an Instagram creator's public engagement picture - typical likes and comments, posting pace, hashtags and brand mentions. No income estimate, audience-credibility score or follower list is returned. Returns personal data: the creator's public handle and the public figures of their posts. | Per successful call; quote exact input for the maximum price. |
 | `creators.audience.get` | Get a public creator’s aggregate audience shares, never individual followers. Sample date may be unknown. Estimated report maximum: 20 USD. | Per successful call; quote exact input for the maximum price. |
 | `creators.audience.overlap` | Compare the audiences of 2 to 10 creators on one platform: how many followers they have in all, how many are unique, and for each creator the share of followers also following another of them. No engagement figure or rate of a creator is returned. Returns personal data: the public handles and follower counts of the creators compared. Returns personal data: the public handles and follower counts of the creators compared. | Per successful call; quote exact input for the maximum price. |
@@ -269,9 +291,18 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `social.account.connect.start` | Start connecting a social account: returns a sign-in link for the person who owns it, and a ref to check the outcome. | Per successful call; quote exact input for the maximum price. |
 | `social.account.connect.status` | Check a connect flow started with social.account.connect.start: pending, or connected with the new account. | Per successful call; quote exact input for the maximum price. |
 | `social.account.disconnect` | Disconnect one of your connected social accounts. | Per successful call; quote exact input for the maximum price. |
+| `social.account.get` | Read account on truthsocial.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.account.health.get` | Read health, permissions and connection status of your connected account; returns its handle and display name. | Per successful call; quote exact input for the maximum price. |
 | `social.account.health.list` | List health of your connected accounts, including inactive accounts; returns your account handles and display names. | Per successful call; quote exact input for the maximum price. |
 | `social.accounts.list` | List the social accounts you connected; use their accountId with social.post.publish. | Per successful call; quote exact input for the maximum price. |
+| `social.air-kisses.count` | Read the total number of air kisses recorded by the public counter on sharemyhtml.com. | Per successful call; quote exact input for the maximum price. |
+| `social.blog-posts.search` | Search public blog post summaries without author profiles on tumblr.com. | Per successful call; quote exact input for the maximum price. |
+| `social.by-hashtag.search` | Search by hashtag on tiktok.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.channel-history.get` | Read channel history on socialblade.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.channel-milestones.get` | Read channel milestones on socialblade.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.channel.get` | Read channel on socialblade.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.channels.search` | Search channels on socialblade.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.comments.get` | Read comments on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.comments.hide` | Hide a comment on your post from everyone but its author; undo with social.comments.unhide. | Per successful call; quote exact input for the maximum price. |
 | `social.comments.list` | List the comments on one of your posts, or the replies to one comment. | Per successful call; quote exact input for the maximum price. |
 | `social.comments.posts.list` | List your posts that have comments, newest first; use a post id with social.comments.list. | Per successful call; quote exact input for the maximum price. |
@@ -301,13 +332,24 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `social.connect.whatsapp.embedded.config.get` | The app id and configuration id a builder needs to open the WhatsApp embedded signup popup on their own page, plus its branding when set. Pair it with social.connect.whatsapp.embedded.code.redeem, which completes the code the popup reports. | Per successful call; quote exact input for the maximum price. |
 | `social.connect.whatsapp.phone-number.select` | Finish connecting WhatsApp by binding the phone number the person picked: exchanges the sign-in's short-lived grant for the connection and subscribes the business account. Pass the connect redirect's flow value and the number's id with its business account id, from social.connect.whatsapp.phone-numbers.list. The flow's credentials stay server-side. Acts only on the caller's own pending connection; the connected account then shows up in social.accounts.list. | Per successful call; quote exact input for the maximum price. |
 | `social.connect.whatsapp.phone-numbers.list` | The phone numbers a connecting WhatsApp sign-in can bind, listed for the choice a connect flow is waiting for (a business account with several numbers). Pass the connect redirect's flow value; the flow's short-lived credentials stay server-side. Works only on the caller's own pending connection. | Per successful call; quote exact input for the maximum price. |
+| `social.content.search` | Search content on instagram.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.creator-details.get` | Read creator details on patreon.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.creator-engagement.get` | Read creator engagement on tiktok.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.creator.search` | Search creator. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.creators.search` | Search creators on patreon.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.feed.list` | List feed on xiaohongshu.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.googlebusiness.location.select` | Select an accessible business location on your connected Google Business account. Checks the location and its native owner before changing it. | Per successful call; quote exact input for the maximum price. |
 | `social.inbox.conversation.delete` | Permanently erase a stored inbox conversation and its messages. The original platform thread and contact record remain. Preview by default; send an Idempotency-Key when deleting. | Per successful call; quote exact input for the maximum price. |
 | `social.inbox.conversations.list` | List direct-message conversations on your connected social accounts, newest first. | Per successful call; quote exact input for the maximum price. |
 | `social.inbox.message.reply` | Send a direct-message reply in a conversation on your connected account. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `social.inbox.message.share` | Share an owned Instagram post or a heart sticker in an existing conversation. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `social.inbox.messages.list` | List the messages in one direct-message conversation, newest first. | Per successful call; quote exact input for the maximum price. |
+| `social.influencer-contact-email.get` | Read influencer contact email. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.influencer-linked-accounts.get` | Read influencer linked accounts. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.management-faqs.list` | Read the public questions and answers about social account management on krowdly.net. | Per successful call; quote exact input for the maximum price. |
+| `social.management-services.list` | List the social account management services offered on the public product page on krowdly.net. | Per successful call; quote exact input for the maximum price. |
 | `social.mentions.list` | List posts that mention your connected accounts, newest first. | Per successful call; quote exact input for the maximum price. |
+| `social.post-details.get` | Read post details on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.post.analytics` | Use when you read engagement and performance for one social post; for its content and status use social.post.get. Likes, comments, shares and views per platform for a post you published. Pass the ref that social.post.publish returned. | Per successful call; quote exact input for the maximum price. |
 | `social.post.approval.review` | Use when you approve or reject a social post awaiting review; for publishing a new post use social.post.publish. Approve or reject a post awaiting review. Approving after its schedule may publish it shortly. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `social.post.delete` | Use when you delete a saved social post; for taking a published post offline use social.post.unpublish. Delete a post that is not live: a draft, scheduled, publishing, partial, failed or cancelled post, with its schedule and any queued slot. A published post cannot be deleted — take it down with social.post.unpublish first. This cannot be undone. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
@@ -322,16 +364,39 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `social.post.validate.media` | Use when you check social post media before publishing; for publishing use social.post.publish. Check a media URL before attaching it to a post: is the file reachable over HTTPS, what type and size does it report, and does it fit each platform's size cap. A page that returns HTML instead of the file reports as not valid. | Per successful call; quote exact input for the maximum price. |
 | `social.post.validate.post` | Use when you check whether a social post is valid before publishing; for publishing use social.post.publish. Dry-run the checks a post goes through at publish time, without publishing: media a platform requires, hashtag limits, thread shape, character limits per target (on x, against the account's own limit). Returns per-platform errors, plus warnings for content near a limit. Nothing is published and no account is changed. | Per successful call; quote exact input for the maximum price. |
 | `social.post.validate.subreddit` | Use when you check a subreddit before posting there; for publishing use social.post.publish. Check that a subreddit exists and what it allows before posting to it: whether it is public, how many members it has, and whether image and video posts are allowed. Use it with the subreddit rules before your first post in a community. | Per successful call; quote exact input for the maximum price. |
+| `social.posts.get` | Read posts on truthsocial.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.posts.import` | Create many posts at once from a CSV file you uploaded: one data row per post, with the columns post_content, title, media_urls, platforms (comma-separated), a schedule (schedule_time with tz, or publish_now=true, use_queue=true, or is_draft=true), per-platform overrides (schedule_time_<platform>, custom_content_<platform>, custom_media_<platform>), and document or audio attachment columns. At most 5,000 data rows and 10 MB. Runs as a job; the result says what every row did, in file order. dryRun defaults to true: a first call checks the file and creates nothing. Posts that were created are read back with social.posts.list. An unclear outcome is not retried. | Per successful call; quote exact input for the maximum price. |
 | `social.posts.list` | Use when you show posts already on a social account; for publishing a new post use social.post.publish. List the posts on your profile: drafts, scheduled, published, partial, failed and cancelled, oldest handles included. Use each row's ref with social.post.update, social.post.edit, social.post.delete, social.post.retry, social.post.unpublish and social.post.metadata.update. | Per successful call; quote exact input for the maximum price. |
+| `social.posts.search` | Search posts on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.profile-details.get` | Read profile details on tiktok.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.profile-project.search` | Find profile project on behance.net. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.profile-projects.list` | List profile projects on behance.net. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.profile.get` | Read profile on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.profile.search` | Search profile on tumblr.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.projects.list` | List projects on artstation.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.create` | Create a recurring posting schedule (queue) on your profile: named slots in one timezone, such as weekday mornings. The first queue on a profile becomes its default; later ones need setAsDefault or a queueId to be used. Posts scheduled through a queue land on the next free slot in order. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.delete` | Delete a recurring posting schedule (queue) by its queueId. Posts already waiting in it are not deleted; they keep their assigned times. With all: true, every queue on your profile is deleted — the default slot schedule included. Deleting cannot be undone. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.list` | List the recurring posting schedules (queues) on your profile: their slots, timezone and the next times each would assign. Posts scheduled through a queue land on the next free slot in order. Queue ids from here work with the other social.queue.slots.* capabilities. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.next` | Show the next time a queue would assign, without scheduling anything. Schedule through the post capabilities' queue fields rather than copying this time into a schedule: copying skips the queue's lock, and two posts can land on the same slot. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.preview` | Show the next posting times a queue would assign, in order, without scheduling anything. Useful for showing a user when their queued posts would go out. | Per successful call; quote exact input for the maximum price. |
 | `social.queue.slots.update` | Change a recurring posting schedule (queue): its name, timezone, slots, on/off switch, or make it the default. Without a queueId the profile's default queue is changed. Posts already waiting keep their times unless reshuffleExisting is set. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
+| `social.reel-details.get` | Read reel details on instagram.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `social.reviews.list` | List reviews of your connected business pages, newest first. | Per successful call; quote exact input for the maximum price. |
 | `social.reviews.reply` | Publicly reply to a review of your connected business page. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
+| `social.short-video.metrics.get` | Read the public view, like, share and comment counts of a short video on likee.video. | Per successful call; quote exact input for the maximum price. |
+| `social.threads-post.get` | Read post on threads.net. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.top-channels.list` | List top channels on socialblade.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.top-instagram-influencers.get` | Read top instagram influencers. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.transcript.get` | Read transcript on tokscript.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.tweet.get` | Read tweet on sotwe.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-artworks.get` | Read user artworks on deviantart.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-created-pins.get` | Read user created pins on au.pinterest.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-posts.get` | Read user posts on snapchat.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-profile.get` | Read user profile on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-reposts.get` | Read user reposts on tiktok.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.user-tweets.get` | Read user tweets on sotwe.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.users.search` | Search users on the chosen site. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
+| `social.userspage.get` | Read userspage on straw.page. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 
 ### Instagram
 
@@ -378,7 +443,9 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `kick.channel.live-status.get` | Check whether a channel is live and read its current broadcast title on kick.com. | Per successful call; quote exact input for the maximum price. |
 | `kick.clip.detail` | Read a public Kick clip title, publication date and engagement counts. | Per successful call; quote exact input for the maximum price. |
+| `kick.streams.list` | List current live broadcasts by category and audience size on kick.com. | Per successful call; quote exact input for the maximum price. |
 
 ### Kuaishou
 
@@ -458,6 +525,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `linkedin.search.locations` | Find public professional-network location names and the geographic ids used to filter searches. | Per successful call; quote exact input for the maximum price. |
 | `linkedin.search.posts` | Search professional-network posts by keyword, author, employer or hashtag, newest first. Priced per post returned, so a smaller limit costs less. | Per successful call; quote exact input for the maximum price. |
 | `linkedin.services.search` | Search the people and firms that offer services on LinkedIn by keyword, with what they offer and where they are. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links. | Per successful call; quote exact input for the maximum price. |
+| `linkedin.topics.list` | Browse the public discussion-topic directory, with topic labels and page addresses on linkedin.com. | Per successful call; quote exact input for the maximum price. |
 | `linkedin.user.comments` | List the comments a LinkedIn member has made on posts, with the text and the post each was made on. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links. | Per successful call; quote exact input for the maximum price. |
 | `linkedin.user.posts` | List a LinkedIn member's recent posts with text, date, media and engagement. | Per successful call; quote exact input for the maximum price. |
 | `linkedin.user.profile` | Get a LinkedIn member's public profile: name, headline, location, about and audience. | Per successful call; quote exact input for the maximum price. |
@@ -548,6 +616,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `communities.threads.search` | Search threads — car forum. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `threads.post.detail` | Read a public Threads post and its like count, omitting author profiles. | Per successful call; quote exact input for the maximum price. |
 | `threads.search.posts` | Search Threads posts by keyword. | Per successful call; quote exact input for the maximum price. |
 | `threads.search.profiles` | Search Threads profiles by keyword, with their names and whether they are verified. Returns personal data: the public Threads usernames and names of the people involved. | Per successful call; quote exact input for the maximum price. |
@@ -726,6 +795,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `x.user.profile` | Get an X (Twitter) user's public profile: name, bio, follower and post counts. | Per successful call; quote exact input for the maximum price. |
 | `x.user.replies` | X (Twitter) user's replies by handle. Returns personal data: public names, profile details and published content. | Per successful call; quote exact input for the maximum price. |
 | `x.users.search` | Search accounts on X by keyword, with their names, bios and follower counts. Returns personal data: the public X handles and names of the people involved. | Per successful call; quote exact input for the maximum price. |
+| `x.worldwide-trends.list` | List worldwide trending topic names and their current positions on trends24.in. | Per successful call; quote exact input for the maximum price. |
 
 ### Xiaohongshu
 
@@ -779,6 +849,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `social.youtube.playlists.list` | List playlists on your connected YouTube channel, including private titles and descriptions. | Per successful call; quote exact input for the maximum price. |
 | `youtube.activities.list` | List public activity from a YouTube channel without reading a connected account. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.contact` | The email address a YouTube channel published for business enquiries, by the channel's handle or id. It is the address the channel itself made public, which is often a person's own. Returns personal data: the business email address the channel published, which is often a person's own. | Per successful call; quote exact input for the maximum price. |
+| `youtube.channel.live-status.get` | Check whether a YouTube channel is currently broadcasting live on youtube.com. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.lives` | List a YouTube channel's live streams, past and current, with their titles and views. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.playlists` | List a YouTube channel's public playlists, with how many videos each holds. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.posts` | List a YouTube channel's community posts, newest first, with their text and likes. | Per successful call; quote exact input for the maximum price. |
@@ -787,6 +858,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `youtube.channel.sections` | List the named sections of a channel's page, such as its featured playlists, in the order the channel arranged them. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.shorts` | List a YouTube channel's Shorts, with their titles, views and likes. | Per successful call; quote exact input for the maximum price. |
 | `youtube.channel.videos` | List a YouTube channel's recent videos with titles, dates, views and durations. | Per successful call; quote exact input for the maximum price. |
+| `youtube.channels.search` | Search channels on youtube.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `youtube.comment.detail` | Read a public YouTube comment by its public comment id, omitting the author profile. | Per successful call; quote exact input for the maximum price. |
 | `youtube.comment.replies` | List the replies to a comment on a YouTube video, using the replies token that a comment listing returns. Returns personal data: the public channel names and handles of the people who posted. | Per successful call; quote exact input for the maximum price. |
 | `youtube.playlist.images` | List a playlist's cover images with their pixel sizes. | Per successful call; quote exact input for the maximum price. |
@@ -797,6 +869,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `youtube.search.suggestions` | The searches YouTube suggests for a partly typed keyword. | Per successful call; quote exact input for the maximum price. |
 | `youtube.search.videos` | Search YouTube videos by keyword; returns titles, channels, views, durations and thumbnails. | Per successful call; quote exact input for the maximum price. |
 | `youtube.trending.videos` | Read the first page of trending public YouTube Shorts. | Per successful call; quote exact input for the maximum price. |
+| `youtube.video-transcript.get` | Read video transcript on youtube.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `youtube.video.comments` | List the top comments on a YouTube video, by video id or URL. | Per successful call; quote exact input for the maximum price. |
 | `youtube.video.detail` | Get one YouTube video's title, description, channel, date, views and duration. | Per successful call; quote exact input for the maximum price. |
 | `youtube.video.related` | List videos recommended alongside a public YouTube video. | Per successful call; quote exact input for the maximum price. |
@@ -849,6 +922,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `douyin.creator.vet` | Vet an explicitly selected marketplace creator with separate pricing, follower, audience, conversion and cost-performance reports. | Sum of step prices; quote exact input and options for the maximum price. |
 | `douyin.index.report` | Index update dates, categories, recommended reports and current keyword observations, with a sourced written account. | Sum of step prices; quote exact input and options for the maximum price. |
 
 ### Facebook

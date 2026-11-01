@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -60,6 +60,9 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | Id | What it does | Price basis |
 |---|---|---|
 | `tiktok-ads.ad.detail` | Read a public TikTok ad library creative and engagement counts. | Per successful call; quote exact input for the maximum price. |
+| `tiktok-ads.library-ad.get` | Read an archived short-video ad and its disclosed delivery details on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |
+| `tiktok-ads.library-regions.list` | List the countries supported by the public short-video ad archive on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |
+| `tiktok-ads.library.search` | Search the public short-video ad archive by advertiser or keyword on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |
 | `tiktok-ads.locations` | List the countries TikTok's ad library and trend pages can be filtered by, with the code each takes. | Per successful call; quote exact input for the maximum price. |
 | `tiktok-ads.top-ads` | List featured public TikTok advertisements. Returns personal data: public names, profile details and published content. | Per successful call; quote exact input for the maximum price. |
 

@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -23,6 +23,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `ai-models.announcement.get` | Read a public model research or product announcement on chat.deepseek.com. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.announcements.list` | List public model research and product announcement summaries on chat.deepseek.com. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.best-coding-models` | Get best coding models. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.image-edit-leaderboard` | Get image-editing leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.image-to-video-leaderboard` | Get image-to-video leaderboard. | Per successful call; quote exact input for the maximum price. |
@@ -34,8 +36,19 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `ai-models.arena.text-to-video-leaderboard` | Get text-to-video leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.vision-leaderboard` | Get vision leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.cost-per-task` | Get cost per task. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.datasets.list` | List public machine-learning datasets with download counts on modelscope.cn. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.demos.list` | List public machine-learning demonstration apps with activity and topic metadata on huggingface.co. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.disclosures.list` | List publicly disclosed models with release labels and versions on chat.deepseek.com. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.discovery-filters.get` | Read public model publisher and task filter names on kie.ai. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.hub-models.list` | List the AI model names a model hub or provider publishes, on the chosen site. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.llm-providers-leaderboard` | Get provider leaderboard. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.math-scores.list` | List public model benchmark scores for mathematical task tiers on epoch.ai. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.math-tier13-scores.list` | List public model scores on tiers one to three mathematical tasks on epoch.ai. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.math-tier4-scores.list` | List public model scores on tier four mathematical tasks on epoch.ai. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.models-list` | List models. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.public-releases.list` | List published language model variants and release metadata on artificialanalysis.ai. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.published-token-prices.list` | Read published model token-price labels, amounts, currencies and billing units on chat.deepseek.com. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.publishers.list` | List publicly documented model publishers and their model counts on mastra.ai. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.speech-image-video-models` | List speech, image and video models. | Per successful call; quote exact input for the maximum price. |
 | `ai.judgment.calibrated` | Return a decision model's probability for each supplied option using your question and context. These are model estimates, not a guarantee of accuracy or measured calibration on your data. Evaluate thresholds on your own labelled examples before acting on them. | Per successful call; quote exact input for the maximum price. |
 | `gpu.endpoint.create` | Create a named compute endpoint; nonzero minimum workers incur ongoing usage charges. Container settings may contain personal data. | Per successful call; quote exact input for the maximum price. |
@@ -49,6 +62,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `gpu.job.cancel` | Stop a job you submitted that is still queued or running. A job already ended is left as it is. The compute a stopped job used is charged to the job itself, not to this call. | Per successful call; quote exact input for the maximum price. |
 | `gpu.job.get` | Read the state and result of a job you submitted. The provider keeps a finished job's result for about 30 minutes; after that the job is not found. Does not charge again. | Per successful call; quote exact input for the maximum price. |
 | `gpu.job.submit` | Run one job on a GPU endpoint you created, and wait for it. Your own container runs your code, so it may have its own outside effects. At the time limit the job is cancelled and ends as timed_out. A worker that fails or is stopped at the limit is still charged for the compute it used. Holds up to about $87 for a one-hour limit. Send an Idempotency-Key: a retry returns the first job and is never run twice. | Per successful call; quote exact input for the maximum price. |
+| `gpu.published-rental-prices.list` | Read GPU rental rates and provisioning terms from a selected public pricing page. Rates retain the page unit and exclude account operations. | Per successful call; quote exact input for the maximum price. |
 | `gpu.queue.purge` | Remove waiting jobs from your queue; running containers continue and may have their own external effects. | Per successful call; quote exact input for the maximum price. |
 | `gpu.registries.list` | List only your named registries, without secret values. | Per successful call; quote exact input for the maximum price. |
 | `gpu.registry.create` | Save a named registry credential upstream; its secret is forwarded once, never logged, saved here or returned. | Per successful call; quote exact input for the maximum price. |

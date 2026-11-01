@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -56,6 +56,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `auth.users.list` | List or search the users of your app's connected auth system. | Per successful call; quote exact input for the maximum price. |
 | `compliance.aml.score` | Combine country, sanctions, politically exposed person and adverse media signals into one anti-money-laundering risk level. | Per successful call; quote exact input for the maximum price. |
 | `compliance.dpa.lookup` | The data protection authority of an EU or EEA country, with its contacts and complaint link. | Per successful call; quote exact input for the maximum price. |
+| `compliance.pep-categories.list` | List public politically exposed person list categories and aggregate counts, without individual records on trademo.com. | Per successful call; quote exact input for the maximum price. |
+| `compliance.sanctions-categories.list` | List public sanctions-list categories with aggregate list and entity counts on trademo.com. | Per successful call; quote exact input for the maximum price. |
 | `compliance.vasp.check` | Check whether a crypto-asset service provider is authorised under the EU MiCA register. | Per successful call; quote exact input for the maximum price. |
 | `compliance.website.gdpr` | Scan a website for data protection signals (cookie consent, privacy policy, trackers, security headers) and grade it. | Per successful call; quote exact input for the maximum price. |
 | `compliance.work-permit.check` | Whether a citizen of one country needs a work permit for another, and which kinds apply. | Per successful call; quote exact input for the maximum price. |
@@ -114,6 +116,21 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `identity.verification.retry` | Repeat selected owned verification checks, up to 20 actions. Sends the retry reason to the person when requested and charges selected check units at acceptance. | Per successful call; quote exact input for the maximum price. |
 | `identity.verification.update` | Record your own final decision on one hosted identity verification: approve it, decline it, or send it back to the person to redo. Approving or declining changes a person's verification outcome and cannot be undone by this call alone (each later overturns the other). Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `identity.verifications.list` | List the identity verifications of your account, newest first, with their status, end user and document facts. Each row carries a ref for the follow-up calls that read, correct or delete that verification. Carries personal data about the people verified. | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.case.get` | Read a High Court of Australia Full Court case file from the current or decided register. | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.cases.list` | Lists Full Court cases from the High Court's Current Cases or Decided Cases register (cases referred to the Full Court since February 2011), a page per call, | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.clr-case.get` | Read a digitised Commonwealth Law Reports case page by its slug. | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.clr.search` | Searches the High Court's digitised Commonwealth Law Reports, volumes 1 to 100 (1903-1959, 3,702 reported cases), and returns a page of case summaries: title, | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.judgment.get` | Read a High Court of Australia judgment by its slug: citation, date, case number, bench and text. | Per successful call; quote exact input for the maximum price. |
+| `law.au-high-court.judgments.search` | Searches the High Court's published judgments from 1998 to the present and returns a page of judgment summaries (title, neutral citation, bench, judgment date | Per successful call; quote exact input for the maximum price. |
+| `law.au-jade.citation.get` | Look up an Australian legal case by its medium neutral citation components (year, court code, and case number). Returns the case name, full citation, the numeri | Per successful call; quote exact input for the maximum price. |
+| `law.au-jade.recent-cases.list` | List the most recently published High Court of Australia (HCA) decisions that JADE currently features (a record per judgment). | Per successful call; quote exact input for the maximum price. |
+| `law.au-sa-legislation.legislation.search` | Full-text search of the South Australian legislation register. | Per successful call; quote exact input for the maximum price. |
+| `law.au-sa-legislation.versions.get` | Read the home page of a piece of South Australian legislation: its title, responsible minister and notices. | Per successful call; quote exact input for the maximum price. |
+| `law.br-tst.courts.list` | List all available judicial bodies (órgãos judicantes) at TST, with their numeric codes and siglas. | Per successful call; quote exact input for the maximum price. |
+| `law.ca-documents.employment-standards.search` | Search employment standards for Canadian legal documents. | Per successful call; quote exact input for the maximum price. |
+| `law.ca-documents.jurisdiction-databases.get` | Read jurisdiction databases for Canadian legal documents. | Per successful call; quote exact input for the maximum price. |
+| `law.ca-documents.jurisdiction.list` | List jurisdiction for Canadian legal documents. | Per successful call; quote exact input for the maximum price. |
+| `law.ca-quebec.courts.list` | List courts for Quebec legal information. | Per successful call; quote exact input for the maximum price. |
 | `law.case.get` | Read one public case records; captions and text may name people. Estimated call budget is 0.004448 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.cases.list` | List public case records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.cases.search` | Search public case records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
@@ -125,16 +142,116 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `law.docket.get` | Read one public docket records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.dockets.list` | List public docket records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.dockets.search` | Search public docket records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
+| `law.es-legislation.acts.get` | Read acts for Spanish legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.es-legislation.acts.list` | List acts for Spanish legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.es-legislation.gazette.get` | Read gazette for Spanish legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.document-metadata.get` | Read document metadata for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.document-procedure.get` | Read document procedure for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.document-summary.get` | Read document summary for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.documents-structure.get` | Read documents structure for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.documents-text.get` | Read documents text for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.documents.search` | Search documents for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.national-transposition.get` | Read national transposition for EU legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.eu-legislation.official-journal-daily.get` | Read official journal daily for EU legislation. | Per successful call; quote exact input for the maximum price. |
 | `law.filing.get` | Read one public filing records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.filings.list` | List public filing records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.filings.search` | Search public filing records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
+| `law.fr-jorf.issue.get` | Read the table of contents of a specific JORF issue by date and number. | Per successful call; quote exact input for the maximum price. |
+| `law.fr-jorf.latest-issues.list` | Read the most recently published JORF issues. | Per successful call; quote exact input for the maximum price. |
+| `law.fr-jorf.text.get` | Read a specific JORF text (law, decree, announcement, notice) by its unique identifier. | Per successful call; quote exact input for the maximum price. |
+| `law.fr-jorf.texts.search` | Full-text search over the Journal Officiel de la République Française (JORF). Matches titles and text bodies. Filters by nature of text (decree, announcement, e | Per successful call; quote exact input for the maximum price. |
+| `law.gb-legislation.legislation.search` | Search UK legislation by title, year, number or type. | Per successful call; quote exact input for the maximum price. |
+| `law.gb-legislation.outline.get` | Table of contents of an UK Act or statutory instrument: its parts, chapters and sections. | Per successful call; quote exact input for the maximum price. |
+| `law.gb-legislation.section.get` | Read the text of a section or part of a piece of UK legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.hu-legislation.law.get` | Read the full text content of a specific Hungarian law by its ID. | Per successful call; quote exact input for the maximum price. |
+| `law.hu-legislation.laws.search` | Full-text search over Hungarian laws and legal documents. Accepts keyword, year, number, and type filters. At least one of keyword, year, or number must be prov | Per successful call; quote exact input for the maximum price. |
+| `law.hu-legislation.suggestions.get` | Read autocomplete suggestions for a partial search query. | Per successful call; quote exact input for the maximum price. |
+| `law.id-kemenkeu.document-files.get` | List the downloadable files associated with a legal document. Returns file metadata including type codes, descriptions, filenames, sizes, and download URLs. The | Per successful call; quote exact input for the maximum price. |
+| `law.id-kemenkeu.document-types.list` | List all document type categories available in the database with their document counts. Returns the full vocabulary of document types accepted by the bentuk fil | Per successful call; quote exact input for the maximum price. |
+| `law.id-kemenkeu.document.get` | Read full metadata for a single legal document by its slug. | Per successful call; quote exact input for the maximum price. |
+| `law.id-kemenkeu.documents.search` | Full-text search over the Indonesian Ministry of Finance legal document database. Supports filtering by document type, year, status, issuing body, topic, and la | Per successful call; quote exact input for the maximum price. |
+| `law.immigration-directory-filters.get` | Read country, language and state options for an immigration law directory. | Per successful call; quote exact input for the maximum price. |
+| `law.in-ecourts.judgments.search` | Full-text search of Indian court judgments and orders. | Per successful call; quote exact input for the maximum price. |
+| `law.in-gujarat-courts.courts.list` | List the courts sitting at a bench location of the tribunal. | Per successful call; quote exact input for the maximum price. |
+| `law.in-gujarat-courts.locations.list` | List the tribunal's bench locations, with their numeric ids. | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.court-months.list` | List available months for a specific court and year. | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.court-years.list` | List available years for a specific court. Returns years in descending order. Each year can be passed to browse_court_year_months to discover monthly breakdowns | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.courts.list` | List all available courts and tribunals for browsing. Returns court names and slugs that can be used with browse_court_years and browse_court_year_months. | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.document.get` | Read the full text and detailed metadata for a specific legal document by its numeric ID. | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.documents.search` | Full-text search over Indian legal documents (judgments, laws, sections). Supports plain keywords and advanced query syntax including 'doctypes:<court_slug>', ' | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.recent.list` | Read recent judgments added today across different courts. | Per successful call; quote exact input for the maximum price. |
+| `law.in-indiankanoon.suggestions.get` | Read keyword and case autocomplete suggestions for a given search term prefix. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.act.get` | Read act for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.act.search` | Search act for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.acts.list` | List acts for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.all-sections.list` | List all sections for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.chapter.get` | Read chapter for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.chapters.list` | List chapters for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.section-crossreferences.get` | Read section crossreferences for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.section-navigation.get` | Read section navigation for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-legislation.section.get` | Read section for Indian legislation. | Per successful call; quote exact input for the maximum price. |
+| `law.in-nclat.judgments.list` | List NCLAT judgments and final orders from the last 14 days, newest first. | Per successful call; quote exact input for the maximum price. |
+| `law.it-legislation.laws.search` | Full-text search across all Italian laws using a single query string. Equivalent to the homepage search bar. Returns paginated results with 20 items per page. D | Per successful call; quote exact input for the maximum price. |
+| `law.it-legislation.suggestions.get` | Read search suggestions for a partial query in the Italian legislation database. | Per successful call; quote exact input for the maximum price. |
+| `law.it-legislation.text.get` | Read the full text of a specific Italian law/act. | Per successful call; quote exact input for the maximum price. |
 | `law.judge.get` | Read one public judge records with judicial names and biography. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.judges.search` | Search public judge records with judicial names and biography. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
+| `law.kh-moj.books.list` | Read paginated books from the Ministry of Justice library. | Per successful call; quote exact input for the maximum price. |
+| `law.kh-moj.laws.list` | Read laws and regulations from the Ministry of Justice. | Per successful call; quote exact input for the maximum price. |
+| `law.kh-moj.news.list` | Read news and events from the Ministry of Justice. | Per successful call; quote exact input for the maximum price. |
+| `law.kh-moj.search` | Search legal documents using the Ministry of Justice legal search engine. Returns legal documents matching the query with title, URL, description, date, and cat | Per successful call; quote exact input for the maximum price. |
+| `law.kh-moj.site.search` | Search the entire Ministry of Justice site. Only Khmer-language queries return results; English queries return an empty results array. Results include news, eve | Per successful call; quote exact input for the maximum price. |
+| `law.nz-lii.case.get` | Read a New Zealand court decision: title, neutral citation, court, year and decision date. | Per successful call; quote exact input for the maximum price. |
+| `law.nz-lii.cases.search` | Search New Zealand case-law databases by case name. | Per successful call; quote exact input for the maximum price. |
+| `law.nz-lii.citation.search` | Find New Zealand case-law decisions matching a citation such as '[2019] NZCA 219'. | Per successful call; quote exact input for the maximum price. |
 | `law.opinion.get` | Read one public opinion records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.opinions.list` | List public opinion records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.oral-argument.get` | Read one public argument records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.oral-arguments.list` | List public argument records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
 | `law.oral-arguments.search` | Search public argument records; captions and text may name people. Estimated call budget is 0.001112 USD using a provisional allocation. | Per successful call; quote exact input for the maximum price. |
+| `law.practice-areas.list` | List legal practice areas and their directory pages. | Per successful call; quote exact input for the maximum price. |
+| `law.pt-gazette.acts.search` | Search acts for Portuguese official gazette. | Per successful call; quote exact input for the maximum price. |
+| `law.pt-gazette.series-two.search` | Search series two for Portuguese official gazette. | Per successful call; quote exact input for the maximum price. |
+| `law.public-questions.search` | Search public legal question headlines and page links. | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.act-text.get` | Fetch and extract the complete body text of all acts from a gazette issue PDF. Parses page-by-page text using the SUMAR (table of contents) to identify act boun | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.announcements.get` | Search for professional announcements (Partea a IV-a) by Company ID (CUI) or registration number (Nr Înregistrare MO). Automatically obtains a session cookie an | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.date-issues.list` | Read gazette issues for a specific date. | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.emonitor-calendar.get` | Scan a month to identify dates with gazette publications. Iterates each day up to today and returns dates that have at least a published part. Only part names | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.issue.get` | Fetch and parse the table of contents (SUMAR) of a gazette issue PDF into structured act records; an upstream request per call (the PDF is downloaded once). | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.modifications.search` | Read all gazette issues published within a date range. | Per successful call; quote exact input for the maximum price. |
+| `law.ro-official-gazette.site.search` | Site-wide search across products (books) and articles. Returns paginated results mixing both types. Products include a price; articles may include a text snippe | Per successful call; quote exact input for the maximum price. |
+| `law.ru-legislation.authorities.list` | List the authorities that issue Russian legal acts, for use as a search filter. | Per successful call; quote exact input for the maximum price. |
+| `law.ru-legislation.blocks.list` | Lists the portal's publication sections (President, Government, federal authorities, regional authorities, ...) with their block code, name and description. The | Per successful call; quote exact input for the maximum price. |
+| `law.ru-legislation.document-types.list` | Lists the portal's document types (Федеральный закон, Указ, Постановление, ...) as document_type_id/name pairs for use as the document_type_id filter of search_ | Per successful call; quote exact input for the maximum price. |
+| `law.ru-legislation.document.get` | Read an officially published Russian legal act by its 16-digit publication number. | Per successful call; quote exact input for the maximum price. |
+| `law.ru-legislation.documents.search` | Searches officially published legal acts. Returns a record per publication (publication_number is the portal's 16-digit official publication number, consumed | Per successful call; quote exact input for the maximum price. |
+| `law.us-judyrecords.stats.get` | Read general statistics about the court-case database, including the number of indexed cases. | Per successful call; quote exact input for the maximum price. |
+| `law.us-justia.guides.list` | Browse legal guide topics. | Per successful call; quote exact input for the maximum price. |
+| `law.us-justia.law-schools.list` | List the US states that have law school pages. | Per successful call; quote exact input for the maximum price. |
+| `law.us-justia.state-directory.list` | List lawyer directory categories and links for a state, organized by Practice Areas, Cities, and Counties tabs. Useful for discovering the category structure of | Per successful call; quote exact input for the maximum price. |
+| `law.us-nevada-bar.directory-links.list` | Fetches the State Bar of Nevada Lawyer Referral Service page in a round trip and returns the exact href URL of the link labeled "LRS self-directed portal" and | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.article.get` | Fetch the full content of a Nolo legal article by its URL path. Returns the article title, author (when credited), last-updated date (when displayed), structure | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.articles.search` | Search Nolo articles by keyword. Returns paginated results with article titles, URLs, and text snippets. Results come from the www.nolo.com subdomain. Paginatio | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.dictionary-term.get` | Fetch a legal term definition from the Nolo legal dictionary. Returns the canonical term heading and its full plain-text definition. The term is looked up by sl | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.recent-articles.list` | Fetch recently modified articles from Nolo.com. Returns a flat list of articles ordered by most recently updated. Each article carries a title and full URL. No | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.renters-overview.get` | Fetch the top-level Renters' Rights hub from Nolo.com. Returns named sub-topic categories (e.g. Security Deposits, Evictions) with URLs, plus a Key Articles lis | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.renters-states.list` | Fetch the index of all U.S. states (and D.C.) with links to their state-specific renters' rights pages on Nolo.com. Returns 51 entries (50 states + D.C.). | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.search` | Global search across all Nolo network content including articles, products, and dictionary terms. Returns results from multiple Nolo network sites (nolo.com, la | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.tenant-guides.get` | Tenant-rights topics for an US state, such as evictions and security deposits, with guide links. | Per successful call; quote exact input for the maximum price. |
+| `law.us-nolo.trending-articles.list` | Fetch trending articles from Nolo.com. Returns a flat list of currently popular articles with titles and URLs. No parameters; the server curates the trending se | Per successful call; quote exact input for the maximum price. |
+| `law.us-ny-efiling.documents.list` | List documents filed in a NYSCEF case. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.case-types.list` | List all district court case type codes and their labels. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.cases.search` | Searches for cases using various filters across Oklahoma district courts. At least a filter (case_type with date range, or lname) should be provided for relia | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.counties.list` | List all Oklahoma county/court database identifiers available for search. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.daily-filings.list` | Read the daily filing report for a specific county. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.opinion.get` | Read a published appellate opinion from OSCN's legal research database: header (case name, matching citations, appellate case number, decision date, court). | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.statute-sections.list` | List every section document of a statute title, in the order OSCN's index lists them, with the section number, its name, the chapter/article heading it sit. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.statute-titles.list` | List the titles of the Oklahoma Statutes, a row per title. | Per successful call; quote exact input for the maximum price. |
+| `law.us-oklahoma-court.statute.get` | Read an Oklahoma statute section: its text, its legislative history (the 'Historical Data' note, with links to superseded versions when OSCN keeps them), an. | Per successful call; quote exact input for the maximum price. |
+| `law.us-wex.category-entries.list` | Read entries belonging to a specific legal area/category with pagination support. | Per successful call; quote exact input for the maximum price. |
+| `law.us-wex.entries.list` | List Wex legal encyclopedia entries for a specific letter or all letters. Returns term names, slugs, and URLs. Each letter page contains all entries starting wi | Per successful call; quote exact input for the maximum price. |
+| `law.us-wex.entries.search` | Search Wex entries by keyword in the term name. Performs a case-insensitive substring match against entry names in the alphabetical index. By default searches t | Per successful call; quote exact input for the maximum price. |
+| `law.us-wex.entry.get` | Read the full definition, legal areas/categories, and related terms for a specific Wex entry by its slug. | Per successful call; quote exact input for the maximum price. |
 | `law.us.citations.resolve` | Turn written legal citations into the exact US law sections they name. | Per successful call; quote exact input for the maximum price. |
 | `law.us.corpora.list` | The bodies of US law that can be searched, with what each covers. | Per successful call; quote exact input for the maximum price. |
 | `law.us.section.changes` | The recorded additions, amendments and removals of one US law section. | Per successful call; quote exact input for the maximum price. |
@@ -146,6 +263,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `law.us.statutes.browse` | Walk a US legal code level by level, from titles to chapters, parts and sections. | Per successful call; quote exact input for the maximum price. |
 | `law.us.statutes.count` | Count Sections in Scope. | Per successful call; quote exact input for the maximum price. |
 | `law.us.statutes.search` | Search US federal and state statutes, regulations and court rules by question or keyword. | Per successful call; quote exact input for the maximum price. |
+| `legal.notices.search` | Search French official legal notices about companies. | Per successful call; quote exact input for the maximum price. |
+| `legal.trademarks.search` | Search published trademark registers by name on a chosen trademarks website. | Per successful call; quote exact input for the maximum price. |
 
 ## Missions
 

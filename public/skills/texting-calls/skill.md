@@ -15,7 +15,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 1. Search with list_capabilities (superpowers) or list_outcomes (missions).
 2. Inspect with describe_capability or describe_outcome. Build input from the schema; check availability.
 3. Call quote with kind (superpower or mission), id and input; include mission options if needed. Read price_max_micro, can_run and message, and the mission plan. Prices are millionths of a dollar. If can_run is false, resolve the stated need before continuing. Nothing runs during a quote.
-4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan and ask for approval when needed. Quote again if inputs change.
+4. Show the maximum price. Get an explicit yes for actions that require approval, then use run_capability or run_outcome with the same input. Reuse the same idempotency key on retries. Mission runs validate their plan. Over MCP the person is asked when a plan needs a yes; over the SDK and HTTP nothing asks, and a plan that needs approval is refused (approval_required) unless you send the approved plan or a signed-in member approves it in the app. Quote again if inputs change.
 
 ## Superpowers
 
@@ -141,6 +141,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `sms.template-versions.list` | List up to 100 versions of your text-message template, including its text and active state. | Per successful call; quote exact input for the maximum price. |
 | `sms.template.create` | Create a stored text-message template with your sender label and optional delivery registration. Template content can contain personal data. | Per successful call; quote exact input for the maximum price. |
 | `sms.template.send` | Send your stored template to one phone number. Expanded text is capped at 1600 code units; the cost hold covers all segments. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
+| `texts.chapter.get` | Read a chapter of the public-domain English translation of the Tao Te Ching. | Per successful call; quote exact input for the maximum price. |
+| `texts.chapters.list` | List the chapters of the public-domain English translation of the Tao Te Ching. | Per successful call; quote exact input for the maximum price. |
 | `voice.assistant.check-background-sound` | Check an owned audio file for use as background sound. File contents may include personal speech; up to 100 MB. | Per successful call; quote exact input for the maximum price. |
 | `voice.assistant.create` | Create your uniquely named speaking agent configuration, including instructions that may contain personal data. | Per successful call; quote exact input for the maximum price. |
 | `voice.assistant.create-configured` | Create a named speaking configuration without fixed pause or interruption word counts. Returns saved prompts, which may contain personal data. Send an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
@@ -230,6 +232,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `imessage.message.send-rich` | Send text or media to a person from your rented sender. Includes recipient address and message content; use an Idempotency-Key. | Per successful call; quote exact input for the maximum price. |
 | `imessage.message.status` | Read delivery state for an owned message; acceptance does not mean delivery. | Per successful call; quote exact input for the maximum price. |
 | `imessage.messages.list` | List messages for one owned sender and contact. Returns personal conversation text, addresses and privately stored attachments. | Per successful call; quote exact input for the maximum price. |
+| `imessage.product-pages.search` | Find group messaging help and feature explanations by keyword on addshuffle.com. | Per successful call; quote exact input for the maximum price. |
 | `imessage.sender.cancel` | Release an owned sender irreversibly and end its monthly rental. Requires confirm: true; no promise of a refund. | Per successful call; quote exact input for the maximum price. |
 | `imessage.sender.get` | Read one rented sender address and its availability. Returns a phone number or email address. | Per successful call; quote exact input for the maximum price. |
 | `imessage.sender.purchase` | Rent one sender on an explicitly chosen monthly plan. The first month and setup fee are charged separately from call cost; returns the sender address when assigned. | Per successful call; quote exact input for the maximum price. |
@@ -239,10 +242,13 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `telegram.channel-profile.get` | Read channel profile on in.tgstat.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `telegram.channel.posts` | List a public Telegram channel's most recent posts, with each post's text, author, date, views and address. Returns personal data: the posts' authors' public names when the channel shows them. | Per successful call; quote exact input for the maximum price. |
 | `telegram.channel.profile` | Get a public Telegram channel's profile, with its title, description and subscriber count. | Per successful call; quote exact input for the maximum price. |
 | `telegram.channel.search` | Search a public Telegram channel's posts by keyword, with each hit's text, author, date and views. Returns personal data: the posts' authors' public names when the channel shows them. | Per successful call; quote exact input for the maximum price. |
 | `telegram.post.detail` | Get one post from a public Telegram channel, with its text, date, views and reactions. Returns personal data: the post author's name when the channel shows it. | Per successful call; quote exact input for the maximum price. |
+| `telegram.ranked-channels.list` | List public channels ordered by audience or reach on in.tgstat.com. | Per successful call; quote exact input for the maximum price. |
+| `telegram.ranked-groups.list` | List public discussion groups ordered by audience size on in.tgstat.com. | Per successful call; quote exact input for the maximum price. |
 
 ### Viber
 
