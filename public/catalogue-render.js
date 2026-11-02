@@ -19,7 +19,7 @@ const pills = (x) =>
   [
     x.mode === 'async' ? 'Background job' : 'Instant',
     EFFECT[x.effect],
-    x.requiresApproval && ['Waits for your OK', 'warn'],
+    x.requiresApproval && ['Needs approval', 'warn'],
     x.needsConnection && 'Uses your account',
     x.personalData && 'Personal data',
   ]
@@ -72,7 +72,7 @@ const skillCards = (data) =>
     summary: s.description,
     foot: [
       s.ids.length ? `<span class="pill pill--dark">${num(s.ids.length)} superpower${s.ids.length === 1 ? '' : 's'}</span>` : '<span class="pill">Thinking only</span>',
-      s.approval.length && '<span class="pill pill--warn">Waits for your OK</span>',
+      s.approval.length && '<span class="pill pill--warn">Needs approval</span>',
     ]
       .filter(Boolean)
       .join(''),
@@ -85,7 +85,7 @@ const skillCards = (data) =>
       <div><span class="eyebrow">1. Add it to your agent</span>${copyRow(`npx skills add Pramaan-OSS/skills --skill ${s.name}`)}</div>
       <div><span class="eyebrow">2. Tell your agent</span>${copyRow(`Run the ${s.name} skill with Pramaan.`)}</div>
       <p class="caption">The skill comes with its Pramaan map. Set up Pramaan once with <a href="/skill.md">the agent skill</a>.</p>
-      ${s.approval.length ? `<div class="panel__facts"><span class="pill pill--warn">Waits for your OK</span><span class="caption">${s.approval.map(esc).join(', ')}</span></div>` : ''}
+      ${s.approval.length ? `<div class="panel__facts"><span class="pill pill--warn">Needs approval</span><span class="caption">${s.approval.map(esc).join(', ')}</span></div>` : ''}
       ${skillHowHtml(s)}
       <a class="panel__docs" href="${SKILLS_REPO}/${esc(s.author)}/${esc(s.name)}" target="_blank" rel="noopener">Full skill on GitHub &rarr;</a>`,
   }));
@@ -120,7 +120,7 @@ export const toCards = (kind, data) =>
         name: m.name,
         category: m.category,
         summary: m.description,
-        foot: [m.priceMaxMicro > 0 && `<span class="pill pill--dark">Up to ${usd(m.priceMaxMicro)}</span>`, m.requiresApproval && '<span class="pill pill--warn">Waits for your OK</span>']
+        foot: [m.priceMaxMicro > 0 && `<span class="pill pill--dark">Up to ${usd(m.priceMaxMicro)}</span>`, m.requiresApproval && '<span class="pill pill--warn">Needs approval</span>']
           .filter(Boolean)
           .join(''),
         search: [m.id, m.name, m.description, ...m.steps.map((s) => s.id)].join(' ').toLowerCase(),
