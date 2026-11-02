@@ -585,6 +585,20 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 @media (max-width: 860px){ .dock:empty{min-height:64px} #rows:empty{min-height:100vh} }
 @media (max-width: 600px){ .dock:empty{min-height:96px} }
 @media (max-width: 380px){ .dock:empty{min-height:129px} }
+/* phones and tablets: settings live in a drawer that slides in from the right; preview comes first */
+.side-fab,.side-shade,.side-x{display:none}
+@media (max-width: 860px){
+  body .side{position:fixed;top:0;right:0;bottom:0;z-index:40;width:min(88vw,420px);height:auto;margin:0;border-radius:20px 0 0 20px;background:var(--color-parchment,#f6f3f1);-webkit-backdrop-filter:none;backdrop-filter:none;
+    transform:translateX(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);box-shadow:-12px 0 32px rgba(0,0,0,.15);overflow:auto;overscroll-behavior:contain;padding-top:44px}
+  body.side-open .side{transform:none}
+  .side .scroll{flex:none}
+  .side-x{display:block;position:absolute;top:8px;right:12px;border:0;background:none;color:var(--c-muted);font-size:28px;line-height:1;padding:4px 8px;cursor:pointer}
+  .side-shade{display:block;position:fixed;inset:0;z-index:39;background:rgba(20,20,20,.35);opacity:0;pointer-events:none;transition:opacity .3s}
+  body.side-open .side-shade{opacity:1;pointer-events:auto}
+  .side-fab{display:inline-flex;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+  body.side-open .side-fab{display:none}
+}
+@media (max-width: 860px) and (prefers-reduced-motion: reduce){ body .side,.side-shade{transition:none} }
 </style>
 </head>
 <body>
@@ -630,8 +644,11 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   <button class="cta" data-open-export>Get code</button>
 </div>
 
+<button class="cta side-fab" data-side-open aria-controls="side" aria-expanded="false">&#9881; Customise</button>
+<div class="side-shade" data-side-close></div>
 <div class="app">
-  <aside class="side">
+  <aside class="side" id="side" aria-label="Customise">
+    <button class="side-x" data-side-close aria-label="Close settings">&times;</button>
     <div class="scroll" id="rows"></div>
     <div class="foot">
       <div class="guard" id="guard"></div>
@@ -2043,6 +2060,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Tab') document.docume
 document.addEventListener('pointerdown', () => { delete document.documentElement.dataset.kb; });
 // a shared link pasted into a tab that already shows the builder only changes the hash
 window.addEventListener('hashchange', () => { if (/^#t=/.test(location.hash)) { restore(); render(); openedFromLink(); } });
+// phones: the settings drawer
+const sideOpen = open => { document.body.classList.toggle('side-open', open); $('[data-side-open]').setAttribute('aria-expanded', String(open)); };
+$('[data-side-open]').onclick = () => sideOpen(true);
+document.querySelectorAll('[data-side-close]').forEach(b => b.onclick = () => sideOpen(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('side-open') && !document.querySelector(':popover-open, dialog[open]')) sideOpen(false); });
 </script>
 </body>
 </html>
