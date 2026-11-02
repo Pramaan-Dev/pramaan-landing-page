@@ -573,6 +573,10 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   .canvas{padding:16px 16px 90px}
   .top{padding:0 16px}
 }
+/* the dock is filled by script; hold its space so the page below doesn't jump on phones */
+@media (max-width: 860px){ .dock:empty{min-height:64px} #rows:empty{min-height:100vh} }
+@media (max-width: 600px){ .dock:empty{min-height:96px} }
+@media (max-width: 380px){ .dock:empty{min-height:129px} }
 </style>
 </Fragment>
 
