@@ -3,12 +3,17 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
-import { events, isPast, fmtWhen, FORMAT, eventMd } from '../../lib/events.mjs';
+import { events, split, isPast, fmtWhen, FORMAT, eventMd } from '../../lib/events.mjs';
+import { coverOf } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
-  return (await events()).map((e) => ({ params: { slug: e.id }, props: { e } }));
+  const all = await events();
+  const { upcoming, past } = split(all);
+  // other events: upcoming first, then recent past, never this one
+  return all.map((e) => ({ params: { slug: e.id }, props: { e, others: [...upcoming, ...past].filter((x) => x !== e).slice(0, 3) } }));
 }
-const { e } = Astro.props;
+const { e, others } = Astro.props;
+const initials = (n) => n.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 const { Content } = await render(e);
 const url = `https://www.pramaan.dev/events/${e.id}`;
 const past = isPast(e);
@@ -40,18 +45,63 @@ const ld = JSON.stringify({
   <main>
     <div class="container">
       <ViewToggle />
-      <article class="post" data-human-view>
+      <div data-human-view>
         <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/events">Events</a> / <span>{e.data.title}</span></nav>
-        <span class="post__meta">{past ? 'Past event' : 'Upcoming'} | {FORMAT[e.data.format]}</span>
-        <h1>{e.data.title}</h1>
-        <dl class="ev-facts">
-          <div><dt>When</dt><dd>{fmtWhen(e)}</dd></div>
-          <div><dt>Where</dt><dd>{e.data.location}</dd></div>
-          <div><dt>Host</dt><dd>{e.data.host}</dd></div>
-        </dl>
-        {!past && e.data.registerUrl && <a class="btn btn--blue ev-cta" href={e.data.registerUrl}>Save my seat <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>}
-        <div class="post__body"><Content /></div>
-      </article>
+        <section class="evx evx--top">
+          <div class="evx__main">
+            <span class="post__meta">{past ? 'Past event' : FORMAT[e.data.format]} | {fmtWhen(e)}</span>
+            <h1 class="evx__title">{e.data.title}</h1>
+            <p class="evx__sub">{e.data.description}</p>
+            {e.data.speakers.length > 0 && (
+              <div class="evx__speakers">
+                <span class="post__meta">Featuring</span>
+                <ul>
+                  {e.data.speakers.map((s) => (
+                    <li>
+                      {s.photo ? <img src={s.photo} alt="" width="48" height="48" loading="lazy" /> : <span class="evx__av" aria-hidden="true">{initials(s.name)}</span>}
+                      <span><b>{s.name}</b><small>{s.role}</small></span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <aside class="evx__card" aria-label="Event details">
+            <dl>
+              <div><dt>When</dt><dd>{fmtWhen(e)}</dd></div>
+              <div><dt>Where</dt><dd>{e.data.location}</dd></div>
+              <div><dt>Host</dt><dd>{e.data.host}</dd></div>
+            </dl>
+            {past
+              ? <p class="caption">This event has ended.</p>
+              : <>
+                  {e.data.registerUrl && <a class="btn btn--blue" href={e.data.registerUrl}>Save my seat <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>}
+                  <a class="evx__cal" href={`/events/${e.id}.ics`} download>Add to calendar</a>
+                </>}
+          </aside>
+        </section>
+        <section class="evx evx--body">
+          <article class="evx__main">
+            <h2 class="evx__h2">About this event</h2>
+            <div class="post__body"><Content /></div>
+            <p class="evx__share"><span class="post__meta">Share</span>
+              <a href={`https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(e.data.title)}`} rel="noopener" target="_blank">X</a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} rel="noopener" target="_blank">LinkedIn</a>
+            </p>
+          </article>
+          <aside class="evx__others">
+            <h2 class="evx__side-h">Other events</h2>
+            {others.map((o) => (
+              <a class="pcard" href={`/events/${o.id}`}>
+                <div class={`pcard__cover cover cover--${coverOf(o.id)}`} aria-hidden="true"></div>
+                <b class="pcard__title">{o.data.title}</b>
+                <span class="pcard__meta">{isPast(o) ? 'Past' : FORMAT[o.data.format]} | {fmtWhen(o)}</span>
+              </a>
+            ))}
+            <a class="evx__all" href="/events">All events &rarr;</a>
+          </aside>
+        </section>
+      </div>
       <AgentView md={eventMd(e)} url={url} />
     </div>
   </main>

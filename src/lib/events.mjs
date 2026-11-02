@@ -14,6 +14,16 @@ export const fmtWhen = (e) => {
   const t = (d) => d.toLocaleTimeString('en-GB', { ...TZ, hour: '2-digit', minute: '2-digit' });
   return `${day}, ${t(e.data.start)}${e.data.end ? `-${t(e.data.end)}` : ''} London time`;
 };
+// "Add to calendar" file; an event without an end time gets one hour
+const icsDate = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+const icsText = (s) => s.replace(/[\\;,]/g, (c) => '\\' + c).replace(/\n/g, '\\n');
+export const eventIcs = (e) => [
+  'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pramaan//Events//EN', 'BEGIN:VEVENT',
+  `UID:${e.id}@pramaan.dev`, `DTSTAMP:${icsDate(e.data.start)}`, `DTSTART:${icsDate(e.data.start)}`,
+  `DTEND:${icsDate(e.data.end || new Date(+e.data.start + 3600e3))}`,
+  `SUMMARY:${icsText(e.data.title)}`, `DESCRIPTION:${icsText(e.data.description)}`, `LOCATION:${icsText(e.data.location)}`,
+  `URL:https://www.pramaan.dev/events/${e.id}`, 'END:VEVENT', 'END:VCALENDAR', '',
+].join('\r\n');
 export const FORMAT = { online: 'Online', 'in-person': 'In person', hybrid: 'Online and in person' };
 export const eventMd = (e) =>
   `# ${e.data.title}\n\nWhen: ${fmtWhen(e)}\nWhere: ${FORMAT[e.data.format]}, ${e.data.location}\nHost: ${e.data.host}\n${e.data.registerUrl ? `Register: ${e.data.registerUrl}\n` : ''}\n${e.body}\n`;

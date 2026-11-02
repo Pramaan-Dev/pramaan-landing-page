@@ -6,6 +6,11 @@ end: 2026-11-26T16:45:00Z
 format: online
 location: "Online. The link arrives by email after you sign up"
 registerUrl: "https://www.pramaan.dev/#start"
+speakers:
+  - name: "Speaker One"
+    role: "Placeholder role, Pramaan"
+  - name: "Speaker Two"
+    role: "Placeholder role, guest company"
 draft: true
 ---
 

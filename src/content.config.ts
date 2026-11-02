@@ -31,6 +31,7 @@ const events = defineCollection({
     location: z.string(),
     registerUrl: z.string().url().optional(),
     host: z.string().default('Pramaan'),
+    speakers: z.array(z.object({ name: z.string(), role: z.string(), photo: z.string().optional() })).default([]),
     draft: z.boolean().default(false),
   }),
 });
