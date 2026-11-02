@@ -149,7 +149,7 @@
 .posts__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
 .pcard { display: flex; flex-direction: column; gap: 16px; color: inherit; }
 .pcard__cover { aspect-ratio: 16 / 9; border-radius: 24px; border: 1px solid var(--color-ash); overflow: hidden; }
-.pcard--big .pcard__cover { aspect-ratio: 4 / 3; border-radius: 32px; }
+.pcard--big .pcard__cover { aspect-ratio: 16 / 9; border-radius: 32px; }
 .pcard__meta { font-size: var(--text-caption); text-transform: uppercase; color: var(--color-smoke); letter-spacing: -0.033em; }
 .pcard__title { font-family: var(--font-serif); font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; }
 .pcard--big .pcard__title { font-size: 32px; }
