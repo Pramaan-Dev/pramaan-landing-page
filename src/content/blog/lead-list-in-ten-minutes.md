@@ -2,6 +2,7 @@
 title: "How sales teams build a lead list in 10 minutes"
 description: "For sales leads and founders: ask Pramaan for the people you want to reach and get a clean list with work emails and first drafts."
 date: 2026-11-02
+audience: business
 draft: true
 ---
 

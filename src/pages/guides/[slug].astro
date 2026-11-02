@@ -1,0 +1,86 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ViewToggle from '../../components/ViewToggle.astro';
+import AgentView from '../../components/AgentView.astro';
+import { guides, allResources, TYPE, AUDIENCE, fmtDay } from '../../lib/resources.mjs';
+import { coverOf } from '../../lib/blog.mjs';
+
+export async function getStaticPaths() {
+  const all = await guides();
+  const res = await allResources();
+  return all.map((g) => ({ params: { slug: g.id }, props: { g, others: res.filter((r) => r.href !== `/guides/${g.id}`).slice(0, 2) } }));
+}
+const { g, others } = Astro.props;
+const { Content } = await render(g);
+const url = `https://www.pramaan.dev/guides/${g.id}`;
+const kind = TYPE[g.data.type].toLowerCase();
+const md = `# ${g.data.title}\n\n${TYPE[g.data.type]}, ${fmtDay(g.data.date)}${g.data.file ? `\nDownload: ${new URL(g.data.file, 'https://www.pramaan.dev')}` : ''}\n\n${g.body}\n`;
+---
+<Base title={`${g.data.title} | Pramaan`} description={g.data.description} canonical={url} footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={g.data.title} />
+    <meta property="og:description" content={g.data.description} />
+    <meta property="og:url" content={url} />
+    <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+    <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  </Fragment>
+  <main>
+    <div class="container">
+      <ViewToggle />
+      <div data-human-view>
+        <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/resources">Resources</a> / <a href={`/resources?type=${g.data.type}`}>{TYPE[g.data.type]}s</a> / <span>{g.data.title}</span></nav>
+        <section class="evx evx--top">
+          <div class="evx__main">
+            <span class="post__meta">{TYPE[g.data.type]} | {fmtDay(g.data.date)}</span>
+            <h1 class="evx__title">{g.data.title}</h1>
+            <p class="evx__sub">{g.data.description}</p>
+            <div class={`evx__cover cover cover--${coverOf(g.id)}`}>
+              {g.data.cover ? <img src={g.data.cover} alt="" loading="lazy" /> : <span class="evx__book" aria-hidden="true"><b>{g.data.title}</b><small>Pramaan {kind}</small></span>}
+            </div>
+          </div>
+          <aside class="evx__card" aria-label={`About this ${kind}`}>
+            <dl>
+              <div><dt>Type</dt><dd>{TYPE[g.data.type]}{g.data.pages ? `, ${g.data.pages} pages` : ''}</dd></div>
+              <div><dt>For</dt><dd>{AUDIENCE[g.data.audience]}</dd></div>
+              <div><dt>Published</dt><dd>{fmtDay(g.data.date)}</dd></div>
+            </dl>
+            {g.data.file
+              ? <a class="btn btn--blue" href={g.data.file} download>Get the free {kind} <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+              : <p class="caption">The PDF is coming soon.</p>}
+          </aside>
+        </section>
+        <section class="evx evx--body">
+          <article class="evx__main">
+            <h2 class="evx__h2">About this {kind}</h2>
+            <div class="post__body"><Content /></div>
+            {g.data.contributors.length > 0 && (
+              <div class="post__body">
+                <h3>Contributors</h3>
+                <ul>{g.data.contributors.map((c) => <li>{c.name}, {c.role}</li>)}</ul>
+              </div>
+            )}
+            <p class="evx__share"><span class="post__meta">Share</span>
+              <a href={`https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(g.data.title)}`} rel="noopener" target="_blank">X</a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} rel="noopener" target="_blank">LinkedIn</a>
+            </p>
+          </article>
+          <aside class="evx__others">
+            <h2 class="evx__side-h">Other resources</h2>
+            {others.map((o) => (
+              <a class="pcard" href={o.href}>
+                <div class={`pcard__cover cover cover--${coverOf(o.id)}`} aria-hidden="true"></div>
+                <b class="pcard__title">{o.title}</b>
+                <span class="pcard__meta"><span class="rtag">{TYPE[o.type]}</span> {fmtDay(o.date)}</span>
+              </a>
+            ))}
+            <a class="evx__all" href="/resources">All resources &rarr;</a>
+          </aside>
+        </section>
+      </div>
+      <AgentView md={md} url={url} />
+    </div>
+  </main>
+</Base>

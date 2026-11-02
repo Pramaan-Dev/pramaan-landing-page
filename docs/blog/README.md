@@ -41,7 +41,29 @@ draft: true
 ---
 ```
 
-An event moves from Upcoming to Past on the first deploy after it ends.
+An event moves from Upcoming to Past on the first deploy after it ends. Optional `speakers:` list (name, role, photo) shows under "Featuring"; every event gets an "Add to calendar" file at `/events/<slug>.ics`.
+
+## Guides (ebooks, whitepapers, reports)
+
+In `src/content/guides/<slug>.md`, shown at `/guides/<slug>`.
+
+```yaml
+---
+title: "..."
+description: "..."
+date: 2026-11-02
+type: ebook                     # ebook | whitepaper | report
+file: "/guides/name.pdf"        # put the PDF in public/guides/; no file shows "coming soon"
+pages: 24                       # optional
+cover: "/guides/name.webp"      # optional; otherwise a drawn book cover
+contributors: []                # optional: name, role
+draft: true
+---
+```
+
+## Audience and the /resources hub
+
+Blog posts, events and guides all take `audience: business | developers | everyone` (default everyone). `/resources` lists everything newest first, with Content type and Audience filters; "everyone" shows under both audiences. `/resources?type=ebook` opens with a type ticked.
 
 ## Publishing
 
