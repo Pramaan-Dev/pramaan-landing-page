@@ -49,7 +49,7 @@ const ld = JSON.stringify({
         <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/events">Events</a> / <span>{e.data.title}</span></nav>
         <section class="evx evx--top">
           <div class="evx__main">
-            <span class="post__meta">{past ? 'Past event' : FORMAT[e.data.format]} | {fmtWhen(e)}</span>
+            <span class="post__meta">{past ? 'Past event' : `${FORMAT[e.data.format]} event`}</span>
             <h1 class="evx__title">{e.data.title}</h1>
             <p class="evx__sub">{e.data.description}</p>
             {e.data.speakers.length > 0 && (

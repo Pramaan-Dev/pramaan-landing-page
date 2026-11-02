@@ -34,7 +34,7 @@ const md = `# ${g.data.title}\n\n${TYPE[g.data.type]}, ${fmtDay(g.data.date)}${g
         <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/resources">Resources</a> / <a href={`/resources?type=${g.data.type}`}>{TYPE[g.data.type]}s</a> / <span>{g.data.title}</span></nav>
         <section class="evx evx--top">
           <div class="evx__main">
-            <span class="post__meta">{TYPE[g.data.type]} | {fmtDay(g.data.date)}</span>
+            <span class="post__meta">{TYPE[g.data.type]}</span>
             <h1 class="evx__title">{g.data.title}</h1>
             <p class="evx__sub">{g.data.description}</p>
             <div class={`evx__cover cover cover--${coverOf(g.id)}`}>
