@@ -154,7 +154,7 @@
 .pcard__title { font-family: var(--font-serif); font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; }
 .pcard--big .pcard__title { font-size: 32px; }
 .pcard__sub { color: var(--color-graphite); }
-.pcard__more { align-self: flex-start; display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); font-size: var(--text-caption); text-transform: uppercase; }
+.pcard__more { margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; height: 36px; padding: 0 16px; border: 1px solid var(--color-ash); border-radius: var(--radius-pills); font-size: var(--text-caption); text-transform: uppercase; }
 .pcard:hover .pcard__more { border-color: var(--color-off-black); }
 .related { padding: 48px 0 96px; border-top: 1px solid var(--color-ash); display: flex; flex-direction: column; gap: 32px; }
 .related h2 { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-heading-lg); line-height: 1.2; letter-spacing: -0.02em; }
