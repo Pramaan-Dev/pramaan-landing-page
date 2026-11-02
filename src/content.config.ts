@@ -19,4 +19,20 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { legal, blog };
+// Events: talks, demos, meetups. Times are stored with their offset and shown in London time.
+const events = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/events' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    start: z.coerce.date(),
+    end: z.coerce.date().optional(),
+    format: z.enum(['online', 'in-person', 'hybrid']),
+    location: z.string(),
+    registerUrl: z.string().url().optional(),
+    host: z.string().default('Pramaan'),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { legal, blog, events };

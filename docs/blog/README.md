@@ -23,6 +23,26 @@ Shared rules (words, tone, facts, words to cut): `docs/blog/VOICE.md`.
 6. **Edit pass**: against VOICE.md (and `no-ai-slop` if installed).
 7. **Save and check**: draft file, `npm run build` (catches hidden ids), report of every fact used.
 
+## Events
+
+Events are a second content type, in `src/content/events/<slug>.md`, listed at `/events` (Upcoming, then Past) with a page and a `.md` copy each.
+
+```yaml
+---
+title: "..."
+description: "..."
+start: 2026-11-26T16:00:00Z     # with offset; shown in London time
+end: 2026-11-26T16:45:00Z       # optional
+format: online                  # online | in-person | hybrid
+location: "..."                 # "Online. Link by email" or a street address
+registerUrl: "https://..."      # optional; shows a "Save my seat" button until it ends
+host: "Pramaan"                 # optional
+draft: true
+---
+```
+
+An event moves from Upcoming to Past on the first deploy after it ends.
+
 ## Publishing
 
 1. Review the draft locally: `SHOW_DRAFTS=1 npm run dev`, then open `/blog/<slug>`. Drafts are left out of normal builds, so they never reach the live site.

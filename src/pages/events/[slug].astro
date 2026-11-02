@@ -1,0 +1,58 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ViewToggle from '../../components/ViewToggle.astro';
+import AgentView from '../../components/AgentView.astro';
+import { events, isPast, fmtWhen, FORMAT, eventMd } from '../../lib/events.mjs';
+
+export async function getStaticPaths() {
+  return (await events()).map((e) => ({ params: { slug: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const { Content } = await render(e);
+const url = `https://www.pramaan.dev/events/${e.id}`;
+const past = isPast(e);
+const ld = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: e.data.title,
+  description: e.data.description,
+  startDate: e.data.start.toISOString(),
+  ...(e.data.end && { endDate: e.data.end.toISOString() }),
+  eventAttendanceMode: { online: 'https://schema.org/OnlineEventAttendanceMode', 'in-person': 'https://schema.org/OfflineEventAttendanceMode', hybrid: 'https://schema.org/MixedEventAttendanceMode' }[e.data.format],
+  location: e.data.format === 'online' ? { '@type': 'VirtualLocation', url: e.data.registerUrl || url } : { '@type': 'Place', name: e.data.location, address: e.data.location },
+  organizer: { '@type': 'Organization', name: e.data.host, url: 'https://www.pramaan.dev' },
+  url,
+}).replace(/</g, '\\u003c');
+---
+<Base title={`${e.data.title} | Pramaan events`} description={e.data.description} canonical={url} footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={e.data.title} />
+    <meta property="og:description" content={e.data.description} />
+    <meta property="og:url" content={url} />
+    <script is:inline type="application/ld+json" set:html={ld}></script>
+    <link rel="alternate" type="text/markdown" href={`${url}.md`} />
+    <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
+    <script is:inline src="/components/ticket-stub-footer.js" defer></script>
+  </Fragment>
+  <main>
+    <div class="container">
+      <ViewToggle />
+      <article class="post" data-human-view>
+        <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/events">Events</a> / <span>{e.data.title}</span></nav>
+        <span class="post__meta">{past ? 'Past event' : 'Upcoming'} | {FORMAT[e.data.format]}</span>
+        <h1>{e.data.title}</h1>
+        <dl class="ev-facts">
+          <div><dt>When</dt><dd>{fmtWhen(e)}</dd></div>
+          <div><dt>Where</dt><dd>{e.data.location}</dd></div>
+          <div><dt>Host</dt><dd>{e.data.host}</dd></div>
+        </dl>
+        {!past && e.data.registerUrl && <a class="btn btn--blue ev-cta" href={e.data.registerUrl}>Save my seat <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>}
+        <div class="post__body"><Content /></div>
+      </article>
+      <AgentView md={eventMd(e)} url={url} />
+    </div>
+  </main>
+</Base>
