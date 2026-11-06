@@ -30,12 +30,17 @@ export const CATEGORIES = [
   ["Web tools", "Read, scrape and watch any website, or drive a real browser."],
   ["E-commerce", "Products, prices, reviews and marketplaces, through to shipping and tracking."],
   ["Travel & places", "Maps, places, addresses, property, routes, weather and travel."],
+  ["Government & public data", "Government records, procurement, statistics, elections and other public data."],
   ["Finance", "Take payments, run billing, move money, handle tax and read the markets."],
   ["Crypto & DeFi", "Tokens, wallets, chains, DeFi yields and on-chain data."],
   ["Gen AI", "Make images, video, voice and music, and call language models."],
+  ["Entertainment", "Music, film, TV, games, books, events and tickets."],
+  ["Sports", "Scores, fixtures, teams, players, odds and racing."],
   ["Email & calendar", "Send and read email, and book, run and sum up meetings."],
   ["Phone & messaging", "Calls, AI phone agents, SMS, WhatsApp, chat and one-time codes."],
   ["Hiring & assessments", "Jobs, pay, candidates and proctored tests."],
+  ["Health", "Health, healthcare, medicines, nutrition and fitness."],
+  ["Education", "Universities, schools, exams, courses, scholarships and reference works."],
   ["Identity & security", "Verify people, stop fraud, run sign-in and check for threats."],
   ["Developer tools", "Code, deploys, storage, databases, workflows and documents."],
 ].map(([name, blurb]) => ({ name, blurb }));
@@ -114,3 +119,16 @@ writeFileSync(`${root}/public/data/missions.json`, JSON.stringify({
 }));
 console.log(`${Object.keys(CATALOG).length} superpowers in ${fams.length} families, ${missions.length} missions.`);
 await import("./build-catalogue-md.mjs");
+
+// llms.txt: rewrite the catalogue totals and the two per-category lists from the data just written.
+const slugOf = (name) => name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const site = "https://www.pramaan.dev";
+const spTotal = Object.keys(CATALOG).length;
+const catLines = (kind, list, fmt) => list.filter((c) => c.count).map((c) => `- [${c.name}](${site}/catalogue/${kind}/${slugOf(c.name)}.md): ${fmt(c)}`).join("\n");
+let llms = readFileSync(`${root}/public/llms.txt`, "utf8");
+const swap = (re, text) => { if (!re.test(llms)) throw new Error(`llms.txt: section not found (${re}).`); llms = llms.replace(re, text); };
+swap(/a catalogue of \d+ superpowers and \d+ missions/, `a catalogue of ${spTotal} superpowers and ${missions.length} missions`);
+swap(/(## Superpowers by category \()\d+(\)\n\n[^\n]*\n\n)(?:- [^\n]*\n?)+/, `$1${spTotal}$2${catLines("superpowers", count(fams, (f) => f.items.length), (c) => `${c.count}. ${c.blurb.replace(/\.$/, "")}`)}\n`);
+swap(/(## Missions by category \()\d+(\)\n\n[^\n]*\n\n)(?:- [^\n]*\n?)+/, `$1${missions.length}$2${catLines("missions", count(missions, () => 1), (c) => `${c.count} missions`)}\n`);
+writeFileSync(`${root}/public/llms.txt`, llms);
+console.log("llms.txt: catalogue counts updated.");

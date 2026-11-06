@@ -1,7 +1,10 @@
 ---
 // The one closing footer (ticket stub). Halftone footers stay page-specific: pages pass them in Base's `footer` slot.
 // variant: home | catalogue | tool | legal.  tools: which tool links appear under "More".
-const { variant = 'catalogue', count, countLabel, eyebrow = 'research', tools = [] } = Astro.props;
+import { COUNTS } from '../lib/counts.mjs';
+const { variant = 'catalogue', countLabel, eyebrow = 'research', tools = [] } = Astro.props;
+// The catalogue totals always come from the data; a count passed by a page is ignored.
+const count = { Superpowers: COUNTS.superpowers, Missions: COUNTS.missions }[countLabel] ?? Astro.props.count;
 const home = variant === 'home';
 const legal = variant === 'legal';
 const EYEBROW = {

@@ -6,7 +6,7 @@ Tell your agent: set up https://www.pramaan.dev/skill.md. It walks through getti
 
 Agents: read the skill file first. It covers finding an action, building a valid request, running it safely (approval, idempotency, jobs), reading errors and the ways in.
 
-What it is: a catalogue of 3594 superpowers and 876 missions. A superpower is one action with a fixed request and result, such as `web.search` or `email.send`. A mission is a multi-step job: a fixed sequence of superpowers under one business name, such as `company.research`, that returns one result. Ids are what you pass to the API, SDK, CLI or MCP server.
+What it is: a catalogue of 10428 superpowers and 891 missions. A superpower is one action with a fixed request and result, such as `web.search` or `email.send`. A mission is a multi-step job: a fixed sequence of superpowers under one business name, such as `company.research`, that returns one result. Ids are what you pass to the API, SDK, CLI or MCP server.
 
 Where it fits: between an agent or app and the many services behind each action. Pramaan picks the source, switches to another when one fails, and returns the same shape whichever source answered. Aggregators are sources too.
 
@@ -29,49 +29,54 @@ Markdown copies: every catalogue category, category skill and go-to-market skill
 - [OpenAPI spec](https://api.pramaan.dev/openapi.json): every endpoint, request and response; needs no key
 - [Developers](https://www.pramaan.dev/developers): the overview for people building with Pramaan
 
-## Superpowers by category (3594)
+## Superpowers by category (10428)
 
 Single actions. Each file lists every id in the category with a one-line description and flags for approval and connected accounts.
 
-- [Data](https://www.pramaan.dev/catalogue/superpowers/data.md): 312. Companies, people and contacts: research, lead lists, work emails and company signals
-- [Social media](https://www.pramaan.dev/catalogue/superpowers/social-media.md): 584. Posts, profiles, comments and trends on every network, and posting from your accounts
-- [AI search and SEO](https://www.pramaan.dev/catalogue/superpowers/ai-search-and-seo.md): 187. Rankings, keywords, backlinks, and how AI answer engines see your brand
-- [Advertising](https://www.pramaan.dev/catalogue/superpowers/advertising.md): 105. Your ad accounts, competitors' ads, audiences and creator deals
-- [News](https://www.pramaan.dev/catalogue/superpowers/news.md): 10. Headlines, articles and news feeds on any topic, company or market
-- [Research](https://www.pramaan.dev/catalogue/superpowers/research.md): 63. Deep research, academic papers and answers that cite their sources
-- [Legal](https://www.pramaan.dev/catalogue/superpowers/legal.md): 33. Courts, cases, dockets, judges and statutes
-- [Web tools](https://www.pramaan.dev/catalogue/superpowers/web-tools.md): 141. Read, scrape and watch any website, or drive a real browser
-- [E-commerce](https://www.pramaan.dev/catalogue/superpowers/e-commerce.md): 135. Products, prices, reviews and marketplaces, through to shipping and tracking
-- [Travel & places](https://www.pramaan.dev/catalogue/superpowers/travel-and-places.md): 189. Maps, places, addresses, property, routes, weather and travel
-- [Finance](https://www.pramaan.dev/catalogue/superpowers/finance.md): 358. Take payments, run billing, move money, handle tax and read the markets
-- [Crypto & DeFi](https://www.pramaan.dev/catalogue/superpowers/crypto-and-defi.md): 145. Tokens, wallets, chains, DeFi yields and on-chain data
-- [Gen AI](https://www.pramaan.dev/catalogue/superpowers/gen-ai.md): 314. Make images, video, voice and music, and call language models
-- [Email & calendar](https://www.pramaan.dev/catalogue/superpowers/email-and-calendar.md): 124. Send and read email, and book, run and sum up meetings
-- [Phone & messaging](https://www.pramaan.dev/catalogue/superpowers/phone-and-messaging.md): 285. Calls, AI phone agents, SMS, WhatsApp, chat and one-time codes
-- [Hiring & assessments](https://www.pramaan.dev/catalogue/superpowers/hiring-and-assessments.md): 78. Jobs, pay, candidates and proctored tests
-- [Identity & security](https://www.pramaan.dev/catalogue/superpowers/identity-and-security.md): 163. Verify people, stop fraud, run sign-in and check for threats
-- [Developer tools](https://www.pramaan.dev/catalogue/superpowers/developer-tools.md): 368. Code, deploys, storage, databases, workflows and documents
+- [Data](https://www.pramaan.dev/catalogue/superpowers/data.md): 520. Companies, people and contacts: research, lead lists, work emails and company signals
+- [Social media](https://www.pramaan.dev/catalogue/superpowers/social-media.md): 666. Posts, profiles, comments and trends on every network, and posting from your accounts
+- [AI search and SEO](https://www.pramaan.dev/catalogue/superpowers/ai-search-and-seo.md): 208. Rankings, keywords, backlinks, and how AI answer engines see your brand
+- [Advertising](https://www.pramaan.dev/catalogue/superpowers/advertising.md): 108. Your ad accounts, competitors' ads, audiences and creator deals
+- [News](https://www.pramaan.dev/catalogue/superpowers/news.md): 70. Headlines, articles and news feeds on any topic, company or market
+- [Research](https://www.pramaan.dev/catalogue/superpowers/research.md): 175. Deep research, academic papers and answers that cite their sources
+- [Legal](https://www.pramaan.dev/catalogue/superpowers/legal.md): 186. Courts, cases, dockets, judges and statutes
+- [Web tools](https://www.pramaan.dev/catalogue/superpowers/web-tools.md): 181. Read, scrape and watch any website, or drive a real browser
+- [E-commerce](https://www.pramaan.dev/catalogue/superpowers/e-commerce.md): 1054. Products, prices, reviews and marketplaces, through to shipping and tracking
+- [Travel & places](https://www.pramaan.dev/catalogue/superpowers/travel-and-places.md): 903. Maps, places, addresses, property, routes, weather and travel
+- [Government & public data](https://www.pramaan.dev/catalogue/superpowers/government-and-public-data.md): 653. Government records, procurement, statistics, elections and other public data
+- [Finance](https://www.pramaan.dev/catalogue/superpowers/finance.md): 723. Take payments, run billing, move money, handle tax and read the markets
+- [Crypto & DeFi](https://www.pramaan.dev/catalogue/superpowers/crypto-and-defi.md): 316. Tokens, wallets, chains, DeFi yields and on-chain data
+- [Gen AI](https://www.pramaan.dev/catalogue/superpowers/gen-ai.md): 353. Make images, video, voice and music, and call language models
+- [Entertainment](https://www.pramaan.dev/catalogue/superpowers/entertainment.md): 1017. Music, film, TV, games, books, events and tickets
+- [Sports](https://www.pramaan.dev/catalogue/superpowers/sports.md): 969. Scores, fixtures, teams, players, odds and racing
+- [Email & calendar](https://www.pramaan.dev/catalogue/superpowers/email-and-calendar.md): 125. Send and read email, and book, run and sum up meetings
+- [Phone & messaging](https://www.pramaan.dev/catalogue/superpowers/phone-and-messaging.md): 296. Calls, AI phone agents, SMS, WhatsApp, chat and one-time codes
+- [Hiring & assessments](https://www.pramaan.dev/catalogue/superpowers/hiring-and-assessments.md): 192. Jobs, pay, candidates and proctored tests
+- [Health](https://www.pramaan.dev/catalogue/superpowers/health.md): 280. Health, healthcare, medicines, nutrition and fitness
+- [Education](https://www.pramaan.dev/catalogue/superpowers/education.md): 460. Universities, schools, exams, courses, scholarships and reference works
+- [Identity & security](https://www.pramaan.dev/catalogue/superpowers/identity-and-security.md): 190. Verify people, stop fraud, run sign-in and check for threats
+- [Developer tools](https://www.pramaan.dev/catalogue/superpowers/developer-tools.md): 783. Code, deploys, storage, databases, workflows and documents
 
-## Missions by category (876)
+## Missions by category (891)
 
 Multi-step jobs. Each file lists every mission id with what it returns, its steps and its approval flag.
 
 - [Data](https://www.pramaan.dev/catalogue/missions/data.md): 98 missions
 - [Social media](https://www.pramaan.dev/catalogue/missions/social-media.md): 81 missions
-- [AI search and SEO](https://www.pramaan.dev/catalogue/missions/ai-search-and-seo.md): 63 missions
-- [Advertising](https://www.pramaan.dev/catalogue/missions/advertising.md): 21 missions
+- [AI search and SEO](https://www.pramaan.dev/catalogue/missions/ai-search-and-seo.md): 64 missions
+- [Advertising](https://www.pramaan.dev/catalogue/missions/advertising.md): 22 missions
 - [News](https://www.pramaan.dev/catalogue/missions/news.md): 4 missions
 - [Research](https://www.pramaan.dev/catalogue/missions/research.md): 26 missions
 - [Legal](https://www.pramaan.dev/catalogue/missions/legal.md): 9 missions
 - [Web tools](https://www.pramaan.dev/catalogue/missions/web-tools.md): 40 missions
 - [E-commerce](https://www.pramaan.dev/catalogue/missions/e-commerce.md): 53 missions
-- [Travel & places](https://www.pramaan.dev/catalogue/missions/travel-and-places.md): 47 missions
-- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 104 missions
+- [Travel & places](https://www.pramaan.dev/catalogue/missions/travel-and-places.md): 50 missions
+- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 105 missions
 - [Crypto & DeFi](https://www.pramaan.dev/catalogue/missions/crypto-and-defi.md): 27 missions
-- [Gen AI](https://www.pramaan.dev/catalogue/missions/gen-ai.md): 80 missions
-- [Email & calendar](https://www.pramaan.dev/catalogue/missions/email-and-calendar.md): 34 missions
-- [Phone & messaging](https://www.pramaan.dev/catalogue/missions/phone-and-messaging.md): 50 missions
-- [Hiring & assessments](https://www.pramaan.dev/catalogue/missions/hiring-and-assessments.md): 24 missions
+- [Gen AI](https://www.pramaan.dev/catalogue/missions/gen-ai.md): 81 missions
+- [Email & calendar](https://www.pramaan.dev/catalogue/missions/email-and-calendar.md): 35 missions
+- [Phone & messaging](https://www.pramaan.dev/catalogue/missions/phone-and-messaging.md): 49 missions
+- [Hiring & assessments](https://www.pramaan.dev/catalogue/missions/hiring-and-assessments.md): 32 missions
 - [Identity & security](https://www.pramaan.dev/catalogue/missions/identity-and-security.md): 50 missions
 - [Developer tools](https://www.pramaan.dev/catalogue/missions/developer-tools.md): 65 missions
 

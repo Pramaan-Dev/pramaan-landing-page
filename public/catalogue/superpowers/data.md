@@ -21,7 +21,7 @@ Search a directory of agencies and the services they offer.
 Watch brands and get told when their logos, colors or details change.
 
 - `brand.change-monitor.create`: Create an owned brand change monitor; callbacks go to the platform.
-- `brand.change-monitor.delete`: Permanently delete an owned monitor, its subscriptions and delivery history.
+- `brand.change-monitor.delete`: Permanently delete an owned monitor, its subscriptions and delivery history. (needs approval)
 - `brand.change-monitor.deliveries.list`: Read an owned monitor’s delivery history, including failed and test deliveries.
 - `brand.change-monitor.get`: Read an owned brand change monitor.
 - `brand.change-monitor.subscribe`: Subscribe an owned monitor to a brand; worst-case rental $0.10 per month.
@@ -42,21 +42,63 @@ Get a brand's logos, colors, fonts and description from its website.
 - `brand.fonts`: List the font families a website uses, with their fallbacks and the share of the page set in each.
 - `brand.identity.get`: Public brand identity, company data, curated fonts, colors and asset metadata. No image downloads. Worst-case lookup $0.10.
 - `brand.identity.get-bulk`: Look up brand identities for up to 100 rows as a job; caller row ids are preserved.
-- `brand.prefetch`: Warm up brand indexing without fetching a paid profile.
-- `brand.prefetch-bulk`: Warm brand caches for up to 100 rows as a job; caller row ids are preserved.
+- `brand.prefetch`: Warm up brand indexing without fetching a paid profile. (needs approval)
+- `brand.prefetch-bulk`: Warm brand caches for up to 100 rows as a job; caller row ids are preserved. (needs approval)
 - `brand.profile.get`: Look up a public brand profile as a job, including its logo palette and optional image copies. Up to 25 banners, 10 MiB per image and 50 MiB total. Worst-case lookup cost $0.05; indexing may take five minutes.
-- `brand.profile.prefetch`: Warm up indexing for an earlier brand profile.
+- `brand.profile.prefetch`: Warm up indexing for an earlier brand profile. (needs approval)
 - `brand.profile.read`: Read the public brand profile named by an earlier reference. Image copies are explicit; up to 25 banners, 10 MiB per image and 50 MiB total. Worst-case lookup cost $0.05. Retry a pending profile later.
 - `brand.styleguide`: A website's visual identity: colors, fonts (with font links) and spacing, from its domain.
 - `brand.typography.get`: Curated title and body fonts; does not report measured font stacks. Worst-case lookup $0.10.
 - `companies.brandmark.get`: Retrieve a wide logo lockup as a job, often a symbol paired with a styled name, rather than a guaranteed text-only wordmark. Files are capped at 10 MiB. Worst-case lookup cost $0.03; indexing may take five minutes.
 - `companies.logo.get`: Retrieve a company logo as a job, by one identifier. Exchange codes return operator marks and index symbols return publisher marks. Files are capped at 10 MiB. Worst-case lookup cost $0.02; a generated monogram is explicit. Indexing may take five minutes.
 
+## Business directories
+
+Search business directories, local branches, industry codes and company reviews.
+
+- `companies.beverage-directory.list`: Browse wineries, distilleries and beverage distributors.
+- `companies.business-reviews.get`: Read business reviews on yellowpages.com. Returns personal data: personal details as published.
+- `companies.category-ratings.list`: List companies and aggregate consumer ratings in a category on trustpilot.com.
+- `companies.company-reviews.get`: Read company reviews. Returns personal data: personal details as published.
+- `companies.consumer-categories.list`: List company categories and their child categories in a ratings directory on trustpilot.com.
+- `companies.consumer-ratings.search`: Find companies and their aggregate consumer ratings on trustpilot.com.
+- `companies.gulf-directory-cities.list`: List cities in a public Gulf business directory on yellowpages-uae.com.
+- `companies.gulf-directory-suggestions.search`: Find public Gulf business directory search suggestions on yellowpages-uae.com.
+- `companies.local-branches.list`: List UAE business branches of one directory organization.
+- `companies.naics.code.get`: Read a NAICS industry code: its full description, top businesses by sales and cross-references.
+- `companies.naics.codes.list`: List NAICS industry codes with their titles, hierarchy level and sector.
+- `companies.naics.codes.search`: Search NAICS industry codes by keyword.
+- `companies.service-categories.list`: List categories in a business service directory.
+- `companies.service-directory.search`: Browse a business directory by service category.
+- `companies.staffing-directory.search`: Find staffing agencies by name, US state and employment field.
+- `companies.yellowpages-business-reviews.get`: Read business reviews on yellowpages.ca. Returns personal data: personal details as published.
+
+## Businesses for sale
+
+Find businesses and franchises for sale and buyers looking for them.
+
+- `commerce.canada-franchises-franchises.search`: Search canada franchises franchises on canada.businessesforsale.com.
+- `companies.business-broker.get`: Read the public profile and contact details for a business-sale broker. Returns personal data: personal details as published.
+- `companies.business-brokers.list`: List public business-sale brokers with published contact details. Returns personal data: personal details as published.
+- `companies.business-brokers.nearby`: Find business-sale brokers near a place with optional certification and specialty filters. Returns personal data: personal details as published.
+- `companies.business-brokers.search`: Find business-sale brokers by name with published contact details. Returns personal data: personal details as published.
+- `marketplace.business-buy-requests.get`: Read business buy requests on nexxt-change.org.
+- `marketplace.business-buy-requests.search`: Search business buy requests on nexxt-change.org.
+- `marketplace.business-partners.search`: Find regional chambers of commerce and trade organisations that advise on company succession and ownership transfer on nexxt-change.org.
+- `marketplace.business-sale-listings.get`: Read business sale listings on nexxt-change.org.
+- `marketplace.business-sale-listings.search`: Search business sale listings on nexxt-change.org.
+- `marketplace.sunbeltnetwork.businesses.search`: Find companies offered for acquisition by industry, location, asking price, cash flow and revenue on sunbeltnetwork.com.
+- `marketplace.sunbeltnetwork.construction-businesses.list`: List construction businesses on sunbeltnetwork.com.
+- `marketplace.sunbeltnetwork.healthcare-businesses.list`: List healthcare businesses on sunbeltnetwork.com.
+- `marketplace.sunbeltnetwork.office.get`: Read office on sunbeltnetwork.com.
+- `marketplace.sunbeltnetwork.offices.list`: List offices on sunbeltnetwork.com.
+- `startups.for-sale.list`: Startups listed for acquisition, with asking price, growth, margin and multiple filters.
+
 ## Company data monitors
 
 Watch companies and saved searches and get told when something new matches.
 
-- `data.monitor.delete`: Cancel a monitor you own and stop paying for it. Terminal: the monitor cannot be resumed. A repeat of the same delete succeeds, so retries are safe.
+- `data.monitor.delete`: Cancel a monitor you own and stop paying for it. Terminal: the monitor cannot be resumed. A repeat of the same delete succeeds, so retries are safe. (needs approval)
 - `data.monitor.fields`: Every field a monitor may name on one dataset, with the operators each takes and whether the live (realtime) search or the index answers it: the catalog to write saved-search filters and watched-list tracks against. Free to read.
 - `data.monitor.list`: List your monitors: saved-search (discovery) and watched-list (entity) monitors across every dataset, newest first, each with a ref for the update, delete, runs and run-read follow-ups. Only your own monitors are listed.
 - `data.monitor.run.read`: One run of one of your monitors, with every record it delivered: on saved-search monitors the things that newly matched, on watched-list monitors each change plus the entity's current fields. The polling read that stands in for notifications; free to read.
@@ -69,22 +111,27 @@ Watch companies and saved searches and get told when something new matches.
 
 Find how a company's work emails are written and which addresses are known.
 
-- `companies.email-format.get`: Find a company's work email naming pattern from its domain or name. Returns patterns, never individual addresses. Maximum source cost $0.39 per match.
+- `companies.email-format.get`: Find a company's work email naming pattern from its domain or name. Returns patterns, never individual addresses. Maximum source cost $0.39 per match. For the share of addresses on each format, by domain, use companies.email-pattern.find.
 - `companies.email-format.get-bulk`: Run companies.email-format.get for up to 2,000 rows as a background job, keyed by your row ids. More than 1,000 rows require an uploaded row file. Maximum source cost $780 per full run.
-- `companies.email-pattern.find`: Find the formats a company's work email addresses follow (for example first.last), with the share of its addresses on each.
+- `companies.email-pattern.find`: Find the formats a company's work email addresses follow (for example first.last), with the share of its addresses on each. For one best pattern with a confidence label, from a domain or a company name, use companies.email-format.get.
 - `companies.emails.count`: Count the email addresses known for a company's domain, split into personal and shared mailboxes.
 - `companies.emails.countries`: Count a company's known work email addresses by country, to see where its staff are.
 - `companies.emails.coverage`: Estimate how many email addresses are reachable at the companies matching a description.
 - `companies.emails.search`: List the email addresses published for a company's domain, with each person's name and job title. Returns personal data: work email address, name, job title and department.
-- `companies.find-company-email-patterns`: Find company email patterns.
+- `companies.find-company-email-patterns`: Find the email formats a company uses, from its domain, as a plain list of patterns. Prefer companies.email-pattern.find, which also gives the share of addresses on each format.
 
 ## Company funding and investors
 
 Find funding rounds, acquisitions, investors and pre-IPO valuations for companies.
 
+- `companies.accelerator-company.get`: Read a startup's record in an accelerator's public directory. Returns personal data: personal details as published.
+- `companies.accelerator-founders.search`: Find a startup accelerator's alumni founders by batch or company. Returns personal data: personal details as published.
+- `companies.accelerator-partners.get`: List the partners of a startup accelerator. Returns personal data: personal details as published.
+- `companies.accelerator-person.get`: Read a founder or partner profile in an accelerator's public directory. Returns personal data: personal details as published.
 - `companies.accelerator.search`: Search YC companies.
 - `companies.acquisitions.list`: List the companies a company has acquired, with when each deal was announced.
 - `companies.acquisitions.signals`: Recent acquisitions and M&A deals from the press, as structured facts: acquirer, target, deal amount with its currency, announcement date and source link. The upstream feed is rebuilt often and can be legitimately empty for a while; an empty list means no announcements passed the filters.
+- `companies.early-stage-guide.get`: Read early stage guide from Bain Capital Ventures.
 - `companies.financing-events.search`: Search observed company financing events by financing type, location, company size, industry and first observation date; up to 50 events per page.
 - `companies.funding-history`: A company's funding history: rounds with dates, amounts and investors, total raised, revenue, headcount, and the chief executive.
 - `companies.funding-history-bulk`: Run companies.funding-history for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 7.92 before the platform fee; the platform quotes the billed maximum before submission.
@@ -95,49 +142,120 @@ Find funding rounds, acquisitions, investors and pre-IPO valuations for companie
 - `companies.pre-ipo.raises`: A private company's funding rounds.
 - `companies.pre-ipo.summary`: A private company's profile and latest valuation.
 - `companies.pre-ipo.valuations`: A private company's valuation history.
+- `companies.seed-program.get`: Read seed program from Bessemer Venture Partners.
+- `companies.startup-batch-companies.list`: List the companies of one accelerator batch on a startup-directory website.
+- `companies.startup-batches.list`: List the accelerator batches and categories published by a startup-directory website.
+- `companies.startup-details.get`: Read startup details on topstartups.io. Returns personal data: personal details as published.
+- `companies.startup-rankings.list`: List a country's ranked startups from a startup-ranking website.
+- `companies.startups.get`: Read startups on topstartups.io. Returns personal data: personal details as published.
+- `companies.unicorns.list`: List privately held enterprises in the published billion-dollar valuation catalogue, with recorded country, city, industry, valuation, entry date and selected backers. Each row describes an organisation in this curated high-valuation startup directory.
+- `companies.venture-bulletin.get`: Read the title and public article link for the latest venture capital research bulletin, covering private-enterprise financing, market themes and published industry analysis in the selected editorial archive.
+- `companies.venture-entities.search`: Search venture entities from published venture research.
+- `companies.venture-financings.get`: Read venture financings from published venture research.
+- `companies.venture-portfolio.list`: List venture portfolio from Bessemer Venture Partners.
+- `companies.venture-report.get`: Read a published private-market research article, including its heading, editorial content and public URL. The requested archive slug identifies a publication about venture financing, industry trends or private-enterprise market analysis.
+- `companies.venture-reports.list`: List published private-market research articles and their available summaries, headings and public URLs. The catalogue concerns venture financing and industry trends, with each entry representing an editorial publication in the selected research archive.
+- `companies.venture-roadmap.get`: Read venture roadmap from Bessemer Venture Partners.
+- `companies.venture-roadmaps.list`: List venture roadmaps from Bessemer Venture Partners.
+- `companies.venture-themes.list`: List venture capital sector focus areas and technology themes, returning the public thematic categories used by the named financing partnership. These categories describe industries and investment specialisations within its published institutional information.
 - `investors.accelerator-partners.list`: List public investment partners at the supported startup accelerator. Returns personal data: public professional names, roles and business profile links; no contact details or person scores.
 - `investors.deals.list`: The funding rounds an investor took part in, with each round's type, date, amount and valuation.
 - `investors.directory.search`: Search public business investor directory names and investment counts. Returns personal data: public professional investor names and published investment counts; no contact details or person scores.
 - `investors.profile.get`: An investor's profile, with its stage focus, deal counts, location and most recent deal date.
 - `investors.search`: Find investors by name, website domain or public profile link.
 - `people.investments.list`: The funding rounds a person invested in as an angel or partner, with each round's type, date and amount. Returns personal data: the rounds a named person invested in, found by their public profile link.
+- `startups.verified-revenue.find`: Small internet businesses with verified revenue, looked up by keyword or category.
+- `vc.companies.search`: Find venture-backed startups by name.
+- `vc.company.profile`: Read a venture-backed company's public profile.
+- `vc.portfolio.list`: List a venture firm's portfolio companies.
+- `vc.raises.list`: List recently disclosed funding raises from regulatory filings.
+- `venture.partners.list`: Directory of venture capital partners with their firm, sectors, stages and typical cheque size.
+- `venture.recent-deals.list`: A feed of the latest announced startup financings across all companies, with amount, stage and lead investor.
 
 ## Company profiles
 
 Get a full profile of a company from its name, website or profile link.
 
+- `companies.agency-profile.get`: Read a service agency's profile from a business directory. Returns personal data: personal details as published.
+- `companies.architecture-brands.list`: List architectural product brands by country and sector.
+- `companies.architecture-practices.list`: Browse architectural design studios by country and practice type.
+- `companies.auction-designations.list`: List professional auction industry designation labels.
+- `companies.beverage-brands.search`: Search beverage brands by product keyword.
+- `companies.bulk-leads.get`: Read bulk leads on thomasnet.com. Returns personal data: personal details as published.
+- `companies.buying-intents.list`: List technology buying interests reported for a company domain.
+- `companies.by-brand.search`: Find Moroccan businesses selling one brand.
+- `companies.by-phone.get`: Find published directory listings for a phone or fax number. Returns personal data: personal details as published.
+- `companies.community-company-profile.get`: Read a company's profile in a software community on trailhead.salesforce.com. Returns personal data: personal details as published.
+- `companies.company-details.get`: Read company details on wlw.de. Returns personal data: personal details as published.
+- `companies.company-locations.get`: Read company locations. Returns personal data: personal details as published.
+- `companies.company-profile.get`: Read company profile on volza.com. Returns personal data: personal details as published.
 - `companies.connection-rank`: Rank companies by connection strength in your connected professional network. Scores describe relationships, not personal merit. (needs a connected account)
 - `companies.connections.list`: Observed relationships between companies, with directed evidence and confidence in that relationship. Context text can name people.
+- `companies.construction-service-plans.list`: List public construction service plan names and features.
+- `companies.contact-and-sms-support.get`: Read contact and sms support on vowly.com. Returns personal data: personal details as published.
+- `companies.contact-emails.get`: Read contact emails on timocom.co.uk. Returns personal data: personal details as published.
+- `companies.contact-info.get`: Read contact info on the chosen site. Returns personal data: personal details as published.
+- `companies.data-center.get`: Read a public data center facility record.
+- `companies.data-centers.list`: List data center facilities by region.
+- `companies.data-centers.search`: Search public data center facility records.
+- `companies.dismantlers.list`: List vehicle dismantling yards and the services they offer.
 - `companies.domain.find`: Use when you have a business name but need its website domain; for a company profile use companies.enrich. Find the most likely website domain for a company name.
 - `companies.domain.find-bulk`: Find company domains for up to 1000 company-name rows as one background job. Each result carries your row id; no record is found false.
 - `companies.enrich`: Use when you need one company profile from its domain, name or LinkedIn page; for a list of businesses use companies.search. Company profile (industry, size, founding year, location, links) from a domain, name or LinkedIn URL.
 - `companies.enrich-bulk`: Enrich up to 100 companies in one asynchronous job — domain or profile URL per row, all rows the same kind (a company name is not an identifier and is not accepted); each result row carries the company's profile fields next to your row id and a found flag. Runs as a job: start it, then poll for the rows. Each matched company costs the same as a single enrich.
+- `companies.event-calendar.list`: List an exchange's corporate event calendar entries.
+- `companies.featured-internet-services.list`: List featured Swedish internet service business names.
 - `companies.fetch-company-context`: Get company context.
 - `companies.founders.list`: List the founders of a company, with where they are based and their public LinkedIn, X and GitHub profiles. Returns personal data: founders' names, location and links to their public LinkedIn, X and GitHub profiles.
 - `companies.headcount.get`: How many people a company employs, with the split by department when the source has it.
 - `companies.identify`: Use when you must choose which company a name or domain refers to; for details about a known company use companies.enrich. Resolve one company from a website domain, a name or a profile URL; returns the candidate matches ranked by the source. Use it to disambiguate before enriching.
 - `companies.identify-ip`: Identify the organisations behind traffic from an IP address, for B2B website-visitor identification. Resolves companies, not people; consumer internet-provider addresses usually match nothing.
 - `companies.identify-ip-detailed`: Identify the company behind an IP with geographic facts. Explicit options add network flags and occupational role/level attributes, never personal names or contacts. Provisional maximum is 0.84 USD when both premium options are requested.
+- `companies.impact-certification.get`: Read a business impact certification and its published assessment totals.
+- `companies.impact-certified.search`: Search impact-certified businesses by name, country and industry.
+- `companies.internet-service.get`: Read one Swedish internet service business and supported service types.
+- `companies.internet-services.list`: List Swedish internet service businesses and supported service types.
 - `companies.intro-paths.check`: Check whether your connected network has an introduction path to a company. (needs a connected account)
 - `companies.intro-paths.find`: Find warm introduction paths to people at a company through your connected professional network. Relationship scores have no fixed upper bound. Returns personal data: names, titles, employers, locations and profile URLs of the people reached, the introducer and the people in your network who can start each path. (needs a connected account)
 - `companies.launch-posts.list`: List the latest posts companies made on startup community sites to launch a product or announce they are hiring, newest first.
 - `companies.linkedin.find`: Find a company's LinkedIn page from its name or website domain.
+- `companies.listings.search`: Search listings on yellowpages.com.eg. Returns personal data: personal details as published.
 - `companies.name.match`: Compare two company names, allowing for legal suffixes and spelling, and say whether they are the same company.
 - `companies.name.normalize`: Normalize a company name: legal suffixes (Inc, LLC, Ltd, Corporation and similar) removed, sentence case with acronyms kept uppercase, and nothing but the name returned.
 - `companies.operations.get`: Disclosed company activities, industries and operating facts with period and currency. At most 100 rows per section.
+- `companies.org-chart.get`: Read org chart on theorg.com. Returns personal data: personal details as published.
 - `companies.peers.list`: Peers disclosed for an official company identity, with reported period, industry and revenue comparison metrics. At most 100 rows.
+- `companies.pos-technology.check`: Check whether a business website shows point-of-sale technology on yellowpages.com.
+- `companies.practitioners.search`: Find practitioners on trailhead.salesforce.com. Returns personal data: personal details as published.
 - `companies.product-reviews.list`: A company's products with their categories, pros and cons as reviewers describe them.
 - `companies.products.feed`: Browse product observations across companies, without company attribution when it is not present in the record.
 - `companies.products.list`: List the products, services and plans a company sells, read from its own website, with prices where it publishes them.
+- `companies.profile-details.get`: Read profile details on thehandbook.com. Returns personal data: personal details as published.
 - `companies.profile-sections.get`: Structured company profile sections: business model, analyst assessment, customers, strategy signals, and M&A and investments. Ask for the sections you want; a section the source has nothing for is left out.
+- `companies.profile.get`: Read profile on toptal.com. Returns personal data: personal details as published.
 - `companies.profile.lookup`: Use when a company profile needs funding, workforce or growth detail; for a basic business profile use companies.enrich. Detailed company profile from domain, name, public profile or ticker plus location hints. Explicit groups add funding, workforce, growth, inferred technology use and hiring counts; arrays capped at 50.
+- `companies.profiles.search`: Search profiles on thehandbook.com. Returns personal data: personal details as published.
+- `companies.project-portfolio.list`: List the published project portfolio of a business.
+- `companies.provider.get`: Read provider on werkspot.nl. Returns personal data: personal details as published.
+- `companies.providers.list`: List providers on werkspot.nl. Returns personal data: personal details as published.
+- `companies.question.get`: Read question on trailhead.salesforce.com. Returns personal data: personal details as published.
+- `companies.rankings.get`: Read Lithuanian business rankings by profit and staff.
 - `companies.repositories.list`: List the public code repositories a company publishes, with when each was first seen.
 - `companies.research-bulk`: Research up to 100 companies as a background job. Requires our configured research engine. Provisional maximum $100.53; higher search depth and typed answers are explicit. No person scoring.
+- `companies.salary-data.get`: Read salary data on topstartups.io. Returns personal data: personal details as published.
 - `companies.social.find`: Find a company's social media profile URLs from its website domain (Facebook, LinkedIn, X, Instagram, GitHub, YouTube, TikTok, Pinterest, Snapchat, Reddit, Medium, Threads, Behance and Dribbble).
+- `companies.supplier-contact.get`: Read supplier contact on tradeindia.com. Returns personal data: personal details as published.
+- `companies.supplier-profile.get`: Read supplier profile on thomasnet.com. Returns personal data: personal details as published.
+- `companies.talent.search`: Search talent on toptal.com. Returns personal data: personal details as published.
+- `companies.team-contacts.get`: Read team contacts on thehandbook.com. Returns personal data: personal details as published.
+- `companies.teams.get`: Read teams on theorg.com. Returns personal data: personal details as published.
+- `companies.technology-offices.list`: List US technology distributor offices and distribution centers.
+- `companies.url-results.list`: Fetch the business listings one directory search URL describes, in site order.
+- `companies.user-profile.get`: Read user profile on trustpilot.com. Returns personal data: personal details as published.
 - `companies.website.changes`: List the pages that appeared on or disappeared from a company's website, with when each was first and last seen.
 - `companies.workforce`: Read company employee totals, role and region breakdowns, history and labelled growth percentages. Contains company facts, no individual employees. Lists capped at 100 with a truncation flag. Maximum source cost $0.20 at the provisional credit rate.
 - `data.feedback.send`: Send explicit feedback to the data operator; message is transient and never logged. (needs approval)
-- `data.intelligence.batch-run`: Run up to 100 company, technology, funding, employee, job or public-ad lookups as one background job. Every flat result carries your row id and lookup type, with bounded lists for search rows. Personal data: employee names, titles, public profile URLs and available work email addresses and phone numbers may be returned. Failed rows are free. Cost is the sum of selected lookups and requested search limits; no expensive lookup is selected automatically. Cancellation stops local waiting; accepted work may continue at the source. For native batch processing, the 100-row maximum is USD 99.00 before the platform fee; the platform quotes the billed maximum before submission.
+- `data.intelligence.batch-run`: Run up to 100 company, technology, funding, employee, job or public-ad lookups as one background job. Every flat result carries your row id and lookup type, with bounded lists for search rows. Personal data: employee names, titles, public profile URLs and available work email addresses and phone numbers may be returned. Failed rows are free. Cost is the sum of selected lookups and requested search limits; no expensive lookup is selected automatically. Cancellation stops local waiting; accepted work may continue at the source. For native batch processing, the 100-row maximum is USD 99.00 before the platform fee; the platform quotes the billed maximum before submission. (needs approval)
 - `search.datasets.stats`: What the people, company and job-postings searches cover: how many records each index holds, its most common dimension values, and the filter families it supports. Cached source data for sizing filters and expectations; it returns no records. Free.
 
 ## Company registers
@@ -145,10 +263,33 @@ Get a full profile of a company from its name, website or profile link.
 Read official company register records, officers, owners, filings and licences.
 
 - `companies.charities.lookup`: Look up a charity registered in England and Wales by number or name, with its income and status.
+- `companies.cz-registry.entity.get`: Read full details of an economic subject by its registration number (IČO).
+- `companies.cz-registry.insolvency.check`: Search for insolvency proceedings on the ISIR portal by IČO or company name. At least one of ico or nazev must be provided. Returns whether any proceedings were
+- `companies.cz-registry.register-entry.get`: Read detailed data specifically from the Public Register (Veřejný rejstřík / VR), including representatives, capital, shares, and historical records.
+- `companies.cz-registry.status.get`: Read current legal status of a company based on data from various registers.
+- `companies.director-profile.get`: Read director profile on zaubacorp.com. Returns personal data: personal details as published.
+- `companies.directory-categories.list`: List the public category, specialty, region or location vocabulary of a chosen directory website.
+- `companies.directory-categories.search`: Read public Indian business directory categories on yellowpages.in.
+- `companies.directory-filters.list`: Read the available public business directory search filters on yellowpages.com.
+- `companies.directory-regions.list`: List public business directory regions on yellowpages.com.
+- `companies.directory-suggest`: Read search suggestions from a chosen directory website for a query prefix.
+- `companies.directory-suggestions.search`: Find business directory suggestions for a query and location on yellowpages.in.
+- `companies.directory.get`: Read one public business listing's details from a chosen directory website by its own reference, page URL or identifier.
+- `companies.directory.search`: Search public business-directory listings on a chosen directory website by keyword and location.
 - `companies.document.verify`: Verify a company deed against its source using supplied company, notary and date facts. Returns only corroboration facts.
 - `companies.employment-registration.verify`: Look up an employer registration, returning up to 100 factual establishment records. Does not verify a worker or expand employee details.
+- `companies.fr-director-network.get`: Read the published French company and director relationship graph. Returns personal data: personal details as published.
+- `companies.fr-directors.search`: Search public French company directors by name. Returns personal data: personal details as published.
+- `companies.fr-orias.intermediaries.search`: Full-text search across the intermediary registry.
+- `companies.fr-orias.intermediary.get`: Read the full profile of an intermediary by its SIREN number.
+- `companies.icij-records.entities.list`: List entities from the database with offset-based pagination. Returns entity records with their properties (name, country, jurisdiction, status, incorporation d
+- `companies.icij-records.info.get`: Read general information about the Offshore Leaks Database including its title, description, data sources (investigation names with years), and license.
+- `companies.in-indiafilings.entity.get`: MCA registration record of an Indian private limited firm or LLP by CIN or LLPIN: status, type, capital and key dates.
+- `companies.in-indiafilings.search`: Find Indian firms and LLPs in the MCA register by partial name, with their CIN or LLPIN.
+- `companies.insolvency.notices.search`: Search UK corporate insolvency notice summaries by publication date; these notices do not establish a company’s current insolvency status.
 - `companies.insolvency.search`: Search company insolvency records and return up to 100 factual proceedings. May contain parties to company proceedings; no risk ratings.
 - `companies.lei.lookup`: Look up a company's Legal Entity Identifier record (name, legal and head office address, status) by LEI or name.
+- `companies.lei.search`: Search the public legal entity register by company name, optionally within one country: LEI code, legal name, status, jurisdiction and addresses for each match. Use companies.lei.lookup to read one record by LEI.
 - `companies.license.download`: Retrieve one food business licence certificate as a hosted file. The certificate may contain proprietor details.
 - `companies.license.verify`: Look up one business licence, returning registration, business name, address and validity facts. May include proprietor names.
 - `companies.professional-registration.find`: Find professional firms or members in Indian registries, at most 100 records. Returns names, registration numbers and selected firm member facts; no contacts or person scores.
@@ -182,7 +323,20 @@ Read official company register records, officers, owners, filings and licences.
 - `companies.tax-identifiers.list`: List business tax registrations associated with a supplied tax identifier, up to 50. May return proprietor registration identifiers.
 - `companies.tax-registration.match`: Compare a tax registration against the registrations disclosed for an official company identity. Name similarity alone is inconclusive.
 - `companies.tax-registration.verify`: Verify a business tax registration; may return a sole proprietor name and business registration facts.
+- `companies.us-delaware-registry.entities.search`: Search the Division of Corporations entity database by entity name or file number.
+- `companies.us-delaware-registry.entity.get`: Read detailed information for an entity by its file number.
+- `companies.us-new-jersey-registry.by-id.search`: Search NJ business records by entity ID (exact match). The entity ID is a 10-digit numeric identifier assigned by the NJ Division of Revenue. Returns zero or on
+- `companies.us-new-jersey-registry.search`: Search NJ business records by business name using partial match. A wildcard is automatically appended to the search term by the upstream system. Returns all mat
+- `companies.vn-registry.company.get`: Read full registration details for a single Vietnamese company.
+- `companies.vn-registry.search`: Full-text search over Vietnamese companies by name, tax code, ID number, or representative name. Returns up to 20 companies per page. Pagination via integer pag
 - `companies.workforce-filings.list`: Employer provident fund filings and payments; employer facts only. At most 100 rows.
+- `companies.zaubacorp-company-details.get`: Read company details on zaubacorp.com. Returns personal data: personal details as published.
+- `government.gb-insolvency.register-info.get`: Read metadata about the Individual Insolvency Register (IIR), including its geographic coverage (England and Wales), the types of records it contains (bankr.
+- `government.ie-company-gazette.gazette-list-by-year.get`: Read gazette list by year for Irish company gazettes.
+- `government.ie-company-gazette.gazette-years.get`: Read gazette years for Irish company gazettes.
+- `government.ie-company-gazette.issues.get`: Read issues for Irish company gazettes.
+- `government.in-mca.documents.search`: Search and list MCA regulatory documents and notices by category. Returns paginated results from the document management system. Each result includes the docume
+- `government.in-mca.offices.list`: List all Registrar of Companies (ROC) offices across India as published on MCA's public ROC directory page. Returns the full list in a response (31 offices at
 
 ## Company search
 
@@ -197,9 +351,9 @@ Find lists of companies by description, filters or lookalikes.
 - `companies.industry.classify`: Classify a business into NAICS industry codes from its website domain or a sentence describing what it does.
 - `companies.lookalike.search`: Find companies that resemble a set of example companies you give by their website domains, in size, industry and profile. Each company returned is billed.
 - `companies.match-search`: Find up to 100 company matches for identity and location hints. Returns company profiles without people or match scores.
-- `companies.natural-language.search`: Build a list of companies from one natural-language description, or from structured filters a filter lookup resolved. Each row is a company profile; totalMatches counts everything that fit.
+- `companies.natural-language.search`: Build a list of companies from one natural-language description, or from structured filters a filter lookup resolved. Each row is a company profile; totalMatches counts everything that fit. For a simple search by name, industry, technology or domain use companies.search.
 - `companies.profile.search`: Search detailed company profiles using typed predicates, up to 50 per page. Explicit groups add funding, workforce, growth, inferred technology use and hiring counts; arrays capped at 50.
-- `companies.search`: Use when you need a list of companies matching filters or a description; for one known business profile use companies.enrich. Find companies by description, name, industry, technology used or domain; optional country.
+- `companies.search`: Use when you need a list of companies matching filters or a description; for one known business profile use companies.enrich. Find companies by description, name, industry, technology used or domain; optional country. For filters resolved by a filter lookup, with a count of every match, use companies.natural-language.search.
 - `companies.search-bulk`: Run one company filter search as an asynchronous job and get the whole match set as rows, up to 10000 companies (the page search returns one page at a time). The job stops at maxRows and is limited to it upstream, so the worst case is maxRows results, and the job refuses to start unless your credit covers that worst case (the technology filter costs the most per company). Runs as a job: start it, then poll.
 - `companies.search-filtered`: Search companies with include/exclude filters, offered services, employee and revenue bands, and optional homepage text, up to 100 per page. Domain exclusions are unsupported. Homepage text requires includeFullText true. A 100-company page costs at most $0.400. Continuations expire after 24 hours.
 - `companies.search-industries`: Search industries.
@@ -211,7 +365,7 @@ Find lists of companies by description, filters or lookalikes.
 - `entities.find-events`: Watch a running or finished search: how it read your objective, how it is going, every person or company it considered and how each fared, and any failure, in order. Reads of people runs return personal data - names, the public page identifying each person and a public description, never contact details - about people the search considered, in discovery order, with no score or ranking.
 - `entities.find-extend`: Keep a finished entity search looking for more matches without starting over: raise its match limit and it continues in the background, re-checking its own criteria on new candidates. The additional matches are billed at the run's per-match price for the worst case at this call. Read the matches found so far with entities.find.result.
 - `entities.find-plan`: See the plan a search would follow before paying to run it: how the plain-words objective is read, as what kind of entity, with which match conditions, at which depth and match limit. Nothing is searched and no match is evaluated.
-- `entities.find-refresh`: Run an entity search again, leaving out what you already have: pass the entities earlier runs returned as exclude and get back only what is new. Priced like entities.find (a fixed price per run plus a price per new match). This is a background job.
+- `entities.find-refresh`: Run an entity search again, leaving out what you already have: pass the entities earlier runs returned as exclude and get back only what is new. Priced like entities.find (a fixed price per run plus a price per new match). This is a background job. entities.find-updates is the one-step mission over this call.
 - `entities.find-result`: Read the matches an entity search has found: each match with its verified conditions and any extra fields the search was asked to fill, with their sources and confidence. Returns what the search has found so far; free to call.
 
 ## Company signals and watches
@@ -220,9 +374,9 @@ Watch companies for buying signals and changes, and get new ones delivered.
 
 - `companies.account-contacts.list`: Read up to 10 contacts on your company account, including names, possible work or personal email addresses, phone numbers, job details and locations. No contact is scored or ranked.
 - `companies.account-monitor.create`: Add one company to your group. Active monitoring rents an account monthly, with a placeholder upstream cost of USD 0.666667 per month; suggestions are included. Research is not promised to be complete. Unpaid accounts are archived; if archiving is refused, deletion may erase history to stop the cost.
-- `companies.account-monitor.delete`: Permanently delete your account and its signal history, then end its rental after confirming removal.
+- `companies.account-monitor.delete`: Permanently delete your account and its signal history, then end its rental after confirming removal. (needs approval)
 - `companies.account-monitor.get`: Read one company account you own, including its company profile and summary; public-source text may mention people.
-- `companies.account-monitor.move`: Move your monitored company to another group you own. Refuses a domain that is also present in any group you do not own.
+- `companies.account-monitor.move`: Move your monitored company to another group you own. Refuses a domain that is also present in any group you do not own. (needs approval)
 - `companies.account-monitor.update`: Change your account monitoring status. Confirmed activation starts a monthly rental at placeholder upstream cost USD 0.666667; confirmed archive stops paid monitoring and keeps history. Failed activation charges nothing.
 - `companies.account-monitors.list`: List company accounts in your own groups. Company summaries may mention people from public sources; contact arrays are omitted.
 - `companies.account-outreach.get`: Read an optional outreach draft on your company account. Text may name people; absence means no draft is available.
@@ -230,27 +384,27 @@ Watch companies for buying signals and changes, and get new ones delivered.
 - `companies.monitor.create`: Watch a saved company search on a schedule; each run delivers the companies that newly match. Standing spend: rented monthly at the worst case of the request: runs a month (744 divided by everyHours, rounded up) times maxResultsPerRun times 2 credits per company, so the defaults (every 24 hours, 25 companies) are 1,550 credits a month. The dearest option is isRealtime, 150 credits per delivered company (116,250 a month at the defaults); it is never the default. No notifications are sent; read deliveries with data.monitor.runs and data.monitor.run.read. Returns a ref for data.monitor.update and data.monitor.delete.
 - `companies.signal-answers.list`: Read positive, negative and unknown company signal answers with sources, quotes and facts. Public-source text may name people; contact arrays are omitted. Undocumented answer structures are omitted.
 - `companies.signal-group.create`: Create a signal group for company monitoring. Group features have no separate monthly fee.
-- `companies.signal-group.delete`: Permanently delete your signal group, its rules, accounts and all their signal history. Confirmed deletion stops their monthly rentals.
+- `companies.signal-group.delete`: Permanently delete your signal group, its rules, accounts and all their signal history. Confirmed deletion stops their monthly rentals. (needs approval)
 - `companies.signal-group.get`: Read the settings of one signal group you own.
 - `companies.signal-groups.list`: List only your signal groups and their current account suggestion settings.
 - `companies.signal-industries.list`: List industries supported by account suggestions.
 - `companies.signal-location-codes.list`: List country or US state codes supported by account suggestions.
 - `companies.signal-rule.create`: Create a company signal rule in your group. A question may mention people; it never ranks a person. Rules have no separate monthly fee.
-- `companies.signal-rule.delete`: Permanently delete your company signal rule and stop its included rental.
+- `companies.signal-rule.delete`: Permanently delete your company signal rule and stop its included rental. (needs approval)
 - `companies.signal-rule.get`: Read one company signal rule you own; the question may mention people.
 - `companies.signal-rules.list`: List your company signal rules; questions may mention people.
 - `companies.signal-suggestions.configure`: Change your group's account suggestion mode. Suggestions are previews and do not activate paid monitoring.
-- `companies.signal-suggestions.employee-bounds`: Set employee bounds for suggestions in your own group. This can reject queued suggestions. Zero is the upstream default; no unbounded interpretation is promised.
-- `companies.signal-suggestions.filter`: Change your group's suggestion filter. This can reject queued suggested accounts.
-- `companies.signal-suggestions.run`: Request suggestions for your group, at most once every two hours upstream. Suggestions must be enabled and at least one rule must have high company-signal importance. Read new previews with companies.account-monitors.list.
+- `companies.signal-suggestions.employee-bounds`: Set employee bounds for suggestions in your own group. This can reject queued suggestions. Zero is the upstream default; no unbounded interpretation is promised. (needs approval)
+- `companies.signal-suggestions.filter`: Change your group's suggestion filter. This can reject queued suggested accounts. (needs approval)
+- `companies.signal-suggestions.run`: Request suggestions for your group, at most once every two hours upstream. Suggestions must be enabled and at least one rule must have high company-signal importance. Read new previews with companies.account-monitors.list. (needs approval)
 - `companies.signal-templates.list`: List company signal templates, with example questions where available.
 - `companies.signals.bulk`: The newest verified company signals for many company domains at once, as one background job: at most 200 rows per job, and every row comes back keyed by your own row id, with found false where a company delivered nothing. Runs as a job: start it, then poll.
 - `companies.signals.get`: The newest verified company signals for one company domain: dated, typed events (funding, hiring, launches and more), each with a headline, a summary and the source URL that proves it. At most 10 per call. Runs as a job: a fresh answer needs live research and takes a while; a recently researched company answers from the store on the first poll.
 - `companies.signals.monitor.create`: Watch one company domain for new verified company signals on a schedule. The checks bill per signal they find ($0.01 each, charged daily through your credit); no notification is sent — read what a watch found with companies.signals.monitor.events. Returns a ref for the follow-ups.
-- `companies.signals.monitor.delete`: Permanently delete a company signal watch created with companies.signals.monitor.create, and stop its per-signal billing. Pass the ref that create returned. The signals it already found stay readable until the source drops them; deleting the watch stops all further checks.
+- `companies.signals.monitor.delete`: Permanently delete a company signal watch created with companies.signals.monitor.create, and stop its per-signal billing. Pass the ref that create returned. The signals it already found stay readable until the source drops them; deleting the watch stops all further checks. (needs approval)
 - `companies.signals.monitor.events`: Read the verified company signals one of your watches has found, newest first. Signals are billed per returned signal at the watch's per-signal rate.
 - `companies.signals.monitor.list`: List the company signal watches you created, with what they watch, their schedules and whether they are running. Each row carries a handle for the watch follow-ups.
-- `companies.signals.monitor.run`: Run a company signal watch's check now, ahead of its schedule. The check cannot be undone and sending this twice runs two checks; the signals it finds bill at the watch's per-signal rate through your credit (the call itself reports no per-call price, so the estimate held is a conservative worst case, and only the signals actually found are charged).
+- `companies.signals.monitor.run`: Run a company signal watch's check now, ahead of its schedule. The check cannot be undone and sending this twice runs two checks; the signals it finds bill at the watch's per-signal rate through your credit (the call itself reports no per-call price, so the estimate held is a conservative worst case, and only the signals actually found are charged). (needs approval)
 - `companies.signals.monitor.update`: Change a company signal watch's schedule, pause it, or resume it, or relabel it. A paused watch runs no checks and finds no signals; its schedule keeps its per-signal billing model.
 - `companies.signals.search`: Discover companies from a natural-language signal question: up to 100 evidence-backed signals across distinct companies, each with its type, headline, summary, date, source URL, and the company name and domain it is about. A request is a ceiling, not a promise: fewer results come back when public evidence cannot verify both the date and the company. Runs as a job: the search researches live sources and takes a while.
 
@@ -263,12 +417,23 @@ See the technologies, website traffic and infrastructure behind a company.
 - `companies.technologies.search`: Search the catalogue of website technologies (analytics, payments, hosting and the like) by name, with what each is, its vendor's site, its categories and what it typically costs. Billed per technology returned.
 - `companies.traffic`: Read dated monthly visitor estimates and traffic channel percentages for company domains. No visitor identities. At most 25 domains and 100 observations per list, with truncation flags. Maximum source cost $0.20 at the provisional credit rate.
 
+## Construction projects
+
+Find planned and active construction projects.
+
+- `construction.projects.get`: Read one construction project's public details from a chosen construction-network website.
+- `construction.projects.search`: Search public construction project and bid listings on a chosen construction-network website.
+- `housing.canada-construction-projects.search`: Find public construction projects in a Canadian province.
+- `housing.construction-activity.get`: Read active construction project counts by US county and state.
+- `housing.us-construction-projects.search`: Find public construction projects in a US state.
+
 ## Email and phone finding
 
 Find work or personal emails and phone numbers for a person.
 
-- `contacts.batch.run`: Run up to 100 contact lookups in one background job. Personal data: work and private email addresses, mobile numbers, profile names and employment facts, only for the lookup each row selects. Results carry your row ids. Failed rows are free. Before the platform fee, the highest per-row rate is USD 0.198 for an explicit identity lookup, and a 100-row run is at most USD 19.80. The platform quotes the billed maximum before submission. Cancellation stops local waiting; accepted work may continue at the source.
+- `contacts.batch.run`: Run up to 100 contact lookups in one background job. Personal data: work and private email addresses, mobile numbers, profile names and employment facts, only for the lookup each row selects. Results carry your row ids. Failed rows are free. Before the platform fee, the highest per-row rate is USD 0.198 for an explicit identity lookup, and a 100-row run is at most USD 19.80. The platform quotes the billed maximum before submission. Cancellation stops local waiting; accepted work may continue at the source. (needs approval)
 - `people.contacts.reveal`: Reveal personal contact data for a selected search row: mailbox addresses of unspecified type and phone numbers. Pass the row's ref from people.search-filtered. PLACEHOLDER maximum $0.008, estimated from two contact channels; the actual provider fee is unconfirmed. No contact means no builder charge.
+- `people.decision-maker-email.find`: Find a professional email address for a decision maker in selected company departments. Returns personal data: a professional email address and the person’s published name and job title.
 - `people.email.best.find`: Find the best available email address for a person from their LinkedIn profile URL. The address can be a personal (non-work) mailbox: use people.email.find when only a work address is acceptable.
 - `people.email.best.find-bulk`: Find the best available email address for each LinkedIn profile URL, business preferred with a personal fallback, as one background job. At most 100 rows per call; every row comes back keyed by your own row id, with found false where nothing was matched. Rows that could not be answered carry an error and are free.
 - `people.email.find`: Use when you need a professional email from a name and employer or LinkedIn page; for checking an address you have use people.email.verify. Find a person's work email from their name plus company domain, or their LinkedIn URL.
@@ -301,8 +466,8 @@ Check whether emails are real, deliverable, risky or disposable, and score lead 
 - `people.email.inspect-bulk`: Run people.email.inspect for up to 2,000 rows as a background job, keyed by your row ids. More than 1,000 rows require an uploaded row file. Maximum source cost $78 with explicit activity per full run.
 - `people.email.list.analyze`: Analyze an uploaded list of 100 to 2,000 email addresses as a background job. Returns aggregate percentages and optional risk observations, never individual addresses. Requires an isolated source with erasure support; source evaluation is free.
 - `people.email.list.get`: Read the status and counts of your saved mailbox-check list. No email addresses are returned.
-- `people.email.list.remove`: Permanently remove your saved mailbox-check list. Requires confirm true. This does not claim to refund verification already performed.
-- `people.email.list.stop`: Stop verification of your saved mailbox-check list. Completed results remain available; the originating job owns the verification charge.
+- `people.email.list.remove`: Permanently remove your saved mailbox-check list. Requires confirm true. This does not claim to refund verification already performed. (needs approval)
+- `people.email.list.stop`: Stop verification of your saved mailbox-check list. Completed results remain available; the originating job owns the verification charge. (needs approval)
 - `people.email.quality`: Check an email address's mailbox delivery quality, from 0 to 10. Returns the supplied address and a mailbox score; it does not rate a person. Maximum source cost $0.0195 per address.
 - `people.email.quality-bulk`: Run people.email.quality for up to 2,000 rows as a background job, keyed by your row ids. More than 1,000 rows require an uploaded row file. Maximum source cost $39 per full run.
 - `people.email.reputation`: Rate how trustworthy an email address looks from its domain age, mail set-up and provider type.
@@ -359,6 +524,7 @@ Turn a name, email or profile link into a full professional profile.
 
 Find and count people by role, company and description, and export lists.
 
+- `job.people.search`: Search people on linkedin.com. Returns personal data: personal details as published.
 - `people.bulk-jobs.validate`: Check the rows of a bulk people-data run before submitting it: whether each row would be accepted, and what is missing or malformed, field by field. Nothing is submitted and nothing is charged; the rows you send are the rows you are about to (they may hold email addresses and profile URLs; only verdicts come back). estimatedCostUsd is an estimate of the least the target run would cost these rows at the current rate, never a quote, and never below what the target run is held to. The target's own row cap still applies.
 - `people.company-contacts.search`: Use when you need possible contacts and inferred mailboxes at a named company; for verified email deliverability use people.email.verify. Find contacts at a named company, including possible work and personal mailboxes. Mailboxes can be inferred and unverified; match strength does not establish deliverability. Pass each row's ref to read its public social profiles.
 - `people.company.search`: Use when you need to see who works for a business and their work contact details; for public people search use people.find. Work contact details for the people at one company: name, job title, LinkedIn profile URL, work email and phone number. Each person returned with an email or a phone is billed as one found contact (USD 0.004 each); people with neither are free. A page holds at most 20 people.
@@ -369,7 +535,7 @@ Find and count people by role, company and description, and export lists.
 - `people.find`: Use when you need to find people by describing them on the public web; for filling in a known contact profile use people.enrich. Find people on the public web by describing them. Personal data: returns people's names and the public pages that identify them, with a short public description. Never contact details, and no rank or score of any person; results are in the order the search produced them.
 - `people.intro-paths.find`: Find warm introduction paths to a person through your connected professional network. Relationship scores have no fixed upper bound. Returns personal data: names, titles, employers, locations and profile URLs of the target, the introducer and the people in your network who can start each path. (needs a connected account)
 - `people.lists.upsert`: Create an exclusion list of people or companies on the data source's account, or add to one: up to 10 members per call, each given as a LinkedIn profile URL (people) or a website domain (companies) and resolved to a record before it enters the list — resolving costs credits per matched record, so the call is not free even though the list itself is. A second call with the returned ref appends or replaces. Lists expire after 24 hours at the source, hold at most 10,000 members. No other capability here takes a list yet. This is per-caller state on a shared account: every list belongs to the caller that created it.
-- `people.lookalike.search`: Find people whose role, seniority and employer resemble a set of example people you give by their LinkedIn profiles. No contact details. Returns personal data: names, job titles, departments, employers, city and country, and LinkedIn URLs of the people found.
+- `people.lookalike.search`: Find people whose role, seniority and employer resemble a set of example people you give by their LinkedIn profiles. No contact details. For similar profiles from job facts, with profile links only, use candidate.lookalikes.find. Returns personal data: names, job titles, departments, employers, city and country, and LinkedIn URLs of the people found.
 - `people.profile.search`: Search people with typed filters and dataset slices, up to 50 per page. Professional data by default; explicit groups add work email, personal emails, phones, residential addresses, demographics and inferred compensation. No scores; histories capped at 50 and text at 5000 characters.
 - `people.role.find`: Find the one person who holds a named role at a company, for example its chief financial officer, and return their LinkedIn profile. To list many people at a company by job title, use people.search. Returns personal data: the LinkedIn profile URL of the person in that role.
 - `people.search`: Find people by description, company domain, job title or name; optional country, location and keywords. No contact details.
@@ -387,7 +553,7 @@ Watch people and profiles for job changes and new engagement.
 
 - `people.changes.monitor.create`: Watch a list of people you supply, by public profile URL, and get what changed about each one: a new job, a title move, a fresh certification. This stores the list of people at the provider and reports changes about them; nothing ranks or scores a person, and each delivery carries only the tracked change plus the profile fields the monitor was created with. The watched list is editable later; the track is fixed at creation. Standing spend: rented monthly at the worst case of the request: runs a month (744 divided by everyHours, rounded up) times the smaller of the list size and maxResultsPerRun times the credits per changed person for the freshness you choose: 5 at 30 days (the default), 10 at 14, 20 at 7, 50 at 3 and 150 at 1 day. 25 people at the defaults are 3,875 credits a month; at the 1-day tier, which you must ask for, 116,250. No notifications are sent; read deliveries with data.monitor.runs and data.monitor.run.read. Returns a ref for data.monitor.update and data.monitor.delete.
 - `people.engagement.monitor.create`: Watch a public profile and capture everyone who engages with its posts (likes and comments) as leads, with their work details. Runs until deleted, and bills by the month for as long as it runs: the watch is charged from the first month on, plus roughly the same again up front when backfill is on. Read the captured people with people.engagement.monitor.leads. Personal data: the captured people's names, employers and work emails.
-- `people.engagement.monitor.delete`: Permanently delete a profile engagement monitor created with people.engagement.monitor.create, and stop its monthly charge. Pass the ref that create returned. Deleting the monitor does not delete the leads it already captured at the source; it stops all further capture and billing.
+- `people.engagement.monitor.delete`: Permanently delete a profile engagement monitor created with people.engagement.monitor.create, and stop its monthly charge. Pass the ref that create returned. Deleting the monitor does not delete the leads it already captured at the source; it stops all further capture and billing. (needs approval)
 - `people.engagement.monitor.leads`: The people your profile engagement monitors captured: who liked or commented on the watched profiles' posts, what they wrote, and their work details. Returns personal data about the people who engaged - their names, employers and work email addresses. The order is the source's capture order, not newest first: walk the pages and compare against what you already hold to find new leads.
 - `people.engagement.monitor.list`: List the profile engagement monitors you created, with what they watch and whether they are running. Monitors carry no ids here: they are paused, resumed and deleted through the ref that people.engagement.monitor.create returned.
 - `people.engagement.monitor.update`: Pause or resume a profile engagement monitor created with people.engagement.monitor.create. Pass the ref that create returned. A paused watch bills nothing new; its captured leads stay readable.
@@ -403,17 +569,79 @@ Turn a school name or website into clean school facts.
 
 Find importers, exporters and shipments, and see country trade figures.
 
+- `government.eu-tariff-rulings.bti.get`: Read bti for EU binding tariff rulings.
+- `government.eu-tariff-rulings.bti.search`: Search bti for EU binding tariff rulings.
+- `government.mv-customs.company.search`: Search company for Maldives customs information.
+- `government.mv-customs.exchange-rates.get`: Read exchange rates for Maldives customs information.
+- `government.mv-customs.statistics.get`: Read statistics for Maldives customs information.
+- `government.mv-customs.tariff-products-by-hs-code.get`: Read tariff products by hs code for Maldives customs information.
+- `government.mv-customs.tariff.get`: Read tariff for Maldives customs information.
+- `government.mv-customs.tariff.search`: Search tariff for Maldives customs information.
+- `government.mv-customs.vessel-movements.get`: Read vessel movements for Maldives customs information.
+- `trade.annual-series.get`: Read annual series.
+- `trade.bilateral.get`: Read bilateral.
+- `trade.commodity-codes.search`: Search commodity codes for the chosen market or collection.
+- `trade.commodity-report.get`: Read commodity report in India.
 - `trade.companies.search`: Find trading companies whose names match, optionally in given countries.
 - `trade.company.profile`: A trading company's registration, industry, addresses and import and export totals.
+- `trade.countries.list`: List countries with their public region and income group.
+- `trade.country-products.list`: List country products.
+- `trade.country-report.get`: Read country report in India.
 - `trade.country.stats`: A country's trade balance, top exports and imports and main trading partners.
 - `trade.destinations.rank`: Rank the destination countries of the shipments matching a trade search, by value and volume.
 - `trade.exporters.rank`: Rank the exporters behind the shipments matching a trade search, by value, volume and deal count.
+- `trade.flows.search`: Search international goods imports or exports by reporter, partner, HS commodity and annual or monthly period; for example India rice exports in 2025. Returns reported trade value in USD and net weight when available.
 - `trade.hs-codes.rank`: Rank the tariff (HS) codes of the shipments matching a trade search, by value and volume.
+- `trade.hs-codes.search`: Search international product tariff codes by description.
 - `trade.importers.rank`: Rank the importers behind the shipments matching a trade search, by value, volume and deal count.
+- `trade.indicators.get`: Read indicators.
+- `trade.indices.list`: List public global trade index categories and their descriptions on trademo.com.
+- `trade.market-briefs.list`: List recent public import and export market briefs, grouped by country on turkishexporter.com.tr.
+- `trade.market-insights.list`: List the initial public agricultural market-insight summaries by topic and country on tridge.com.
+- `trade.monthly-commodity-country-report.get`: Read monthly commodity country report in India.
+- `trade.monthly-report.get`: Read monthly report in India.
 - `trade.origins.rank`: Rank the origin countries of the shipments matching a trade search, by value and volume.
+- `trade.partners.stats.list`: List trade statistics by partner country.
+- `trade.partners.summary`: Read annual import and export values by trade partner.
+- `trade.product-buyers.list`: List public buyer companies for a product and tariff code on volza.com.
+- `trade.product-categories.search`: Find related wholesale product keywords and their listing counts on tradeindia.com.
+- `trade.product-country-overview.get`: Read a country and agricultural product trade overview on tridge.com.
+- `trade.product-overview.get`: Read the global trade overview for an agricultural product on tridge.com.
+- `trade.product-suppliers.list`: List public supplier companies for a product and tariff code on volza.com.
+- `trade.products.search`: Search public wholesale product listings, returning at most twenty entries with supplier and stock information on tradeindia.com.
+- `trade.products.stats.list`: List trade statistics by product category.
+- `trade.reporting-years.list`: List reporting years in India.
 - `trade.shipments.count`: Count trade records matching a company or product over a date range.
 - `trade.shipments.search`: Search customs shipment records by product, tariff code, importer, exporter, country or port.
+- `trade.statistics.countries.list`: List countries for international goods and services trade statistics.
+- `trade.statistics.country-groups.list`: List country groups for international goods and services trade statistics.
+- `trade.statistics.coverage.list`: List coverage for international goods and services trade statistics.
+- `trade.statistics.goods-codes.list`: List goods codes for international goods and services trade statistics.
+- `trade.statistics.goods-indicators.search`: Search goods indicators for international goods and services trade statistics.
+- `trade.statistics.goods-observations.search`: Search goods observations for international goods and services trade statistics.
+- `trade.statistics.history`: Read a country's trade totals by period.
+- `trade.statistics.services-codes.list`: List services codes for international goods and services trade statistics.
+- `trade.statistics.services-observations.search`: Search services observations for international goods and services trade statistics.
 - `trade.volume.history`: Trade value and volume over time (by month, quarter or year) for the shipments matching a trade search.
+
+## Trade shows and exhibitors
+
+Find trade show exhibitors, sectors and products.
+
+- `events.construction-industry.list`: List construction industry events.
+- `events.exhibitors.get`: Read one exhibitor's public details from a chosen trade-event website.
+- `events.exhibitors.search`: Search exhibitor lists of a chosen trade-event website by keyword, letter, hall or category.
+- `events.food-brands.list`: List food trade show brand names.
+- `events.food-exhibitor.get`: Read a food trade show exhibitor and stand.
+- `events.food-exhibitors.list`: Browse food trade show exhibitors and stands.
+- `events.food-press-releases.list`: List food trade show press release headlines.
+- `events.food-products.list`: List food trade show product names and exhibitors.
+- `events.food-sectors.list`: List food trade show sectors and venues.
+- `events.natural-products-exhibitors.list`: List exhibiting companies at the natural products trade show.
+- `events.pharmaceutical-exhibitor.get`: Read one pharmaceutical trade show exhibitor and stand.
+- `events.pharmaceutical-exhibitors.list`: List pharmaceutical trade show exhibiting companies and stands.
+- `events.technology-exhibitor-categories.list`: List technology trade show exhibitor categories.
+- `events.technology-exhibitor-countries.list`: List country choices for technology trade show exhibitors.
 
 ## US business lookup
 

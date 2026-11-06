@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { COUNTS, fmt } from '../lib/counts.mjs';
 ---
 <Base title={"Pramaan — Say what you need. Get it done, with proof."} description={"Tell Pramaan what you need in plain words. It picks the right tools, does the work and shows you exactly what happened. No code needed."} nav="home" announce footerProps={{"variant":"home","count":"300","countLabel":"Things you can ask for","eyebrow":"research","tools":["ui-builder","ui-inspiration"]}}>
 <Fragment slot="head">
@@ -148,7 +149,7 @@ import Base from '../layouts/Base.astro';
           <li style="--brand:#7360F2"><i role="img" aria-label="Viber" title="Viber" style="--icon:url(/brands/viber.svg)"></i></li>
         </ul>
         </div>
-        <a class="link-arrow" href="/superpowers">See all 3,510 superpowers &rarr;</a>
+        <a class="link-arrow" href="/superpowers">See all {fmt(COUNTS.superpowers)} superpowers &rarr;</a>
       </div>
     </section>
 

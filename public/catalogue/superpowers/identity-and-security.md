@@ -13,8 +13,36 @@ Work out an age from a birth date and check a profile is genuine.
 
 Check whether an email or password has shown up in a known data breach.
 
-- `security.breach.check`: Check breach exposure for an email, username, password hash or identifier and hash combination. Returns exposure facts and breached-site names, never leaked credentials. The submitted identifier is personal data; passwords are accepted only as hashes.
+- `government.us-hhs-breaches.list`: Fetch HIPAA breach reports currently under investigation by the Office for Civil Rights. Results are ordered by breach submission date (newest first). Each reco
+- `security.breach.check`: Check breach exposure for an email, username, password hash or identifier and hash combination. Returns exposure facts and breached-site names, never leaked credentials. The submitted identifier is personal data; passwords are accepted only as hashes. For several addresses with practical next steps use breach.exposure.check.
+- `security.breaches.search`: List public breach incidents affecting a website domain; this reports breached websites, not whether a person or email address appeared in a breach.
 - `security.password.strength`: Rate a password's strength from its length, character classes and common patterns, with an estimated time to crack.
+
+## Certificates and threat intel
+
+Look up TLS certificates, certificate authorities, threat reports and security audits.
+
+- `security.audit-articles.list`: List public security audit article summaries on halborn.com.
+- `security.audit-reports.list`: List public security audit report references on halborn.com.
+- `security.audited-companies.list`: List public companies with published security audit references on halborn.com.
+- `security.exploited-vulnerabilities.search`: Search known exploited vulnerabilities by CVE, vendor or product; absence means no catalogue entry, not that a vulnerability is safe.
+- `security.gb-iasme.certificates.search`: Search by company name or certificate reference number to find organisations holding a Cyber Essentials or Cyber Essentials Plus certificate issued in the last
+- `software.adversaries.list`: Browse adversaries on alienvault.com. Returns personal data: personal details as published.
+- `software.adversary-details.get`: Read adversary details on alienvault.com. Returns personal data: personal details as published.
+- `software.all-chains.get`: Read all chains on web3.okx.com. Returns personal data: personal details as published.
+- `software.by-certificate-hash.search`: Search by certificate hash on crt.sh. Returns personal data: personal details as published.
+- `software.by-serial.search`: Search by serial on crt.sh. Returns personal data: personal details as published.
+- `software.by-spki.search`: Search by spki on crt.sh. Returns personal data: personal details as published.
+- `software.ca-details.get`: Read ca details on crt.sh. Returns personal data: personal details as published.
+- `software.certificate-detail.get`: Read certificate detail on crt.sh. Returns personal data: personal details as published.
+- `software.certificates.search`: Search certificates on crt.sh. Returns personal data: personal details as published.
+- `software.chain.get`: Read chain on inf-tracer-rh3o.onrender.com. Returns personal data: personal details as published.
+- `software.indicator-details.get`: Read indicator details on alienvault.com. Returns personal data: personal details as published.
+- `software.integrity.get`: Read integrity on inf-tracer-rh3o.onrender.com. Returns personal data: personal details as published.
+- `software.pulse-details.get`: Read pulse details on alienvault.com. Returns personal data: personal details as published.
+- `software.pulse-indicators.get`: Read pulse indicators on alienvault.com. Returns personal data: personal details as published.
+- `software.pulses.search`: Search pulses on alienvault.com. Returns personal data: personal details as published.
+- `software.recent-alerts.get`: Read recent alerts on alienvault.com. Returns personal data: personal details as published.
 
 ## Compliance checks
 
@@ -24,32 +52,34 @@ Score money-laundering risk and check data protection and crypto service rules.
 - `compliance.dpa.lookup`: The data protection authority of an EU or EEA country, with its contacts and complaint link.
 - `compliance.vasp.check`: Check whether a crypto-asset service provider is authorised under the EU MiCA register.
 - `compliance.website.gdpr`: Scan a website for data protection signals (cookie consent, privacy policy, trackers, security headers) and grade it.
+- `government.us-hhs-integrity.agreement.get`: Fetch detailed information about a specific corporate integrity agreement by its URL slug. Returns effective dates, duration, settlement amount, status, report
+- `government.us-hhs-integrity.agreements.list`: Browse and list corporate integrity agreements with optional filtering by status and search term. Returns company name, location, state, agreement type, status,
 
 ## Device signals
 
 See which devices visit your site and flag risky requests.
 
 - `devices.environment.create`: Create an environment for your own site or app. (needs a connected account)
-- `devices.environment.delete`: Delete the referenced environment from your account; explicit confirmation is required. (needs a connected account)
+- `devices.environment.delete`: Delete the referenced environment from your account; explicit confirmation is required. (needs approval; needs a connected account)
 - `devices.environment.update`: Update an environment name, description or identification limit. (needs a connected account)
 - `devices.environments.list`: List environments belonging to your connected account. (needs a connected account)
-- `devices.event.feedback`: Request a confidence reset for a device observation within its feedback window; this does not score a person.
+- `devices.event.feedback`: Request a confidence reset for a device observation within its feedback window; this does not score a person. (needs approval)
 - `devices.event.get`: Read a device/request observation, including IP, approximate location and security signals; scores describe a device observation, never a person. (needs a connected account)
 - `devices.event.update`: Update caller labels or the suspect flag on an observed device event. (needs a connected account)
 - `devices.events.search`: Search device or request observations, including pseudonymous device references, IP addresses, approximate locations and security signals; scores describe a device observation, never a person. (needs a connected account)
 - `devices.filter.create`: Create a request filter in the referenced environment of your account. (needs a connected account)
-- `devices.filter.delete`: Delete the referenced filter from your account; explicit confirmation is required. (needs a connected account)
+- `devices.filter.delete`: Delete the referenced filter from your account; explicit confirmation is required. (needs approval; needs a connected account)
 - `devices.filter.get`: Read a request filter and its exact expression. (needs a connected account)
 - `devices.filter.test`: Test inline or stored request filters against request metadata without changing them.
 - `devices.filter.update`: Update a request filter expression, action, status or numeric position. (needs a connected account)
 - `devices.filters.list`: List request filters in your account, optionally scoped to one environment. (needs a connected account)
-- `devices.request.analyze`: Analyze and store an observed server request using its IP, URL and headers; secret headers are redacted. Scores describe a device observation, never a person.
+- `devices.request.analyze`: Analyze and store an observed server request using its IP, URL and headers; secret headers are redacted. Scores describe a device observation, never a person. (needs approval)
 - `devices.subdomain.create`: Register a tracking hostname on a domain you control; DNS setup and activation are separate. (needs a connected account)
-- `devices.subdomain.delete`: Delete the referenced subdomain from your account; explicit confirmation is required. (needs a connected account)
+- `devices.subdomain.delete`: Delete the referenced subdomain from your account; explicit confirmation is required. (needs approval; needs a connected account)
 - `devices.subdomain.get`: Read the registration state of a tracking hostname. (needs a connected account)
 - `devices.subdomain.verify`: Request DNS verification for a tracking hostname; pending remains pending. (needs a connected account)
 - `devices.subdomains.list`: List tracking hostnames and their registration states. (needs a connected account)
-- `devices.visitor.delete`: Delete the referenced visitor from your account; explicit confirmation is required.
+- `devices.visitor.delete`: Delete the referenced visitor from your account; explicit confirmation is required. (needs approval)
 - `devices.visitor.get`: Read selected-window device visit history and security signals, including IP and approximate location; scores describe a device observation, never a person. (needs a connected account)
 - `devices.visitors.list`: List distinct pseudonymous devices from one event page with visit timestamps; devices may repeat on later pages. (needs a connected account)
 - `devices.visitors.related`: Find related pseudonymous browser/device references originating from the same mobile device; no person identity or person score is returned.
@@ -103,7 +133,7 @@ Check emails, phones, IPs, cards, addresses and transactions for fraud signs.
 
 Report fraud and screen people against shared fraud reports.
 
-- `fraud.data.erase`: Submit permanent erasure in your connected account with confirm: true. No preview. Acceptance does not prove completion; poll the returned reference for up to two days. Upstream work is billed to the connected account. (needs a connected account)
+- `fraud.data.erase`: Submit permanent erasure in your connected account with confirm: true. No preview. Acceptance does not prove completion; poll the returned reference for up to two days. Upstream work is billed to the connected account. (needs approval; needs a connected account)
 - `fraud.data.erasure.get`: Read the status of an accepted erasure in your connected account for as long as deletion takes. Unknown terminal states remain pending. Upstream work is billed there. (needs a connected account)
 - `fraud.incident-match.get`: Read a matching network fraud allegation and field match states; no other person's identity values are returned.
 - `fraud.incident-matches.list`: List matching network fraud allegations and field match states; no other person's identity values are returned.
@@ -127,7 +157,7 @@ Check ID documents and identity numbers and run full verification flows.
 - `identity.document.mask`: Conceal Aadhaar numbers in an image or PDF as a job. Returns a masked PNG and instance counts. Does not erase the original document. Maximum estimate USD 1.14.
 - `identity.document.qr.decode`: Decode supplied secure identity QR contents and return only requested personal fields. Decoding does not certify identity or authenticity. (needs approval)
 - `identity.document.source.check`: Corroborate an identity using its number, name, birth date, selfie and card image. Returns source facts only; never personal ratings or expanded contact details. (needs approval)
-- `identity.document.verify`: Verify one government ID document server to server: send photos or scans of the document (front, and back when it has one) and get back what the document says — name, date of birth, document number and dates, address — with fraud screening for screen replays, printed copies and portrait manipulation. This call processes images of an identity document; by default nothing is kept after the answer. (needs approval)
+- `identity.document.verify`: Verify one government ID document server to server: send photos or scans of the document (front, and back when it has one) and get back what the document says — name, date of birth, document number and dates, address — with fraud screening for screen replays, printed copies and portrait manipulation. This call processes images of an identity document; by default nothing is kept after the answer. For a verdict computed from checks you choose, with per-check findings, use kyc.verify. (needs approval)
 - `identity.identifier-link.check`: Check whether two supplied identity identifiers are linked in the registry. Processes personal identifiers and returns no identifier copies. (needs approval)
 - `identity.identifier.lookup`: Look up one Indian identity document with consent, returning selected holder name, category, status or region. A found record does not assert legal validity. (needs approval)
 - `identity.name.compare`: Compare two supplied names as strings; returns both match classifications and percentages.
@@ -137,13 +167,13 @@ Check ID documents and identity numbers and run full verification flows.
 - `identity.verification.correct`: Correct the identity data a hosted verification's document check extracted (name, date of birth, document details, address) — for example after a manual review fixed a misread field. Corrections stay editable: send new values any time.
 - `identity.verification.create`: Start a hosted identity verification for one of your end users and get the private link to send them: they open it, follow the steps your flow asks for (an ID document, a selfie, and so on), and the decision is read afterwards with identity.verification.get. The link is live for as long as the flow allows; anyone who has it can take that one verification, so send it only to the person it is for. Creating a verification is not charged; a finished verification is charged once, for the checks the person completed.
 - `identity.verification.create-configured`: Create a verification invitation using an installed workflow with at most 20 checks. Returns acceptance and a reference; contact and identity data are sent to complete the selected checks. Charged for the declared checks at acceptance. Provisional maximum with stamps: USD 2264.40. (needs approval)
-- `identity.verification.delete`: Permanently delete one hosted identity verification and the personal data in it (document images, selfie, extracted fields). Pass eraseBiometrics to also purge the person's retained face template. This permanently erases the person's verification data and cannot be undone: afterwards the verification can no longer be read and no report can be generated for it. Send an Idempotency-Key.
+- `identity.verification.delete`: Permanently delete one hosted identity verification and the personal data in it (document images, selfie, extracted fields). Pass eraseBiometrics to also purge the person's retained face template. This permanently erases the person's verification data and cannot be undone: afterwards the verification can no longer be read and no report can be generated for it. Send an Idempotency-Key. (needs approval)
 - `identity.verification.get`: Read the decision of one hosted identity verification: where it stands, the identity facts its document check read (name, date of birth, document details), and one row per check the flow ran. Poll it while the person is still verifying; it carries personal data about the person verified.
 - `identity.verification.media.get`: Copy selected owned verification media to private storage, binary up to 10 MB or XML up to 1 MB. Returns identity documents, images or video only for the selected action.
-- `identity.verification.purge`: Erase data from one owned verification journey. Does not promise erasure of reusable biometrics, registry records, or files already copied to your storage. Maximum estimate USD 1.14.
+- `identity.verification.purge`: Erase data from one owned verification journey. Does not promise erasure of reusable biometrics, registry records, or files already copied to your storage. Maximum estimate USD 1.14. (needs approval)
 - `identity.verification.report`: Generate the compliance report of one finished identity verification and put it on your storage as a PDF: the identity facts, the checks that ran and their outcomes. The report contains the person's personal data; it can be generated once a verification reached a decision (in review, approved or declined, including an approved one that has since expired). A verification that is still running, or that expired or was abandoned before it finished, has no report.
 - `identity.verification.retry`: Repeat selected owned verification checks, up to 20 actions. Sends the retry reason to the person when requested and charges selected check units at acceptance. (needs approval)
-- `identity.verification.update`: Record your own final decision on one hosted identity verification: approve it, decline it, or send it back to the person to redo. Approving or declining changes a person's verification outcome and cannot be undone by this call alone (each later overturns the other). Send an Idempotency-Key.
+- `identity.verification.update`: Record your own final decision on one hosted identity verification: approve it, decline it, or send it back to the person to redo. Approving or declining changes a person's verification outcome and cannot be undone by this call alone (each later overturns the other). Send an Idempotency-Key. (needs approval)
 - `identity.verifications.list`: List the identity verifications of your account, newest first, with their status, end user and document facts. Each row carries a ref for the follow-up calls that read, correct or delete that verification. Carries personal data about the people verified.
 
 ## IP checks
@@ -165,9 +195,11 @@ See where an IP address is, who owns it and whether it is abusive.
 
 Screen a person or company against sanctions and watchlists.
 
+- `compliance.pep-categories.list`: List public politically exposed person list categories and aggregate counts, without individual records on trademo.com.
+- `compliance.sanctions-categories.list`: List public sanctions-list categories with aggregate list and entity counts on trademo.com.
 - `identity.adverse-media.check`: Find public adverse-media mentions of a person or company name. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields..
 - `identity.pep.check`: Check whether a name matches public politically exposed person records. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields..
-- `identity.sanctions.check`: Check public sanctions lists for a person or company name. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields..
+- `identity.sanctions.check`: Check public sanctions lists for a person or company name. Exact matches set sanctioned. Close spellings are listed as possible matches that need human review. No match means no exact or close match on the lists checked (the free official route covers the US, UK, EU and Australian lists), not that the name is cleared. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields..
 - `identity.screening.check`: Screen a person or company against sanctions, watchlist and politically-exposed-person lists, server to server: send their name (plus date of birth, nationality or document number to sharpen matches) and get the matched list entries with what each one is listed as. This call sends the person's full name, and the date of birth, nationality and document number when you give them, to the screening service; by default nothing is kept after the answer. A match means a list entry resembles the details you sent, not that the person is that entry: check it before acting on it.
 - `identity.screening.check-advanced`: Screen a named person or company against lists with explicit matching controls. Optional adverse media and nine local checks default off. Returns matching facts and requested identity evidence, stores a scoped screening. Maximum cost $3.0756.
 
@@ -202,7 +234,7 @@ Add sign-in to your app and manage its users, teams and sessions.
 - `auth.token.verify`: Check a signed-in user's session token against your auth system's public keys; returns who it is for. (needs a connected account)
 - `auth.user.ban`: Ban a user from signing in to your app and end their sessions. (needs approval; needs a connected account)
 - `auth.user.create`: Create a user in your app's connected auth system. (needs a connected account)
-- `auth.user.delete`: Permanently delete a user from your app's connected auth system (erasure; cannot be undone). (needs a connected account)
+- `auth.user.delete`: Permanently delete a user from your app's connected auth system (erasure; cannot be undone). (needs approval; needs a connected account)
 - `auth.user.get`: Get one user of your app's connected auth system by user id. (needs a connected account)
 - `auth.user.unban`: Lift a ban so the user can sign in to your app again. (needs a connected account)
 - `auth.user.update`: Change a user's display name in your app's connected auth system. (needs a connected account)
@@ -214,7 +246,7 @@ Check links and files for malware and phishing.
 
 - `security.file.behaviour`: Read a bounded file behaviour summary: up to 100 entries per action or contacted network list, with public technique identifiers. Paths, commands, registry values and personal text are excluded. Estimated worst case $0.0013 per request.
 - `security.file.check`: Look up an existing file analysis by content hash. No file is uploaded. Returns file facts and aggregate detection counts; an unknown or unanalysed file is not_found. Estimated worst case $0.0013 per request.
-- `security.url.check`: Look up a URL's malware and phishing verdict from sources that already scanned it. Nothing is fetched by this call; some sources add the looked-up URL to their public datasets. The verdict is malicious when 3 or more scanning engines flag the URL as malicious (or it is on a threat list), suspicious when 1 or 2 do or any engine calls it suspicious, clean when none do; flaggedBy and sources carry the engine counts so you can apply your own threshold. Clean means no source flagged the URL (for list-only sources: it is not on the list), not that it is safe; a URL no source has seen is not_found.
+- `security.url.check`: Look up a URL's malware and phishing verdict from sources that already scanned it. Nothing is fetched by this call; some sources add the looked-up URL to their public datasets. The verdict is malicious when 3 or more scanning engines flag the URL as malicious (or it is on a threat list), suspicious when 1 or 2 do or any engine calls it suspicious, clean when none do; flaggedBy and sources carry the engine counts so you can apply your own threshold. Clean means no source flagged the URL (for list-only sources: it is not on the list), not that it is safe; a URL no source has seen is not_found. For many links at once use urls.check.
 - `security.url.check-bulk`: Run security.url.check for up to 50 rows as a background job. Each result echoes the caller's row id once; failed rows cost nothing. Uses bounded single lookups when native batch progress cannot be retained.
 - `security.url.inspect`: Scan a public URL for malware, phishing, spam and other unsafe content, with bounded network and page facts. URLs may contain personal data; do not send secrets or access tokens. No browser or private scan is promised.
 - `security.url.inspect-bulk`: Scan up to 100 public URLs as one background job, with flat results keyed by your row ids. Each row uses the single URL scan and its explicit options. Failed rows are free. URLs may contain personal data; do not send secrets or access tokens.
