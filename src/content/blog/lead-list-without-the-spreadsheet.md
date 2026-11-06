@@ -60,6 +60,6 @@ Pramaan looks them up from data providers you never have to sign up with, and la
 You pay per use from a prepaid balance. You see the match count before you export, and the export never goes past the number you set.
 
 **What else can it do?**
-There are 876 missions and 3,594 superpowers today. [Browse the missions](/missions).
+There are 891 missions and 10,428 superpowers today. [Browse the missions](/missions).
 
 [Get early access](/#start) and build your first list this week.

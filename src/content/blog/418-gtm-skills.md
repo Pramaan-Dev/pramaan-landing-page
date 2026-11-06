@@ -24,12 +24,10 @@ Each skill page lists, step by step, which Pramaan ids do the work and what the 
 
 Here is the map for [The cold email strategist](/skills/gtm/cold-email-strategist):
 
-| Step | Runs | What happens |
-|---|---|---|
-| Write first touch and follow-ups | `outreach.draft`, `outreach.sequence.draft` | Saved as drafts in the user's connected inbox. Nothing is sent. |
-| Deliverability: domain setup | `email.domain.check` | Mail servers, SPF and reputation. DMARC and DKIM are not checked. |
-| Deliverability: list quality | `people.email.verify`, `email.list.hygiene` | Verify one address, or clean a whole list. |
-| Send | `email.send`, `email.send-bulk` | One email, or up to 100 separate emails as a job. |
+1. **Write first touch and follow-ups** with `outreach.draft` and `outreach.sequence.draft`. Saved as drafts in the user's connected inbox. Nothing is sent.
+2. **Deliverability: domain setup** with `email.domain.check`. Mail servers, SPF and reputation. DMARC and DKIM are not checked.
+3. **Deliverability: list quality** with `people.email.verify` and `email.list.hygiene`. Verify one address, or clean a whole list.
+4. **Send** with `email.send` or `email.send-bulk`. One email, or up to 100 separate emails as a job.
 
 The map is honest about limits. That skill says plainly that DMARC and DKIM aren't checked, and that subject lines, copy review and warmup advice are the agent's own job.
 
@@ -61,13 +59,11 @@ Every skill page has the same two lines with its own name filled in, and a copy 
 
 The 418 skills are sorted into go-to-market categories. The largest:
 
-| Category | Skills | What they cover |
-|---|---|---|
-| RevOps | 61 | CRM hygiene, forecasting, pipeline reviews and the systems behind them |
-| Outreach | 53 | Cold email, LinkedIn and calls: sequences, copy and personalisation |
-| Ads | 49 | Audit and run Google, Meta and LinkedIn ads |
-| Signals | 38 | Spot buying signals and act on them while they are fresh |
-| Prospecting | 30 | Build lists of the right companies and people |
+- **RevOps (61):** CRM hygiene, forecasting, pipeline reviews and the systems behind them.
+- **Outreach (53):** cold email, LinkedIn and calls: sequences, copy and personalization.
+- **Ads (49):** audit and run Google, Meta and LinkedIn ads.
+- **Signals (38):** spot buying signals and act on them while they are fresh.
+- **Prospecting (30):** build lists of the right companies and people.
 
 A few to start with:
 
