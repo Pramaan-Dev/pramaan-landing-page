@@ -23,28 +23,28 @@ Translate, resize and vary the images in an ad.
 Create talking avatars, lip-sync and reusable video templates.
 
 - `video.avatar.create`: Create a named avatar from a description, photo or footage. Runs as a job; likeness and voice data may be processed. Photo and footage sources require supported file validation.
-- `video.avatar.delete`: Permanently delete an avatar you created, including its likeness; stock avatars cannot be deleted.
+- `video.avatar.delete`: Permanently delete an avatar you created, including its likeness; stock avatars cannot be deleted. (needs approval)
 - `video.avatar.get`: Get the name, consent status and readiness of an avatar. Returns likeness metadata.
-- `video.avatar.look.delete`: Permanently delete a caller appearance; deleting the last appearance also removes its avatar.
+- `video.avatar.look.delete`: Permanently delete a caller appearance; deleting the last appearance also removes its avatar. (needs approval)
 - `video.avatar.look.get`: Get an avatar appearance and supported rendering tiers. Returns likeness metadata.
 - `video.avatar.look.update`: Rename an appearance belonging to the caller.
 - `video.avatar.looks.list`: List appearances for an avatar, including likeness metadata and neutral keys.
 - `video.avatar.render`: Render a speaking avatar as a video job, returning a stored video and measured duration. Handles submitted speech and likeness. Text is capped at 5,000 characters.
 - `video.avatars.list`: List caller avatars or stock studio characters. Returns names and likeness metadata; private account records outside this caller are omitted.
 - `video.lipsync.create`: Match one face in a supplied video to supplied speech audio. Processes faces and voices; runs as a job and keeps the result for 7 days. Current source maximum: $0.847, including face detection and up to 60 seconds of rendering.
-- `video.lipsync.delete`: Permanently delete an owned terminal lip-sync media record. Pending work cannot be cancelled by deletion.
+- `video.lipsync.delete`: Permanently delete an owned terminal lip-sync media record. Pending work cannot be cancelled by deletion. (needs approval)
 - `video.lipsync.download`: Copy the completed lip-sync video, including its face and voice content, to platform storage. Outputs above 25 MB are refused; needs file storage.
 - `video.lipsync.get`: Read the status, duration and progress of an owned lip-sync video. Returns media metadata only.
 - `video.lipsync.options`: List available lip-sync processing qualities without account details.
 - `video.lipsync.update`: Change the output filename of an owned lip-sync video.
 - `video.lipsyncs.list`: List only the caller's lip-sync media records, with handles for follow-up calls. Sparse pages may be empty and still have a next cursor.
-- `video.render.delete`: Delete your rendered video and its personal content; confirm must be true.
+- `video.render.delete`: Delete your rendered video and its personal content; confirm must be true. (needs approval)
 - `video.render.get`: Read your rendered video's metadata, which may contain personal text; optionally copy its finished video within 25 seconds, up to 25 MB.
 - `video.render.update`: Change your video's name, personal description, sharing or button settings; scene content stays the same.
 - `video.renders.list`: List your rendered videos and their names, descriptions and states; metadata may contain personal text. Empty pages can still have a next page.
 - `video.talking-photo.generate`: Animate a portrait photo using supplied speech audio. Processes a face and voice; runs as a job and keeps the video for 7 days. Current source maximum: $16.80 for fast quality or $33.60 for best quality at 300 seconds.
 - `video.template.create`: Create a private template from a caller avatar render. Starts with no variables. Copies likeness, media and script into a stored template.
-- `video.template.delete`: Remove a caller template from use. Soft deletion leaves previously rendered videos intact.
+- `video.template.delete`: Remove a caller template from use. Soft deletion leaves previously rendered videos intact. (needs approval)
 - `video.template.get`: Get the caller template variables, bindable elements and scenes, including script text.
 - `video.template.update`: Rename a template belonging to the caller.
 - `video.template.variables.update`: Replace the complete set of template variables, including text, image, video, audio, avatar and voice bindings.
@@ -55,17 +55,19 @@ Create talking avatars, lip-sync and reusable video templates.
 Store documents and facts for an AI to remember, search and forget.
 
 - `memory.add`: Store up to 50 text messages verbatim as private memories. Use extraction for inferred facts.
-- `memory.connector.delete`: Permanently delete an import connector and stop its imports. Needs confirm: true. By default the documents it already imported are kept; deleteDocuments: true erases them too, which can include people's messages and files. Pass the ref from memory.connectors.list.
+- `memory.connector.delete`: Permanently delete an import connector and stop its imports. Needs confirm: true. By default the documents it already imported are kept; deleteDocuments: true erases them too, which can include people's messages and files. Pass the ref from memory.connectors.list. (needs approval)
 - `memory.connector.get`: Read one import connector: its state, how many documents it imported and its latest import run, optionally the last 10 runs with the titles of items that failed. Pass the ref from memory.connectors.list. Returns no imported content or credentials; failed-item titles come from your own source.
 - `memory.connectors.list`: List your import connectors (Notion, Google Drive, OneDrive, Gmail, GitHub, S3, web crawler, Granola) that feed documents into a namespace, each with its state and a handle for memory.connector.get and memory.connector.delete. Returns connector labels and counts only, never imported content or credentials.
+- `memory.context.run`: Remember end-user statements and gather private context within the calling builder's workspace and project.
 - `memory.document.add`: Add text or a URL to a namespace so it becomes searchable memory; returns its processing status and a ref for follow-ups.
-- `memory.document.delete`: Permanently delete one stored document and everything learned from it, by id or by the ref memory.document.add returned.
+- `memory.document.delete`: Permanently delete one stored document and everything learned from it, by id or by the ref memory.document.add returned. (needs approval)
 - `memory.document.get`: Read one stored document's content, title, summary, metadata and processing state, by id or by the ref memory.document.add returned.
 - `memory.document.update`: Replace one stored document's content (and optionally its metadata) without changing its id, by id or by the ref memory.document.add returned.
 - `memory.documents.list`: List the documents stored for a namespace, newest first, with their processing state.
+- `memory.end-user.forget`: Erase all of one end user's private memories within the calling workspace and project. (needs approval)
 - `memory.entities.list`: List your private user, agent, app and session entities, with logical identifiers.
 - `memory.entity.create`: Create a private entity under your memory scope.
-- `memory.entity.delete`: Delete an owned entity and its memories as a job; confirmation must be true.
+- `memory.entity.delete`: Delete an owned entity and its memories as a job; confirmation must be true. (needs approval)
 - `memory.entity.get`: Read a private entity using your logical identifier.
 - `memory.event.get`: Poll one owned memory operation, optionally returning its private facts.
 - `memory.events.list`: Poll the private memory operation feed; no raw payloads or account-wide counts are returned.
@@ -73,24 +75,25 @@ Store documents and facts for an AI to remember, search and forget.
 - `memory.export.get`: Read a completed private structured export after checking its source facts.
 - `memory.extraction.create`: Extract personal facts from up to 50 messages as a job; temporal enrichment may finish later.
 - `memory.filters.list`: List filter choices drawn from your private facts and entities.
-- `memory.forget`: Forget the memories in a namespace that match a description. Previews by default; pass dryRun: false to delete for real.
+- `memory.forget`: Forget the memories in a namespace that match a description. Previews by default; pass dryRun: false to delete for real. (needs approval)
 - `memory.history.list`: List private fact changes; this is memory history rather than the operation feed.
-- `memory.item.delete`: Permanently delete one owned fact. Confirmation must be true.
-- `memory.item.feedback`: Save usefulness feedback on a private memory, without scoring a person.
+- `memory.item.delete`: Permanently delete one owned fact. Confirmation must be true. (needs approval)
+- `memory.item.feedback`: Save usefulness feedback on a private memory, without scoring a person. (needs approval)
 - `memory.item.get`: Read one private remembered fact by its reference.
 - `memory.item.history`: Read changes to one private fact; source conversations are optional.
 - `memory.item.update`: Update one private fact or its metadata after checking ownership.
 - `memory.items.list`: List private facts with owned references, at most 50 per page.
 - `memory.items.search`: Search private remembered facts with filters and owned references, at most 50 results.
+- `memory.member.profile.get`: Read your own active private member memory facts as a signed-in member. API keys, including keys tied to a member, cannot read private memory.
 - `memory.namespace.get`: Read a namespace's settings: the background text that guides how its documents are interpreted, and when it was created and last changed. The background text is whatever you set, and may mention people.
 - `memory.namespace.update`: Set or clear the background text of a namespace, which guides how its documents are interpreted and what is remembered from them. Replaces the previous text. The namespace must already exist (it exists once documents have been added). The text is stored as you send it, so do not put secrets in it.
 - `memory.namespaces.list`: List the document sets (namespaces) this account has stored memory for, with their document and memory counts.
-- `memory.profile-buckets.delete`: Delete profile categories you added to a namespace. Previews by default; pass dryRun: false to delete for real. Names that are not yours to delete, such as shared defaults, are left in place. Returns the categories in effect, which may mention people.
+- `memory.profile-buckets.delete`: Delete profile categories you added to a namespace. Previews by default; pass dryRun: false to delete for real. Names that are not yours to delete, such as shared defaults, are left in place. Returns the categories in effect, which may mention people. (needs approval)
 - `memory.profile-buckets.get`: Read the profile categories in effect for a namespace: the names and descriptions that guide how memories are sorted into a profile. Includes shared defaults you cannot edit as well as the ones you added with memory.profile-buckets.upsert. Returns your own descriptions, which may mention people.
 - `memory.profile-buckets.upsert`: Add or update profile categories for a namespace (name to description). The descriptions guide how memories are sorted into a profile. Up to 50 per call; categories you leave out are untouched and shared defaults cannot be changed. Returns every category now in effect.
 - `memory.profile.get`: Read the profile built from a namespace's memories: durable facts, current context and per-category summaries of the subject.
 - `memory.profile.structured.get`: Read an owned user's structured personal profile where profiles are enabled.
-- `memory.scope.delete`: Erase an owned memory scope as a job, capped at 1000 facts; larger scopes are refused before deletion.
+- `memory.scope.delete`: Erase an owned memory scope as a job, capped at 1000 facts; larger scopes are refused before deletion. (needs approval)
 - `memory.search`: Search what has been remembered for a namespace: learned memories, passages from stored documents, or both.
 - `memory.summary.get`: Read private summaries whose ownership can be proved; untyped or unowned values are omitted.
 
@@ -102,7 +105,7 @@ Compare AI models by leaderboard rank, cost and task.
 - `ai-models.arena.image-edit-leaderboard`: Get image-editing leaderboard.
 - `ai-models.arena.image-to-video-leaderboard`: Get image-to-video leaderboard.
 - `ai-models.arena.leaderboard-overview`: Get leaderboard overview.
-- `ai-models.arena.list-available-models`: List available models.
+- `ai-models.arena.list-available-models`: List the AI models on a public model leaderboard, with each model's organisation, capabilities and rank by modality. For release dates and deprecation use ai-models.models-list.
 - `ai-models.arena.search-leaderboard`: Get search leaderboard.
 - `ai-models.arena.text-leaderboard`: Get text leaderboard.
 - `ai-models.arena.text-to-image-leaderboard`: Get text-to-image leaderboard.
@@ -110,8 +113,41 @@ Compare AI models by leaderboard rank, cost and task.
 - `ai-models.arena.vision-leaderboard`: Get vision leaderboard.
 - `ai-models.cost-per-task`: Get cost per task.
 - `ai-models.llm-providers-leaderboard`: Get provider leaderboard.
-- `ai-models.models-list`: List models.
+- `ai-models.models-list`: List AI models with their release date and whether each is deprecated. For leaderboard rank by modality use ai-models.arena.list-available-models.
 - `ai-models.speech-image-video-models`: List speech, image and video models.
+
+## AI tools and models directory
+
+Browse AI tools, GPTs, agents and AI model releases and benchmarks.
+
+- `ai-models.announcement.get`: Read a public model research or product announcement on chat.deepseek.com.
+- `ai-models.announcements.list`: List public model research and product announcement summaries on chat.deepseek.com.
+- `ai-models.datasets.list`: List public machine-learning datasets with download counts on modelscope.cn.
+- `ai-models.demos.list`: List public machine-learning demonstration apps with activity and topic metadata on huggingface.co.
+- `ai-models.disclosures.list`: List publicly disclosed models with release labels and versions on chat.deepseek.com.
+- `ai-models.discovery-filters.get`: Read public model publisher and task filter names on kie.ai.
+- `ai-models.hub-models.list`: List the AI model names a model hub or provider publishes, on the chosen site.
+- `ai-models.math-scores.list`: List public model benchmark scores for mathematical task tiers on epoch.ai.
+- `ai-models.math-tier13-scores.list`: List public model scores on tiers one to three mathematical tasks on epoch.ai.
+- `ai-models.math-tier4-scores.list`: List public model scores on tier four mathematical tasks on epoch.ai.
+- `ai-models.public-releases.list`: List published language model variants and release metadata on artificialanalysis.ai.
+- `ai-models.published-token-prices.list`: Read published model token-price labels, amounts, currencies and billing units on chat.deepseek.com.
+- `ai-models.publishers.list`: List publicly documented model publishers and their model counts on mastra.ai.
+- `software.agent-arena-leaderboard.get`: Read agent arena leaderboard on designarena.ai. Returns personal data: personal details as published.
+- `software.agents.list`: List agents on theresanaiforthat.com. Returns personal data: personal details as published.
+- `software.ai-discounts.list`: List publicly advertised AI tool discount descriptions on theresanaiforthat.com.
+- `software.ai-news.list`: List public AI research and product announcements.
+- `software.ai-tasks.list`: List tasks supported by public AI tools on theresanaiforthat.com.
+- `software.ai-tool-categories.list`: List the AI tool categories on toolify.ai.
+- `software.ai-tool.get`: Read the public description and tags of an AI tool on the chosen site.
+- `software.ai-tools.search`: Search a public directory of AI tools by category and keyword on brofindai.com.
+- `software.assistant-examples.list`: List public example tasks and prompts for a desktop assistant on qwenwork.ai.
+- `software.category-ai-tools.list`: List public AI tools in a category on toolify.ai.
+- `software.discover-gpts.get`: Read discover gpts on chatgpt.com. Returns personal data: personal details as published.
+- `software.featured-ai-tools.list`: List featured public AI tools on theresanaiforthat.com.
+- `software.gpt.get`: Read gpt on chatgpt.com. Returns personal data: personal details as published.
+- `software.recent-ai-tools.list`: List recently published AI tools on the chosen site.
+- `software.trending-ai-tools.list`: List trending public AI tools on toolify.ai.
 
 ## AI video editing
 
@@ -127,7 +163,7 @@ Edit, enlarge, reframe, join and transcribe videos.
 - `video.thumbnail.get`: Copy your video's thumbnail, which may show a person's face, within 25 seconds; JPEG or GIF up to 20 MB.
 - `video.translation.languages.list`: List the documented language and dialect choices for video translation.
 - `video.translations.list`: Read the language states of translations of your personal video; this call does not start rendering or return translated files.
-- `video.upscale`: Enlarge a video, including personal video and voices. A source that cannot honor the clip length or size declines. Source audio is retained where supported; large outputs may use a smaller scale. Jobs and files are kept for 7 days.
+- `video.upscale`: Enlarge a video, including personal video and voices. A source that cannot honor the clip length or size declines. Source audio is retained where supported; large outputs may use a smaller scale. Jobs and files are kept for 7 days. video.enhance is the one-step mission over this call.
 
 ## AI video generation
 
@@ -169,7 +205,7 @@ Check text for AI writing, plagiarism, quality and readability.
 Dub speech in audio or video into another language, keeping the voices.
 
 - `media.dubbing.create`: Dub the speech in an audio or video file into another language, keeping the speakers' voices. Dubs at most durationLimitSeconds of the source and holds the price for that much. The dubbing stays in your account until you delete it with media.dubbing.delete. Recordings of people speaking are personal data. Runs as a job.
-- `media.dubbing.delete`: Permanently delete a dubbing you made with media.dubbing.create, with the source and dubbed files held for it. Pass the ref and confirm: true. There is no undo.
+- `media.dubbing.delete`: Permanently delete a dubbing you made with media.dubbing.create, with the source and dubbed files held for it. Pass the ref and confirm: true. There is no undo. (needs approval)
 - `media.dubbing.get`: Check a dubbing you made with media.dubbing.create: its status, name, languages and length. Pass the ref that media.dubbing.create returned.
 
 ## Embeddings and ranking
@@ -231,11 +267,12 @@ Make new images from text, in your own saved styles.
 - `image.generate`: Generate 1-4 images from a text prompt; returns links to the image files, kept for 7 days.
 - `image.generate-bulk`: Generate images for up to 16 prompt rows as a job; each row carries your own id. Prompts and generated images may depict people.
 - `image.generate-configured`: Generate 1 to 4 images with explicit rendering controls; unsupported fields decline. Jobs and files are kept for 7 days.
+- `image.generation-styles.list`: List public image generation style names and slugs on deepai.org.
 - `image.marketing-stock.generate`: Generate marketing stock images from a brief and an optional uploaded brand image. Runs as a job; output files are kept for 7 days.
 - `image.prompt.expand`: Expand an image prompt into detailed words and optional scene elements.
 - `image.style-presets.list`: List public curated image styles with handles usable for rendering or creating a style.
 - `image.style.create`: Save a private reusable image style from reference pictures or one earlier style. Pictures may depict people; saved metadata stays scoped to the caller.
-- `image.style.delete`: Permanently delete the caller's saved image style; requires confirm: true.
+- `image.style.delete`: Permanently delete the caller's saved image style; requires confirm: true. (needs approval)
 - `image.style.get`: Read metadata of a private saved image style owned by the caller.
 - `image.style.render`: Generate image alternatives using a saved private style or a public preset. Returns stored files; prompts and pictures may depict people. Unsupported output choices are refused before generation.
 - `image.styles.list`: List the caller's private saved image styles, with handles for reading, rendering or deleting.
@@ -257,7 +294,7 @@ Chat with AI models, generate text in bulk and count tokens.
 Save brand colors and fonts to use in generated videos.
 
 - `media.branding.create`: Create your branding colors and fonts; logo media is not included.
-- `media.branding.delete`: Permanently delete your branding; previously rendered projects keep their baked colors and fonts.
+- `media.branding.delete`: Permanently delete your branding; previously rendered projects keep their baked colors and fonts. (needs approval)
 - `media.branding.get`: Read your branding colors and fonts; logo media is not returned.
 - `media.branding.update`: Change your branding colors or fonts; omitted fields keep their current values.
 - `media.brandings.list`: List your branding colors and fonts, optionally including shared read-only presets; logo media is omitted.
@@ -268,7 +305,7 @@ Collect and check a person's recorded consent before using their likeness.
 
 - `media.consent.attach`: Submit a person’s uploaded video and name for consent verification; returns before verification completes.
 - `media.consent.create`: Create a consent challenge for a person to record; the challenge expires after 30 minutes.
-- `media.consent.delete`: Permanently delete your consent recording resource; confirm must be true.
+- `media.consent.delete`: Permanently delete your consent recording resource; confirm must be true. (needs approval)
 - `media.consent.get`: Read consent verification state and the person’s supplied name; recording bytes are not returned.
 - `media.consents.list`: List your consent verification records and supplied names; recordings are omitted.
 
@@ -276,6 +313,7 @@ Collect and check a person's recorded consent before using their likeness.
 
 Check on or delete the media you have generated.
 
+- `hardware.generations.search`: Search generations on higgsfield.ai. Returns personal data: personal details as published.
 - `media.generation.delete`: Delete your own generated-media record where supported. Requires explicit confirmation; copied files keep their normal expiry.
 - `media.generation.get`: Read the state of your own generated media without copying files or returning submitted prompts.
 - `media.generations.list`: List your own media generations. Stored states can lag rendering; read a row to refresh its state. An empty page may have a continuation.
@@ -299,7 +337,7 @@ Browse public AI models, their versions, documentation and examples.
 
 Write lyrics, extend or change music and make soundtracks.
 
-- `audio.lyrics.generate`: Write or edit song lyrics with a title and style tags, as a background job. Returns caller-supplied or generated lyrics; these can contain personal details.
+- `audio.lyrics.generate`: Write or edit song lyrics with a title and style tags, as a background job. Returns caller-supplied or generated lyrics; these can contain personal details. song.make is the one-step mission from a brief.
 - `audio.music.extend`: Extend an uploaded music recording before or after its ends, which may contain voices. Input up to 100 MB; total output at most 300 seconds.
 - `audio.music.inpaint`: Replace a selected section of uploaded music using a prompt. Returns one audio file as a job. Input must be MP3 or WAV, 6 to 380 seconds, at most 100 MB. Up to USD 0.26 is held while the job runs; the actual cost is charged on success.
 - `audio.music.playlists.list`: List music playlist choices and their tempo and key ranges. Free, with exact local filters and up to 200 choices.
@@ -325,8 +363,8 @@ Run a public AI model on your inputs and read the result.
 
 - `model.prediction.get`: Read the state and available output of your own model prediction. Outputs can contain personal text or media; expired upstream output is unavailable.
 - `model.predictions.list`: List only your own model predictions. Returns status and references, without inputs, outputs or logs.
-- `model.run`: Run a pinned public model as a job with validated named inputs. Outputs may contain personal text or media. Runtime is capped at 600 seconds; the highest compute tier can cost at most 7.32 USD.
-- `model.run-bulk`: Run up to 100 pinned public models as one job. Every row has your own id. Each job step submits or polls one row; failed rows are free. Each row can cost at most 7.32 USD, so the whole-request maximum is 732 USD.
+- `model.run`: Run a pinned public model as a job with validated named inputs. Outputs may contain personal text or media. Runtime is capped at 600 seconds; the highest compute tier can cost at most 7.32 USD. (needs approval)
+- `model.run-bulk`: Run up to 100 pinned public models as one job. Every row has your own id. Each job step submits or polls one row; failed rows are free. Each row can cost at most 7.32 USD, so the whole-request maximum is 732 USD. (needs approval)
 
 ## Sound effects
 
@@ -342,13 +380,13 @@ Turn recordings into text, subtitles and searchable transcripts.
 - `audio.align`: Align supplied words to an uploaded voice recording, returning word times without speaker identities or scores. Input up to 100 MB and 300 seconds.
 - `audio.model.get`: Get supported languages and recognition features for a listed model.
 - `audio.models.list`: List recognition models and opaque handles for model details or configured transcription.
-- `audio.redaction.create`: Remove chosen personal details from up to ten hours of single-channel audio and its transcript as a background job. Maximum cost $3.40, or $3.50 with profanity filtering.
+- `audio.redaction.create`: Remove chosen personal details from up to ten hours of single-channel audio and its transcript as a background job. Maximum cost $3.40, or $3.50 with profanity filtering. recording.redact is the one-step mission that also gives a count of what was removed.
 - `audio.subtitles.create`: Transcribe up to ten hours of single-channel audio into an SRT or VTT download as a background job. May contain personal speech data. Maximum transcription cost $2.10.
-- `audio.transcribe`: Transcribe a public audio URL into text with timestamped segments.
-- `audio.transcribe-bulk`: Transcribe up to two single-channel recordings per background job, each at most ten hours. Results echo your row ids. May contain personal speech data. Maximum transcription cost $4.20; failed rows are free.
+- `audio.transcribe`: Transcribe a short public audio URL into text with timestamped segments. For long recordings run as a background job use audio.transcription.create.
+- `audio.transcribe-bulk`: Transcribe up to two single-channel recordings per background job, each at most ten hours. Results echo your row ids. May contain personal speech data. Maximum transcription cost $4.20; failed rows are free. recordings.transcribe.batch is the one-step mission for a list of recordings.
 - `audio.transcribe-configured`: Transcribe with a listed recognition model, timed words, speaker labels, formatting, redaction and optional content analysis. Returns spoken personal data and requested extracted entities. The hold covers 10 minutes, requested channels and add-ons, plus $0.135 per analysis feature (maximum $1.356); longer audio is absorbed by the service.
-- `audio.transcription.create`: Transcribe a long audio URL (podcasts, meetings) into text with timestamped segments, as a background job.
-- `audio.transcription.delete`: Delete a saved transcript and its personal speech data. Requires confirm: true.
+- `audio.transcription.create`: Transcribe a long audio URL (podcasts, meetings) into text with timestamped segments, as a background job. For a short clip answered in one call use audio.transcribe.
+- `audio.transcription.delete`: Delete a saved transcript and its personal speech data. Requires confirm: true. (needs approval)
 - `audio.transcription.get`: Read a saved transcript as paged text or timed words, utterances, sentences or paragraphs. May contain personal speech data.
 - `audio.transcription.word-search`: Find words or phrases in a saved transcript and page through their timed occurrences. May contain personal speech data.
 - `audio.transcriptions.list`: List only your saved transcripts in the last 30 days. Activity metadata may reveal personal recording activity; empty pages can still have a continuation.
@@ -358,6 +396,9 @@ Turn recordings into text, subtitles and searchable transcripts.
 Rewrite, classify, analyse and draft text.
 
 - `ai.judgment.calibrated`: Return a decision model's probability for each supplied option using your question and context. These are model estimates, not a guarantee of accuracy or measured calibration on your data. Evaluate thresholds on your own labelled examples before acting on them.
+- `health.check-plagiarism.get`: Read check plagiarism on plagiarismdetector.net. Returns personal data: personal details as published.
+- `health.detect-ai-content.get`: Read detect ai content on plagiarismdetector.net. Returns personal data: personal details as published.
+- `health.translate-text.get`: Read translate text on translate.google.com. Returns personal data: personal details as published.
 - `text.analyze`: Analyze submitted text for requested summaries, topics, intentions and sentiment; content may contain personal data. Holds a provisional ceiling of $0.135 per requested feature, up to $0.540.
 - `text.blog-outline.generate`: Write an outline for a blog post on a topic, with title ideas and sections.
 - `text.classify`: Sort a text into categories (your own or general ones), with a confidence for each.
@@ -379,7 +420,7 @@ Translate text, detect languages and keep your preferred terms.
 - `document.translate`: Translate one uploaded document, at most 10 MiB, as a job. Sources reject formats whose billable size cannot be verified before upload. Maximum estimated cost $25.
 - `text.dictionary.lookup`: Look up a word or phrase of up to 100 characters, returning translations and related source terms. Maximum estimated cost $0.001; no match is free.
 - `text.glossary.create`: Create a glossary of preferred translations, up to five language pairs and 500 terms. Terms can contain personal data.
-- `text.glossary.delete`: Permanently delete your glossary after explicit confirmation.
+- `text.glossary.delete`: Permanently delete your glossary after explicit confirmation. (needs approval)
 - `text.glossary.get`: Read your glossary and up to 500 preferred translations; terms can contain personal data.
 - `text.glossary.list`: List your glossaries; names and terms may contain personal data.
 - `text.glossary.update`: Rename a glossary, merge or replace up to 100 terms, or remove a dictionary with explicit confirmation.
@@ -394,10 +435,10 @@ Translate text, detect languages and keep your preferred terms.
 Store vectors and find the closest matches for your own data.
 
 - `vector.index.create`: Create a vector index with a fixed vector length and distance metric, for upserting vectors and searching nearest neighbours. Returns a ref for the follow-up vector.* capabilities.
-- `vector.index.delete`: Delete one of your vector indexes and every vector stored in it. This cannot be undone; the vectors are gone.
+- `vector.index.delete`: Delete one of your vector indexes and every vector stored in it. This cannot be undone; the vectors are gone. (needs approval)
 - `vector.index.get`: Get one of your vector indexes: its vector length, distance metric, vector space and an approximate count of stored vectors.
 - `vector.indexes.list`: List your vector indexes with their vector length, distance metric and an approximate count of stored vectors.
-- `vector.vectors.delete`: Remove stored vectors by id from one of your indexes. This cannot be undone; re-upserting an id stores a new vector.
+- `vector.vectors.delete`: Remove stored vectors by id from one of your indexes. This cannot be undone; re-upserting an id stores a new vector. (needs approval)
 - `vector.vectors.get`: Look up stored vectors by id in one of your indexes: their vector values and metadata. Ids that are not stored are left out of the result.
 - `vector.vectors.query`: Search one of your vector indexes for the nearest neighbours of a query vector, optionally narrowed by a metadata filter. Scores follow the index's distance metric.
 - `vector.vectors.query-by-id`: Find nearby vectors using a stored vector from your own index as the seed. A missing seed is refused; results stay in that index.
@@ -411,23 +452,23 @@ Set up talking video agents with tools, rules and goals.
 - `video.agent-tools.detach`: Detach your named tool from your named agent without deleting the tool.
 - `video.agent-tools.list`: List your standalone tools attached to your named agent; excludes inline and shared system tools.
 - `video.agent.create`: Create a named conversational agent using a shared stock avatar. Instructions may contain personal information. Custom avatars, external services and conferencing require later support.
-- `video.agent.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records.
+- `video.agent.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records. (needs approval)
 - `video.agent.get`: Read your named conversational agent, including its instructions and linked configuration names.
 - `video.agent.update`: Update your named agent. Instructions may contain personal information; force must be explicit to discard pending editor work.
 - `video.agents.list`: List only your named configurations, with at most 50 rows per page.
 - `video.guardrail-tags.list`: List tags on your owned guardrails; shared account tags and foreign guardrail names are excluded.
 - `video.guardrail.create`: Create a named conversational guardrail. Its prompt and tags may contain personal information; callbacks are not registered.
-- `video.guardrail.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records.
+- `video.guardrail.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records. (needs approval)
 - `video.guardrail.get`: Read your named guardrail, including its behavioral prompt and tags.
 - `video.guardrail.update`: Update your named conversational guardrail without changing its ownership or name.
 - `video.guardrails.list`: List only your named configurations, with at most 50 rows per page.
 - `video.objective-set.create`: Create a named objective set containing one objective. Prompts and collected variable definitions may contain personal information.
-- `video.objective-set.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records.
+- `video.objective-set.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records. (needs approval)
 - `video.objective-set.get`: Read your named objective set and its prompt; may contain personal information.
 - `video.objective-set.update`: Update the objective in your named set, preserving its stable key.
 - `video.objective-sets.list`: List only your named configurations, with at most 50 rows per page.
 - `video.tool.create`: Register a named tool configuration for application message delivery. This does not execute the tool; callbacks, secrets and connected service tools are declined pending delivery support.
-- `video.tool.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records.
+- `video.tool.delete`: Delete your named configuration. Confirmation is required; this does not erase conversation records. (needs approval)
 - `video.tool.get`: Read your named tool configuration, including argument definitions; never returns credentials or delivery URLs.
 - `video.tool.update`: Update your named tool configuration; external delivery and secrets are not supported yet.
 - `video.tools.list`: List only your named configurations, with at most 50 rows per page.
@@ -436,20 +477,23 @@ Set up talking video agents with tools, rules and goals.
 
 Turn text into spoken audio and design or clone voices.
 
+- `audio.processing-wait-times.get`: Read published processing queue wait times for an audio tool on voice.ai.
 - `audio.pronunciation-dictionaries.list`: List your speech pronunciation dictionaries without returning their terms.
 - `audio.pronunciation-dictionary.clone`: Copy your speech pronunciation dictionary; terms may contain personal names.
 - `audio.pronunciation-dictionary.create`: Create a speech pronunciation dictionary; terms may contain personal names.
-- `audio.pronunciation-dictionary.delete`: Permanently delete your pronunciation dictionary, including terms that may contain personal names.
+- `audio.pronunciation-dictionary.delete`: Permanently delete your pronunciation dictionary, including terms that may contain personal names. (needs approval)
 - `audio.pronunciation-dictionary.get`: Read a speech pronunciation dictionary, including substitutions that may contain personal names.
 - `audio.pronunciation-dictionary.update`: Change a speech pronunciation dictionary; adding an existing key replaces that substitution.
 - `audio.speech`: Turn text into spoken audio; returns a link to the audio file, kept for 7 days.
+- `audio.speech-faq.list`: List public speech synthesis questions and answers by category on kikivoice.ai.
 - `audio.speech-timed`: Turn text into MP3 speech with timed text segments; copies audio to file storage.
+- `audio.subscription-plans.list`: List public audio subscription plans and displayed prices on voice.ai.
 - `audio.voice-catalog.list`: List public voice names, languages, gender and supported controls, returning stable voice keys.
 - `audio.voice-settings.get`: Read how one of your voices speaks: stability, similarity, style, speaker boost and speed. Pass the ref of a voice.
 - `audio.voice-settings.update`: Change how one of your voices speaks: stability, similarity, style, speaker boost or speed. Only the settings you send change. Works on voices you created, not on shared ones.
 - `audio.voice.clone`: Make a voice from recordings of a speaker. Upload the recordings first and pass their file ids. The voice is stored in your account until you delete it, and its ref works in the other voice capabilities. Voice recordings are personal data and are sent to the voice service. Runs as a job.
 - `audio.voice.create`: Keep a designed voice. Pass the ref of a preview from audio.voice.design with a name and description; the voice then exists in your account, and its ref works in the other voice capabilities. Stored until you delete it.
-- `audio.voice.delete`: Permanently delete one of your voices and the recordings it was made from. Pass the ref of the voice and confirm: true. There is no undo.
+- `audio.voice.delete`: Permanently delete one of your voices and the recordings it was made from. Pass the ref of the voice and confirm: true. There is no undo. (needs approval)
 - `audio.voice.design`: Design a new voice from a written description. Returns a few preview recordings of candidate voices; keep one with audio.voice.create using its ref. The previews are charged once as one piece of speech. Runs as a job.
 - `audio.voice.get`: Read one of your voices: name, description, languages, tags, number of samples and how it speaks. Pass the ref of a voice. Returns the description and tags you wrote.
 - `audio.voice.preview`: Generate one voice preview from a description, without creating a saved voice.

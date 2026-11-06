@@ -11,6 +11,19 @@ Read public Apple Music songs, albums and artist pages.
 - `apple-music.songs.search`: Search the public song catalogue and return grouped song titles and their public links.
 - `apple-music.track.detail`: Read the public title, album, page and explicit-content flag of an Apple Music song.
 
+## Art and blog communities
+
+Read creative portfolios and blogs on Behance, ArtStation, DeviantArt and Tumblr.
+
+- `social.air-kisses.count`: Read the total number of air kisses recorded by the public counter on sharemyhtml.com.
+- `social.blog-posts.search`: Search public blog post summaries without author profiles on tumblr.com.
+- `social.profile-project.search`: Find profile project on behance.net. Returns personal data: personal details as published.
+- `social.profile-projects.list`: List profile projects on behance.net. Returns personal data: personal details as published.
+- `social.profile.search`: Search profile on tumblr.com. Returns personal data: personal details as published.
+- `social.projects.list`: List projects on artstation.com. Returns personal data: personal details as published.
+- `social.user-artworks.get`: Read user artworks on deviantart.com. Returns personal data: personal details as published.
+- `social.userspage.get`: Read userspage on straw.page. Returns personal data: personal details as published.
+
 ## Bilibili
 
 Search Bilibili videos, comments, live rooms and trending topics.
@@ -36,6 +49,7 @@ Search Bilibili videos, comments, live rooms and trending topics.
 - `bilibili.video.parts`: List a Bilibili video's parts (pages), with each part's title and length.
 - `bilibili.video.resolve`: Turn a Bilibili video's BV id (as in its address) into its older numeric AV id.
 - `bilibili.video.subtitles`: Get a video's subtitles on Bilibili.
+- `bilibili.videos.ranking.list`: List ranked Bilibili videos for a content category on t.bilibili.com.
 
 ## Bluesky
 
@@ -48,17 +62,34 @@ Read public Bluesky profiles and posts.
 
 Read and reply to comments, direct messages and mentions on your accounts.
 
+- `social.by-hashtag.search`: Search by hashtag on tiktok.com. Returns personal data: personal details as published.
+- `social.comments.get`: Read comments on the chosen site. Returns personal data: personal details as published.
 - `social.comments.hide`: Hide a comment on your post from everyone but its author; undo with social.comments.unhide.
 - `social.comments.list`: List the comments on one of your posts, or the replies to one comment.
 - `social.comments.posts.list`: List your posts that have comments, newest first; use a post id with social.comments.list.
-- `social.comments.reply`: Reply publicly to a comment (or comment on a post) from your connected account. Send an Idempotency-Key.
+- `social.comments.reply`: Reply publicly to a comment (or comment on a post) from your connected account. Send an Idempotency-Key. (needs approval)
 - `social.comments.unhide`: Make a comment you hid with social.comments.hide visible again.
-- `social.inbox.conversation.delete`: Permanently erase a stored inbox conversation and its messages. The original platform thread and contact record remain. Preview by default; send an Idempotency-Key when deleting.
+- `social.content.search`: Search content on instagram.com. Returns personal data: personal details as published.
+- `social.feed.list`: List feed on xiaohongshu.com. Returns personal data: personal details as published.
+- `social.inbox.conversation.delete`: Permanently erase a stored inbox conversation and its messages. The original platform thread and contact record remain. Preview by default; send an Idempotency-Key when deleting. (needs approval)
 - `social.inbox.conversations.list`: List direct-message conversations on your connected social accounts, newest first.
-- `social.inbox.message.reply`: Send a direct-message reply in a conversation on your connected account. Send an Idempotency-Key.
+- `social.inbox.message.reply`: Send a direct-message reply in a conversation on your connected account. Send an Idempotency-Key. (needs approval)
 - `social.inbox.message.share`: Share an owned Instagram post or a heart sticker in an existing conversation. Send an Idempotency-Key. (needs approval)
 - `social.inbox.messages.list`: List the messages in one direct-message conversation, newest first.
 - `social.mentions.list`: List posts that mention your connected accounts, newest first.
+- `social.post-details.get`: Read post details on the chosen site. Returns personal data: personal details as published.
+- `social.posts.search`: Search posts on the chosen site. Returns personal data: personal details as published.
+- `social.profile-details.get`: Read profile details on tiktok.com. Returns personal data: personal details as published.
+- `social.profile.get`: Read profile on the chosen site. Returns personal data: personal details as published.
+- `social.reel-details.get`: Read reel details on instagram.com. Returns personal data: personal details as published.
+- `social.short-video.metrics.get`: Read the public view, like, share and comment counts of a short video on likee.video.
+- `social.threads-post.get`: Read post on threads.net. Returns personal data: personal details as published.
+- `social.transcript.get`: Read transcript on tokscript.com. Returns personal data: personal details as published.
+- `social.user-created-pins.get`: Read user created pins on au.pinterest.com. Returns personal data: personal details as published.
+- `social.user-posts.get`: Read user posts on snapchat.com. Returns personal data: personal details as published.
+- `social.user-profile.get`: Read user profile on the chosen site. Returns personal data: personal details as published.
+- `social.user-reposts.get`: Read user reposts on tiktok.com. Returns personal data: personal details as published.
+- `social.users.search`: Search users on the chosen site. Returns personal data: personal details as published.
 
 ## Connect social accounts
 
@@ -66,7 +97,7 @@ Link your own social accounts and pages so you can post from them.
 
 - `social.account.connect.start`: Start connecting a social account: returns a sign-in link for the person who owns it, and a ref to check the outcome.
 - `social.account.connect.status`: Check a connect flow started with social.account.connect.start: pending, or connected with the new account.
-- `social.account.disconnect`: Disconnect one of your connected social accounts.
+- `social.account.disconnect`: Disconnect one of your connected social accounts. (needs approval)
 - `social.account.health.get`: Read health, permissions and connection status of your connected account; returns its handle and display name.
 - `social.account.health.list`: List health of your connected accounts, including inactive accounts; returns your account handles and display names.
 - `social.accounts.list`: List the social accounts you connected; use their accountId with social.post.publish.
@@ -113,12 +144,19 @@ Find creators on Instagram, TikTok and YouTube and compare their audiences and r
 - `creators.lookalike-cross-platform`: Find unscored creator matches on another platform from one to five seed creators. Estimated maximum: 1.25 USD.
 - `creators.performance.get`: Get public creator follower, content and total-view counts. No person scores. Estimated report maximum: 20 USD.
 - `creators.performance.history`: Get observed descriptive count history, up to 1000 points. No engagement-rate or quality scores. Estimated maximum: 20 USD.
-- `creators.search`: Find creators' public profiles on Instagram, TikTok and YouTube by describing them in plain words. Returns personal data: the public social profile names and links of the creators found.
+- `creators.search`: Find creators' public profiles on Instagram, TikTok and YouTube by describing them in plain words. For a niche across platforms use creator.find; for a ranked shortlist against a brief use creator.shortlist. Returns personal data: the public social profile names and links of the creators found.
 - `creators.search-filtered`: Search public creators with structured filters and descriptive counts. No scores. Estimated maximum: 1.25 USD.
 - `creators.search-filters.list`: List creator-search filter names and standard codes or owned handles. Estimated maximum: 0.05 USD.
 - `creators.search-image`: Find public creators by an uploaded PNG or JPEG image, up to 5 MB; returns unscored matches. Estimated maximum: 1.25 USD.
 - `creators.socials.find`: Find a creator's accounts on other social platforms from one handle, with the evidence for each match. Returns personal data: links to the creator's accounts on other platforms.
 - `creators.suggest`: Autocomplete public creator handles and descriptive profile details. Estimated maximum: 0.05 USD.
+- `social.creator-details.get`: Read creator details on patreon.com. Returns personal data: personal details as published.
+- `social.creator-engagement.get`: Read creator engagement on tiktok.com. Returns personal data: personal details as published.
+- `social.creator.search`: Search creator. Returns personal data: personal details as published.
+- `social.creators.search`: Search creators on patreon.com. Returns personal data: personal details as published.
+- `social.influencer-contact-email.get`: Read influencer contact email. Returns personal data: personal details as published.
+- `social.influencer-linked-accounts.get`: Read influencer linked accounts. Returns personal data: personal details as published.
+- `social.top-instagram-influencers.get`: Read top instagram influencers. Returns personal data: personal details as published.
 
 ## Douban
 
@@ -232,11 +270,44 @@ Read public Facebook pages, groups, posts, comments and events.
 - `facebook.user.posts`: List recent public posts from a Facebook profile or page.
 - `facebook.user.profile`: Get a public Facebook profile or page: name, link and public details.
 
+## Forums and communities
+
+Read forum threads, community posts and stories.
+
+- `communities.arabic-posts.list`: List recent Arabic community discussions without member profiles on io.hsoub.com.
+- `communities.archive-boards.list`: List the public discussion boards available in the archive on archive.4plebs.org.
+- `communities.blog-groups.search`: Search public blogging communities by topic on tumblr.com.
+- `communities.community-threads.get`: Read community threads on kaskus.co.id. Returns personal data: personal details as published.
+- `communities.game-thread.get`: Read a game discussion title and opening message without its author profile on steamcommunity.com.
+- `communities.hot-threads.get`: Read hot threads on kaskus.co.id. Returns personal data: personal details as published.
+- `communities.indonesian-groups.list`: List popular Indonesian discussion communities and activity counts on kaskus.co.id.
+- `communities.indonesian-threads.search`: Search Indonesian discussion titles and opening text on kaskus.co.id.
+- `communities.industry-posts.list`: List recent industry discussion titles and content previews on gfy.com.
+- `communities.post-comments.get`: Read post comments on io.hsoub.com. Returns personal data: personal details as published.
+- `communities.stories.best.list`: List highest rated community story titles and previews without author profiles on pikabu.ru.
+- `communities.stories.community.list`: List community community story titles and previews without author profiles on pikabu.ru.
+- `communities.stories.hot.list`: List trending community story titles and previews without author profiles on pikabu.ru.
+- `communities.stories.new.list`: List newest community story titles and previews without author profiles on pikabu.ru.
+- `communities.story-details.get`: Read story details on pikabu.ru. Returns personal data: personal details as published.
+- `communities.thread-posts.get`: Read thread posts on kaskus.co.id. Returns personal data: personal details as published.
+- `communities.thread.get`: Read thread — car forum.
+- `communities.threads.search`: Search threads — car forum. Returns personal data: personal details as published.
+- `communities.user-profile.get`: Read user profile on pikabu.ru. Returns personal data: personal details as published.
+- `community.board.info.get`: Read an investor discussion board's metadata and follower count.
+- `community.forum-categories.list`: List a consumer-finance forum's categories with activity counts.
+- `community.trending-stocks.list`: List tickers ranked by discussion activity.
+- `forums.categories.list`: List a motoring community's forum sections and sub-forums Returns personal data: member names as published.
+- `forums.hot-threads.list`: List a motoring community's hand-picked popular discussions Returns personal data: member names as published.
+- `forums.thread.get`: Read the posts in one forum discussion, page by page Returns personal data: member names and post text as published.
+- `forums.threads.list`: List the discussion threads in one motoring forum section Returns personal data: member names as published.
+- `forums.threads.search`: Search a motoring community's discussions by keyword Returns personal data: member names as published.
+
 ## Hacker News
 
 Search Hacker News stories.
 
 - `hackernews.stories.search`: Hackernews.
+- `hackernews.story.comments`: List the public comments on one discussion story. Returns personal data: public commenter handles and comment text.
 
 ## IMDb
 
@@ -302,7 +373,9 @@ Read profiles, posts, reels, stories, comments, hashtags and places on Instagram
 
 Read public Kick stream clips.
 
+- `kick.channel.live-status.get`: Check whether a channel is live and read its current broadcast title on kick.com.
 - `kick.clip.detail`: Read a public Kick clip title, publication date and engagement counts.
+- `kick.streams.list`: List current live broadcasts by category and audience size on kick.com.
 
 ## Kuaishou
 
@@ -359,7 +432,7 @@ Read LinkedIn profiles, companies, posts and comments, and message or post from 
 - `linkedin.comment.reactions`: List who reacted to a comment on a LinkedIn post, and with which reaction. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links.
 - `linkedin.comment.replies`: List the replies to a comment on a LinkedIn post, with their text, authors and reactions. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links.
 - `linkedin.company.employees`: List people whose LinkedIn profiles name a company as their current employer, with their job titles and locations. No contact details. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links.
-- `linkedin.company.followers.export`: Order a company follower export as a background job, up to 10,000 rows. Default 2,500; worst-case supplier cost is $35 at 10,000. Returns names, work emails and mobile numbers when present, in a file. Personal data: follower identity and contact details. A failed job costs you nothing.
+- `linkedin.company.followers.export`: Order a company follower export as a background job, up to 10,000 rows. Default 2,500; worst-case supplier cost is $35 at 10,000. Returns names, work emails and mobile numbers when present, in a file. Personal data: follower identity and contact details. A failed job costs you nothing. (needs approval)
 - `linkedin.company.followers.get`: Read your company's follower-export status, or a bounded page of the completed follower records. Personal data: names, work emails and mobile numbers only when includeRows is true.
 - `linkedin.company.followers.list`: List only your own company follower-export orders, with a handle for reading each order. A page can be empty while more pages remain.
 - `linkedin.company.handle`: Turn a LinkedIn company page's numeric id into the page's public name, the part after /company/ in its address.
@@ -389,6 +462,7 @@ Read LinkedIn profiles, companies, posts and comments, and message or post from 
 - `linkedin.search.locations`: Find public professional-network location names and the geographic ids used to filter searches.
 - `linkedin.search.posts`: Search professional-network posts by keyword, author, employer or hashtag, newest first. Priced per post returned, so a smaller limit costs less.
 - `linkedin.services.search`: Search the people and firms that offer services on LinkedIn by keyword, with what they offer and where they are. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links.
+- `linkedin.topics.list`: Browse the public discussion-topic directory, with topic labels and page addresses on linkedin.com.
 - `linkedin.user.comments`: List the comments a LinkedIn member has made on posts, with the text and the post each was made on. Returns personal data: public LinkedIn profile details of the people involved: names, headlines and profile links.
 - `linkedin.user.posts`: List a LinkedIn member's recent posts with text, date, media and engagement.
 - `linkedin.user.profile`: Get a LinkedIn member's public profile: name, headline, location, about and audience.
@@ -466,27 +540,29 @@ Read Snapchat creator profiles and Spotlight videos and comments.
 Publish, schedule, edit and measure posts on your connected social accounts.
 
 - `media.upload.create`: Place a media file on your posting profile's storage, so posts can attach media you have no public link for. Pass a file you uploaded (fileId) or its public URL; at most 100 MB, images, videos, PDF, audio or subtitle files. The placed copy is kept for 7 days; a post that references the media within that window makes it permanent. For a url source the result carries the media again as a platform-hosted file whose URL serves the raw file over HTTPS, ready to pass as a media URL. The storage location of the placed copy is internal and never returned. Needs platform file storage.
+- `social.management-faqs.list`: Read the public questions and answers about social account management on krowdly.net.
+- `social.management-services.list`: List the social account management services offered on the public product page on krowdly.net.
 - `social.pinterest.board.create`: Create a board on your connected Pinterest account; private by default. Returns your board text. An unclear outcome is not resent; list boards before retrying.
 - `social.pinterest.board.default.set`: Set the default board for your connected Pinterest account; returns your own board choice.
 - `social.pinterest.boards.list`: List boards on your connected Pinterest account, including private board names and descriptions.
 - `social.post.analytics`: Use when you read engagement and performance for one social post; for its content and status use social.post.get. Likes, comments, shares and views per platform for a post you published. Pass the ref that social.post.publish returned.
 - `social.post.approval.review`: Use when you approve or reject a social post awaiting review; for publishing a new post use social.post.publish. Approve or reject a post awaiting review. Approving after its schedule may publish it shortly. Send an Idempotency-Key. (needs approval)
-- `social.post.delete`: Use when you delete a saved social post; for taking a published post offline use social.post.unpublish. Delete a post that is not live: a draft, scheduled, publishing, partial, failed or cancelled post, with its schedule and any queued slot. A published post cannot be deleted — take it down with social.post.unpublish first. This cannot be undone. Send an Idempotency-Key.
+- `social.post.delete`: Use when you delete a saved social post; for taking a published post offline use social.post.unpublish. Delete a post that is not live: a draft, scheduled, publishing, partial, failed or cancelled post, with its schedule and any queued slot. A published post cannot be deleted — take it down with social.post.unpublish first. This cannot be undone. Send an Idempotency-Key. (needs approval)
 - `social.post.edit`: Use when you edit text already published on a social account; for changing a draft use social.post.update. Edit the text of a post that is already live. Works on x, discord, facebook, reddit, linkedin, telegram, pinterest, googlebusiness, youtube and slack; each applies its own rules (for example x allows edits only shortly after publishing and only with a premium subscription, and gives the post a new address). Media cannot be changed on a live post. Send an Idempotency-Key.
 - `social.post.get`: Use when you read one saved social post and its status; for a list of posts use social.posts.list. Status of a post you published, per platform, with live post URLs. Pass the ref that social.post.publish returned.
 - `social.post.metadata.update`: Use when you change a published video title, description, tags or thumbnail; for live post text use social.post.edit. Change a published video's facts on the video platform without re-uploading it: title, description, tags, category, privacy, custom thumbnail, made-for-kids and AI-content flags, or the playlist it sits in. Works on youtube videos — pass the ref of a video this API published, or videoId with accountId for one published elsewhere. Send an Idempotency-Key.
-- `social.post.publish`: Use when you post or schedule content on LinkedIn or other connected social accounts; for posts already published use social.posts.list. Publish or schedule a post to your connected social accounts (LinkedIn, Instagram, Facebook and more). Send an Idempotency-Key. Returns a ref for social.post.get and social.post.analytics.
-- `social.post.retry`: Use when you retry a failed social post; for a new post use social.post.publish. Try a failed post again: every platform that failed is retried at once, the ones that succeeded are left alone. Works on failed and partial posts. The content goes out again, so an unclear outcome is reported as such and is not retried. Send an Idempotency-Key.
-- `social.post.unpublish`: Use when you take a published social post offline; for deleting its saved record use social.post.delete. Take a published post down from one platform (x, threads, facebook, linkedin, youtube, pinterest, reddit, bluesky, googlebusiness or telegram). This deletes the post on that platform and cannot be undone — on youtube the deletion is permanent. Once every platform copy is gone the post's state becomes cancelled. Send an Idempotency-Key.
+- `social.post.publish`: Use when you post or schedule content on LinkedIn or other connected social accounts; for posts already published use social.posts.list. Publish or schedule a post to your connected social accounts (LinkedIn, Instagram, Facebook and more). Send an Idempotency-Key. Returns a ref for social.post.get and social.post.analytics. (needs approval)
+- `social.post.retry`: Use when you retry a failed social post; for a new post use social.post.publish. Try a failed post again: every platform that failed is retried at once, the ones that succeeded are left alone. Works on failed and partial posts. The content goes out again, so an unclear outcome is reported as such and is not retried. Send an Idempotency-Key. (needs approval)
+- `social.post.unpublish`: Use when you take a published social post offline; for deleting its saved record use social.post.delete. Take a published post down from one platform (x, threads, facebook, linkedin, youtube, pinterest, reddit, bluesky, googlebusiness or telegram). This deletes the post on that platform and cannot be undone — on youtube the deletion is permanent. Once every platform copy is gone the post's state becomes cancelled. Send an Idempotency-Key. (needs approval)
 - `social.post.update`: Use when you change a draft or scheduled social post; for live text use social.post.edit. Change a post that is not live yet: text, title, media, targets, per-target text or media, schedule, timezone, tags or visibility — or publish a draft now with publishNow. A live post can no longer be edited this way; use social.post.edit for its text. Send an Idempotency-Key.
 - `social.post.validate.length`: Use when you check social post text length before publishing; for publishing use social.post.publish. Count a post text the way each platform counts it, and say whether it fits: x weights links as 23 characters and emojis as 2, the others count plain characters. The x-premium row always shows the premium limit and cannot know your account — check an x target against the account with social.post.validate.post.
 - `social.post.validate.media`: Use when you check social post media before publishing; for publishing use social.post.publish. Check a media URL before attaching it to a post: is the file reachable over HTTPS, what type and size does it report, and does it fit each platform's size cap. A page that returns HTML instead of the file reports as not valid.
 - `social.post.validate.post`: Use when you check whether a social post is valid before publishing; for publishing use social.post.publish. Dry-run the checks a post goes through at publish time, without publishing: media a platform requires, hashtag limits, thread shape, character limits per target (on x, against the account's own limit). Returns per-platform errors, plus warnings for content near a limit. Nothing is published and no account is changed.
 - `social.post.validate.subreddit`: Use when you check a subreddit before posting there; for publishing use social.post.publish. Check that a subreddit exists and what it allows before posting to it: whether it is public, how many members it has, and whether image and video posts are allowed. Use it with the subreddit rules before your first post in a community.
-- `social.posts.import`: Create many posts at once from a CSV file you uploaded: one data row per post, with the columns post_content, title, media_urls, platforms (comma-separated), a schedule (schedule_time with tz, or publish_now=true, use_queue=true, or is_draft=true), per-platform overrides (schedule_time_<platform>, custom_content_<platform>, custom_media_<platform>), and document or audio attachment columns. At most 5,000 data rows and 10 MB. Runs as a job; the result says what every row did, in file order. dryRun defaults to true: a first call checks the file and creates nothing. Posts that were created are read back with social.posts.list. An unclear outcome is not retried.
+- `social.posts.import`: Create many posts at once from a CSV file you uploaded: one data row per post, with the columns post_content, title, media_urls, platforms (comma-separated), a schedule (schedule_time with tz, or publish_now=true, use_queue=true, or is_draft=true), per-platform overrides (schedule_time_<platform>, custom_content_<platform>, custom_media_<platform>), and document or audio attachment columns. At most 5,000 data rows and 10 MB. Runs as a job; the result says what every row did, in file order. dryRun defaults to true: a first call checks the file and creates nothing. Posts that were created are read back with social.posts.list. An unclear outcome is not retried. (needs approval)
 - `social.posts.list`: Use when you show posts already on a social account; for publishing a new post use social.post.publish. List the posts on your profile: drafts, scheduled, published, partial, failed and cancelled, oldest handles included. Use each row's ref with social.post.update, social.post.edit, social.post.delete, social.post.retry, social.post.unpublish and social.post.metadata.update.
 - `social.queue.slots.create`: Create a recurring posting schedule (queue) on your profile: named slots in one timezone, such as weekday mornings. The first queue on a profile becomes its default; later ones need setAsDefault or a queueId to be used. Posts scheduled through a queue land on the next free slot in order. Send an Idempotency-Key.
-- `social.queue.slots.delete`: Delete a recurring posting schedule (queue) by its queueId. Posts already waiting in it are not deleted; they keep their assigned times. With all: true, every queue on your profile is deleted — the default slot schedule included. Deleting cannot be undone. Send an Idempotency-Key.
+- `social.queue.slots.delete`: Delete a recurring posting schedule (queue) by its queueId. Posts already waiting in it are not deleted; they keep their assigned times. With all: true, every queue on your profile is deleted — the default slot schedule included. Deleting cannot be undone. Send an Idempotency-Key. (needs approval)
 - `social.queue.slots.list`: List the recurring posting schedules (queues) on your profile: their slots, timezone and the next times each would assign. Posts scheduled through a queue land on the next free slot in order. Queue ids from here work with the other social.queue.slots.* capabilities.
 - `social.queue.slots.next`: Show the next time a queue would assign, without scheduling anything. Schedule through the post capabilities' queue fields rather than copying this time into a schedule: copying skips the queue's lock, and two posts can land on the same slot.
 - `social.queue.slots.preview`: Show the next posting times a queue would assign, in order, without scheduling anything. Useful for showing a user when their queued posts would go out.
@@ -520,10 +596,13 @@ Look up Spotify albums, artists, tracks and podcasts.
 
 Read and search posts from public Telegram channels.
 
+- `telegram.channel-profile.get`: Read channel profile on in.tgstat.com. Returns personal data: personal details as published.
 - `telegram.channel.posts`: List a public Telegram channel's most recent posts, with each post's text, author, date, views and address. Returns personal data: the posts' authors' public names when the channel shows them.
 - `telegram.channel.profile`: Get a public Telegram channel's profile, with its title, description and subscriber count.
 - `telegram.channel.search`: Search a public Telegram channel's posts by keyword, with each hit's text, author, date and views. Returns personal data: the posts' authors' public names when the channel shows them.
 - `telegram.post.detail`: Get one post from a public Telegram channel, with its text, date, views and reactions. Returns personal data: the post author's name when the channel shows it.
+- `telegram.ranked-channels.list`: List public channels ordered by audience or reach on in.tgstat.com.
+- `telegram.ranked-groups.list`: List public discussion groups ordered by audience size on in.tgstat.com.
 
 ## Threads
 
@@ -600,6 +679,8 @@ Read Toutiao articles and comments.
 
 Read public Truth Social posts and profiles.
 
+- `social.account.get`: Read account on truthsocial.com. Returns personal data: personal details as published.
+- `social.posts.get`: Read posts on truthsocial.com. Returns personal data: personal details as published.
 - `truthsocial.post.detail`: Read a public Truth Social post and engagement counts, omitting author profiles.
 - `truthsocial.profile.detail`: Read a public Truth Social account's profile: its display name, note and follower counts. Returns personal data: the account's public name, note, location and profile links.
 
@@ -634,8 +715,8 @@ Read WeChat official-account articles, comments, and Channels videos.
 - `wechat-channels.live.history`: Read public live history on WeChat. Returns personal data: public account names and public content.
 - `wechat-channels.search.videos`: Read public search videos on WeChat. Returns personal data: public account names and public content.
 - `wechat-channels.user.collections`: Read public user collections on WeChat. Returns personal data: public account names and public content.
-- `wechat-channels.user.info`: Read public user info on WeChat. Returns personal data: public account names and public content.
-- `wechat-channels.user.profile`: Read public user profile on WeChat. Returns personal data: public account names and public content.
+- `wechat-channels.user.info`: Read public user info on WeChat, as the account's channel id and its info sections. For the nickname, follower count and videos use wechat-channels.user.profile. Returns personal data: public account names and public content.
+- `wechat-channels.user.profile`: Read the public profile of a WeChat channel, with its nickname, description, follower count and videos. For the channel id and raw info sections use wechat-channels.user.info. Returns personal data: public account names and public content.
 - `wechat-channels.user.resolve`: Turn a WeChat Channels channel id into the channel's public handle, name and description. Returns personal data: the channel's public name and description.
 - `wechat-channels.user.videos`: Read public user videos on WeChat. Returns personal data: public account names and public content.
 - `wechat-channels.video.comments`: List a video's comments on WeChat-Channels. Returns personal data: the public WeChat Channels nicknames of the people involved.
@@ -687,6 +768,8 @@ Search Weibo posts, topics, users and trending searches.
 
 Search X posts, read profiles, threads, followers and trending topics.
 
+- `social.tweet.get`: Read tweet on sotwe.com. Returns personal data: personal details as published.
+- `social.user-tweets.get`: Read user tweets on sotwe.com. Returns personal data: personal details as published.
 - `x.article.detail`: Get one long-form article on X by its address, with its title, preview text, author and engagement. Returns personal data: the public X handles and names of the people involved.
 - `x.communities.search`: Search X communities by keyword, with their member counts.
 - `x.community.detail`: Get an X community by its address, with its description, member count and how people join. Returns personal data: the public X handles and names of the people involved.
@@ -705,6 +788,7 @@ Search X posts, read profiles, threads, followers and trending topics.
 - `x.user.profile`: Get an X (Twitter) user's public profile: name, bio, follower and post counts.
 - `x.user.replies`: X (Twitter) user's replies by handle. Returns personal data: public names, profile details and published content.
 - `x.users.search`: Search accounts on X by keyword, with their names, bios and follower counts. Returns personal data: the public X handles and names of the people involved.
+- `x.worldwide-trends.list`: List worldwide trending topic names and their current positions on trends24.in.
 
 ## Xiaohongshu
 
@@ -744,7 +828,13 @@ Read Youku user profiles and video details.
 
 Search YouTube videos, channels, comments, transcripts and trends.
 
+- `social.channel-history.get`: Read channel history on socialblade.com. Returns personal data: personal details as published.
+- `social.channel-milestones.get`: Read channel milestones on socialblade.com. Returns personal data: personal details as published.
+- `social.channel.get`: Read channel on socialblade.com. Returns personal data: personal details as published.
+- `social.channels.search`: Search channels on socialblade.com. Returns personal data: personal details as published.
+- `social.top-channels.list`: List top channels on socialblade.com. Returns personal data: personal details as published.
 - `youtube.activities.list`: List public activity from a YouTube channel without reading a connected account.
+- `youtube.channel.live-status.get`: Check whether a YouTube channel is currently broadcasting live on youtube.com.
 - `youtube.channel.lives`: List a YouTube channel's live streams, past and current, with their titles and views.
 - `youtube.channel.playlists`: List a YouTube channel's public playlists, with how many videos each holds.
 - `youtube.channel.posts`: List a YouTube channel's community posts, newest first, with their text and likes.
@@ -753,6 +843,7 @@ Search YouTube videos, channels, comments, transcripts and trends.
 - `youtube.channel.sections`: List the named sections of a channel's page, such as its featured playlists, in the order the channel arranged them.
 - `youtube.channel.shorts`: List a YouTube channel's Shorts, with their titles, views and likes.
 - `youtube.channel.videos`: List a YouTube channel's recent videos with titles, dates, views and durations.
+- `youtube.channels.search`: Search channels on youtube.com. Returns personal data: personal details as published.
 - `youtube.comment.detail`: Read a public YouTube comment by its public comment id, omitting the author profile.
 - `youtube.comment.replies`: List the replies to a comment on a YouTube video, using the replies token that a comment listing returns. Returns personal data: the public channel names and handles of the people who posted.
 - `youtube.playlist.images`: List a playlist's cover images with their pixel sizes.
@@ -763,6 +854,7 @@ Search YouTube videos, channels, comments, transcripts and trends.
 - `youtube.search.suggestions`: The searches YouTube suggests for a partly typed keyword.
 - `youtube.search.videos`: Search YouTube videos by keyword; returns titles, channels, views, durations and thumbnails.
 - `youtube.trending.videos`: Read the first page of trending public YouTube Shorts.
+- `youtube.video-transcript.get`: Read video transcript on youtube.com. Returns personal data: personal details as published.
 - `youtube.video.comments`: List the top comments on a YouTube video, by video id or URL.
 - `youtube.video.detail`: Get one YouTube video's title, description, channel, date, views and duration.
 - `youtube.video.related`: List videos recommended alongside a public YouTube video.
@@ -782,8 +874,8 @@ Search Zhihu questions, answers, articles and read user profiles.
 - `zhihu.question.detail`: Read one Zhihu question: its title, body and how much attention it has.
 - `zhihu.salt.search`: Search public story titles, descriptions and links.
 - `zhihu.search.content`: Search Zhihu by keyword. Returns personal data: public names, profile details and published content.
-- `zhihu.search.suggestions`: Zhihu preset search suggestions. Returns personal data: public names, profile details and published content.
-- `zhihu.suggest.search`: Zhihu search suggestions by partial keyword. Returns personal data: public names, profile details and published content.
+- `zhihu.search.suggestions`: Zhihu preset search suggestions, the ready-made ones shown before anyone types. For suggestions for a partial keyword use zhihu.suggest.search. Returns personal data: public names, profile details and published content.
+- `zhihu.suggest.search`: Zhihu search suggestions by partial keyword. For the preset suggestions shown before typing use zhihu.search.suggestions. Returns personal data: public names, profile details and published content.
 - `zhihu.topic.search`: Search Zhihu topics by keyword. Returns personal data: public names, profile details and published content.
 - `zhihu.trending.list`: Read public trending questions without author profiles.
 - `zhihu.user.articles`: List a user's published articles on Zhihu. Returns personal data: the public Zhihu names and ids of the people involved.

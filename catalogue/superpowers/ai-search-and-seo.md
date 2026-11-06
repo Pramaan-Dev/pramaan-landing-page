@@ -6,6 +6,7 @@ Rankings, keywords, backlinks, and how AI answer engines see your brand.
 
 Ask ChatGPT, Claude, Perplexity and others a question and get answers with sources.
 
+- `aeo.brand-citations.get`: Read aggregate AI citation counts, topics and monthly brand visibility.
 - `aeo.brands.top`: Brands most frequently mentioned in AI answers for a keyword or domain (chatgpt platform only).
 - `aeo.brave.answer`: Ask the Brave answer engine a prompt; returns its answer text and cited sources.
 - `aeo.chatgpt.answer`: Ask the ChatGPT answer engine a prompt; returns its answer text and cited sources.
@@ -14,8 +15,8 @@ Ask ChatGPT, Claude, Perplexity and others a question and get answers with sourc
 - `aeo.claude.answer`: Ask the Claude answer engine a prompt; returns its answer text and cited sources.
 - `aeo.copilot.web-answer`: Ask Microsoft Copilot a question the way a person does in its web app, and get the answer it shows with the sources it cites.
 - `aeo.domains.top`: Domains most frequently cited in AI answers for a keyword or domain.
-- `aeo.google.answer`: Ask Google's AI chat assistant (not the AI answers in search) a prompt with web search; returns its answer text and cited sources.
-- `aeo.google.web-answer`: Ask Google's AI assistant a question the way a person does in its web app, and get the answer it shows.
+- `aeo.google.answer`: Ask Google's AI chat assistant (not the AI answers in search) a prompt with web search; returns its answer text and cited sources. For the answer as the web app shows it, in a chosen country, use aeo.google.web-answer.
+- `aeo.google.web-answer`: Ask Google's AI assistant a question the way a person does in its web app, and get the answer it shows. For the cited sources use aeo.google.answer.
 - `aeo.keywords.volume`: Estimated usage of a list of keywords inside AI answer tools.
 - `aeo.mentions.history`: Monthly mention counts and AI search volume over time for a keyword or domain.
 - `aeo.mentions.search`: Find AI answers that mention a keyword or domain; returns each answer with its cited sources.
@@ -38,7 +39,7 @@ See who links to any site, new and lost links, and link gaps.
 - `web.backlinks.list`: Pages linking to a domain or URL: source URL, target URL, anchor text, nofollow, dates.
 - `web.backlinks.new-lost`: For each of many sites, how many backlinks it gained and lost since a date.
 - `web.backlinks.new-lost-bulk`: Look up new lost backlinks for up to 1000 targets in one job; at most $0.06 per run.
-- `web.backlinks.pages-summary`: Backlink totals for each page of a site that has backlinks.
+- `web.backlinks.pages-summary`: Backlink totals for each page of a site that has backlinks. Takes one target site; for many pages or sites at once use web.pages.backlinks-summary.
 - `web.backlinks.status`: Check which of a list of sites link to a website.
 - `web.backlinks.summary`: Backlink profile of a domain or URL: total backlinks and referring domains.
 - `web.backlinks.top-pages`: A site's pages with the most backlinks, with their link and linking-domain counts.
@@ -53,7 +54,7 @@ See who links to any site, new and lost links, and link gaps.
 - `web.outbound-anchors.list`: The anchor texts of a site's links to other sites, with how many links and domains use each.
 - `web.outbound-domains.list`: The domains a site links out to, with link and page counts and each domain's authority rating.
 - `web.outlinks.summary`: A site's outbound link totals, external and dofollow, and how many domains it links to.
-- `web.pages.backlinks-summary`: Backlink totals (links, linking domains, rank, spam score) for each of many pages or sites.
+- `web.pages.backlinks-summary`: Backlink totals (links, linking domains, rank, spam score) for each of many pages or sites. For the pages of one site use web.backlinks.pages-summary.
 - `web.pages.backlinks-summary-bulk`: Look up pages summary for up to 1000 targets in one job; at most $0.06 per run.
 
 ## Baidu Search
@@ -87,16 +88,16 @@ See Bing results for a query: web, news, images, videos and shopping.
 Connect a blog or store, then write, edit, publish and schedule posts.
 
 - `blog.post.create`: Create a blog post as a draft, or schedule it by giving a future publishAt (the platform then publishes it itself). It never publishes immediately: publishing now is blog.post.publish. The body is passed through as given. Send an Idempotency-Key.
-- `blog.post.delete`: Delete a blog post permanently. This cannot be undone (attached media and tag names may remain on a site). Send an Idempotency-Key.
+- `blog.post.delete`: Delete a blog post permanently. This cannot be undone (attached media and tag names may remain on a site). Send an Idempotency-Key. (needs approval)
 - `blog.post.get`: Read one blog post: title, body as the platform stores it, tags, author, excerpt, featured image, and whether it is published (or waiting for its scheduled time).
-- `blog.post.publish`: Publish a blog post now. It goes live on the connected store or site at once; take it back with blog.post.unpublish. Retrying with the same Idempotency-Key cannot publish it twice.
+- `blog.post.publish`: Publish a blog post now. It goes live on the connected store or site at once; take it back with blog.post.unpublish. Retrying with the same Idempotency-Key cannot publish it twice. (needs approval)
 - `blog.post.unpublish`: Move a published or scheduled blog post back to draft. Its public address stops serving until it is published again. Send an Idempotency-Key.
 - `blog.post.update`: Edit a blog post: title, body, URL slug, tags, author, excerpt, featured image, search-engine fields, or move its schedule by giving a new future publishAt. Publishing and unpublishing are blog.post.publish and blog.post.unpublish. Send an Idempotency-Key.
 - `blog.posts.list`: List the posts in one blog of a connected store or site, newest first. Use postId with the other blog.post.* capabilities.
 - `blog.site.connect.start`: Start connecting a blog source: a store (give its myshopify.com domain) or a site. Returns a sign-in link for the person who owns it, and a ref to check with social.account.connect.status. The connected account then shows up in social.accounts.list and works with the blog.* capabilities.
 - `blog.site.connect.token`: Connect a blog source with credentials instead of the sign-in flow: a store through its myshopify.com domain and a custom app's access token, a WordPress site through its address, login name and application password, or a Webflow site through its site API token. The secret is forwarded once so the platform can verify it and keep it for the connection; it is not stored or logged by this API and never appears in a result or an error. The connected account shows up in social.accounts.list.
 - `blog.site.create`: Create a blog on a connected store. Stores that only publish into their existing blogs refuse this; a connected site always refuses it (its site is the blog). Send an Idempotency-Key.
-- `blog.site.delete`: Delete a blog on a connected store, and every post in it. This is permanent and cannot be undone. Connected sites refuse this; disconnect the site instead. Send an Idempotency-Key.
+- `blog.site.delete`: Delete a blog on a connected store, and every post in it. This is permanent and cannot be undone. Connected sites refuse this; disconnect the site instead. Send an Idempotency-Key. (needs approval)
 - `blog.site.get`: Read one blog on a connected store or site: its title and URL slug. A site's own blog is addressed by the platform-native id blog.sites.list reports.
 - `blog.site.update`: Rename a blog on a connected store, or change its URL slug. Sites cannot be renamed this way (the site is the blog); those refuse. Send an Idempotency-Key.
 - `blog.sites.list`: List the blogs on a connected store or site. Stores and collection-based sites can have several blogs; single-blog sites expose one. Use accountId and blogId with the other blog.* capabilities.
@@ -138,22 +139,22 @@ Look up Google business listings, profiles and the questions people ask.
 - `local.location.update`: Update one of your business locations: description, website and/or regular opening hours. Send an Idempotency-Key.
 - `local.locations.list`: List the business locations on your connected business profiles; use accountId and locationId with the other local.* capabilities.
 - `local.media.create`: Add a photo (or video) to one of your business locations from a publicly reachable URL, and choose where it appears on the listing. Send an Idempotency-Key.
-- `local.media.delete`: Remove a photo or video from one of your business locations. The copy on the listing is gone; your source URL is untouched. Send an Idempotency-Key.
+- `local.media.delete`: Remove a photo or video from one of your business locations. The copy on the listing is gone; your source URL is untouched. Send an Idempotency-Key. (needs approval)
 - `local.media.list`: Photos on one of your business locations: link, thumbnail, caption and where each appears on the listing.
 - `local.menu.get`: Read the food menus of one of your restaurant locations: sections, items, prices, dietary and allergen labels.
 - `local.menu.update`: Replace the food menus of one of your restaurant locations (send every menu you want to keep). Send an Idempotency-Key.
 - `local.place-action.create`: Add a booking, ordering or reservation link to one of your business locations; it appears as a button on the listing. Send an Idempotency-Key.
-- `local.place-action.delete`: Remove a booking, ordering or reservation link from one of your business locations. The button disappears from the listing. Send an Idempotency-Key.
+- `local.place-action.delete`: Remove a booking, ordering or reservation link from one of your business locations. The button disappears from the listing. Send an Idempotency-Key. (needs approval)
 - `local.place-action.update`: Change where an action link points, or what it does, on one of your business locations. Send an Idempotency-Key.
 - `local.place-actions.list`: The booking, ordering and reservation links on one of your business locations: where each points and what it does.
 - `local.review.get`: One customer review of one of your business locations: rating, text and your reply, as of now. Read it before replying again: a reply replaces the previous one and no history is kept.
-- `local.review.reply`: Publicly reply to a customer review on your business's selected location; replaces any earlier reply. Send an Idempotency-Key.
-- `local.review.unreply`: Remove your public reply from a customer review; the review itself stays. The reply text is gone for good: keep a copy if you may want it back. Send an Idempotency-Key.
+- `local.review.reply`: Publicly reply to a customer review on your business's selected location; replaces any earlier reply. Send an Idempotency-Key. (needs approval)
+- `local.review.unreply`: Remove your public reply from a customer review; the review itself stays. The reply text is gone for good: keep a copy if you may want it back. Send an Idempotency-Key. (needs approval)
 - `local.reviews.batch.list`: Reviews across several of your locations in one call, newest first, so a poll can stop once it crosses its date window. No averages here; use local.reviews.list for one location with its average.
 - `local.reviews.list`: Customer reviews of one of your business locations, newest first, with rating, text and your reply.
 - `local.services.get`: The services one of your business locations offers, with their descriptions and prices.
 - `local.services.update`: Replace the services one of your business locations offers (send every service you want to keep, or none to clear the list). Send an Idempotency-Key.
-- `local.verification.complete`: Complete a pending verification of one of your business locations by submitting the code the business received. Send an Idempotency-Key.
+- `local.verification.complete`: Complete a pending verification of one of your business locations by submitting the code the business received. Send an Idempotency-Key. (needs approval)
 - `local.verification.get`: Whether one of your business locations is verified and published, whether a verification is already in progress, and its attempt history.
 - `local.verification.options`: Which verification methods are currently offered for one of your business locations. Nothing is sent to the business by this call.
 - `local.verification.start`: Start verifying one of your business locations: the business is sent a code by post, phone call, text or email, depending on the method. Submit the code with local.verification.complete. Check local.verification.options first for the methods on offer. Send an Idempotency-Key. (needs approval)
@@ -162,7 +163,7 @@ Look up Google business listings, profiles and the questions people ask.
 
 Find keyword ideas with search volume, cost, difficulty and trends.
 
-- `google.interest-by-region`: Interest By Region.
+- `google.interest-by-region`: Show how interest in a keyword varies by region within a country, as Google Trends reports it. For a geography and timeframe you choose use web.interest-by-region.
 - `google.keywords.categories`: Give the Google product and service category codes each of many keywords belongs to.
 - `google.keywords.competitors`: Find the domains that rank in Google for a set of keywords, with how well each ranks.
 - `google.keywords.difficulty`: Say how hard each of many keywords is to rank for in Google.
@@ -172,7 +173,7 @@ Find keyword ideas with search volume, cost, difficulty and trends.
 - `google.keywords.ideas`: Google keyword lists for a seed keyword, with volume, CPC and competition. The `mode` picks the list: `ideas` (the default) gives keywords from the same topic area, `suggestions` gives keywords that contain the seed, and `related` gives searches semantically related to it.
 - `google.keywords.intent`: Say what people want when they search each of many keywords: to learn, to find a site, to compare or to buy.
 - `google.keywords.top`: List the most searched keywords in Google for a country, with volume, cost per click and difficulty.
-- `google.keywords.trends`: Google Trends interest over time (0 to 100) for up to five keywords.
+- `google.keywords.trends`: Google Trends interest over time (0 to 100) for up to five keywords. Returns dated points for each keyword; web.keywords.trends reads a web-wide trends index and returns values over a from-to window.
 - `google.keywords.volume`: Monthly Google search volume, CPC and competition for a list of keywords.
 - `google.related-queries`: Related Queries.
 - `google.related-topics`: Related Topics.
@@ -183,7 +184,7 @@ Get Google results, AI answers, suggestions and past versions of results pages.
 
 - `google.serp.ai-mode`: Ask Google's AI Mode a question; returns its answer and the sources it cites.
 - `google.serp.ai-overview`: Get the AI Overview Google shows above its results for a search, with the sources it cites.
-- `google.serp.autocomplete`: Get the searches Google suggests as someone types a query.
+- `google.serp.autocomplete`: Get the searches Google suggests as someone types a query. For suggestions with entity names, descriptions and images use web.query-suggest.
 - `google.serp.features`: Read selected Google search panes, including public names, text, images, businesses, products and video accounts. At most 15 panes and 50 entries each; worst case $0.002 per page.
 - `google.serp.history`: Show what Google's results page for a search looked like at earlier dates.
 - `google.serp.images`: Google Images results for a search, with the image, its size and the page it is on.
@@ -215,23 +216,27 @@ See how a website ranks in Google, its keywords, pages and traffic.
 - `google.domains.traffic`: Estimate the monthly Google traffic of many websites in one call.
 - `google.domains.traffic-history`: Estimate the Google traffic of many websites month by month.
 - `google.pages.shared-keywords`: List the keywords two web pages both rank for in Google, with each one's position.
+- `seo.search-volatility.list`: Read daily search-result volatility and feature prevalence.
+- `seo.top-keywords.list`: List popular search keywords with their search volumes.
+- `seo.top-websites.list`: List high-traffic websites with estimated organic traffic and keyword counts.
 
 ## Image search
 
 Search the web for images and the pages they appear on.
 
-- `image.search`: Search the web for images matching keywords or a description; returns image URLs, the pages they appear on, titles and dimensions.
+- `image.reverse-search`: Find public web pages that contain or match an image.
+- `image.search`: Search the web for images matching keywords or a description; returns image URLs, the pages they appear on, titles and dimensions. image.find.match is the one-step mission that also checks each image against the description and the size asked for.
 - `media.stock-photos.search`: Search stock photos with licence information, image dimensions and required source and photographer credits. Display both credits and their links. Image and credit addresses are intentional source attribution. Empty results cost zero; a stock licence does not establish every depicted person's consent.
 
 ## Keyword research
 
 Find search volume, trends and suggestions for keywords.
 
-- `web.keywords.trends`: Compare how popular up to five keywords are over time, from a web-wide trends index.
+- `web.keywords.trends`: Compare how popular up to five keywords are over time, from a web-wide trends index. Returns values over a from-to window; google.keywords.trends returns dated points for each keyword.
 - `web.keywords.volume`: Monthly search volume of keywords, measured from real browsing rather than from one search engine's own figures.
 - `web.keywords.volume-by-country`: Worldwide monthly search volume of keywords, with the share of each country.
 - `web.query-correct`: Check spelling in a search query and return corrected queries when available.
-- `web.query-suggest`: Suggest completions for a partial search query; optional enrichment can return public entity names and descriptions.
+- `web.query-suggest`: Suggest completions for a partial search query; optional enrichment can return public entity names and descriptions. For the bare Google suggestion list use google.serp.autocomplete.
 
 ## Naver search
 
@@ -250,9 +255,25 @@ See search results from regional engines such as Seznam.
 
 See related searches, topics and interest by region.
 
-- `web.interest-by-region`: Interest By Region.
+- `baidu.entertainment-rankings.list`: List popular entertainment titles and their ranking scores on top.baidu.com.
+- `baidu.filtered-rankings.list`: Read a trending board with optional category filtering on top.baidu.com.
+- `baidu.keyword-link.get`: Read the public search link for a trending keyword on top.baidu.com.
+- `baidu.novel-rankings.search`: List ranked novels in a published genre on top.baidu.com.
+- `baidu.trending-overview.get`: Read trending topic boards and keyword summaries on top.baidu.com.
+- `baidu.trending.list`: List current popular search topics on top.baidu.com.
+- `google.trends.list`: List trending Google search terms and related queries on trends.google.com.
+- `google.trends.topics.search`: Find Google Trends topics matching a phrase.
+- `trends.chinese-topics.list`: List the latest popular topics across Chinese public sites on tophub.today.
+- `trends.domain-traffic.list`: Browse the market-interest leaderboard of domains and disclosed visitor totals.
+- `trends.highlights.get`: Read highlighted emerging trends, startup keywords and websites.
+- `trends.related-topics.list`: List trend keywords related to an emerging trend.
+- `trends.startups.list`: List emerging startup keywords and business facts.
+- `trends.topic.get`: Read one emerging trend keyword and its growth.
+- `trends.topics.list`: List emerging trend keywords and their growth.
+- `web.interest-by-region`: Show how interest in a keyword varies by region for a geography and timeframe you choose. For a country-level read use google.interest-by-region.
 - `web.related-queries`: Related Queries.
 - `web.related-topics`: Related Topics.
+- `yahoo.trending-topics.list`: List the topics currently trending on Yahoo.
 
 ## Site link analysis
 

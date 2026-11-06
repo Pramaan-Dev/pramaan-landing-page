@@ -12,6 +12,23 @@ See a company's open jobs and what its employees say about it.
 - `companies.jobs.search`: Open job listings at a company; send its name (best coverage) and/or domain. An empty list means none found.
 - `companies.jobs.search-bulk`: Run companies.jobs.search for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 99.00 before the platform fee; the platform quotes the billed maximum before submission.
 - `companies.jobs.search-suggest`: The exact values a job search filter accepts, for one field: job titles, categories and the technologies a posting names. Free; use it before companies.jobs.search so a filter matches.
+- `job.board-company-profile.get`: Read company profile on the chosen site. Returns personal data: personal details as published.
+- `job.boards.companies.list`: Browse a recruitment directory's company names and public page addresses on the chosen site.
+- `job.companies.search`: Search companies — Dutch internship employers.
+- `job.companies.suggest`: Suggest matches for companies — Dutch internship employers.
+- `job.company-detail.get`: Read company detail on ethiojobs.net. Returns personal data: personal details as published.
+- `job.company-details.get`: Read company details on indeed.co.in. Returns personal data: personal details as published.
+- `job.company-interview-questions.get`: Read company interview questions on glassdoor.co.in. Returns personal data: personal details as published.
+- `job.company-profile.get`: Read company profile on the chosen site. Returns personal data: personal details as published.
+- `job.company-reviews.get`: Read company reviews on ca.indeed.com. Returns personal data: personal details as published.
+- `job.crypto.company-jobs.list`: List public cryptocurrency-sector jobs at a selected company.
+- `job.employer-profile.get`: Read a company's page on poslovi.infostud.com. Returns personal data: personal details as published.
+- `job.hiring-companies.list`: List featured hiring companies and their advertised opening counts on timesjobs.com.
+- `job.indeed-company-profile.get`: Read company profile on indeed.com. Returns personal data: personal details as published.
+- `job.internship.company-detail.get`: Read company detail — Dutch internship employers. Returns personal data: personal details as published.
+- `job.ph-company-profile.get`: Read company profile on ph.jobstreet.com. Returns personal data: personal details as published.
+- `job.startup-company-profile.get`: Read a startup's public company profile on a startup job board. Returns personal data: personal details as published.
+- `job.startup-details.get`: Read startup details on angel.co. Returns personal data: personal details as published.
 
 ## Crypto jobs
 
@@ -24,6 +41,7 @@ Search Web3 jobs, companies, remote roles and crypto salaries.
 - `job.crypto.remote-jobs`: List remote jobs.
 - `job.crypto.salaries`: Get Web3 salaries.
 - `job.crypto.search-jobs`: Search jobs.
+- `job.crypto.tagged-jobs.list`: List public cryptocurrency-sector jobs with a selected tag.
 
 ## Employment checks
 
@@ -45,10 +63,91 @@ Search job openings by employer, place and description.
 
 - `google.jobs.search`: Search Google Jobs; returns openings with employer, place and description.
 
+## Job application forms
+
+Read the questions and fields of public job application forms.
+
+- `job.application-form.get`: Read the blank field definitions of a public job application form on the chosen site.
+- `job.application-questions.get`: Read application questions on jobs.workable.com. Returns personal data: personal details as published.
+- `job.board-application-form.get`: Read application form on the chosen site. Returns personal data: personal details as published.
+- `job.careers-application-form.get`: Read application form on careers.opentext.com. Returns personal data: personal details as published.
+- `job.job-application-form.get`: Read job application form. Returns personal data: personal details as published.
+- `job.jobbatical-application-form.get`: Read application form on jobbatical.bamboohr.com. Returns personal data: personal details as published.
+- `job.jobs-application-form.get`: Read application form on jobs.dayforcehcm.com. Returns personal data: personal details as published.
+- `job.mellenu-application-form.get`: Read application form on mellenu.csod.com. Returns personal data: personal details as published.
+- `job.oviva-application-form.get`: Read application form on oviva.careers.hibob.com. Returns personal data: personal details as published.
+- `job.simon-kucher-application-form.get`: Read application form on simon-kucher.csod.com. Returns personal data: personal details as published.
+- `job.training.application-links.list`: List public training-program application links by geographic zone on idice.ng.
+- `job.vald-application-form.get`: Read application form on vald.breezy.hr. Returns personal data: personal details as published.
+
+## Job boards
+
+Search job boards, job ads, internships and occupation profiles.
+
+- `commerce.clasificadosonline-jobs.search`: Search clasificadosonline jobs on clasificadosonline.com.
+- `job.apprenticeship.categories.list`: List apprenticeship occupation categories and their public directory paths on getmyfirstjob.co.uk.
+- `job.apprenticeship.count.get`: Read the published count of apprenticeship listings on findapprenticeship.service.gov.uk.
+- `job.apprenticeship.locations.list`: List apprenticeship location filters and their public directory paths on getmyfirstjob.co.uk.
+- `job.apprenticeship.profession.get`: Read a public apprenticeship profession description on ausbildung.de.
+- `job.apprenticeship.professions.list`: List apprenticeship professions in a public career glossary on ausbildung.de.
+- `job.board-advert.get`: Read one job advert on boss.az. Returns personal data: personal details as published.
+- `job.board-adverts.search`: Search job adverts on boss.az. Returns personal data: personal details as published.
+- `job.board-job-details.get`: Read job details on civilservicejobs.service.gov.uk. Returns personal data: personal details as published.
+- `job.board-jobs.list`: List jobs on app.skolakonnect.com. Returns personal data: personal details as published.
+- `job.board-posting-page.get`: Read job on the chosen site. Returns personal data: personal details as published.
+- `job.board.article.get`: Read a public career-board article on chirojobs.com.
+- `job.board.articles.list`: List public career-board articles on chirojobs.com.
+- `job.board.categories.list`: List category codes and vacancy counts on a specific public career board on careers.astrazeneca.com.
+- `job.board.cities.list`: List cities and vacancy counts for a public career-board country on careers.astrazeneca.com.
+- `job.board.countries.list`: List the countries of one company's careers site with their job counts on careers.astrazeneca.com.
+- `job.board.departments.list`: List departments and teams on a public job board on ashbyhq.com.
+- `job.board.directory-counts.list`: List public job-board directory entries and observed counts on cv.lv.
+- `job.board.industries.list`: List industry categories from a public job board.
+- `job.board.levels.list`: List experience levels used by a public job board on emploitic.com.
+- `job.board.organizations.list`: Browse public business names and directory keys on recruitment websites.
+- `job.board.plans.list`: List public job-board listing plans and price descriptions on chirojobs.com.
+- `job.board.professional-roles.list`: List public occupational categories used by a job board on hh.uz.
+- `job.board.regions.list`: List regions and their public job-board codes.
+- `job.boards.categories.list`: List the categories published by a particular public job board.
+- `job.boards.departments.list`: List departments published by a public employer board on posindonesia.co.id.
+- `job.boards.divisions.list`: List the business divisions that filter one company's careers site on novartis.com.
+- `job.boards.facets.get`: Read public job-board facet values and their vacancy counts.
+- `job.boards.filters.get`: Read the published filter definitions of a public job board on linkedin.com.
+- `job.boards.functions.list`: List the job function filters of one company's careers site on novartis.com.
+- `job.boards.locations.list`: List locations or popular geographic filters published by a selected public job board.
+- `job.boards.overseas-registration.get`: Read published information about overseas job-seeker registration on jobroom.ams.or.at.
+- `job.boards.posting.get`: Read a public job posting on the chosen job board, by its code, slug or address.
+- `job.boards.postings.count`: Count public job postings matching a keyword and location on jobs.vodafone.com.
+- `job.boards.regions.list`: List public job-board regions and the locations within them on jobvision.ir.
+- `job.boards.terms.get`: Read the published usage text of a public job board on jobroom.ams.or.at.
+- `job.boards.trending-searches.list`: List popular search terms published by a public job board on shine.com.
+- `job.career-role.get`: Read a public career role and its published description sections on warrn.io.
+- `job.career-roles.list`: List the career roles one company publishes on warrn.io.
+- `job.categories.list`: List job categories and the number of advertised openings on timesjobs.com.
+- `job.internship-roles.list`: List role names and keys used by internship search on unstop.com.
+- `job.internships.search`: Search internships by role and on-site or remote setting on unstop.com.
+- `job.job-details.get`: Read job details on cv.lv. Returns personal data: personal details as published.
+- `job.jobs.list`: List jobs on peopleperhour.com. Returns personal data: personal details as published.
+- `job.listing-categories.list`: List public job and internship listing categories on wayup.com.
+- `job.listing-detail.get`: Read listing detail on ausbildung.de. Returns personal data: personal details as published.
+- `job.ny-state-posting.get`: Read one New York State government job posting on statejobs.ny.gov. Returns personal data: personal details as published.
+- `job.occupations.get`: Read an occupation description with skills, tasks and education on onetonline.org.
+- `job.occupations.search`: Search occupation descriptions by keyword on onetonline.org.
+- `job.opportunity-details.get`: Read opportunity details on cookuf.net. Returns personal data: personal details as published.
+- `job.popular-roles.list`: List popular job roles and their advertised opening counts on timesjobs.com.
+- `job.posting-detail.get`: Read job on the chosen site. Returns personal data: personal details as published.
+- `job.posting-status.get`: Check whether a public job posting is still accepting applications on healthcare.wd1.myworkdayjobs.com.
+- `job.postings.insights.get`: Read published skill and experience insights for a public posting on jobs.vodafone.com.
+- `job.postings.similar`: List postings related to a public job on the selected board.
+- `job.projects.search`: Search public freelance projects by keyword on a selected board.
+- `job.search-facets.get`: Read available job-search filter values and matching counts on timesjobs.com.
+- `job.seeking-work-listings.list`: List job-seeker adverts on m.ss.com. Returns personal data: personal details as published.
+
 ## Job market stats
 
 See vacancies, top employers, regions and pay trends in a country.
 
+- `government.us-new-york-layoffs.warn-notices.get`: Read warn notices for New York employer layoff notices.
 - `job.market.categories`: List available job categories for a country.
 - `job.market.employers`: Top five employers by advertised vacancies, with local-currency average salary when reported.
 - `job.market.regions`: Advertised vacancy counts by region within a country.
@@ -95,19 +194,37 @@ Search nonprofit jobs, internships, volunteer roles and organizations.
 
 Build proctored exams, invite candidates and read their results and integrity reports.
 
-- `assessment.exam.create`: Use when you start a draft candidate examination; for making an existing exam available use assessment.exam.publish. Create a proctored draft exam and return a reference. Next add questions with assessment.question.create, publish with assessment.exam.publish, then invite with assessment.invitation.create. Identity checks are unavailable. An unconfirmed create may leave a draft; list exams before retrying.
+- `assessment.exam.create`: Use when you start a draft candidate examination; for making an existing exam available use assessment.exam.publish. Create a proctored draft exam and return a reference. Next add questions with assessment.question.create, publish with assessment.exam.publish, then invite with assessment.invitation.create. Identity checks are unavailable. An unconfirmed create may leave a draft; list exams before retrying. passScore defaults to 70 (0 to 100). Profiles: observe takes camera snapshots every 60 seconds and applies browser lockdown, without video; record adds screen recording and microphone, and the host page must allow both; verify cannot start through the hosted SDK flow; secure requires the desktop secure browser. Proctoring on phones cannot enforce browser lockdown.
 - `assessment.exam.get`: Use when you read one exam and its settings; for candidate scores use assessment.result.get. Read the settings and state of your exam.
-- `assessment.exam.publish`: Use when you make a draft examination available to candidates; for inviting one candidate use assessment.invitation.create. Publish your exam, freezing its question set. The exam cannot return to draft.
+- `assessment.exam.publish`: Use when you make a draft examination available to candidates; for inviting one candidate use assessment.invitation.create. Publish your exam, freezing its question set. The exam cannot return to draft. (needs approval)
 - `assessment.exams.list`: Use when you browse the exams you own; for reading one exam use assessment.exam.get. List your exams with settings, question counts and handles for follow-up calls.
-- `assessment.integrity-report.get`: Use when you read assessment integrity evidence; for scores use assessment.result.get. Read your invitation's integrity verdict, coverage and evidence counts. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key.
-- `assessment.invitation.create`: Use when you create a candidate test invitation link; for checking an existing invitation use assessment.invitation.get. Create one invitation for your active exam and return its candidate link without emailing. To deliver it, send the link with email.send: from the person's own connected Gmail or Outlook (apps.connection.start), or with sender "domain" from your own verified domain. Requires a retry key; credit for one session is held for ten days. A lost answer may leave the invitation saved; read the list before retrying.
-- `assessment.invitation.get`: Use when you check whether a candidate invitation has expired or its current state; for candidate test scores use assessment.result.get. Read the state and dates of your invitation.
+- `assessment.integrity-report.get`: Use when you read assessment integrity evidence; for scores use assessment.result.get. Read your invitation's integrity verdict, coverage and evidence counts. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key. The integrity verdict is a signal for a person to review, not grounds for automatic rejection. An indeterminate verdict means monitoring was insufficient (for example, no camera snapshots arrived), not a pass.
+- `assessment.invitation.create`: Use when you create a candidate test invitation link; for checking an existing invitation use assessment.invitation.get. Create one invitation for your active exam and return its candidate link without emailing. To deliver it, send the link with email.send: from the person's own connected Gmail or Outlook (apps.connection.start), or with sender "domain" from your own verified domain. Requires a retry key; credit for one session is held for ten days. A lost answer may leave the invitation saved; read the list before retrying. It saves no email draft; to hold credit and save invitation emails as drafts use assessment.invite.send.
+- `assessment.invitation.get`: Use when you check whether a candidate invitation has expired or its current state; for candidate test scores use assessment.result.get. Read the state and dates of your invitation. completed means the candidate submitted, or the deadline passed and the session was closed. Too many warnings or a terminate ends the session as abandoned; the invitation does not become completed.
 - `assessment.invitation.revoke`: Use when you withdraw an unused candidate invitation; for reading its state use assessment.invitation.get. Withdraw an unused invitation and release its held credit. Needs approval; a candidate who has started cannot be interrupted. (needs approval)
 - `assessment.invitations.list`: Use when you list candidate invitations for an exam; for creating an invitation use assessment.invitation.create. List your exam's invitations with handles for follow-up calls.
-- `assessment.question.create`: Use when you add a question to a draft examination; for reading existing questions use assessment.questions.list. Add a question to your draft exam. A lost answer may leave it saved; list questions before retrying. Repeating a create can add a duplicate, even with the same retry key.
+- `assessment.question.create`: Use when you add a question to a draft examination; for reading existing questions use assessment.questions.list. Add a question to your draft exam. A lost answer may leave it saved; list questions before retrying. Repeating a create can add a duplicate, even with the same retry key. points defaults to 1. required is accepted but is not stored by the assessment service.
 - `assessment.questions.list`: Use when you read the questions in an examination; for adding a question use assessment.question.create. List your exam's questions in serving order, including grading settings. For exam authors, not candidates.
-- `assessment.result.get`: Use when you fetch candidate test scores and grading progress; for test session progress use assessment.session.get. Read your candidate's assessment outcome and grading progress. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key.
-- `assessment.session.get`: Use when you check candidate test session progress; for scores and grading use assessment.result.get. Read the session state of your invitation without changing the session. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key.
+- `assessment.result.get`: Use when you fetch candidate test scores and grading progress; for test session progress use assessment.session.get. Read your candidate's assessment outcome and grading progress. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key. The integrity verdict and trust score are signals for a person to review, not grounds for automatic rejection. An indeterminate verdict means monitoring was insufficient (for example, no camera snapshots arrived), not a pass.
+- `assessment.session.get`: Use when you check candidate test session progress; for scores and grading use assessment.result.get. Read the session state of your invitation without changing the session. Missing data is not ready yet; retry later. Unrecognised status and category values return other without exposing the original label. A retry key returns the response once without saving candidate data. Poll without a key or use a new key. This read has no integrity verdict or trust score; use assessment.integrity-report.get or assessment.result.get. Treat those as signals for a person to review, not grounds for automatic rejection. An indeterminate verdict means monitoring was insufficient (for example, no camera snapshots arrived), not a pass.
+
+## Public sector jobs
+
+Find civil service job openings, exam notices and exam papers.
+
+- `government.br-concursos.article.get`: Read the full content of a news article including headline, subtitle, and body text.
+- `government.br-concursos.exam.get`: Read full details for a specific concurso including institution, vacancies, salary range, agenda dates, education level, and registration fee.
+- `government.br-concursos.headlines.list`: Extract news article headlines and links from the homepage. Returns up to 20 headlines with their titles and URLs. Useful for monitoring newly published concurs
+- `government.br-concursos.jobs.list`: Read private-sector job and internship listings.
+- `government.br-concursos.news.list`: Read a paginated list of latest concursos news articles with title, summary, author, publication date, and thumbnail URL.
+- `government.br-concursos.ongoing.list`: Read in-progress public exam listings.
+- `government.br-concursos.open-by-state.list`: Read open concursos filtered by a required state parameter.
+- `government.br-concursos.open.list`: Read currently open public exam listings with optional state filter.
+- `government.br-concursos.predicted.list`: Read predicted/upcoming public exam listings.
+- `government.exam-notice.get`: Read exam notice in India.
+- `government.exam-notices.search`: Search exam notices in India.
+- `government.exam-paper.get`: Read exam paper in India.
+- `government.exam-papers.list`: List exam papers in India.
 
 ## Resume parsing
 
@@ -119,6 +236,16 @@ Turn a resume into contact details, skills, work history and education.
 
 Look up salaries, H-1B pay, internship pay and company benefits.
 
+- `health.all-salary-submissions.get`: Read all salary submissions on salarydr.com. Returns personal data: personal details as published.
+- `health.dentist-salaries.get`: Read dentist salaries on salarydr.com. Returns personal data: personal details as published.
+- `health.recent-salary-submissions.get`: Read recent salary submissions on salarydr.com. Returns personal data: personal details as published.
+- `health.salary-specialties.list`: List public salary specialties on salarydr.com.
+- `health.salary-submission-detail.get`: Read salary submission detail on salarydr.com. Returns personal data: personal details as published.
+- `health.specialty-salary-by-state.get`: Read specialty salary by state on salarydr.com. Returns personal data: personal details as published.
+- `job.apprenticeship.salary.get`: Read published training salary descriptions for an apprenticeship profession on ausbildung.de.
+- `job.h1b-salaries.get`: Read h1b salaries. Returns personal data: personal details as published.
+- `job.internship-salaries.get`: Read internship salaries. Returns personal data: personal details as published.
+- `job.market.salary-averages.get`: Read aggregate annual salary averages by job title and location on indeed.com.
 - `job.salaries.company-benefits`: Get company benefits.
 - `job.salaries.company-overview`: Get company overview.
 - `job.salaries.h1b-salaries`: Get H-1B salaries.
@@ -127,11 +254,13 @@ Look up salaries, H-1B pay, internship pay and company benefits.
 - `job.salaries.popular-companies`: List popular companies.
 - `job.salaries.salary-data`: Get salary data.
 - `job.salaries.salary-summary-md`: Get salary summary.
+- `job.salary-data.get`: Read salary data. Returns personal data: personal details as published.
 
 ## Startup jobs
 
 Find startup jobs, trending startups and company profiles.
 
+- `companies.jobs.get`: Read jobs on topstartups.io. Returns personal data: personal details as published.
 - `job.startups.company-jobs`: List jobs at a startup.
 - `job.startups.company-profile`: Get startup profile.
 - `job.startups.job-autocomplete-roles`: Autocomplete job roles.

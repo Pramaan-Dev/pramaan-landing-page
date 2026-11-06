@@ -13,7 +13,7 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 
 // `node scripts/prerender-catalogue.mjs skills:skills` only writes the cards for the named pages
 // (data kind, then the html file name when it differs), and skips the markdown copy.
-const only = process.argv.slice(2);
+const only = process.argv.slice(2).filter((a) => a === "superpowers" || a === "missions");   // build-catalogue passes a lab path; ignore it
 for (const arg of only.length ? only : ["superpowers", "missions"]) {
   const [kind, page = kind] = arg.split(":");
   const data = JSON.parse(readFileSync(`${root}/data/${kind}.json`, "utf8"));

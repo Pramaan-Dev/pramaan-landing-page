@@ -18,7 +18,7 @@ Connect your ad accounts and read campaigns, ads, audiences, spend and results.
 - `ads.ads.list`: List ads with delivery and review status and impressions, clicks, conversions (read-only).
 - `ads.audiences.list`: List the custom and lookalike audiences in an ad account, with size (read-only).
 - `ads.campaigns.list`: List ad campaigns with status, budget and spend, impressions, clicks, conversions (read-only).
-- `ads.catalog-ad.create`: Create a catalog-template ad, paused, in an existing ad set, choosing its image or carousel format. Preview by default (checks the ad set and inputs, sends nothing); send an Idempotency-Key when creating.
+- `ads.catalog-ad.create`: Create a catalog-template ad, paused, in an existing ad set, choosing its image or carousel format. Preview by default (checks the ad set and inputs, sends nothing); send an Idempotency-Key when creating. (needs approval)
 - `ads.conversions.send`: Report conversion events, including Meta Business Messaging attribution. Customer identity is personal data. Use stable event IDs and an Idempotency-Key. (needs approval)
 - `ads.insights.get`: Spend, impressions, reach, clicks and conversions for a campaign or ad, in total and per day.
 - `ads.lead.update`: Update a lead status and optional deal value on a connected ad account.
@@ -33,6 +33,9 @@ See the ads any company is running, from public ad libraries.
 - `ads.ad.detail-bulk`: Run ads.ad.detail for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 3.96 before the platform fee; the platform quotes the billed maximum before submission.
 - `ads.library.search`: Search a public ad library (Meta, LinkedIn or Google) for ads by keyword, advertiser name or website domain: creative text, media, format, landing page, run dates and delivery facts when disclosed.
 - `ads.library.search-bulk`: Run ads.library.search for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 51.48 before the platform fee; the platform quotes the billed maximum before submission.
+- `tiktok-ads.library-ad.get`: Read an archived short-video ad and its disclosed delivery details on library.tiktok.com.
+- `tiktok-ads.library-regions.list`: List the countries supported by the public short-video ad archive on library.tiktok.com.
+- `tiktok-ads.library.search`: Search the public short-video ad archive by advertiser or keyword on library.tiktok.com.
 
 ## Bing Ads
 
@@ -60,13 +63,13 @@ Find Douyin creators for paid deals and see their prices, audience and results.
 - `douyin-xingtu.creator.channel-stats`: Read a creator's per-channel introduction as the creator marketplace shows it, for one content format. No price, rate or ranking of the creator is returned. Returns personal data: the creator's self-written introduction.
 - `douyin-xingtu.creator.comment-keywords`: List a creator's most-quoted comment keywords as the creator marketplace shows them, with how hot each is. Rates comments, not the creator. Returns personal data: the public comment words on the creator's content.
 - `douyin-xingtu.creator.commerce-spread`: Read a creator's commerce spread, the media prices the marketplace expects for the creator by video length, the creator's price percentile among creators, and the view count it expects. Returns personal data: the creator's expected media prices, price percentile and view count.
-- `douyin-xingtu.creator.content-keywords`: Read the keywords a creator's content is found under, as the creator marketplace groups them. About the content, not the creator. Returns personal data: the keywords of the creator's public content.
+- `douyin-xingtu.creator.content-keywords`: Read the keywords a creator's content is found under, as the creator marketplace groups them. About the content, not the creator. Takes only the creator id and returns all keywords; douyin-xingtu.creator.keywords also lets you choose the kind of keyword. Returns personal data: the keywords of the creator's public content.
 - `douyin-xingtu.creator.contract-stats`: Read a creator's marketplace contract record, its credit scores and how many orders it processed. Returns personal data: the creator's marketplace credit scores and order count.
 - `douyin-xingtu.creator.conversion`: Read how a creator's content converts for advertisers, as reported ranges - typical order value, component clicks and product price. No media price of the creator is returned. Returns personal data: the creator's commerce figures, as ranges.
 - `douyin-xingtu.creator.cost-performance`: Read what the marketplace expects a creator's advertising to cost by video length, cost per engagement and per mille, and the view count it expects. Returns personal data: the creator's expected media prices and view count.
 - `douyin-xingtu.creator.display-check`: Check whether a creator can be shown to advertisers in the creator marketplace, with the follower and link counts the check reports. Returns personal data: the creator's marketplace display status.
 - `douyin-xingtu.creator.follower-trend`: Read how a creator's follower count moved day by day over a date range, with the total change. A follower count is a public page figure. Returns personal data: the creator's public follower counts.
-- `douyin-xingtu.creator.keywords`: Read the keywords a creator's content is found under, as the marketplace groups them. About the content, not the creator. Returns personal data: the keywords of the creator's public content.
+- `douyin-xingtu.creator.keywords`: Read the keywords a creator's content is found under, as the marketplace groups them. About the content, not the creator. Also takes a keywordType to choose which kind of keyword to read; douyin-xingtu.creator.content-keywords reads without that choice. Returns personal data: the keywords of the creator's public content.
 - `douyin-xingtu.creator.live-audience`: Read the make-up of a creator's live audience as the marketplace reports it, named distribution groups with the share of every band, by live-room type and audience stage. Returns personal data: the make-up of the creator's live audience, as marketplace distributions.
 - `douyin-xingtu.creator.live-stats`: Read a creator's live-commerce outcomes as the marketplace reports them - sales value ranges and product counts. No media price or rank of the creator is returned. Returns personal data: the creator's live-commerce figures, as ranges and counts.
 - `douyin-xingtu.creator.pricing`: Read a creator's published advertising price card as the marketplace lists it, one row per video length and task category, with the industries it tags the creator under. Returns personal data: the creator's published advertising prices.
@@ -74,7 +77,7 @@ Find Douyin creators for paid deals and see their prices, audience and results.
 - `douyin-xingtu.creator.spread`: Read how the marketplace grades a creator's content spread - interaction, play-over and play-consistency grades. No media price or rank of the creator is returned. Returns personal data: the marketplace's grades of the creator's content.
 - `douyin-xingtu.creator.touchpoints`: Read where a creator's audience meets the marketplace's content, named touchpoints with counts, three levels deep. Returns personal data: the creator's audience touchpoints, as marketplace aggregates.
 - `douyin-xingtu.creator.videos`: List a Douyin creator's recent videos as the creator marketplace shows them, with each video's title, address, length and when it was posted. No price, rate or ranking of the creator is returned. Returns personal data: the public names and handles of the creators involved.
-- `douyin-xingtu.search.creators`: Search public profiles and return their names and biographies. Returns personal data: public profile name, handle, biography and follower count.
+- `douyin-xingtu.search.creators`: Search public profiles on the creator marketplace with the full set of filters (price, audience, content theme, follower and engagement ranges) and return their names and biographies. For a quick search by keyword, follower range and tag use douyin.xingtu-search.kol. Returns personal data: public profile name, handle, biography and follower count.
 - `douyin-xingtu.search.filters`: List the available creator search filter options. Returns personal data: public names, profile details and published content.
 - `douyin-xingtu.video.report`: Xingtu video report details by item id. Returns personal data: public names, profile details and published content.
 - `douyin.creators.live`: Search public commercial livestream creators by display-name keywords. Returns personal data: Public creator display names and published follower counts..
@@ -83,7 +86,7 @@ Find Douyin creators for paid deals and see their prices, audience and results.
 - `douyin.xingtu-demander-mcn.list`: Douyin Xingtu MCN agencies by name. Returns personal data: public names, profile details and published content.
 - `douyin.xingtu-search-toutiao.creator`: Search Toutiao's creators on the Xingtu influencer marketplace by keyword, with each creator's reach and article expectations. Returns personal data: the creators' public names, gender, city and province.
 - `douyin.xingtu-search.anchor`: Search the live-streaming creators on the Xingtu influencer marketplace by keyword, with each creator's reach and live figures. Returns personal data: the creators' public names, gender, city and province.
-- `douyin.xingtu-search.kol`: Search public profiles and return their names and biographies. Returns personal data: public profile name, handle, biography and follower count.
+- `douyin.xingtu-search.kol`: Search public profiles by keyword, follower range and content tag and return their names and biographies. For the full set of marketplace filters use douyin-xingtu.search.creators. Returns personal data: public profile name, handle, biography and follower count.
 
 ## Facebook ads
 
@@ -145,10 +148,10 @@ Manage your website tags, triggers and variables in Google Tag Manager.
 
 Browse the TikTok ad library and top ads by country.
 
-- `tiktok-ads.ad.detail`: Read a public TikTok ad library creative and engagement counts.
+- `tiktok-ads.ad.detail`: Read a public TikTok ad library creative with its landing link and engagement counts. For the ad's industry and objective as well use tiktok.ad.detail.
 - `tiktok-ads.locations`: List the countries TikTok's ad library and trend pages can be filtered by, with the code each takes.
 - `tiktok-ads.top-ads`: List featured public TikTok advertisements. Returns personal data: public names, profile details and published content.
-- `tiktok.ad.detail`: Get one ad from TikTok's ad library by its id, with its title, industry, objective, landing page and engagement.
+- `tiktok.ad.detail`: Get one ad from TikTok's ad library by its id, with its title, industry, objective, landing page and engagement. tiktok-ads.ad.detail reads a creative with its landing link and engagement counts only.
 
 ## WeChat Channels creators
 
