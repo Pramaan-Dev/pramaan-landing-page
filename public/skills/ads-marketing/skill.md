@@ -59,7 +59,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
-| `tiktok-ads.ad.detail` | Read a public TikTok ad library creative and engagement counts. | Per successful call; quote exact input for the maximum price. |
+| `tiktok-ads.ad.detail` | Read a public TikTok ad library creative with its landing link and engagement counts. For the ad's industry and objective as well use tiktok.ad.detail. | Per successful call; quote exact input for the maximum price. |
 | `tiktok-ads.library-ad.get` | Read an archived short-video ad and its disclosed delivery details on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |
 | `tiktok-ads.library-regions.list` | List the countries supported by the public short-video ad archive on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |
 | `tiktok-ads.library.search` | Search the public short-video ad archive by advertiser or keyword on library.tiktok.com. | Per successful call; quote exact input for the maximum price. |

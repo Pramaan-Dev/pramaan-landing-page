@@ -213,7 +213,7 @@ PRAMAAN_API_KEY=sk_live_... npx @pramaan/mcp --tools "web.search,email.send"
 | Tool | Arguments | What it does |
 |---|---|---|
 | `quote` | `kind`, `id`, `input`, `options?`; superpowers also accept `account?`, `end_user?`, `end_user_group?` | Price without running; returns `price_max_micro`, `can_run`, `message` and mission `plan` |
-| `list_capabilities` | `namespace?`, `query?`, `limit?`, `cursor?`, `detail?` | Ranked `{ results, nextCursor? }`, default 20 rows, max 100. Compact rows: `id`, one-line `description`, `priceBasis`, `effectClass`. Set `detail: true` for full metadata; inspect one id for its schema |
+| `list_capabilities` | `namespace?`, `query?`, `limit?`, `cursor?`, `detail?` | Ranked `{ results, nextCursor? }`, default 8 rows, max 100. Compact rows: `id`, one-line `description`, `effectClass`. Set `detail: true` for full metadata; inspect one id for its schema |
 | `describe_capability` | `id` | The same, plus `requestSchema`, `resultSchema` (JSON Schema) and `example` |
 | `run_capability` | `id`, `input`, `idempotency_key?`, `account?`, `end_user?`, `end_user_group?`, hosted only: `approved_by_user?`, `approval_quote?` | Runs it. A sync superpower returns the result; an async one returns a job (`id`, `capability`, `status`) |
 | `get_job` | `job_id` | The job: `status` is `running`, `done` (with `result`), `failed` (with `error`) or `cancelled`. Pass the job's `id` as `job_id` |
@@ -475,7 +475,7 @@ key. Check what happened with a read superpower, or ask the person; if you do re
 ## Money
 
 - Prices are in micro-USD (millionths of a dollar). 1,000,000 is one dollar.
-- Compact catalogue rows show `priceBasis`; full metadata includes `priceEstimateMicro`.
+- Compact catalogue rows carry no price; use `quote`. Full metadata includes `priceEstimateMicro`.
   `quote` gives the most one exact request can cost (`price_max_micro`); SDK and HTTP
   estimates use `priceMaxMicro` and `price_max_micro` respectively.
 - Internal settings calls (`internal_only`) with no paid provider are free, including schedules, opt-outs, connector registration and browser

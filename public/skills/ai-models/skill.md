@@ -29,7 +29,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `ai-models.arena.image-edit-leaderboard` | Get image-editing leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.image-to-video-leaderboard` | Get image-to-video leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.leaderboard-overview` | Get leaderboard overview. | Per successful call; quote exact input for the maximum price. |
-| `ai-models.arena.list-available-models` | List available models. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.arena.list-available-models` | List the AI models on a public model leaderboard, with each model's organisation, capabilities and rank by modality. For release dates and deprecation use ai-models.models-list. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.search-leaderboard` | Get search leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.text-leaderboard` | Get text leaderboard. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.arena.text-to-image-leaderboard` | Get text-to-image leaderboard. | Per successful call; quote exact input for the maximum price. |
@@ -45,7 +45,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `ai-models.math-scores.list` | List public model benchmark scores for mathematical task tiers on epoch.ai. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.math-tier13-scores.list` | List public model scores on tiers one to three mathematical tasks on epoch.ai. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.math-tier4-scores.list` | List public model scores on tier four mathematical tasks on epoch.ai. | Per successful call; quote exact input for the maximum price. |
-| `ai-models.models-list` | List models. | Per successful call; quote exact input for the maximum price. |
+| `ai-models.models-list` | List AI models with their release date and whether each is deprecated. For leaderboard rank by modality use ai-models.arena.list-available-models. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.public-releases.list` | List published language model variants and release metadata on artificialanalysis.ai. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.published-token-prices.list` | Read published model token-price labels, amounts, currencies and billing units on chat.deepseek.com. | Per successful call; quote exact input for the maximum price. |
 | `ai-models.publishers.list` | List publicly documented model publishers and their model counts on mastra.ai. | Per successful call; quote exact input for the maximum price. |
@@ -88,11 +88,13 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `memory.connector.delete` | Permanently delete an import connector and stop its imports. Needs confirm: true. By default the documents it already imported are kept; deleteDocuments: true erases them too, which can include people's messages and files. Pass the ref from memory.connectors.list. | Per successful call; quote exact input for the maximum price. |
 | `memory.connector.get` | Read one import connector: its state, how many documents it imported and its latest import run, optionally the last 10 runs with the titles of items that failed. Pass the ref from memory.connectors.list. Returns no imported content or credentials; failed-item titles come from your own source. | Per successful call; quote exact input for the maximum price. |
 | `memory.connectors.list` | List your import connectors (Notion, Google Drive, OneDrive, Gmail, GitHub, S3, web crawler, Granola) that feed documents into a namespace, each with its state and a handle for memory.connector.get and memory.connector.delete. Returns connector labels and counts only, never imported content or credentials. | Per successful call; quote exact input for the maximum price. |
+| `memory.context.run` | Remember end-user statements and gather private context within the calling builder's workspace and project. | Per successful call; quote exact input for the maximum price. |
 | `memory.document.add` | Add text or a URL to a namespace so it becomes searchable memory; returns its processing status and a ref for follow-ups. | Per successful call; quote exact input for the maximum price. |
 | `memory.document.delete` | Permanently delete one stored document and everything learned from it, by id or by the ref memory.document.add returned. | Per successful call; quote exact input for the maximum price. |
 | `memory.document.get` | Read one stored document's content, title, summary, metadata and processing state, by id or by the ref memory.document.add returned. | Per successful call; quote exact input for the maximum price. |
 | `memory.document.update` | Replace one stored document's content (and optionally its metadata) without changing its id, by id or by the ref memory.document.add returned. | Per successful call; quote exact input for the maximum price. |
 | `memory.documents.list` | List the documents stored for a namespace, newest first, with their processing state. | Per successful call; quote exact input for the maximum price. |
+| `memory.end-user.forget` | Erase all of one end user's private memories within the calling workspace and project. | Per successful call; quote exact input for the maximum price. |
 | `memory.entities.list` | List your private user, agent, app and session entities, with logical identifiers. | Per successful call; quote exact input for the maximum price. |
 | `memory.entity.create` | Create a private entity under your memory scope. | Per successful call; quote exact input for the maximum price. |
 | `memory.entity.delete` | Delete an owned entity and its memories as a job; confirmation must be true. | Per successful call; quote exact input for the maximum price. |
@@ -112,6 +114,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `memory.item.update` | Update one private fact or its metadata after checking ownership. | Per successful call; quote exact input for the maximum price. |
 | `memory.items.list` | List private facts with owned references, at most 50 per page. | Per successful call; quote exact input for the maximum price. |
 | `memory.items.search` | Search private remembered facts with filters and owned references, at most 50 results. | Per successful call; quote exact input for the maximum price. |
+| `memory.member.profile.get` | Read your own active private member memory facts as a signed-in member. API keys, including keys tied to a member, cannot read private memory. | Per successful call; quote exact input for the maximum price. |
 | `memory.namespace.get` | Read a namespace's settings: the background text that guides how its documents are interpreted, and when it was created and last changed. The background text is whatever you set, and may mention people. | Per successful call; quote exact input for the maximum price. |
 | `memory.namespace.update` | Set or clear the background text of a namespace, which guides how its documents are interpreted and what is remembered from them. Replaces the previous text. The namespace must already exist (it exists once documents have been added). The text is stored as you send it, so do not put secrets in it. | Per successful call; quote exact input for the maximum price. |
 | `memory.namespaces.list` | List the document sets (namespaces) this account has stored memory for, with their document and memory counts. | Per successful call; quote exact input for the maximum price. |
@@ -188,7 +191,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
-| `agent.find` | Find local property professionals. | Sum of step prices; quote exact input and options for the maximum price. |
+| `agent.find` | Find local property professionals. For residential agents serving one location use real-estate.agents.search. | Sum of step prices; quote exact input and options for the maximum price. |
 | `agent.run.review` | Recorded steps, errors, durations and per-observation costs for one checked run; a trace reader, never a score against expected outputs. | Sum of step prices; quote exact input and options for the maximum price. |
 | `ai.overview.citations` | For a list of queries: the AI overview Naver shows, the sources it cites, and whether a given domain is cited or ranks in the web results. | Sum of step prices; quote exact input and options for the maximum price. |
 | `answer.compare` | One question asked of several answer sources, with where they agree and where they differ. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -199,6 +202,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `gpu.job.run` | Run one job on your own compute endpoint after approval, returning untrusted output and the reported terminal status. | Sum of step prices; quote exact input and options for the maximum price. |
 | `gpu.model.serve` | Create a zero-minimum-worker GPU endpoint, read its health counts and approve one bounded test job. | Sum of step prices; quote exact input and options for the maximum price. |
 | `memory.ask` | A question answered from what has been remembered about a subject, sentence by sentence, each sentence citing the remembered items it is taken from; says plainly when nothing remembered answers it. | Sum of step prices; quote exact input and options for the maximum price. |
+| `memory.context` | Remember your end user's key points and return private context, isolated to your workspace and project. | Sum of step prices; quote exact input and options for the maximum price. |
 | `memory.correct` | Find and read an exact owned fact, preserve its old text and history, then correct it without approval or approve its deletion. | Sum of step prices; quote exact input and options for the maximum price. |
 | `memory.export` | Create a structured copy of a subject's private memories, checked against owned source facts. | Sum of step prices; quote exact input and options for the maximum price. |
 | `memory.learn.conversation` | Preserve old conversation memory, store exact messages, extract facts and list their confirmed references for checking. | Sum of step prices; quote exact input and options for the maximum price. |

@@ -34,6 +34,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `amazon.product.reviews` | List published product reviews without reviewer identities. Returns personal data: Published product review text; reviewer identifiers and contact details are omitted.. | Per successful call; quote exact input for the maximum price. |
 | `amazon.product.sellers` | The sellers offering an Amazon product, with their price, rating and delivery terms. | Per successful call; quote exact input for the maximum price. |
 | `amazon.search.products` | Search Amazon products by keyword; returns ASIN, title, price, rating and image. | Per successful call; quote exact input for the maximum price. |
+| `amazon.search.suggestions` | Suggest Amazon search phrases for the start of a query. | Per successful call; quote exact input for the maximum price. |
 | `amazon.storefront.detail` | A creator's Amazon storefront by its address, with its description and the lists and collections it shows. Returns personal data: the storefront owner's name and description. | Per successful call; quote exact input for the maximum price. |
 
 ### App Store
@@ -465,7 +466,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `browser.task.cancel` | Cancel an owned browser task and return its actual state; completed history remains readable. | Per successful call; quote exact input for the maximum price. |
 | `browser.task.get` | Read a saved browser task, including its goal and requested output, which may contain personal data. | Per successful call; quote exact input for the maximum price. |
 | `browser.task.list` | List saved browser tasks owned by your workspace, with their goals and states; never account-wide totals. | Per successful call; quote exact input for the maximum price. |
-| `browser.task.run` | Run a natural-language goal on a real website in a browser (it can click and submit); returns a status and structured output. | Per successful call; quote exact input for the maximum price. |
+| `browser.task.run` | Run a natural-language goal on a real website in a browser (it can click and submit); returns a status and structured output. web.task.run wraps it with an approval step for one goal on a public website. | Per successful call; quote exact input for the maximum price. |
 | `browser.task.step.html` | Read an owned task step’s saved HTML as inert text, with a 2 MB input cap. | Per successful call; quote exact input for the maximum price. |
 | `browser.task.step.screenshot` | Copy an owned task step’s saved screenshot to your file storage, capped at 5 MB. | Per successful call; quote exact input for the maximum price. |
 | `browser.task.steps.list` | List an owned browser task’s saved steps and action text, which may include personal page data. | Per successful call; quote exact input for the maximum price. |
@@ -1029,6 +1030,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `drugs.store-details.get` | Read store details on cvs.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `drugs.stores.search` | Search stores on cvs.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `drugs.suggestions.list` | List public suggestions on cvs.com. | Per successful call; quote exact input for the maximum price. |
+| `earth.fires.search` | Find satellite-detected active fire hotspots and wildfires by bounding box or country over up to five days; a detection is not a confirmed wildfire perimeter. | Per successful call; quote exact input for the maximum price. |
+| `earth.imagery.search` | Find satellite imagery observations intersecting a bounding box and date range; returns capture metadata without downloading imagery or starting processing jobs. | Per successful call; quote exact input for the maximum price. |
 | `earth.in-groundwater.district.get` | Read block-level groundwater data for a specific district. | Per successful call; quote exact input for the maximum price. |
 | `earth.in-groundwater.locations.search` | Search for states by name using case-insensitive substring matching. | Per successful call; quote exact input for the maximum price. |
 | `earth.in-groundwater.reports.list` | List all available groundwater assessment reports organized by assessment year. | Per successful call; quote exact input for the maximum price. |
@@ -1341,6 +1344,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `food.delivery-areas.list` | List the delivery areas or cuisine facets the site publishes. | Per successful call; quote exact input for the maximum price. |
 | `food.delivery-eta.get` | Read the current delivery estimate at the site. | Per successful call; quote exact input for the maximum price. |
 | `food.egg-markets.search` | Search the daily egg-price markets a price tracker publishes. | Per successful call; quote exact input for the maximum price. |
+| `food.hygiene.search` | Search UK food business hygiene ratings by business name or address; ratings are inspection results, not guarantees of current safety. | Per successful call; quote exact input for the maximum price. |
 | `food.kosher-regions.list` | List the countries a kosher-product directory covers. | Per successful call; quote exact input for the maximum price. |
 | `food.kosher-sources.list` | List the retailers a kosher-product directory reads. | Per successful call; quote exact input for the maximum price. |
 | `food.mealboxes.list` | List the meal boxes a grocer publishes for a week. | Per successful call; quote exact input for the maximum price. |
@@ -1644,6 +1648,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `geo.country-living-cost.get` | Read published country living-cost estimates and item prices on expatistan.com. | Per successful call; quote exact input for the maximum price. |
 | `geo.country.get` | Read the name and geographic centre of a country. | Per successful call; quote exact input for the maximum price. |
 | `geo.destinations.search` | Find destinations and navigation points from an address or coordinate. Returns personal location data. | Per successful call; quote exact input for the maximum price. |
+| `geo.directions.search` | Find travel directions between two addresses, with published distance and duration text. | Per successful call; quote exact input for the maximum price. |
 | `geo.elevation.get` | Look up elevation at a coordinate. Location may be personal data. | Per successful call; quote exact input for the maximum price. |
 | `geo.elevation.get-bulk` | Run geo.elevation.get for up to 512 rows as one background job. Every row comes back keyed by your own row id: found true with the fields, found false where there is no record, or an error for a row that could not be answered. Rows that could not be answered are free. | Per successful call; quote exact input for the maximum price. |
 | `geo.elevation.profile.get` | Sample elevation along a path, up to 512 samples identified by your own ids. Travel paths may be personal data. | Per successful call; quote exact input for the maximum price. |
@@ -1707,6 +1712,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `government.at-procurement.suppliers.list` | Fetch a paginated list of suppliers sorted by total contract volume descending. Returns 20 suppliers per page. | Per successful call; quote exact input for the maximum price. |
 | `government.au-energy-plans.locations.search` | Search locations for Australian public energy plans. | Per successful call; quote exact input for the maximum price. |
 | `government.au-energy-plans.plan.get` | Read plan for Australian public energy plans. | Per successful call; quote exact input for the maximum price. |
+| `government.au-federal-procurement.contract-notices.search` | List published Australian federal procurement contract notices, awards and amendments for one UTC calendar day. | Per successful call; quote exact input for the maximum price. |
 | `government.au-finance-disputes.search-filters.list` | List search filters for Australian financial dispute decisions. | Per successful call; quote exact input for the maximum price. |
 | `government.au-legal-databases.database-years.get` | Read database years for Australian legal databases. | Per successful call; quote exact input for the maximum price. |
 | `government.au-legal-databases.databases.list` | List databases for Australian legal databases. | Per successful call; quote exact input for the maximum price. |
@@ -2043,6 +2049,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `government.sg-mas.coins.list` | Read details of Singapore circulation currency coins from MAS. | Per successful call; quote exact input for the maximum price. |
 | `government.sg-mas.news.search` | Full-text search over MAS news, media releases, speeches, parliamentary replies, publications and other content. Returns paginated results with facets for conte | Per successful call; quote exact input for the maximum price. |
 | `government.sg-mas.suggestions.get` | Read search autocomplete suggestions from MAS. | Per successful call; quote exact input for the maximum price. |
+| `government.sg-procurement.awards.search` | Search historical Singapore government procurement award records with free text; supplier identities and contact details are omitted. | Per successful call; quote exact input for the maximum price. |
 | `government.small-business-call-documents.list` | List small business call documents in Chile. | Per successful call; quote exact input for the maximum price. |
 | `government.small-business-calls.list` | List small business calls in Chile. | Per successful call; quote exact input for the maximum price. |
 | `government.small-business-offices.list` | List small business offices in Chile. | Per successful call; quote exact input for the maximum price. |
@@ -2238,6 +2245,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `government.us-pacificpower.service-areas.get` | Static list of states and service areas covered by Pacific Power. Returns the three state codes (OR, WA, CA) and a brief description of coverage. | Per successful call; quote exact input for the maximum price. |
 | `government.us-pacificpower.zip-outage.get` | Outage status for a single ZIP code within a state. Returns counts of planned and unplanned outages and affected customers. Returns zero counts when the ZIP has | Per successful call; quote exact input for the maximum price. |
 | `government.us-pennsylvania-legislature.session-status.get` | Read the current session status and schedule for the specified chamber of the Pennsylvania General Assembly. | Per successful call; quote exact input for the maximum price. |
+| `government.us-procurement.opportunities.search` | Search published US federal procurement opportunities by posting dates and optional title text; contact details are omitted. | Per successful call; quote exact input for the maximum price. |
 | `government.us-public-affairs.live.get` | Read live for US public-affairs broadcasts. | Per successful call; quote exact input for the maximum price. |
 | `government.us-public-affairs.schedule.get` | Read schedule for US public-affairs broadcasts. | Per successful call; quote exact input for the maximum price. |
 | `government.us-san-francisco-photos.photo.get` | Read photo for San Francisco historic photograph catalogue. | Per successful call; quote exact input for the maximum price. |
@@ -3457,6 +3465,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `parts.variant-filters.list` | List the questions that pin down one exact vehicle build in a parts catalogue | Per successful call; quote exact input for the maximum price. |
 | `parts.vehicle-variants.search` | Find exact vehicle builds in a parts catalogue, optionally narrowed by filter values | Per successful call; quote exact input for the maximum price. |
 | `parts.vehicle.get` | Read vehicle — car parts catalogue. | Per successful call; quote exact input for the maximum price. |
+| `patents.document.get` | Read the title, abstract, claims and public filing dates of a published patent. | Per successful call; quote exact input for the maximum price. |
 | `patents.in-ipindia.application-status.get` | Read the official application status metadata from the InPASS portal for a given Indian patent application number. | Per successful call; quote exact input for the maximum price. |
 | `patents.us-ptos.patent.get` | Read an US patent or pre-grant publication by document number, with its abstract and claims. | Per successful call; quote exact input for the maximum price. |
 | `pets.breeds.list` | List the pet breed catalogue with species, size and care flags. | Per successful call; quote exact input for the maximum price. |
@@ -3656,7 +3665,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `real-estate.sales-agents.get` | Read sales agents on zedrealestate.au. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `real-estate.search-filters.get` | Read search filters on dubizzle.com.eg. | Per successful call; quote exact input for the maximum price. |
 | `real-estate.search-homes-for-rent` | Search homes for rent. | Per successful call; quote exact input for the maximum price. |
-| `real-estate.search-homes-for-sale` | Search homes for sale. | Per successful call; quote exact input for the maximum price. |
+| `real-estate.search-homes-for-sale` | Search homes for sale in a location, with filters for a pool, a yard and pet-friendly homes. For a one-step shortlist use home.shortlist. | Per successful call; quote exact input for the maximum price. |
 | `real-estate.search-recently-sold` | Search recently sold homes. | Per successful call; quote exact input for the maximum price. |
 | `real-estate.search-results.read` | Read search results on centris.ca. | Per successful call; quote exact input for the maximum price. |
 | `real-estate.seeker-details.get` | Read seeker details on flatmates.com.au. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
@@ -3706,6 +3715,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `rentals.locations.search` | Look up car-rental and mobility locations by name or city. | Per successful call; quote exact input for the maximum price. |
 | `rentals.truck-types.list` | List moving-truck types with their dimensions and capacities. | Per successful call; quote exact input for the maximum price. |
 | `rentals.trucks.search` | Search moving trucks and their rates between two places on a date. | Per successful call; quote exact input for the maximum price. |
+| `research.author.profile` | Read a public scholarly author profile and listed publications. Returns personal data: public author names, affiliations or review text. | Per successful call; quote exact input for the maximum price. |
 | `research.communities.list` | List communities — open-access research records. | Per successful call; quote exact input for the maximum price. |
 | `research.community.get` | Read community — open-access research records. | Per successful call; quote exact input for the maximum price. |
 | `research.fields.extract` | Research a question or record on the live web and return each field you asked for with its value, sources, confidence and reasoning, as a background job. Price is per run by quality ($0.01 fast, $0.025 standard, $0.10 deep), not per field. | Per successful call; quote exact input for the maximum price. |
@@ -5001,6 +5011,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `travel.featured-events.list` | List featured events on kktix.com. | Per successful call; quote exact input for the maximum price. |
 | `travel.featured-venues.list` | List featured venues on eventup.com. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-deals.list` | List current flight deals from an origin, with prices and travel dates. | Per successful call; quote exact input for the maximum price. |
+| `travel.flight-destinations.explore` | Explore flight destinations and indicative fares from one airport. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offer.get` | Retrieve current flight details, fare, expiry and optional ancillary prices from a private offer reference. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offer.price` | Refresh a flight fare for account-balance payment; service and card references require a future scoped resolver. | Per successful call; quote exact input for the maximum price. |
 | `travel.flight-offers.search` | Search bookable flight offers for at most six journey legs and nine passengers; returns no traveler names. Unsupported split tickets and auxiliary credit references are refused. | Per successful call; quote exact input for the maximum price. |
@@ -5224,6 +5235,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `weather.air-quality.history` | Air quality history at geographic coordinates, with explicit index scales and pollutant units. At most 50 series records. | Per successful call; quote exact input for the maximum price. |
 | `weather.air-quality.live-city-ranking` | Get live city rankings. | Per successful call; quote exact input for the maximum price. |
 | `weather.air-quality.map-data` | Get air quality map data. | Per successful call; quote exact input for the maximum price. |
+| `weather.air-quality.readings.search` | Find latest measured air quality near a point, including Delhi: individual pollutant concentrations with units and observation times from up to five nearby monitoring stations; no calculated air quality index. | Per successful call; quote exact input for the maximum price. |
 | `weather.air-quality.world-quality` | Get world air quality. | Per successful call; quote exact input for the maximum price. |
 | `weather.alert.get` | Read a weather warning through the handle returned by weather.alerts.list. | Per successful call; quote exact input for the maximum price. |
 | `weather.alerts.list` | Official government weather warnings at geographic coordinates, with optional handles for reading their details. Up to 10 warnings; estimated maximum $0.0198. | Per successful call; quote exact input for the maximum price. |
@@ -5272,7 +5284,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.backlinks.list` | Pages linking to a domain or URL: source URL, target URL, anchor text, nofollow, dates. | Per successful call; quote exact input for the maximum price. |
 | `web.backlinks.new-lost` | For each of many sites, how many backlinks it gained and lost since a date. | Per successful call; quote exact input for the maximum price. |
 | `web.backlinks.new-lost-bulk` | Look up new lost backlinks for up to 1000 targets in one job; at most $0.06 per run. | Per successful call; quote exact input for the maximum price. |
-| `web.backlinks.pages-summary` | Backlink totals for each page of a site that has backlinks. | Per successful call; quote exact input for the maximum price. |
+| `web.backlinks.pages-summary` | Backlink totals for each page of a site that has backlinks. Takes one target site; for many pages or sites at once use web.pages.backlinks-summary. | Per successful call; quote exact input for the maximum price. |
 | `web.backlinks.status` | Check which of a list of sites link to a website. | Per successful call; quote exact input for the maximum price. |
 | `web.backlinks.summary` | Backlink profile of a domain or URL: total backlinks and referring domains. | Per successful call; quote exact input for the maximum price. |
 | `web.backlinks.top-pages` | A site's pages with the most backlinks, with their link and linking-domain counts. | Per successful call; quote exact input for the maximum price. |
@@ -5299,14 +5311,14 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.extract` | Extract structured JSON data from one web page, guided by a schema or a prompt. One page per call; extracting from several pages or a whole site (wildcards) is not covered yet. | Per successful call; quote exact input for the maximum price. |
 | `web.extract-site` | Extract structured fields, including personal details if requested, from up to 10 URLs as a job. Exact URLs have a price ceiling of $0.00415 per URL; explicitly enabled wildcard, search or subdomain expansion has a fixed $0.083 ceiling. Any excess source cost is ours. | Per successful call; quote exact input for the maximum price. |
 | `web.fda` | Fda. | Per successful call; quote exact input for the maximum price. |
-| `web.gas-oracle` | Gas Oracle. | Per successful call; quote exact input for the maximum price. |
+| `web.gas-oracle` | Read the current gas fee estimates of an EVM chain, with base fee, block number and price estimates by confidence level. For one plain gas price of a chain you choose use crypto.gas.price. | Per successful call; quote exact input for the maximum price. |
 | `web.global.top-domains` | List the most linked-to domains on the whole web, with authority and spam scores. | Per successful call; quote exact input for the maximum price. |
 | `web.global.top-pages` | List the most linked-to pages on the whole web, with authority scores. | Per successful call; quote exact input for the maximum price. |
 | `web.image.read` | Import a public image with explicit consent into your own stored files. At most 10 MiB; JPEG, PNG, GIF or WebP only, checked by type and signature. Refuses private destinations, SVG, HTML and excessive redirects. | Per successful call; quote exact input for the maximum price. |
 | `web.images.extract` | Scrape Images. | Per successful call; quote exact input for the maximum price. |
-| `web.interest-by-region` | Interest By Region. | Per successful call; quote exact input for the maximum price. |
+| `web.interest-by-region` | Show how interest in a keyword varies by region for a geography and timeframe you choose. For a country-level read use google.interest-by-region. | Per successful call; quote exact input for the maximum price. |
 | `web.internal-anchors.list` | The anchor texts of a site's links to its own pages, with how many links use each. | Per successful call; quote exact input for the maximum price. |
-| `web.keywords.trends` | Compare how popular up to five keywords are over time, from a web-wide trends index. | Per successful call; quote exact input for the maximum price. |
+| `web.keywords.trends` | Compare how popular up to five keywords are over time, from a web-wide trends index. Returns values over a from-to window; google.keywords.trends returns dated points for each keyword. | Per successful call; quote exact input for the maximum price. |
 | `web.keywords.volume` | Monthly search volume of keywords, measured from real browsing rather than from one search engine's own figures. | Per successful call; quote exact input for the maximum price. |
 | `web.keywords.volume-by-country` | Worldwide monthly search volume of keywords, with the share of each country. | Per successful call; quote exact input for the maximum price. |
 | `web.legal-document.get` | Read a publicly published legal document and its sections on callonfe.com. | Per successful call; quote exact input for the maximum price. |
@@ -5330,14 +5342,14 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.monitor.budget.add` | Buy prepaid monitoring allowance for this workspace, up to the explicit maximum payment. Requires confirm true and an Idempotency-Key. Creates only the largest whole allowance unit that fits the maximum. Monitors stop after their bounded 24-hour window, with unused allowance still reserved. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.budget.get` | Read this workspace's prepaid monitoring allowance. Other workspaces' funds and spending are never included. Monitor windows reserve their full possible use before starting. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.change.read` | Read one detected page, sitemap or structured-data change with bounded diff, evidence and exact URL counts. Captured content may include personal data. Free to read. | Per successful call; quote exact input for the maximum price. |
-| `web.monitor.changes` | Read detected changes for one monitor or all your monitors. Includes bounded before and after text, URL samples, exact counts and evidence; captured content may include personal data. Free to read. | Per successful call; quote exact input for the maximum price. |
-| `web.monitor.create` | Watch a web page or a search topic on a schedule; checks are billed and no notifications are sent. Returns a ref for web.monitor.delete. | Per successful call; quote exact input for the maximum price. |
+| `web.monitor.changes` | Read detected changes for one monitor or all your monitors. Includes bounded before and after text, URL samples, exact counts and evidence; captured content may include personal data. Free to read. Detected changes only; for checks that found nothing or failed use web.monitor.events. | Per successful call; quote exact input for the maximum price. |
+| `web.monitor.create` | Watch a web page or a search topic on a schedule; checks are billed and no notifications are sent. Returns a ref for web.monitor.delete. For one page with an approval step and each change quoted in a sentence use page.change.watch. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.create-interactive` | Watch a page with browser interactions on every check. Instructions may change a remote site. Captured content may contain personal data. Runs are billed through a standing rental, up to 10 credits per check. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.create-interval` | Watch a page, sitemap or structured facts on a repeating interval. Captured content may contain personal data. Checks are billed through a standing rental: up to 10 credits per check. Scheduling has no assigned clock time. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.delete` | Permanently delete a web monitor created with web.monitor.create. Pass the ref that web.monitor.create returned. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.edit` | Edit an owned monitor’s schedule, name, purpose or active state; target stays fixed. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.edit-interactive` | Edit a monitor, including browser interactions that may change a remote site on every check. Captured content may contain personal data. Target or detection changes start a new billed baseline; up to 10 credits per check. | Per successful call; quote exact input for the maximum price. |
-| `web.monitor.events` | Read what a web monitor has detected: the changes it found, checks that ran but found nothing, and failed checks, newest first. | Per successful call; quote exact input for the maximum price. |
+| `web.monitor.events` | Read what a web monitor has detected: the changes it found, checks that ran but found nothing, and failed checks, newest first. For the before and after text of each change use web.monitor.changes. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.get` | Read an owned page or topic monitor; targets and names may contain personal data. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.inventory` | List your interval monitors with target, detection, labels and follow-up handles. Names and target instructions may contain personal data. Free to read. | Per successful call; quote exact input for the maximum price. |
 | `web.monitor.list` | List your web monitors with their targets, schedules and status. | Per successful call; quote exact input for the maximum price. |
@@ -5361,7 +5373,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.page.speed-bulk` | Test speed for up to 5 pages in one job. Every result echoes your row id. Failed rows are free. Upstream worst case $0.025 for five pages. | Per successful call; quote exact input for the maximum price. |
 | `web.page.speed-options` | Test page speed with audit, language, device and throttling controls. Returns category scores and failed audits. Upstream worst case $0.005 per run. | Per successful call; quote exact input for the maximum price. |
 | `web.page.speed-versions.list` | List available page speed versions. | Per successful call; quote exact input for the maximum price. |
-| `web.pages.backlinks-summary` | Backlink totals (links, linking domains, rank, spam score) for each of many pages or sites. | Per successful call; quote exact input for the maximum price. |
+| `web.pages.backlinks-summary` | Backlink totals (links, linking domains, rank, spam score) for each of many pages or sites. For the pages of one site use web.backlinks.pages-summary. | Per successful call; quote exact input for the maximum price. |
 | `web.pages.backlinks-summary-bulk` | Look up pages summary for up to 1000 targets in one job; at most $0.06 per run. | Per successful call; quote exact input for the maximum price. |
 | `web.pages.list` | List the pages a site publishes in its own page index, by site section. | Per successful call; quote exact input for the maximum price. |
 | `web.pdf` | Print one public web page to a PDF on our storage. Page content may contain personal data. At most 100 MB; capture and copy share a 25 second budget. | Per successful call; quote exact input for the maximum price. |
@@ -5370,8 +5382,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.pricing.extract` | Read a software pricing page and return its plans, prices, billing periods and features. | Per successful call; quote exact input for the maximum price. |
 | `web.publications.search` | Search research papers and publications on a topic; returns titles, links, authors, venue and year. Returns personal data: author names as printed on published papers. | Per successful call; quote exact input for the maximum price. |
 | `web.query-correct` | Check spelling in a search query and return corrected queries when available. | Per successful call; quote exact input for the maximum price. |
-| `web.query-suggest` | Suggest completions for a partial search query; optional enrichment can return public entity names and descriptions. | Per successful call; quote exact input for the maximum price. |
-| `web.read` | Read one web page; returns its clean text and title. | Per successful call; quote exact input for the maximum price. |
+| `web.query-suggest` | Suggest completions for a partial search query; optional enrichment can return public entity names and descriptions. For the bare Google suggestion list use google.serp.autocomplete. | Per successful call; quote exact input for the maximum price. |
+| `web.read` | Scrape or read one web page; returns its clean text (plain or Markdown, by source) and title. | Per successful call; quote exact input for the maximum price. |
 | `web.read-advanced` | Read one web page as clean text with browser controls: wait for an element, keep one part of the page, or drop parts of it. | Per successful call; quote exact input for the maximum price. |
 | `web.read-bulk` | Read many web pages as one background job: each page's clean text and title. At most 100 rows per call, one page per row; every row comes back keyed by your own row id, with found false where the page could not be read. Each page read costs the same as a single read, and rows that could not be answered carry an error and are free; ask for an estimate to see the most a run can cost. | Per successful call; quote exact input for the maximum price. |
 | `web.read-options` | Read a public page as a background job with extraction options; returns full content or query-selected excerpts, and optional images and icon. Content may include personal data from the page. At most 100,000 content characters and 20 images; some sources currently support waits up to 24 seconds, with a worst case of $0.016 per page. | Per successful call; quote exact input for the maximum price. |
@@ -5405,7 +5417,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.spam-scores.list-bulk` | Look up spam score for up to 1000 targets in one job; at most $0.06 per run. | Per successful call; quote exact input for the maximum price. |
 | `web.structured-data.validate` | Validate structured data extracted from a public page on validator.schema.org. | Per successful call; quote exact input for the maximum price. |
 | `web.tech.adoption` | How many websites have used a technology over time, by date, country and language. | Per successful call; quote exact input for the maximum price. |
-| `web.tech.changes` | Read technology additions and removals for a website since a date. At most 1,000 changes; website signals never describe or score a person. | Per successful call; quote exact input for the maximum price. |
+| `web.tech.changes` | Read technology additions and removals for a website since a date. At most 1,000 changes; website signals never describe or score a person. site.stack.changes is the one-step mission that checks the answer against a fresh scan. | Per successful call; quote exact input for the maximum price. |
 | `web.tech.co-usage` | The technologies most often found on the same websites as given technologies, with how many sites use each. | Per successful call; quote exact input for the maximum price. |
 | `web.tech.detect` | The technologies a website uses, from its domain: names, categories, versions and when each was last detected. An empty list means nothing was detected. | Per successful call; quote exact input for the maximum price. |
 | `web.tech.detect-bulk` | Run web.tech.detect for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 1.98 before the platform fee; the platform quotes the billed maximum before submission. | Per successful call; quote exact input for the maximum price. |
@@ -5414,14 +5426,14 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `web.tech.summary` | How many websites use given technologies, by country, language and category. | Per successful call; quote exact input for the maximum price. |
 | `web.traffic-profile.get` | Read a website's traffic, rankings and audience profile. | Per successful call; quote exact input for the maximum price. |
 | `web.trending` | List what is trending among developers right now on a code host or a tech news site. | Per successful call; quote exact input for the maximum price. |
-| `web.trending-coins` | Trending Coins. | Per successful call; quote exact input for the maximum price. |
+| `web.trending-coins` | List the trending coins with their popularity rank, price in USD and BTC, 24 hour change and volume, up to a maximum you set. For the plain list of most searched coins use crypto.market.trending. | Per successful call; quote exact input for the maximum price. |
 | `web.uptime.check` | Check whether a page is up, with its status code, response time, redirects and TLS state. | Per successful call; quote exact input for the maximum price. |
 | `web.url-rating.history` | A page's link authority rating (0 to 100) over time, one row per date. | Per successful call; quote exact input for the maximum price. |
 | `web.url.metrics` | Authority and link metrics for a domain or URL (0-100 scores, backlinks, domains). | Per successful call; quote exact input for the maximum price. |
 | `web.url.metrics-bulk` | Run web.url.metrics for up to 1000 rows as one background job. Every row comes back keyed by your own row id: found true with the fields, found false where there is no record, or an error for a row that could not be answered. Rows that could not be answered are free. | Per successful call; quote exact input for the maximum price. |
 | `web.username.check` | Check which of several public sites have a profile with a given username. Returns personal data: the username the caller sends, and whether profiles with it exist. | Per successful call; quote exact input for the maximum price. |
 | `web.userviews.get` | Read userviews on pageviews.wmcloud.org. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
-| `web.usgs-quakes` | Usgs Quakes. | Per successful call; quote exact input for the maximum price. |
+| `web.usgs-quakes` | Search earthquakes worldwide by date range, geographic coordinates, radius and minimum magnitude. | Per successful call; quote exact input for the maximum price. |
 | `web.website-audit` | Website Audit. | Per successful call; quote exact input for the maximum price. |
 | `web.wellness-navigation.get` | Read a public wellness site navigation and service links on masmund.cl. | Per successful call; quote exact input for the maximum price. |
 | `web.wiki-category-views.list` | Read public view counts for articles in a category or link set on pageviews.wmcloud.org. | Per successful call; quote exact input for the maximum price. |
@@ -5473,8 +5485,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
-| `aeo.google.answer` | Ask Google's AI chat assistant (not the AI answers in search) a prompt with web search; returns its answer text and cited sources. | Per successful call; quote exact input for the maximum price. |
-| `aeo.google.web-answer` | Ask Google's AI assistant a question the way a person does in its web app, and get the answer it shows. | Per successful call; quote exact input for the maximum price. |
+| `aeo.google.answer` | Ask Google's AI chat assistant (not the AI answers in search) a prompt with web search; returns its answer text and cited sources. For the answer as the web app shows it, in a chosen country, use aeo.google.web-answer. | Per successful call; quote exact input for the maximum price. |
+| `aeo.google.web-answer` | Ask Google's AI assistant a question the way a person does in its web app, and get the answer it shows. For the cited sources use aeo.google.answer. | Per successful call; quote exact input for the maximum price. |
 | `google.ads.advertisers.search` | Find advertisers in Google's ads transparency centre by name, with their verified status and location. | Per successful call; quote exact input for the maximum price. |
 | `google.business.categories-aggregate` | Summarize groups of Google business categories within a geographic circle, with business counts, countries, service attributes and public review topics. Up to 1000 groups and ten entries per summary list. | Per successful call; quote exact input for the maximum price. |
 | `google.business.categories.list` | List supported Google business category selectors with derived English labels, optionally filtered by text. This is a source's selector catalogue, not a complete or localized Business Profile taxonomy. | Per successful call; quote exact input for the maximum price. |
@@ -5505,12 +5517,12 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `google.events.search` | Search Google for events; returns what is on, when and where. | Per successful call; quote exact input for the maximum price. |
 | `google.finance.markets` | Google Finance's market overview, with the leading indexes, currencies and movers. | Per successful call; quote exact input for the maximum price. |
 | `google.finance.news` | Read the financial news on the front page of Google Finance; returns its news sections with their stories. | Per successful call; quote exact input for the maximum price. |
-| `google.finance.quote` | Get the current quote of a stock, index, currency or future from Google Finance. | Per successful call; quote exact input for the maximum price. |
+| `google.finance.quote` | Get the current quote of a stock, index, currency or future from Google Finance. For a plain stock ticker price use stocks.quote.live. | Per successful call; quote exact input for the maximum price. |
 | `google.finance.tickers.search` | Search Google Finance for stocks, indexes and other instruments by name or ticker. | Per successful call; quote exact input for the maximum price. |
 | `google.flights.search` | Search Google Flights for one day's flights between two airports; returns the best options with price and duration. | Per successful call; quote exact input for the maximum price. |
 | `google.hotel.detail` | Get one hotel from Google Hotels by its id, with address, star class and description. | Per successful call; quote exact input for the maximum price. |
 | `google.hotels.search` | Search Google Hotels for a stay; returns hotels with price, stars and rating. | Per successful call; quote exact input for the maximum price. |
-| `google.interest-by-region` | Interest By Region. | Per successful call; quote exact input for the maximum price. |
+| `google.interest-by-region` | Show how interest in a keyword varies by region within a country, as Google Trends reports it. For a geography and timeframe you choose use web.interest-by-region. | Per successful call; quote exact input for the maximum price. |
 | `google.jobs.search` | Search Google Jobs; returns openings with employer, place and description. | Per successful call; quote exact input for the maximum price. |
 | `google.keywords.ad-traffic` | Estimate the clicks and cost of Google search ads on a set of keywords at a given bid. | Per successful call; quote exact input for the maximum price. |
 | `google.keywords.categories` | Give the Google product and service category codes each of many keywords belongs to. | Per successful call; quote exact input for the maximum price. |
@@ -5522,7 +5534,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `google.keywords.ideas` | Google keyword lists for a seed keyword, with volume, CPC and competition. The `mode` picks the list: `ideas` (the default) gives keywords from the same topic area, `suggestions` gives keywords that contain the seed, and `related` gives searches semantically related to it. | Per successful call; quote exact input for the maximum price. |
 | `google.keywords.intent` | Say what people want when they search each of many keywords: to learn, to find a site, to compare or to buy. | Per successful call; quote exact input for the maximum price. |
 | `google.keywords.top` | List the most searched keywords in Google for a country, with volume, cost per click and difficulty. | Per successful call; quote exact input for the maximum price. |
-| `google.keywords.trends` | Google Trends interest over time (0 to 100) for up to five keywords. | Per successful call; quote exact input for the maximum price. |
+| `google.keywords.trends` | Google Trends interest over time (0 to 100) for up to five keywords. Returns dated points for each keyword; web.keywords.trends reads a web-wide trends index and returns values over a from-to window. | Per successful call; quote exact input for the maximum price. |
 | `google.keywords.volume` | Monthly Google search volume, CPC and competition for a list of keywords. | Per successful call; quote exact input for the maximum price. |
 | `google.maps.contacts` | Get the contact details that businesses on Google Maps publish on their own websites (email addresses and a phone number), for a kind of business in a place. It is for contact details; to find local businesses use local.businesses.search. Returns personal data: business contact details published on the business's own website, namely email addresses and phone numbers, which can be a named person's. | Per successful call; quote exact input for the maximum price. |
 | `google.maps.contributor-reviews` | List the public Google Maps reviews one contributor has written, with the places reviewed. Returns personal data: one reviewer's public review history, namely the review text, ratings, dates and places reviewed. | Per successful call; quote exact input for the maximum price. |
@@ -5535,7 +5547,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `google.serp.ads` | List the sponsored ads Google shows on its results page for a search, from a named place. | Per successful call; quote exact input for the maximum price. |
 | `google.serp.ai-mode` | Ask Google's AI Mode a question; returns its answer and the sources it cites. | Per successful call; quote exact input for the maximum price. |
 | `google.serp.ai-overview` | Get the AI Overview Google shows above its results for a search, with the sources it cites. | Per successful call; quote exact input for the maximum price. |
-| `google.serp.autocomplete` | Get the searches Google suggests as someone types a query. | Per successful call; quote exact input for the maximum price. |
+| `google.serp.autocomplete` | Get the searches Google suggests as someone types a query. For suggestions with entity names, descriptions and images use web.query-suggest. | Per successful call; quote exact input for the maximum price. |
 | `google.serp.features` | Read selected Google search panes, including public names, text, images, businesses, products and video accounts. At most 15 panes and 50 entries each; worst case $0.002 per page. | Per successful call; quote exact input for the maximum price. |
 | `google.serp.history` | Show what Google's results page for a search looked like at earlier dates. | Per successful call; quote exact input for the maximum price. |
 | `google.serp.images` | Google Images results for a search, with the image, its size and the page it is on. | Per successful call; quote exact input for the maximum price. |
@@ -5554,6 +5566,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `google.shopping.ad-url` | Resolve a Google Shopping ad link into the seller's own product page address. | Per successful call; quote exact input for the maximum price. |
 | `google.shopping.product` | Get one Google Shopping product in detail: its description, specifications and the offers of each shop. | Per successful call; quote exact input for the maximum price. |
 | `google.trends.list` | List trending Google search terms and related queries on trends.google.com. | Per successful call; quote exact input for the maximum price. |
+| `google.trends.topics.search` | Find Google Trends topics matching a phrase. | Per successful call; quote exact input for the maximum price. |
 
 ### Google Play
 
@@ -5576,6 +5589,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
+| `home-depot.product.detail` | Read one Home Depot product listing by its public product id. | Per successful call; quote exact input for the maximum price. |
+| `home-depot.product.reviews` | List public customer reviews of one Home Depot product. Returns personal data: public author names, affiliations or review text. | Per successful call; quote exact input for the maximum price. |
 | `home-depot.products.search` | Search Home Depot products by keyword, with each product's brand, price and rating. | Per successful call; quote exact input for the maximum price. |
 
 ### IMDb
@@ -5611,6 +5626,12 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `naver.serp.ai-overview` | The AI overview Naver shows for a query, with the sources it cites. | Per successful call; quote exact input for the maximum price. |
 | `naver.serp.organic` | Naver web results for a query, with each title, link and snippet. | Per successful call; quote exact input for the maximum price. |
 
+### OpenTable
+
+| Id | What it does | Price basis |
+|---|---|---|
+| `opentable.restaurant.reviews` | List public diner reviews of one OpenTable restaurant. Returns personal data: public author names, affiliations or review text. | Per successful call; quote exact input for the maximum price. |
+
 ### Seznam
 
 | Id | What it does | Price basis |
@@ -5644,12 +5665,12 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 
 | Id | What it does | Price basis |
 |---|---|---|
-| `trustpilot.businesses.search` | Search Trustpilot for businesses by name or keyword, with their rating and review count. | Per successful call; quote exact input for the maximum price. |
+| `trustpilot.businesses.search` | Search Trustpilot for businesses by name or keyword, with their rating and review count. Runs as a job and returns ranking positions; for a quicker search with location, categories, trust score and verified flag use trustpilot.search-companies. | Per successful call; quote exact input for the maximum price. |
 | `trustpilot.categories` | List categories. | Per successful call; quote exact input for the maximum price. |
 | `trustpilot.company-overview` | Get company overview. | Per successful call; quote exact input for the maximum price. |
 | `trustpilot.company-review-summary` | Get review summary. | Per successful call; quote exact input for the maximum price. |
 | `trustpilot.company-reviews` | List published reviews of a company. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields.. | Per successful call; quote exact input for the maximum price. |
-| `trustpilot.search-companies` | Search companies. | Per successful call; quote exact input for the maximum price. |
+| `trustpilot.search-companies` | Search Trustpilot companies by name or keyword, with location, categories, trust score, stars and verified flag, answered in one call. For ranking positions as a job use trustpilot.businesses.search. | Per successful call; quote exact input for the maximum price. |
 
 ### Walmart
 
@@ -5671,6 +5692,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `yahoo.serp.images` | Yahoo image results for a query, with each image's page and title. | Per successful call; quote exact input for the maximum price. |
 | `yahoo.serp.organic` | Yahoo organic search results for a query: position, title, URL and snippet. | Per successful call; quote exact input for the maximum price. |
 | `yahoo.serp.videos` | Yahoo video results for a query, with each video's title, page and length. | Per successful call; quote exact input for the maximum price. |
+| `yahoo.trending-topics.list` | List the topics currently trending on Yahoo. | Per successful call; quote exact input for the maximum price. |
 
 ### Yandex
 
@@ -5749,7 +5771,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `flight.options.find` | Bookable flights for a trip with the fare rechecked, the expiry shown and seat layouts. Nothing is booked. | Sum of step prices; quote exact input and options for the maximum price. |
 | `fuel.price.report` | State fuel prices, history and cheapest metros beside EV charging prices, each in its own units. | Sum of step prices; quote exact input and options for the maximum price. |
 | `home.affordability.check` | Sale and rental homes beside reported mortgage rates, with fixed-term principal-and-interest scenarios calculated in code. | Sum of step prices; quote exact input and options for the maximum price. |
-| `home.shortlist` | Find homes offered for sale in a location. | Sum of step prices; quote exact input and options for the maximum price. |
+| `home.shortlist` | Find homes offered for sale in a location. For listings filtered by pool, yard or pet-friendly use real-estate.search-homes-for-sale. | Sum of step prices; quote exact input and options for the maximum price. |
 | `hotel.options.find` | Find room rates near trip coordinates, reprice a bounded selection and read available weather. | Sum of step prices; quote exact input and options for the maximum price. |
 | `keyword.country.compare` | Compare up to five keywords over time and across countries, preserving each source's figures. | Sum of step prices; quote exact input and options for the maximum price. |
 | `keyword.gap` | Keyword terms that competitors rank for and the builder's site does not, from one seed term. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -5794,7 +5816,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `news.digest` | Recent news on a topic: the news search's articles that name the topic and were published inside the window, de-duplicated, each read, with a written digest and one line per article, each checked against the articles it is about. | Sum of step prices; quote exact input and options for the maximum price. |
 | `news.timeline` | The dated events on a topic in order, each tied to the article that reports it. The date is the article's publish time; each event is checked against its own article. | Sum of step prices; quote exact input and options for the maximum price. |
 | `page.capture` | Capture a rendered screenshot and separately read the matching page's text. | Sum of step prices; quote exact input and options for the maximum price. |
-| `page.change.watch` | Start a scheduled check on one page, sitemap or set of facts after approval, and read recent changes with a sentence quoting each. | Sum of step prices; quote exact input and options for the maximum price. |
+| `page.change.watch` | Start a scheduled check on one page, sitemap or set of facts after approval, and read recent changes with a sentence quoting each. For a plain monitor with no approval step use web.monitor.create. | Sum of step prices; quote exact input and options for the maximum price. |
 | `page.compare` | Two pages compared: what each says that the other does not, and where they differ. | Sum of step prices; quote exact input and options for the maximum price. |
 | `page.extract` | Structured fields from one web page: each value is kept only when it occurs in the page text, and a field the page does not state says so. | Sum of step prices; quote exact input and options for the maximum price. |
 | `page.flow.capture` | Walk through a supplied browser session, capture each action, then request its closure. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -5865,7 +5887,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `site.metadata.audit` | Title, description, canonical and social-card gaps across a site's pages, listed page by page. | Sum of step prices; quote exact input and options for the maximum price. |
 | `site.pdf.archive` | Print the pages of a site, or the pages you pick, to dated PDFs in hosted storage. | Sum of step prices; quote exact input and options for the maximum price. |
 | `site.score` | A candidate site measured: reachable area, competing places, parking, traffic and census geography, each number from its own source. | Sum of step prices; quote exact input and options for the maximum price. |
-| `site.stack.changes` | The technologies a site added or dropped since a date, checked against a fresh scan. | Sum of step prices; quote exact input and options for the maximum price. |
+| `site.stack.changes` | The technologies a site added or dropped since a date, checked against a fresh scan. web.tech.changes reads the change list directly, without the fresh scan. | Sum of step prices; quote exact input and options for the maximum price. |
 | `site.summarize` | What a whole site is about: its pages read one by one, one sentence on each, and a written overview that names the pages it rests on. | Sum of step prices; quote exact input and options for the maximum price. |
 | `site.tls.audit` | Read a site's TLS, security headers and observed certificate facts, with ranked repairs. | Sum of step prices; quote exact input and options for the maximum price. |
 | `site.vuln.check` | Known vulnerabilities in the software a website runs, from a stored technology profile of the domain (no active scanning): the technologies listed, the ones with an exact version and a registry package checked for advisories, and the ones that were not checked, each with the reason. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -5886,11 +5908,11 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `trip.plan.draft` | A draft trip: flights, hotel, things to do, weather and a cost sketch, each part sourced. | Sum of step prices; quote exact input and options for the maximum price. |
 | `trip.trace.analyze` | A recorded drive snapped to roads and checked against speed limits, with elevation. | Sum of step prices; quote exact input and options for the maximum price. |
 | `url.check.deep` | One URL checked in depth: what security sources already hold about it, a live scan that visits the page only when asked, and the host's registration record. The answer is flagged, no flags known or not checked: never a statement that the address is safe. | Sum of step prices; quote exact input and options for the maximum price. |
-| `urls.check` | A list of links checked at once against what security sources already hold: each is flagged, has no flags known, or was not checked. Never a statement that a link is safe. | Sum of step prices; quote exact input and options for the maximum price. |
+| `urls.check` | A list of links checked at once against what security sources already hold: each is flagged, has no flags known, or was not checked. Never a statement that a link is safe. For one URL with engine counts use security.url.check. | Sum of step prices; quote exact input and options for the maximum price. |
 | `venue.compare` | Venue volume rankings within spot, decentralized and options categories, with aggregate derivatives context. | Sum of step prices; quote exact input and options for the maximum price. |
 | `venue.find` | Find source-ranked venue candidates by topic, identify them by ISSN and report dated recent topic papers separately from undated ones. | Sum of step prices; quote exact input and options for the maximum price. |
 | `weather.alert.notify` | Read the weather alerts at a place and, after approval, text and email people when one is serious enough. | Sum of step prices; quote exact input and options for the maximum price. |
 | `weather.brief` | A plain brief for a place and day: now, hourly, daily and rain timing, with alerts. | Sum of step prices; quote exact input and options for the maximum price. |
 | `weather.event.verify` | Whether a weather event hit an address on a date, from recorded events, recorded history and a modelled timeline. | Sum of step prices; quote exact input and options for the maximum price. |
 | `weather.thresholds.watch` | A schedule or site checked against stated weather limits, each failing window given with the hour it starts. | Sum of step prices; quote exact input and options for the maximum price. |
-| `web.task.run` | Carry out one approved goal on a public website and return its reported outcome. | Sum of step prices; quote exact input and options for the maximum price. |
+| `web.task.run` | Carry out one approved goal on a public website and return its reported outcome. browser.task.run is the bare browser call, with structured output and no approval step. | Sum of step prices; quote exact input and options for the maximum price. |

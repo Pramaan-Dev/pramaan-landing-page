@@ -96,7 +96,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `billing.products.list` | List products and selling prices in your connected billing catalog. | Per successful call; quote exact input for the maximum price. |
 | `billing.refund.create` | Refund all or part of a completed charge to the customer's original payment method. | Per successful call; quote exact input for the maximum price. |
 | `billing.refund.create-configured` | Refund a completed charge with an explicit speed preference and optional transfer reversal. Moves money back to the customer. | Per successful call; quote exact input for the maximum price. |
-| `billing.subscription-charge.create` | Charge an authorized subscription as a job and poll until its payment finishes; approval required. | Per successful call; quote exact input for the maximum price. |
+| `billing.subscription-charge.create` | Charge an authorized subscription as a job and poll until its payment finishes; approval required. subscription.charge.once wraps it with a check of the subscription and authorisation and a payment read-back. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription-invoice.get` | Get subscription invoice amounts and customer names and emails; no payment card data. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription-invoices.list` | List subscription invoice amounts and customer names and emails; no payment card data. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription-item.get` | Get a subscription item quantity and applied price. | Per successful call; quote exact input for the maximum price. |
@@ -104,7 +104,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `billing.subscription-items.list` | List subscription quantities, price associations and usage billing flags. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription-payment.get` | Read a charge or authorization payment belonging to your subscription. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription.cancel` | Cancel a subscription at the end of its paid period (default) or immediately; returns its new state. | Per successful call; quote exact input for the maximum price. |
-| `billing.subscription.create` | Start a subscription in your billing account: authorize a customer against a plan, or schedule recurring charges for a stored customer. Charges continue until canceled when no count is set. | Per successful call; quote exact input for the maximum price. |
+| `billing.subscription.create` | Start a subscription in your billing account: authorize a customer against a plan, or schedule recurring charges for a stored customer. Charges continue until canceled when no count is set. subscription.start wraps this call with an exact-terms check, an approval step and a read-back. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription.get` | Get one subscription's status, price and billing dates from your billing account. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscription.update` | Pause, reactivate or change the plan of your own subscription, or change a recurring charge's schedule or amount. | Per successful call; quote exact input for the maximum price. |
 | `billing.subscriptions.list` | List subscriptions in your connected billing account, optionally for one customer or status. | Per successful call; quote exact input for the maximum price. |
@@ -174,8 +174,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.block-details.get` | Read block details on etherscan.io. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.block.at-time` | The block of a chain closest to a given time. | Per successful call; quote exact input for the maximum price. |
 | `crypto.board-threads.get` | Read board threads on bitcointalk.org. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
-| `crypto.borrow.markets` | Lending markets with the latest borrowing rates and amounts. | Per successful call; quote exact input for the maximum price. |
-| `crypto.borrow.pools` | Borrowing costs of assets on lending markets, with annual rates and value locked. | Per successful call; quote exact input for the maximum price. |
+| `crypto.borrow.markets` | Lending markets with the latest borrowing rates and amounts, plus loan-to-value. For borrowing costs per asset on lending pools use crypto.borrow.pools, and borrow.rates.compare to compare rates for one token. | Per successful call; quote exact input for the maximum price. |
+| `crypto.borrow.pools` | Borrowing costs of assets on lending markets, with annual rates and value locked. For lending markets with available borrow amounts and loan-to-value use crypto.borrow.markets. | Per successful call; quote exact input for the maximum price. |
 | `crypto.borrow.routes` | Ways to borrow an asset across lending markets, with the latest rates. | Per successful call; quote exact input for the maximum price. |
 | `crypto.bridges.day-stats` | A day's bridge volume on a chain, broken down by token and address. | Per successful call; quote exact input for the maximum price. |
 | `crypto.bridges.list` | Cross-chain bridges with their recent daily, weekly and monthly volume. | Per successful call; quote exact input for the maximum price. |
@@ -202,6 +202,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.collection-tokens.get` | Read collection tokens on blur.io. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.collection.get` | Read collection on opensea.io. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.datasets.status` | Read availability states for public liquidation and open-interest datasets on moondev.com. | Per successful call; quote exact input for the maximum price. |
+| `crypto.defi.categories.list` | List DeFi categories and their totals for a selected metric over the last day, week and month. | Per successful call; quote exact input for the maximum price. |
 | `crypto.defi.metric-history` | One metric of a DeFi protocol (such as daily value locked or fees) over time. | Per successful call; quote exact input for the maximum price. |
 | `crypto.defi.metric-overview` | Totals and changes of a DeFi metric (such as fees, revenue or DEX volume) over the last day, week, month and year, for all of DeFi or one category, chain or protocol. | Per successful call; quote exact input for the maximum price. |
 | `crypto.defi.ranking` | DeFi protocols ranked by value locked, fees or revenue. | Per successful call; quote exact input for the maximum price. |
@@ -211,7 +212,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.dex.summary` | Trading volume of one decentralised exchange, with totals and changes. | Per successful call; quote exact input for the maximum price. |
 | `crypto.dex.token-price` | Price bars (open, high, low, close, volume) of a token across decentralised exchange pools, by contract address and chain. | Per successful call; quote exact input for the maximum price. |
 | `crypto.dexs.overview` | Trading volume of decentralised exchanges, with totals and changes. | Per successful call; quote exact input for the maximum price. |
-| `crypto.earn.pools` | Earning pools (staking, lending, liquidity) with the latest yields. | Per successful call; quote exact input for the maximum price. |
+| `crypto.earn.pools` | Earning pools (staking, lending, liquidity) with the latest yields, plus 7 and 30 day averages and holder counts. For a ranked, filtered list of DeFi yield pools use crypto.yield.pools. | Per successful call; quote exact input for the maximum price. |
 | `crypto.earn.verified-pools` | Earning pools whose yields the source has measured and verified. | Per successful call; quote exact input for the maximum price. |
 | `crypto.economic-calendar.list` | List public economic calendar events relevant to crypto instruments on cryptocraft.com. | Per successful call; quote exact input for the maximum price. |
 | `crypto.ens.resolve` | Resolve an ENS name to its Ethereum address. | Per successful call; quote exact input for the maximum price. |
@@ -256,7 +257,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.funds.ranking` | The leading crypto venture funds, ranked by tier or by portfolio size. | Per successful call; quote exact input for the maximum price. |
 | `crypto.funds.search` | Find crypto venture funds by keyword. | Per successful call; quote exact input for the maximum price. |
 | `crypto.futures.overview` | Futures market figures (open interest, funding, volume) across tracked tokens, ranked. | Per successful call; quote exact input for the maximum price. |
-| `crypto.gas.price` | The current gas price of an EVM chain. | Per successful call; quote exact input for the maximum price. |
+| `crypto.gas.price` | The current gas price of an EVM chain. For fee estimates by confidence level, with base fee and block number, use web.gas-oracle. | Per successful call; quote exact input for the maximum price. |
 | `crypto.grant-application-overview.get` | Read a public crypto ecosystem grant application overview on esp.ethereum.foundation. | Per successful call; quote exact input for the maximum price. |
 | `crypto.grant-article.get` | Read a public crypto ecosystem grant news article on esp.ethereum.foundation. | Per successful call; quote exact input for the maximum price. |
 | `crypto.grant-articles.list` | List public crypto ecosystem grant news articles on esp.ethereum.foundation. | Per successful call; quote exact input for the maximum price. |
@@ -291,7 +292,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.market-widgets.get` | Read crypto market movers and aggregate market-value observations on studio.glassnode.com. | Per successful call; quote exact input for the maximum price. |
 | `crypto.market.global` | The whole crypto market at a glance - total market value, how much bitcoin and ether make up, and how many coins and markets there are. | Per successful call; quote exact input for the maximum price. |
 | `crypto.market.rankings` | The largest crypto coins by market value, with price, 24-hour range and change, priced in the currency you choose. | Per successful call; quote exact input for the maximum price. |
-| `crypto.market.trending` | The coins most searched for in the last 24 hours, with their price and how it moved. | Per successful call; quote exact input for the maximum price. |
+| `crypto.market.trending` | The coins most searched for in the last 24 hours, with their price and how it moved. For popularity rank, volume and BTC price with a maximum count use web.trending-coins. | Per successful call; quote exact input for the maximum price. |
 | `crypto.meatspace-meetups.get` | Read meatspace meetups on bitcoin-only.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.meetups-by-country.get` | Read meetups by country on bitcoin-only.com. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.mev-activity.get` | Read mev activity on solscan.io. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
@@ -448,8 +449,8 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `crypto.wallets.search` | Find wallets by ENS name, label or address prefix. | Per successful call; quote exact input for the maximum price. |
 | `crypto.whale-tracking.get` | Read whale tracking on solscan.io. Returns personal data: personal details as published. | Per successful call; quote exact input for the maximum price. |
 | `crypto.yield.loops` | Looping strategies (borrowing against a deposit to deposit again), with their net yields. | Per successful call; quote exact input for the maximum price. |
-| `crypto.yield.pools` | DeFi yield pools ranked by annual yield or by value locked. | Per successful call; quote exact input for the maximum price. |
-| `crypto.yield.pools-list` | DeFi yield pools with their annual yield, value locked, chain and project. | Per successful call; quote exact input for the maximum price. |
+| `crypto.yield.pools` | DeFi yield pools ranked by annual yield or by value locked. Takes a limit, a sort and a project filter; for the full unfiltered list with trend statistics use crypto.yield.pools-list, and for staking, lending and liquidity pools use crypto.earn.pools. | Per successful call; quote exact input for the maximum price. |
+| `crypto.yield.pools-list` | DeFi yield pools with their annual yield, value locked, chain and project. Takes no filters and returns trend statistics for each pool; for a ranked, filtered list use crypto.yield.pools. | Per successful call; quote exact input for the maximum price. |
 | `currency.rates.venues.list` | Compare a currency's buy and sell rates across market venues. | Per successful call; quote exact input for the maximum price. |
 | `derivatives.certificates.detail` | Read a leveraged certificate's quote and terms. | Per successful call; quote exact input for the maximum price. |
 | `derivatives.certificates.list` | List leveraged certificates with strikes and barriers. | Per successful call; quote exact input for the maximum price. |
@@ -562,6 +563,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `edi.einvoice.submit` | Submit one Italian national XML invoice using your connected invoicing account. Select that account with Pramaan-Account and use an idempotency key. Queued means pending, not acceptance. An uncertain submission must be checked manually and never automatically resent. The invoice service bills your connected account directly; no platform key is used. | Per successful call; quote exact input for the maximum price. |
 | `energy.auction-status.list` | List power auction statuses and operational messages. | Per successful call; quote exact input for the maximum price. |
 | `energy.crude.prices.list` | List current crude oil benchmark prices. | Per successful call; quote exact input for the maximum price. |
+| `energy.flows.search` | Search monthly official oil and natural gas supply, demand, imports, exports and stocks by country, product and flow. | Per successful call; quote exact input for the maximum price. |
 | `energy.fuel-prices.get` | Read today's fuel prices for a city or station. | Per successful call; quote exact input for the maximum price. |
 | `energy.fuel-prices.regional.list` | List fuel prices by region or location. | Per successful call; quote exact input for the maximum price. |
 | `energy.fuel-products.list` | List a fuel supplier's product definitions. | Per successful call; quote exact input for the maximum price. |
@@ -573,6 +575,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `energy.prices.history` | Read an energy market's daily price history. | Per successful call; quote exact input for the maximum price. |
 | `energy.prices.intraday.list` | List intraday electricity prices with volumes. | Per successful call; quote exact input for the maximum price. |
 | `energy.products.list` | List a maker's home-energy products with their information and order pages | Per successful call; quote exact input for the maximum price. |
+| `energy.series.observations` | Read dated energy observations and their units for a public statistical series, including electricity, petroleum and natural gas. | Per successful call; quote exact input for the maximum price. |
 | `energy.spot-prices.list` | Day-ahead electricity spot prices at 15-minute resolution for a bidding zone and date range. | Per successful call; quote exact input for the maximum price. |
 | `energy.zones.cities.list` | List the cities with dedicated electricity price pages in a zone. | Per successful call; quote exact input for the maximum price. |
 | `energy.zones.list` | List electricity bidding zones with codes and names. | Per successful call; quote exact input for the maximum price. |
@@ -669,6 +672,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `finance.receiving-account.get` | Get bank details and holder identity for your own receiving account. | Per successful call; quote exact input for the maximum price. |
 | `finance.receiving-accounts.list` | List your receiving accounts, including bank details and holder identity. | Per successful call; quote exact input for the maximum price. |
 | `finance.reference-rates.history` | Read a monetary authority's daily reference rates for major currencies. | Per successful call; quote exact input for the maximum price. |
+| `finance.regulated-firms.search` | Search European regulated financial firms by name and return their published authorisation status and legal framework. | Per successful call; quote exact input for the maximum price. |
 | `finance.routing-code.lookup` | Verify an Indian bank routing code. Returns the requested code and its verification verdict; no account data. Maximum estimate USD 0.57. | Per successful call; quote exact input for the maximum price. |
 | `finance.statement-account.get` | Read personal bank statement account facts from a collected analysis. | Per successful call; quote exact input for the maximum price. |
 | `finance.statement-accounts.list` | Read personal bank statement accounts facts from a collected analysis. | Per successful call; quote exact input for the maximum price. |
@@ -727,7 +731,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `india.gst.consent.delete` | Read, verify or disconnect taxpayer consent. Expired access requires reconnecting. Disconnect leaves filed returns and issued documents untouched. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.consent.get` | Read, verify or disconnect taxpayer consent. Expired access requires reconnecting. Disconnect leaves filed returns and issued documents untouched. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.consent.verify` | Read, verify or disconnect taxpayer consent. Expired access requires reconnecting. Disconnect leaves filed returns and issued documents untouched. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
-| `india.gst.einvoice.cancel` | Cancel an issued e-invoice irreversibly. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
+| `india.gst.einvoice.cancel` | Cancel an issued e-invoice irreversibly. Estimated maximum call cost is $0.12. gst.einvoice.cancel wraps it with a read of the invoice, an approval step and a state check. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.einvoice.create` | Register one legal e-invoice. Returns government IRN, acknowledgement and unchanged signed invoice or QR strings; includes party identities and addresses inside signed data. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.einvoice.get` | Read an issued e-invoice and its legal signed data. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.einvoice.qr.get` | Read the unchanged NIC-signed QR string for an issued invoice. The B2C payment QR is a separate idea. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
@@ -736,7 +740,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `india.gst.ewaybill.create` | Issue one e-way bill. Returns the government number the taxpayer must print. Includes taxpayer and transport document information. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.ewaybill.extend` | Update the vehicle or extend an e-way bill with taxpayer transport details. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.ewaybill.get` | Read a government e-way bill, including taxpayer identities, document and vehicle details. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
-| `india.gst.ewaybill.vehicle.update` | Update the vehicle or extend an e-way bill with taxpayer transport details. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
+| `india.gst.ewaybill.vehicle.update` | Update the vehicle or extend an e-way bill with taxpayer transport details. Estimated maximum call cost is $0.12. ewaybill.update wraps it with a read, an approval step and a read-back. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.filing-otp.send` | Send the EVC filing OTP to the authorised signatory. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.filings.list` | List public GST filing history, including taxpayer return periods and filing dates. No consent is needed. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
 | `india.gst.gstr1.save` | Save GSTR1 in one request. Returns taxpayer and counterparty tax information. At most 500 invoice records and 5 MB; split larger returns yourself. Estimated maximum call cost is $0.12. | Per successful call; quote exact input for the maximum price. |
@@ -852,7 +856,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `payments.financial-actions.list` | List financial action facts for a payment or action; account identifiers and processor fees are omitted. | Per successful call; quote exact input for the maximum price. |
 | `payments.mandate.create` | Register customer consent for future payments; financial credentials are sent once and omitted from the result. | Per successful call; quote exact input for the maximum price. |
 | `payments.mandate.get` | Get a customer payment authorization state without financial credentials. | Per successful call; quote exact input for the maximum price. |
-| `payments.mandate.revoke` | Revoke a customer payment authorization and cancel subscriptions that use it. | Per successful call; quote exact input for the maximum price. |
+| `payments.mandate.revoke` | Revoke a customer payment authorization and cancel subscriptions that use it. mandate.revoke finds the mandate, asks approval and reads its state back. | Per successful call; quote exact input for the maximum price. |
 | `payments.mandates.list` | List a customer's payment authorizations without bank accounts or wallet credentials. | Per successful call; quote exact input for the maximum price. |
 | `payments.methods.list` | List payment methods eligible for a purchase. Optional buyer email and phone are sent only to assess eligibility; results contain method categories and requested account presence, never contacts or tokens. | Per successful call; quote exact input for the maximum price. |
 | `payments.network-participants.list` | Financial institutions participating in the real-time payments network, with their US state. | Per successful call; quote exact input for the maximum price. |
@@ -885,7 +889,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `payments.payments.list` | List payments in your connected account for an exact order reference; up to 50 per page. | Per successful call; quote exact input for the maximum price. |
 | `payments.payout.cancel` | Cancel an unclaimed payout and return its funds to your account. Completed transfers cannot be cancelled. | Per successful call; quote exact input for the maximum price. |
 | `payments.payout.get` | Read a recipient payout in your own connected account. | Per successful call; quote exact input for the maximum price. |
-| `payments.payout.send` | Send money from your connected account to one recipient. Wallet recipients use an email, phone or handle; UPI recipients a payment address; bank and card destinations depend on the connected source. Pending does not mean received. | Per successful call; quote exact input for the maximum price. |
+| `payments.payout.send` | Send money from your connected account to one recipient. Wallet recipients use an email, phone or handle; UPI recipients a payment address; bank and card destinations depend on the connected source. Pending does not mean received. vendor.pay wraps this call with destination and holder-name checks, a quote and an approval step; prefer it for paying a vendor. | Per successful call; quote exact input for the maximum price. |
 | `payments.payout.send-bulk` | Send up to 100 recipient payouts as one background job. Every result echoes your row id. Money is sent from your connected account; pending or unclaimed results are not completed transfers. | Per successful call; quote exact input for the maximum price. |
 | `payments.qr-code.close` | Close a payment QR code. It stays readable and earlier payments are not refunded. | Per successful call; quote exact input for the maximum price. |
 | `payments.qr-code.create` | Create a payment QR code in your connected merchant account and copy its image to platform storage. Optional tax invoice data includes the customer name. | Per successful call; quote exact input for the maximum price. |
@@ -960,7 +964,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `stocks.company-announcements.list` | List a listed company's exchange announcements. | Per successful call; quote exact input for the maximum price. |
 | `stocks.company.competitors` | Get competitors. | Per successful call; quote exact input for the maximum price. |
 | `stocks.company.competitors-list` | List a stock's competitor comparison sections. | Per successful call; quote exact input for the maximum price. |
-| `stocks.company.filings` | A company's regulatory filings, with form type, date and link. | Per successful call; quote exact input for the maximum price. |
+| `stocks.company.filings` | A company's regulatory filings by ticker and country, with form type, date and link. For a US-listed company by website domain or ticker use companies.sec-filings.list. | Per successful call; quote exact input for the maximum price. |
 | `stocks.company.news` | Recent news about a listed company, by its ticker, with each headline, source and date. | Per successful call; quote exact input for the maximum price. |
 | `stocks.company.onchain-markets` | On-chain markets where tokens tracking a listed company's shares trade. | Per successful call; quote exact input for the maximum price. |
 | `stocks.company.profile` | The company behind a ticker, with its exchange, country, market value and listing date. Free, but it runs on a pool of 50 calls a day shared by every caller: after the 50th call of a day the source refuses until the next day. | Per successful call; quote exact input for the maximum price. |
@@ -1053,7 +1057,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `stocks.price.history.get` | Read a stock's full price history as a series of timestamped bars. | Per successful call; quote exact input for the maximum price. |
 | `stocks.prices.board.list` | List a board's securities with latest prices and turnover. | Per successful call; quote exact input for the maximum price. |
 | `stocks.put-call-ratios.get` | Read US equity option positioning totals for the nearest listed expiration, including the ratio between bearish and bullish contracts and related derivatives statistics. Select the underlying security symbol to inspect its listed options market. | Per successful call; quote exact input for the maximum price. |
-| `stocks.quote.live` | Latest price for a stock ticker, with change since the previous close. | Per successful call; quote exact input for the maximum price. |
+| `stocks.quote.live` | Latest price for a stock ticker, with change since the previous close. For indexes, currencies and futures too use google.finance.quote. | Per successful call; quote exact input for the maximum price. |
 | `stocks.quote.summary` | Read a stock's latest quote with session statistics. | Per successful call; quote exact input for the maximum price. |
 | `stocks.quotes.board.list` | List equity quotes for a selected exchange. | Per successful call; quote exact input for the maximum price. |
 | `stocks.range-extremes.list` | List stocks at their 52-week highs or lows. | Per successful call; quote exact input for the maximum price. |
@@ -1061,7 +1065,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `stocks.rankings.list` | List top stocks with their fundamental indicators. | Per successful call; quote exact input for the maximum price. |
 | `stocks.reporting-issuers.list` | List reporting issuers in Canada. | Per successful call; quote exact input for the maximum price. |
 | `stocks.retail-activity.get` | Get retail trading activity. | Per successful call; quote exact input for the maximum price. |
-| `stocks.screener.run` | Run screener. | Per successful call; quote exact input for the maximum price. |
+| `stocks.screener.run` | Run a stock screener with your own filters and return the matching tickers. For tickers matching valuation and size criteria, with the figures that qualified them, use stocks.screen. | Per successful call; quote exact input for the maximum price. |
 | `stocks.sector.detail` | One stock market sector with its companies and performance. | Per successful call; quote exact input for the maximum price. |
 | `stocks.sectors.list` | Stock market sectors. | Per successful call; quote exact input for the maximum price. |
 | `stocks.sectors.overview` | Market-wide performance of stock market sectors, with the best and worst sectors and market coverage. | Per successful call; quote exact input for the maximum price. |
@@ -1107,6 +1111,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `trade.exhibitors.list` | List the initial public pharmaceutical event exhibitors with their booth and website on visitor.cphieventplanner.com. | Per successful call; quote exact input for the maximum price. |
 | `trade.exporters.rank` | Rank the exporters behind the shipments matching a trade search, by value, volume and deal count. | Per successful call; quote exact input for the maximum price. |
 | `trade.featured-products.list` | List featured public industrial products and origin countries on wlw.de. | Per successful call; quote exact input for the maximum price. |
+| `trade.flows.search` | Search international goods imports or exports by reporter, partner, HS commodity and annual or monthly period; for example India rice exports in 2025. Returns reported trade value in USD and net weight when available. | Per successful call; quote exact input for the maximum price. |
 | `trade.hs-codes.rank` | Rank the tariff (HS) codes of the shipments matching a trade search, by value and volume. | Per successful call; quote exact input for the maximum price. |
 | `trade.hs-codes.search` | Search international product tariff codes by description. | Per successful call; quote exact input for the maximum price. |
 | `trade.importers.rank` | Rank the importers behind the shipments matching a trade search, by value, volume and deal count. | Per successful call; quote exact input for the maximum price. |
@@ -1184,7 +1189,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `billing.customer.close` | Delete a billing customer after approval only when complete snapshots show ended subscriptions and authorizations. | Sum of step prices; quote exact input and options for the maximum price. |
 | `billing.plan.setup` | Create a plan after approval and read its limits and schedule back. | Sum of step prices; quote exact input and options for the maximum price. |
 | `billing.portal.send` | Create a short-lived billing portal link and leave it as an approved email draft. | Sum of step prices; quote exact input and options for the maximum price. |
-| `borrow.rates.compare` | Compare reported borrowing rates for an exact pool token name within the markets read. | Sum of step prices; quote exact input and options for the maximum price. |
+| `borrow.rates.compare` | Compare reported borrowing rates for an exact pool token name within the markets read. For the lending markets themselves use crypto.borrow.markets, or crypto.borrow.pools for borrowing costs per asset. | Sum of step prices; quote exact input and options for the maximum price. |
 | `bridge.compare` | Compare bridge volume rankings with separate chain-wide daily token figures. | Sum of step prices; quote exact input and options for the maximum price. |
 | `card.on-file.manage` | List masked customer cards and add or remove one after approval. | Sum of step prices; quote exact input and options for the maximum price. |
 | `cashflow.report` | Request or resume holder consent, fetch authorized bank data and report exact monthly inflows and outflows from the transactions read. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -1211,14 +1216,14 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `ewaybill.cancel` | Read an owned e-way bill, approve cancellation and confirm its state. | Sum of step prices; quote exact input and options for the maximum price. |
 | `ewaybill.consolidate` | Check each owned active way bill, then create one consolidated trip after approval. | Sum of step prices; quote exact input and options for the maximum price. |
 | `ewaybill.issue` | Issue an approved shipment way bill and read its parties, document and state back. | Sum of step prices; quote exact input and options for the maximum price. |
-| `ewaybill.update` | Change an owned bill's vehicle or extend its validity after approval, then read it back. | Sum of step prices; quote exact input and options for the maximum price. |
+| `ewaybill.update` | Change an owned bill's vehicle or extend its validity after approval, then read it back. india.gst.ewaybill.vehicle.update is the bare update call. | Sum of step prices; quote exact input and options for the maximum price. |
 | `exchange.price.compare` | Compare the same spot pair across requested exchanges with separate quotes and depth. | Sum of step prices; quote exact input and options for the maximum price. |
 | `expenses.categorize` | A list of card descriptors turned into merchants and spending categories. | Sum of step prices; quote exact input and options for the maximum price. |
 | `financials.compare` | Income, balance sheet, cash flow and ratios for two or more tickers in one table. | Sum of step prices; quote exact input and options for the maximum price. |
 | `fx.convert` | Show an executable quote, convert after approval bound to that quote, then read the conversion status. | Sum of step prices; quote exact input and options for the maximum price. |
 | `fx.cost.compare` | Compare an executable quote's principal and separately quoted fees with central bank and market readings, without moving money. | Sum of step prices; quote exact input and options for the maximum price. |
 | `fx.history.report` | Report daily central bank and market readings over at most 14 days, with computed sample ranges and optional premium intervals. | Sum of step prices; quote exact input and options for the maximum price. |
-| `gst.einvoice.cancel` | Read the expected invoice, cancel it after approval, then confirm its state. | Sum of step prices; quote exact input and options for the maximum price. |
+| `gst.einvoice.cancel` | Read the expected invoice, cancel it after approval, then confirm its state. india.gst.einvoice.cancel is the bare cancel call without these steps. | Sum of step prices; quote exact input and options for the maximum price. |
 | `gst.einvoice.issue` | Register one approved legal invoice, then read its state and signed QR. | Sum of step prices; quote exact input and options for the maximum price. |
 | `gst.gstr1.file` | Prepare GSTR1 for review, then file the unchanged reviewed summary with a fresh code and approval. | Sum of step prices; quote exact input and options for the maximum price. |
 | `gst.gstr3b.file` | Prepare GSTR3B for review, then file the unchanged reviewed summary with a fresh code and approval. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -1234,7 +1239,7 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `invoice.process` | Check a USD invoice against its document text and owned active vendor, compare calculated US sales tax, and optionally book its approved bill. | Sum of step prices; quote exact input and options for the maximum price. |
 | `invoice.vat.audit` | Check invoice arithmetic, the exact VAT registration and the stated percentage against standard country rates. | Sum of step prices; quote exact input and options for the maximum price. |
 | `ipo.brief` | Dated public registration filings with caller-mapped company filings and exchange context. | Sum of step prices; quote exact input and options for the maximum price. |
-| `mandate.revoke` | Find an owned recurring-debit authorization, revoke it after approval and read its state back. | Sum of step prices; quote exact input and options for the maximum price. |
+| `mandate.revoke` | Find an owned recurring-debit authorization, revoke it after approval and read its state back. payments.mandate.revoke is the bare revoke call with no lookup and no read-back. | Sum of step prices; quote exact input and options for the maximum price. |
 | `mandate.setup` | Register existing recurring-debit consent after approval, then read its reported authorization state. | Sum of step prices; quote exact input and options for the maximum price. |
 | `market.hiring.compare` | Compare employer-matched open role samples by function and place, with separate workforce histories and honest unknown seniority. | Sum of step prices; quote exact input and options for the maximum price. |
 | `market.map` | Companies in a segment, each profiled and sorted into named groups by a model. | Sum of step prices; quote exact input and options for the maximum price. |
@@ -1283,11 +1288,11 @@ Setup and shared safety rules: https://www.pramaan.dev/skill.md
 | `statement.affordability.report` | Read statement income, observed repayments, recurring transactions and expenses without an affordability verdict. | Sum of step prices; quote exact input and options for the maximum price. |
 | `statement.income.verify` | Read income and integrity facts from uploaded statements with the person's agreement. | Sum of step prices; quote exact input and options for the maximum price. |
 | `stock.brief` | A ticker's latest price, recent daily closes and news, with a factual summary that is withheld when it reads as advice. | Sum of step prices; quote exact input and options for the maximum price. |
-| `stocks.screen` | Tickers matching valuation and size criteria with the figures that qualified them. | Sum of step prices; quote exact input and options for the maximum price. |
-| `subscription.charge.once` | Charge an active owned subscription after checking the caller-named authorisation and obtaining approval. | Sum of step prices; quote exact input and options for the maximum price. |
+| `stocks.screen` | Tickers matching valuation and size criteria with the figures that qualified them. For a screen with your own filters use stocks.screener.run. | Sum of step prices; quote exact input and options for the maximum price. |
+| `subscription.charge.once` | Charge an active owned subscription after checking the caller-named authorisation and obtaining approval. billing.subscription-charge.create is the bare charge call without these checks. | Sum of step prices; quote exact input and options for the maximum price. |
 | `subscription.pause` | Pause or reactivate an owned subscription after approval and confirm its state. | Sum of step prices; quote exact input and options for the maximum price. |
 | `subscription.plan.change` | Show existing and proposed recurring amounts, approve one plan or quantity change and read it back. | Sum of step prices; quote exact input and options for the maximum price. |
-| `subscription.start` | Choose exact recurring catalogue terms, create an approved subscription and read it back. | Sum of step prices; quote exact input and options for the maximum price. |
+| `subscription.start` | Choose exact recurring catalogue terms, create an approved subscription and read it back. For the single create call without the terms check and read-back use billing.subscription.create. | Sum of step prices; quote exact input and options for the maximum price. |
 | `tax.quote` | Tax due on one goods subtotal, checked against the order currency and destination, after approval. | Sum of step prices; quote exact input and options for the maximum price. |
 | `token.flow.trace` | Sample token transfers, top recipients, exchange swaps and hash-checked transaction details without inferring ownership. | Sum of step prices; quote exact input and options for the maximum price. |
 | `token.risk.report` | Token holder shares, ticker-based unlocks and sales, protocol usage and mechanically listed observations. | Sum of step prices; quote exact input and options for the maximum price. |
