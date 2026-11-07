@@ -39,6 +39,10 @@ Templates are screens, not superpowers or missions; don't call them either.
 
 delve, leverage, seamless, robust, unlock, empower, elevate, harness, navigate the landscape, in today's fast-paced world, it's worth noting, game-changer, revolutionize, cutting-edge, supercharge, "not just X, but Y", "Whether you're A or B", em-dash chains, a closing "In conclusion".
 
+## Tables
+
+Write tables as HTML (`<table>`, `<tr>`, `<td>`). Markdown pipe tables don't render: the site turns GFM off so legal pages stay exactly as written.
+
 ## Links every post may use
 
 - Superpowers: https://www.pramaan.dev/superpowers

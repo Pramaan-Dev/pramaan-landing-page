@@ -141,7 +141,10 @@
 .post__body ul, .post__body ol { padding-left: 24px; } .post__body ul { list-style: disc; } .post__body ol { list-style: decimal; }
 .post__body a { text-decoration: underline; text-underline-offset: 3px; }
 .post__body pre { font-family: var(--font-mono); font-size: 14px; line-height: 1.6; padding: 16px; border: 1px solid var(--color-ash); border-radius: 16px; overflow-x: auto; }
-@media (max-width: 600px) { .post__body { font-size: 18px; line-height: 27px; } }
+.post__body table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 24px; }
+.post__body th { text-align: left; font-weight: 500; }
+.post__body th, .post__body td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--color-ash); vertical-align: top; }
+@media (max-width: 600px) { .post__body { font-size: 18px; line-height: 27px; } .post__body table { display: block; overflow-x: auto; } }
 
 /* Blog index (Monad style): two big cards, then a three-column grid */
 .posts { padding: 48px 0 96px; display: flex; flex-direction: column; gap: 48px; }
