@@ -15,7 +15,7 @@ The [go-to-market skills library](/skills) now has 418 skills from 84 authors, a
 
 ## What is a go-to-market skill?
 
-A skill is a set of instructions your agent reads before it starts a job: how a senior SDR writes a cold email, how a media buyer audits a Google Ads account, how a RevOps lead cleans a CRM. The skills in the library were written by the people who do that work.
+A skill is a set of instructions your agent reads before it starts a job: how a senior sales rep writes a cold email, how a media buyer audits a Google Ads account, how a RevOps lead cleans a CRM. The skills in the library were written by the people who do that work.
 
 On its own, a skill tells the agent what to do. It can't look up a company, find an email or pull your ad spend. That is the part Pramaan adds.
 
@@ -33,7 +33,7 @@ Here is the map for [The cold email strategist](/skills/gtm/cold-email-strategis
 3. **Deliverability: list quality** with `people.email.verify` and `email.list.hygiene`. Verify one address, or clean a whole list.
 4. **Send** with `email.send` or `email.send-bulk`. One email, or up to 100 separate emails as a job.
 
-The map is honest about limits. That skill says plainly that DMARC and DKIM aren't checked, and that subject lines, copy review and warmup advice are the agent's own job.
+The map also says what Pramaan doesn't do. That skill notes that DMARC and DKIM aren't checked, and that subject lines, copy review and warmup advice are the agent's own job.
 
 ## How do I add a skill to my agent?
 
