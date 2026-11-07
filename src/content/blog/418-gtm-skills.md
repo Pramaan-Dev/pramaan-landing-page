@@ -4,7 +4,7 @@ description: "418 GTM skills from 84 authors, each mapped to the Pramaan superpo
 author: "Pramaan"
 date: 2026-11-06
 audience: developers
-draft: true
+draft: false
 og:
   tag: "Agent skills"
   code: "npx skills add Pramaan-OSS/skills --skill cold-email-strategist"

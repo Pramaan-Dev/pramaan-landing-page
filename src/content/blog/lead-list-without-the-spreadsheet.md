@@ -4,7 +4,7 @@ description: "For sales leads and founders: describe the people you want to reac
 author: "Pramaan"
 date: 2026-11-06
 audience: business
-draft: true
+draft: false
 og:
   tag: "For sales teams"
   ask: "Find heads of sales at fintechs in London"
