@@ -4,7 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import BlogBand from '../../components/BlogBand.astro';
-import { posts, coverOf, fmtDate } from '../../lib/blog.mjs';
+import { posts, fmtDate } from '../../lib/blog.mjs';
 const list = await posts();
 const [lead, ...rest] = list;
 const forAud = (a) => list.filter((p) => p.data.audience === a || p.data.audience === 'everyone');
@@ -42,7 +42,7 @@ const ROWS = [
             </div>
             {rest.slice(0, 3).map((p) => (
               <a class="bl-mini" href={`/blog/${p.id}`}>
-                <div class={`cover cover--${coverOf(p.id)} bl-cover`} aria-hidden="true"><span class="bl-cover__t">{p.data.title}</span></div>
+                <img class="bl-og" src={`/og/blog/${p.id}.png`} alt="" width="1200" height="630" loading="lazy" />
                 <span><span class="pcard__meta">{fmtDate(p.data.date)}</span><b>{p.data.title}</b><span class="bl-by" style="margin-top:8px"><span class="bl-av bl-av--sm">P</span>{p.data.author}</span></span>
               </a>
             ))}
