@@ -37,7 +37,7 @@ The API is live; `@pramaan/mcp`, `@pramaan/sdk` and `@pramaan/cli` are on npm.
 
 ## Search first, every time
 
-1. **Search the catalogue.** Search about 3,600 superpowers with `list_capabilities` and a
+1. **Search the catalogue.** Search about 10,000 superpowers with `list_capabilities` and a
    focused `query`, or list missions. Filter by namespace (`web`, `email`, `voice`).
 2. **Read the schema.** Describe the match. Never guess a field.
 3. **Quote.** Call `quote` with the exact input. Check `can_run`, show `price_max_micro`,

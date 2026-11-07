@@ -49,7 +49,7 @@ function checkLlms() {
 
 if (process.argv[2] === '--check') { checkLlms(); process.exit(0); }
 
-const DEPLOYED = 'c7cef6e3e'; // live API commit, 2026-11-06 (from the orchestrator)
+const DEPLOYED = 'cb181efcd'; // live API commit, 2026-11-07 (from the orchestrator)
 const REF = process.env.SKILLS_REF || DEPLOYED;
 const lab = resolve(root, process.argv[2] ?? '../capabilities-lab');
 const show = (path) => execFileSync('git', ['-C', lab, 'show', `${REF}:${path}`], { encoding: 'utf8', maxBuffer: 64 << 20 });
