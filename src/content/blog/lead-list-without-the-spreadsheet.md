@@ -5,6 +5,10 @@ author: "Pramaan"
 date: 2026-11-06
 audience: business
 draft: true
+og:
+  tag: "Playbook"
+  ask: "Find heads of sales at fintechs in London"
+  done: "List ready, drafts in your inbox"
 ---
 
 If you run sales or you're a founder doing your own outbound, you know the week. A spreadsheet, ten browser tabs, and a lot of copying before a single email goes out. With Pramaan you describe the people you want to reach, see how many match before you pay for them, and get back a list with work emails and a first draft for each person, waiting in your own inbox.

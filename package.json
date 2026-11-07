@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-hidden.mjs && node scripts/sync-skills.mjs --check",
+    "build": "node scripts/check-og.mjs && astro build && node scripts/check-hidden.mjs && node scripts/sync-skills.mjs --check",
+    "og": "node scripts/og-images.mjs",
     "preview": "astro preview",
     "check:urls": "node scripts/url-parity.mjs"
   },
@@ -13,5 +14,8 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.4.4"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
   }
 }

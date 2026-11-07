@@ -5,6 +5,10 @@ author: "Pramaan"
 date: 2026-11-06
 audience: developers
 draft: true
+og:
+  tag: "Agent skills"
+  code: "npx skills add Pramaan-OSS/skills --skill cold-email-strategist"
+  note: "418 skills · 84 authors"
 ---
 
 The [go-to-market skills library](/skills) now has 418 skills from 84 authors, and every one comes with a map of the Pramaan superpowers and missions that run it. Add a skill to your agent with one line. When you ask the agent to run it, the agent uses Pramaan for the data, drafts and sends, and does the thinking itself.

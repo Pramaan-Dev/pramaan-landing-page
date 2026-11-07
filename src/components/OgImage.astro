@@ -1,0 +1,10 @@
+---
+// Share image tags. The PNG is made by scripts/og-images.mjs; scripts/check-og.mjs fails the build if it is missing.
+const { kind, id } = Astro.props;
+const src = `https://www.pramaan.dev/og/${kind}/${id}.png`;
+---
+<meta property="og:image" content={src} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={src} />

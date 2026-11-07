@@ -21,6 +21,9 @@ const blog = defineCollection({
     date: z.coerce.date(),
     audience,
     draft: z.boolean().default(false),
+    // Share image (scripts/og-images.mjs): `tag` top right; `ask` + `done` draw the ask-to-done flow,
+    // `code` + `note` draw a command box. Neither: the description in one card.
+    og: z.object({ tag: z.string().optional(), ask: z.string().optional(), done: z.string().optional(), code: z.string().optional(), note: z.string().optional() }).default({}),
   }),
 });
 

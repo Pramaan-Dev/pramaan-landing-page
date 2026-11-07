@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
+import OgImage from '../../components/OgImage.astro';
 import { posts, fmtDate, coverOf, metaLine } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
@@ -28,6 +29,7 @@ const ld = JSON.stringify({
     <meta property="og:title" content={p.data.title} />
     <meta property="og:description" content={p.data.description} />
     <meta property="og:url" content={url} />
+    <OgImage kind="blog" id={p.id} />
     <script is:inline type="application/ld+json" set:html={ld}></script>
     <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />

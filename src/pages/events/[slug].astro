@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
+import OgImage from '../../components/OgImage.astro';
 import { events, split, isPast, fmtWhen, FORMAT, eventMd } from '../../lib/events.mjs';
 import { coverOf } from '../../lib/blog.mjs';
 
@@ -36,6 +37,7 @@ const ld = JSON.stringify({
     <meta property="og:title" content={e.data.title} />
     <meta property="og:description" content={e.data.description} />
     <meta property="og:url" content={url} />
+    <OgImage kind="events" id={e.id} />
     <script is:inline type="application/ld+json" set:html={ld}></script>
     <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />
