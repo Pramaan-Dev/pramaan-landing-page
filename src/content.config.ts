@@ -21,9 +21,12 @@ const blog = defineCollection({
     date: z.coerce.date(),
     audience,
     draft: z.boolean().default(false),
-    // Share image (scripts/og-images.mjs): `tag` top right; `ask` + `done` draw the ask-to-done flow,
-    // `code` + `note` draw a command box. Neither: the description in one card.
-    og: z.object({ tag: z.string().optional(), ask: z.string().optional(), done: z.string().optional(), code: z.string().optional(), note: z.string().optional() }).default({}),
+    // Share image (scripts/og-images.mjs): `tag` top right; `steps` draws a how-to's first steps, `ask` + `done` the
+    // ask-to-done flow, `code` + `note` a command box. None of them: the description in one card.
+    og: z.object({
+      tag: z.string().optional(), steps: z.array(z.string()).optional(), ask: z.string().optional(), done: z.string().optional(),
+      code: z.string().optional(), note: z.string().optional(),
+    }).default({}),
   }),
 });
 
@@ -40,6 +43,8 @@ const events = defineCollection({
     registerUrl: z.string().url().optional(),
     host: z.string().default('Pramaan'),
     speakers: z.array(person).default([]),
+    // Recording, shown once the event is over: `url` (video page or file), `still` (a frame, for the share image), `length` ("42 min").
+    replay: z.object({ url: z.string(), still: z.string().optional(), length: z.string().optional() }).optional(),
     audience,
     draft: z.boolean().default(false),
   }),

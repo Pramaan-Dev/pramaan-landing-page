@@ -26,4 +26,4 @@ export const eventIcs = (e) => [
 ].join('\r\n');
 export const FORMAT = { online: 'Online', 'in-person': 'In person', hybrid: 'Online and in person' };
 export const eventMd = (e) =>
-  `# ${e.data.title}\n\nWhen: ${fmtWhen(e)}\nWhere: ${FORMAT[e.data.format]}, ${e.data.location}\nHost: ${e.data.host}\n${e.data.registerUrl ? `Register: ${e.data.registerUrl}\n` : ''}\n${e.body}\n`;
+  `# ${e.data.title}\n\nWhen: ${fmtWhen(e)}\nWhere: ${FORMAT[e.data.format]}, ${e.data.location}\nHost: ${e.data.host}\n${e.data.registerUrl ? `Register: ${e.data.registerUrl}\n` : ''}${isPast(e) && e.data.replay ? `Replay: ${new URL(e.data.replay.url, 'https://www.pramaan.dev')}\n` : ''}\n${e.body}\n`;

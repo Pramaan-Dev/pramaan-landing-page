@@ -21,9 +21,11 @@ const nb = (t) => t.replace(/-/g, '‑'); // keep go-to-market on one line
 const short = (t) => t.split(': ')[0];
 const london = (o) => d.start.toLocaleString('en-GB', { timeZone: 'Europe/London', ...o });
 // [left glow, right glow] per kind, from the home page washes.
-const W = { blog: ['255,148,115', '160,181,235'], events: ['255,148,115', '236,218,152'], guides: ['236,218,152', '167,252,205'] }[kind];
+const W = kind === 'blog' && d.og.steps ? ['167,252,205', '160,181,235'] // how-tos: mint
+  : { blog: ['255,148,115', '160,181,235'], events: ['255,148,115', '236,218,152'], guides: ['236,218,152', '167,252,205'] }[kind];
 const past = kind === 'events' && isPast(entry);
-const tag = { blog: d.og?.tag ?? 'Blog', events: past ? 'Past event' : 'Live event', guides: TYPE[d.type] }[kind];
+const replay = past && d.replay;
+const tag = { blog: d.og?.tag ?? 'Blog', events: replay ? 'Replay' : past ? 'Past event' : 'Live event', guides: TYPE[d.type] }[kind];
 const title = kind === 'guides' ? short(d.title) : d.title;
 ---
 <!doctype html>
@@ -55,6 +57,15 @@ const title = kind === 'guides' ? short(d.title) : d.title;
     .og__step .og__small { font-size: 14px; }
     .og__step--last { border-color: var(--color-off-black); }
     .og__then { padding: 2px 12px; border: 1px solid var(--color-ash); border-radius: 999px; background: var(--color-parchment); font-size: 12px; text-transform: uppercase; color: var(--color-graphite); }
+    .og__more { padding: 10px 20px; border-radius: 999px; background: var(--color-off-black); color: var(--color-parchment); font-size: 15px; text-transform: uppercase; }
+    /* Replay: a still from the video when there is one, the glow otherwise */
+    .og__video { aspect-ratio: 4 / 3; border-radius: 24px; border: 1px solid var(--color-ash); background: rgba(246,243,241,.6) center / cover; position: relative; display: grid; place-items: center; overflow: hidden; }
+    .og__video::before { content: ''; position: absolute; inset: 20% 15%; border-radius: 50%; background: radial-gradient(circle, rgba(167,252,205,.9), rgba(160,181,235,.5)); filter: blur(40px); }
+    .og__video.has-still::before { inset: 0; border-radius: 0; filter: none; background: linear-gradient(to top, rgba(36,36,36,.45), transparent 45%); }
+    .og__play { position: relative; width: 96px; height: 96px; border-radius: 50%; background: var(--color-off-black); display: grid; place-items: center; }
+    .og__play::before { content: ''; border-left: 30px solid var(--color-parchment); border-top: 18px solid transparent; border-bottom: 18px solid transparent; margin-left: 8px; }
+    .og__len { position: absolute; left: 20px; bottom: 18px; font-size: 15px; text-transform: uppercase; }
+    .has-still .og__len { color: #fff; }
     /* Command box (home hero "Just ask") */
     .og__install { display: flex; flex-direction: column; gap: 14px; align-items: center; }
     .og__box { width: 100%; box-sizing: border-box; padding: 18px 24px; border: 1px solid var(--color-ash); border-radius: 20px; background: rgba(246,243,241,.95); font-size: 18px; line-height: 1.45; }
@@ -86,7 +97,12 @@ const title = kind === 'guides' ? short(d.title) : d.title;
       {kind === 'guides' && <p class="og__line">{d.description}</p>}
     </div>
     <div class="og__r">
-      {kind === 'blog' && (d.og.code ? (
+      {kind === 'blog' && (d.og.steps ? (
+        <div class="og__flow">
+          {d.og.steps.slice(0, 2).map((s, i) => <><div class="og__step"><span class="og__small">Step {String(i + 1).padStart(2, '0')}</span><span>{s}</span></div><span class="og__then">Then</span></>)}
+          {d.og.steps.length > 2 ? <span class="og__more">+{d.og.steps.length - 2} more steps</span> : <span class="og__more">Done</span>}
+        </div>
+      ) : d.og.code ? (
         <div class="og__install">
           <span class="og__small">Try it</span>
           <div class="og__box"><em>$</em>{d.og.code.split(' --')[0]}{d.og.code.split(' --').slice(1).map((p) => <><br />&nbsp;&nbsp;--{p}</>)}</div>
@@ -101,7 +117,12 @@ const title = kind === 'guides' ? short(d.title) : d.title;
       ) : (
         <div class="og__flow"><div class="og__step og__step--last"><span class="og__small">In this post</span><span>{d.description}</span></div></div>
       ))}
-      {kind === 'events' && (
+      {replay && (
+        <div class={`og__video${d.replay.still ? ' has-still' : ''}`} style={d.replay.still ? `background-image:url(${d.replay.still})` : undefined}>
+          <span class="og__play"></span>{d.replay.length && <span class="og__len">{d.replay.length}</span>}
+        </div>
+      )}
+      {kind === 'events' && !replay && (
         <div class="og__ok">
           <small>{FORMAT[d.format]} · {AUDIENCE[d.audience]}</small>
           <b>{london({ weekday: 'short', day: 'numeric', month: 'short' })}</b>

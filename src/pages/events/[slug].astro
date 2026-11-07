@@ -75,7 +75,9 @@ const ld = JSON.stringify({
               <div><dt>Host</dt><dd>{e.data.host}</dd></div>
             </dl>
             {past
-              ? <p class="caption">This event has ended.</p>
+              ? e.data.replay
+                ? <a class="btn btn--blue" href={e.data.replay.url}>Watch the replay <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>
+                : <p class="caption">This event has ended.</p>
               : <>
                   {e.data.registerUrl && <a class="btn btn--blue" href={e.data.registerUrl}>Save my seat <span class="btn__arrow" aria-hidden="true">&#9656;</span></a>}
                   <a class="evx__cal" href={`/events/${e.id}.ics`} download>Add to calendar</a>

@@ -5,6 +5,9 @@ start: 2026-10-15T17:30:00Z
 end: 2026-10-15T19:30:00Z
 format: in-person
 location: "66 Paul St, London EC2A 4NA"
+replay:
+  url: "/media/watch-it-work-v2.mp4"
+  still: "/media/watch-it-work-v2.jpg"
 draft: true
 ---
 
