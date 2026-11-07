@@ -27,7 +27,7 @@ Read `docs/blog/VOICE.md` first. It wins over anything below.
 - Structure, 800-1,200 words:
   1. **The job, in their words**: the task and why it eats their week. 2-3 short paragraphs.
   2. **What changes with Pramaan**: answer first, one paragraph.
-  3. **Walk-through**: the ask in plain words, then each step Pramaan takes, using the "You ask / Pramaan plans / picks the tools / asks your OK / done, with proof" shape. Name the mission once, linked to its page.
+  3. **Walk-through**: the ask in plain words, then each step Pramaan takes, using the "You ask / Pramaan plans / picks the tools / asks for approval / done, with proof" shape. Name the mission once, linked to its page.
   4. **Staying in control**: what needs their approval (messages, payments) and what it costs (prepaid, pay per use). No invented prices.
   5. **3 more things your team can ask for**: 3 one-line asks, each mapped to a real mission.
   6. **FAQ**: 3-5 questions a non-technical buyer asks ("Do I need a developer?", "Is my data safe?"). Short answers.

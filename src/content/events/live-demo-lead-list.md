@@ -21,7 +21,7 @@ Dummy event for checking the layout. Events are Markdown files in `src/content/e
 
 1. Ask for 50 heads of sales at fintech companies in London, in plain words.
 2. Watch the agent build the list, find work emails and clean out bad ones.
-3. Draft a first email to each person, and stop for your OK before anything is sent.
+3. Draft a first email to each person, and wait for your approval before anything is sent.
 
 ## Who it's for
 

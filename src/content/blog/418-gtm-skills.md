@@ -77,9 +77,9 @@ A few to start with:
 
 ## What happens when a skill wants to send something?
 
-It stops and asks. 68 of the 418 skills include a step that sends, posts or spends, such as `email.send` or `linkedin.invitation.send`. Each skill page lists those steps under "Needs approval".
+It waits for your approval. 68 of the 418 skills include a step that sends, posts or spends, such as `email.send` or `linkedin.invitation.send`. Each skill page lists those steps under "Needs approval".
 
-When the agent reaches one of those steps, Pramaan returns `approval_required` instead of running it. The agent has to show you the exact inputs and the price, and get your yes, before it can try again. One yes covers one call.
+When the agent reaches one of those steps, Pramaan returns `approval_required` instead of running it. The agent has to show you the exact inputs and the price, and get your approval before it can try again. One approval covers one call.
 
 ## What does it cost?
 

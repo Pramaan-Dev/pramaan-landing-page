@@ -4,7 +4,7 @@ Every post, business or developer, follows this file. The two workflows in `.cla
 
 ## Who we are, in one line
 
-Pramaan lets you or your AI agent get real work done (research, messages, payments, data) by asking in plain words, with your OK before anything that matters.
+Pramaan lets you or your AI agent get real work done (research, messages, payments, data) by asking in plain words, with your approval before anything that matters.
 
 ## Words we use
 
@@ -12,7 +12,7 @@ Pramaan lets you or your AI agent get real work done (research, messages, paymen
 |---|---|
 | superpower: one action, like `web.search` or `email.send` | tool, endpoint, capability, recipe |
 | mission: a multi-step job under one business name, like `company.research` | workflow, recipe, playbook |
-| "asks your OK", "waits for your approval" | human-in-the-loop, HITL |
+| "Needs approval", "waits for your approval" | human-in-the-loop, HITL, "your OK", "your yes", "stops and asks" |
 | "your agent" | the LLM, the model |
 | prepaid balance | credits, tokens |
 

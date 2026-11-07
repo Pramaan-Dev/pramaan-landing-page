@@ -39,7 +39,7 @@ You describe the list once, in plain words, and Pramaan runs the jobs in order. 
 
 ## How do I stay in control?
 
-Every email in this flow stays a draft in your inbox. Pramaan does not send messages, place calls, move money or delete anything without your explicit yes.
+Every email in this flow stays a draft in your inbox. Pramaan does not send messages, place calls, move money or delete anything without your approval.
 
 You also control the spend. Pramaan runs on a prepaid balance. The count is shown before the export, the export stops at the number you chose, and you only pay for what runs.
 

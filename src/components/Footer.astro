@@ -51,6 +51,6 @@ const ctaHref = home ? '#start' : '/#start';
   <nav data-slot="links" data-title="More">{more.map(([h, t]) => <a href={h}>{t}</a>)}</nav>
   <span data-slot="status" data-caption="Early access">Open</span>
   <span data-slot="count" data-value={count}>{countLabel}</span>
-  <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your OK.</p>
+  <p data-slot="blurb">Ask in plain words. Pramaan picks the right tool, does the job and keeps a record of every step. Messages and payments wait for your approval.</p>
   <p data-slot="legal">{legalLinks.map(([h, t]) => <a href={h}>{t}</a>)}</p>
 </ticket-stub-footer>
