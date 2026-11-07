@@ -1,0 +1,16 @@
+---
+// Blog card: branded cover (mark, reader, title, label), then date, title, summary, author.
+import { coverOf, fmtDate, minutes, AUD } from '../lib/blog.mjs';
+const { p, big = false } = Astro.props;
+---
+<a class={`pcard bl-card${big ? ' pcard--big' : ''}`} href={`/blog/${p.id}`}>
+  <div class={`pcard__cover cover cover--${coverOf(p.id)} bl-cover`} aria-hidden="true">
+    <small>{'{·}'} Pramaan | {AUD[p.data.audience]}</small>
+    <span class="bl-cover__t">{p.data.title}</span>
+    {p.data.og.tag ? <span class="bl-cover__c">{p.data.og.tag}</span> : <span></span>}
+  </div>
+  <span class="pcard__meta">{fmtDate(p.data.date)} | {minutes(p)} min read</span>
+  <b class="pcard__title">{p.data.title}</b>
+  <span class="pcard__sub bl-clamp">{p.data.description}</span>
+  <span class="bl-by"><span class="bl-av bl-av--sm">P</span>{p.data.author}</span>
+</a>

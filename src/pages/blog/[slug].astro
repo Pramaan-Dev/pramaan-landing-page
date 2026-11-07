@@ -4,7 +4,9 @@ import Base from '../../layouts/Base.astro';
 import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
 import OgImage from '../../components/OgImage.astro';
-import { posts, fmtDate, coverOf, metaLine } from '../../lib/blog.mjs';
+import BlogCard from '../../components/BlogCard.astro';
+import BlogBand from '../../components/BlogBand.astro';
+import { posts, fmtDate, minutes, AUD } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
   const all = await posts();
@@ -12,7 +14,8 @@ export async function getStaticPaths() {
 }
 const { p, related } = Astro.props;
 const md = `# ${p.data.title}\n\n${p.data.author}, ${fmtDate(p.data.date)}\n\n${p.body}\n`;
-const { Content } = await render(p);
+const { Content, headings } = await render(p);
+const toc = headings.filter((h) => h.depth === 2);
 const url = `https://www.pramaan.dev/blog/${p.id}`;
 const ld = JSON.stringify({
   '@context': 'https://schema.org',
@@ -23,7 +26,7 @@ const ld = JSON.stringify({
   ],
 }).replace(/</g, '\\u003c');
 ---
-<Base title={`${p.data.title} | Pramaan`} description={p.data.description} canonical={url} footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+<Base title={`${p.data.title} | Pramaan`} description={p.data.description} canonical={url} footerProps={{ variant: 'catalogue', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
     <meta property="og:type" content="article" />
     <meta property="og:title" content={p.data.title} />
@@ -33,34 +36,56 @@ const ld = JSON.stringify({
     <script is:inline type="application/ld+json" set:html={ld}></script>
     <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/blog.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
   <main>
     <div class="container">
       <ViewToggle />
-      <article class="post" data-human-view>
-        <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/blog">Blog</a> / <span>{p.data.title}</span></nav>
-        <span class="post__meta">{metaLine(p)}</span>
-        <h1>{p.data.title}</h1>
-        <div class="post__body"><Content /></div>
-      </article>
-      <AgentView md={md} url={url} />
-      {related.length > 0 && (
-        <section class="related" data-human-view>
-          <h2>Related posts</h2>
-          <div class="posts__grid">
-            {related.map((r) => (
-              <a class="pcard" href={`/blog/${r.id}`}>
-                <div class={`pcard__cover cover cover--${coverOf(r.id)}`} aria-hidden="true"></div>
-                <span class="pcard__meta">{metaLine(r)}</span>
-                <b class="pcard__title">{r.data.title}</b>
-                <span class="pcard__more">Read more</span>
-              </a>
-            ))}
-          </div>
+      <div data-human-view>
+        <section class="bl-ahead">
+          <nav class="detail__crumbs" aria-label="Breadcrumb" style="justify-content:center"><a href="/blog">Blog</a> / <span>{p.data.og.tag ?? AUD[p.data.audience]}</span></nav>
+          <h1>{p.data.title}</h1>
+          <div class="bl-ahead__by"><span class="bl-by"><span class="bl-av bl-av--sm">P</span>{p.data.author}</span><span class="caption">{fmtDate(p.data.date)}</span><span class="caption">{minutes(p)} min read</span></div>
         </section>
-      )}
+        <div class="bl-art">
+          <aside class="bl-art__side">
+            {toc.length > 1 && <>
+              <h2 class="bl-h3">Table of contents</h2>
+              <ul class="bl-toc">{toc.map((h, i) => <li><a href={`#${h.slug}`}>{i + 1}. {h.text}</a></li>)}</ul>
+            </>}
+            <h2 class="bl-h3" style="margin-top:40px">Share article</h2>
+            <div class="bl-share">
+              <a href={url} data-copy={url} aria-label="Copy link">&#10697;</a>
+              <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Share on LinkedIn">in</a>
+              <a href={`https://x.com/intent/post?url=${encodeURIComponent(url)}&text=${encodeURIComponent(p.data.title)}`} target="_blank" rel="noopener" aria-label="Share on X">X</a>
+            </div>
+            <a class="btn btn--blue" href="/#start" style="margin-top:24px;align-self:flex-start">Get early access</a>
+          </aside>
+          <article class="bl-art__main">
+            <div class="bl-tldr"><span class="eyebrow bl-bracket">In this article</span><p>{p.data.description}</p></div>
+            <div class="post__body"><Content /></div>
+            <div class="bl-author bl-box"><span class="bl-av">P</span><div><b class="bl-h3">{p.data.author}</b><p class="bl-sub">We build Pramaan, the API that lets AI agents do real work: one key, one bill, and your approval before anything is sent or paid.</p></div></div>
+          </article>
+        </div>
+        {related.length > 0 && (
+          <section class="bl-row">
+            <div class="bl-row__head"><div><span class="eyebrow bl-bracket">Keep reading</span><h2 class="bl-h2">More articles</h2></div><a class="btn btn--ghost" href="/blog">All articles</a></div>
+            <div class="posts__grid bl-grid">{related.map((r) => <BlogCard p={r} />)}</div>
+          </section>
+        )}
+      </div>
+      <AgentView md={md} url={url} />
     </div>
+    <div data-human-view><BlogBand /></div>
   </main>
+  <script is:inline slot="foot">
+    // Copy-link button: copy instead of navigating; a tick for 1.5 s.
+    document.querySelectorAll('[data-copy]').forEach((a) => a.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await navigator.clipboard.writeText(a.dataset.copy);
+      a.textContent = '✓'; setTimeout(() => (a.textContent = '⧉'), 1500);
+    }));
+  </script>
 </Base>

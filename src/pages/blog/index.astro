@@ -1,52 +1,63 @@
 ---
+// Blog hub (ColdIQ's structure in Pramaan's look): heading, section links, featured post with the next three,
+// one row per section, dark closing band. Rows with no posts are left out.
 import Base from '../../layouts/Base.astro';
-import { posts, coverOf, metaLine } from '../../lib/blog.mjs';
+import BlogCard from '../../components/BlogCard.astro';
+import BlogBand from '../../components/BlogBand.astro';
+import { posts, coverOf, fmtDate } from '../../lib/blog.mjs';
 const list = await posts();
-const big = list.slice(0, 2), rest = list.slice(2);
+const [lead, ...rest] = list;
+const forAud = (a) => list.filter((p) => p.data.audience === a || p.data.audience === 'everyone');
+const ROWS = [
+  { id: 'guides', name: 'Guides', blurb: 'Step by step, start to finish.', items: list.filter((p) => p.data.og.steps) },
+  { id: 'business', name: 'For business teams', blurb: 'Jobs you can hand to an agent, no code needed.', items: forAud('business') },
+  { id: 'developers', name: 'For developers', blurb: 'MCP, SDK and HTTP: build on Pramaan.', items: forAud('developers') },
+].filter((r) => r.items.length);
 ---
-<Base title="Blog | Pramaan" description="Notes from the Pramaan team." canonical="https://www.pramaan.dev/blog" footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+<Base title="Blog | Pramaan" description="How-tos, launches and notes from the Pramaan team on handing real work to AI agents." canonical="https://www.pramaan.dev/blog" footerProps={{ variant: 'catalogue', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
     <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/blog.css" />
     <link rel="alternate" type="application/rss+xml" title="Pramaan blog" href="/blog/rss.xml" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
   <main>
-    <section class="cat-hero">
-      <div class="container cat-hero__inner">
-        <h1 class="display">Blog</h1>
-        <p class="lead">Notes from the Pramaan team: what we ship, how agents use it, and what we learn along the way.</p>
-      </div>
-    </section>
     <div class="container">
-      <div class="posts">
-        {list.length === 0 && <p class="caption">No posts yet.</p>}
-        {big.length > 0 && (
-          <div class="posts__big">
-            {big.map((p) => (
-              <a class="pcard pcard--big" href={`/blog/${p.id}`}>
-                <div class={`pcard__cover cover cover--${coverOf(p.id)}`} aria-hidden="true"></div>
-                <span class="pcard__meta">{metaLine(p)}</span>
-                <b class="pcard__title">{p.data.title}</b>
-                <span class="pcard__sub">{p.data.description}</span>
-                <span class="pcard__more">Read more</span>
+      <section class="bl-hubhead">
+        <span class="eyebrow bl-bracket">Blog</span>
+        <h1>Pramaan's <em>Get Work Done</em> Hub</h1>
+        <p>How-tos, launches and notes on handing real work to AI agents.</p>
+      </section>
+      {list.length === 0 ? <p class="caption" style="text-align:center;padding:48px 0">No posts yet.</p> : <>
+        {ROWS.length > 1 && <nav class="bl-seg" aria-label="Sections"><a href="#top">All</a>{ROWS.map((r) => <a href={`#${r.id}`}>{r.name}</a>)}</nav>}
+        <section class="bl-feat" id="top">
+          <BlogCard p={lead} big />
+          <div class="bl-side">
+            <div class="bl-follow bl-box">
+              <span class="eyebrow bl-bracket" style="color:var(--color-lake-blue);margin:0">Follow the blog</span>
+              <b class="bl-h3">New posts by RSS</b>
+              <p class="bl-sub">Add the feed to your reader, or get early access and try what we write about.</p>
+              <div><a class="btn btn--ghost" href="/blog/rss.xml">RSS feed</a><a class="btn btn--blue" href="/#start">Get early access</a></div>
+            </div>
+            {rest.slice(0, 3).map((p) => (
+              <a class="bl-mini" href={`/blog/${p.id}`}>
+                <div class={`cover cover--${coverOf(p.id)} bl-cover`} aria-hidden="true"><span class="bl-cover__t">{p.data.title}</span></div>
+                <span><span class="pcard__meta">{fmtDate(p.data.date)}</span><b>{p.data.title}</b><span class="bl-by" style="margin-top:8px"><span class="bl-av bl-av--sm">P</span>{p.data.author}</span></span>
               </a>
             ))}
           </div>
-        )}
-        {rest.length > 0 && (
-          <div class="posts__grid">
-            {rest.map((p) => (
-              <a class="pcard" href={`/blog/${p.id}`}>
-                <div class={`pcard__cover cover cover--${coverOf(p.id)}`} aria-hidden="true"></div>
-                <span class="pcard__meta">{metaLine(p)}</span>
-                <b class="pcard__title">{p.data.title}</b>
-                <span class="pcard__more">Read more</span>
-              </a>
-            ))}
-          </div>
-        )}
-      </div>
+        </section>
+        {ROWS.map((r) => (
+          <section class="bl-row" id={r.id}>
+            <div class="bl-row__head">
+              <div><span class="eyebrow bl-bracket">{r.items.length} {r.items.length === 1 ? 'article' : 'articles'}</span><h2 class="bl-h2">{r.name}</h2><p>{r.blurb}</p></div>
+            </div>
+            <div class="posts__grid bl-grid">{r.items.map((p) => <BlogCard p={p} />)}</div>
+          </section>
+        ))}
+      </>}
     </div>
+    <BlogBand />
   </main>
 </Base>
