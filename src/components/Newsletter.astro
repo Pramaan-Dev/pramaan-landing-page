@@ -1,0 +1,36 @@
+---
+// Newsletter sign-up box. Posts to /api/subscribe (Resend); shows the server's message under the form.
+// `inline`: one row (article pages); otherwise a stacked box (blog hub).
+const { inline = false } = Astro.props;
+---
+<div class={`bl-news bl-box${inline ? ' bl-news--inline' : ''}`}>
+  <div>
+    <span class="eyebrow bl-bracket">Newsletter</span>
+    <b class="bl-h3">New posts in your inbox</b>
+    {!inline && <p class="bl-sub">How-tos and launches when we publish them. Unsubscribe any time.</p>}
+  </div>
+  <form class="bl-news__form" data-subscribe novalidate>
+    <input class="bl-input" type="email" name="email" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required />
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="bl-hp" />
+    <button class="btn btn--blue" type="submit">Subscribe</button>
+  </form>
+  <p class="bl-news__msg caption" role="status" aria-live="polite"></p>
+</div>
+<script is:inline>
+  document.querySelectorAll('[data-subscribe]:not([data-ready])').forEach((form) => {
+    form.dataset.ready = '1';
+    const msg = form.parentElement.querySelector('.bl-news__msg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      btn.disabled = true; msg.textContent = 'Adding you...';
+      try {
+        const res = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+        const data = await res.json();
+        msg.textContent = data.message;
+        if (res.ok) form.reset();
+      } catch { msg.textContent = 'We couldn\'t reach the server. Check your connection and try again.'; }
+      btn.disabled = false;
+    });
+  });
+</script>

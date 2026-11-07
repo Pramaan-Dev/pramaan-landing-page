@@ -65,6 +65,13 @@ draft: true
 
 Blog posts, events and guides all take `audience: business | developers | everyone` (default everyone). `/resources` lists everything newest first, with Content type and Audience filters; "everyone" shows under both audiences. `/resources?type=ebook` opens with a type ticked.
 
+## Newsletter sign-ups
+
+The Subscribe box on `/blog` and on every post posts to `api/subscribe.js`, a Vercel function that adds the address to Resend as a contact. Set these in the Vercel project (Settings, Environment Variables), then redeploy:
+
+- `RESEND_API_KEY`: a Resend key with contacts access. Until it is set, the form answers "Sign-ups open soon" and stores nothing.
+- `RESEND_SEGMENT_ID` (optional): the Resend segment the newsletter sends to.
+
 ## Publishing
 
 1. Review the draft locally: `SHOW_DRAFTS=1 npm run dev`, then open `/blog/<slug>`. Drafts are left out of normal builds, so they never reach the live site.

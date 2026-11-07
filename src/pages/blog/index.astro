@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import BlogBand from '../../components/BlogBand.astro';
+import Newsletter from '../../components/Newsletter.astro';
 import { posts, fmtDate } from '../../lib/blog.mjs';
 const list = await posts();
 const [lead, ...rest] = list;
@@ -34,12 +35,7 @@ const ROWS = [
         <section class="bl-feat" id="top">
           <BlogCard p={lead} big />
           <div class="bl-side">
-            <div class="bl-follow bl-box">
-              <span class="eyebrow bl-bracket" style="color:var(--color-lake-blue);margin:0">Follow the blog</span>
-              <b class="bl-h3">New posts by RSS</b>
-              <p class="bl-sub">Add the feed to your reader, or get early access and try what we write about.</p>
-              <div><a class="btn btn--ghost" href="/blog/rss.xml">RSS feed</a><a class="btn btn--blue" href="/#start">Get early access</a></div>
-            </div>
+            <Newsletter />
             {rest.slice(0, 3).map((p) => (
               <a class="bl-mini" href={`/blog/${p.id}`}>
                 <img class="bl-og" src={`/og/blog/${p.id}.png`} alt="" width="1200" height="630" loading="lazy" />

@@ -6,6 +6,7 @@ import AgentView from '../../components/AgentView.astro';
 import OgImage from '../../components/OgImage.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import BlogBand from '../../components/BlogBand.astro';
+import Newsletter from '../../components/Newsletter.astro';
 import { posts, fmtDate, minutes, AUD } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
@@ -66,6 +67,7 @@ const ld = JSON.stringify({
           <article class="bl-art__main">
             <div class="bl-tldr"><span class="eyebrow bl-bracket">In this article</span><p>{p.data.description}</p></div>
             <div class="post__body"><Content /></div>
+            <Newsletter inline />
             <div class="bl-author bl-box"><span class="bl-av">P</span><div><b class="bl-h3">{p.data.author}</b><p class="bl-sub">We build Pramaan, the API that lets AI agents do real work: one key, one bill, and your approval before anything is sent or paid.</p></div></div>
           </article>
         </div>
