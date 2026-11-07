@@ -11,3 +11,5 @@ ASTRO-PLAN.md
 .hyperframes/
 .thumbnails/
 .media/
+.vercel
+.env*
