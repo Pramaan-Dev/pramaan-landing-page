@@ -2,9 +2,12 @@
 import Base from '../layouts/Base.astro';
 import { allResources, TYPE, AUDIENCE, fmtDay } from '../lib/resources.mjs';
 import { coverOf } from '../lib/blog.mjs';
+import { ROLE } from '../lib/roles.mjs';
 const all = await allResources();
 const [lead, ...more] = all;
 const side = more.slice(0, 3);
+// Only teams that have at least one resource get a checkbox
+const teams = Object.keys(ROLE).filter((k) => all.some((r) => r.roles.includes(k)));
 ---
 <Base title="Resources | Pramaan" description="Blog posts, events, ebooks, whitepapers and reports from the Pramaan team, for business teams and developers." canonical="https://www.pramaan.dev/resources" footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
@@ -55,12 +58,21 @@ const side = more.slice(0, 3);
               <button type="button" class="rdd__reset" data-reset="aud">Reset</button>
             </div>
           </details>
+          {teams.length > 0 && (
+            <details class="rdd">
+              <summary>Team</summary>
+              <div class="rdd__menu">
+                {teams.map((k) => <label><input type="checkbox" name="role" value={k} /> {ROLE[k]}</label>)}
+                <button type="button" class="rdd__reset" data-reset="role">Reset</button>
+              </div>
+            </details>
+          )}
           <button type="button" class="rfilters__reset" data-reset="all">Reset filters</button>
           <span class="rfilters__count" aria-live="polite">Showing <b data-shown>{all.length}</b> of <b>{all.length}</b></span>
         </div>
         <div class="rgrid">
           {all.map((r) => (
-            <a class="pcard" href={r.href} data-type={r.type} data-aud={r.audience}>
+            <a class="pcard" href={r.href} data-type={r.type} data-aud={r.audience} data-roles={r.roles.join(' ')}>
               <div class={`pcard__cover cover cover--${coverOf(r.id)}`} aria-hidden="true"></div>
               <b class="pcard__title">{r.title}</b>
               <span class="pcard__meta"><span class="rtag">{TYPE[r.type]}</span> {r.note && `${r.note} | `}{fmtDay(r.date)}</span>
@@ -72,16 +84,20 @@ const side = more.slice(0, 3);
     </div>
   </main>
   <script is:inline>
-    // Filters: content type (any ticked) and audience ("everyone" matches both). ?type=ebook pre-ticks a type.
+    // Filters: content type (any ticked), audience ("everyone" matches both) and team (any ticked).
+    // ?type=ebook and ?role=sales pre-tick one.
     (() => {
       const lib = document.querySelector('[data-rlib]');
       const cards = [...lib.querySelectorAll('.rgrid > a')];
       const apply = () => {
         const types = [...lib.querySelectorAll('input[name=type]:checked')].map((i) => i.value);
         const aud = lib.querySelector('input[name=aud]:checked')?.value;
+        const roles = [...lib.querySelectorAll('input[name=role]:checked')].map((i) => i.value);
         let n = 0;
         for (const c of cards) {
-          const ok = (!types.length || types.includes(c.dataset.type)) && (!aud || c.dataset.aud === aud || c.dataset.aud === 'everyone');
+          const mine = c.dataset.roles.split(' ');
+          const ok = (!types.length || types.includes(c.dataset.type)) && (!aud || c.dataset.aud === aud || c.dataset.aud === 'everyone')
+            && (!roles.length || roles.some((r) => mine.includes(r)));
           c.hidden = !ok; n += ok;
         }
         lib.querySelector('[data-shown]').textContent = n;
@@ -95,8 +111,12 @@ const side = more.slice(0, 3);
       });
       // close a filter menu when clicking elsewhere
       document.addEventListener('click', (e) => lib.querySelectorAll('details[open]').forEach((d) => { if (!d.contains(e.target)) d.open = false; }));
-      const want = new URLSearchParams(location.search).get('type');
-      if (want) { const i = lib.querySelector(`input[name=type][value="${CSS.escape(want)}"]`); if (i) { i.checked = true; apply(); } }
+      const q = new URLSearchParams(location.search);
+      for (const name of ['type', 'role']) {
+        const want = q.get(name);
+        const i = want && lib.querySelector(`input[name=${name}][value="${CSS.escape(want)}"]`);
+        if (i) { i.checked = true; apply(); }
+      }
     })();
   </script>
 </Base>

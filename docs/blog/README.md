@@ -4,10 +4,10 @@ Two workflows, one voice. Both write a draft Markdown post into `src/content/blo
 
 | | Business | Developer |
 |---|---|---|
-| Reader | Founders, sales, ops, HR, finance, marketing | Developers and AI-agent builders |
+| Reader | Any department: see `docs/blog/ROLES.md` | Developers and AI-agent builders |
 | Ask for it | "write a business blog post about ..." or `/blog-business` | "write a developer blog post about ..." or `/blog-dev` |
 | Workflow | `.claude/skills/blog-business/SKILL.md` | `.claude/skills/blog-dev/SKILL.md` |
-| Length | 800-1,200 words | 900-1,600 words |
+| Length | How-to 800-1,200 words; learn guide 1,200-1,600 | 900-1,600 words |
 | Code | None | Complete, runnable blocks |
 | Shape | Job in their words, walk-through, staying in control, FAQ, call to action | What you'll build, setup, steps, approval, errors, cost, next steps |
 
@@ -63,7 +63,7 @@ draft: true
 
 ## Audience and the /resources hub
 
-Blog posts, events and guides all take `audience: business | developers | everyone` (default everyone). `/resources` lists everything newest first, with Content type and Audience filters; "everyone" shows under both audiences. `/resources?type=ebook` opens with a type ticked.
+Blog posts, events and guides all take `audience: business | developers | everyone` (default everyone), and optionally `roles: [sales, marketing, ...]`, the departments a resource is for (ids in `docs/blog/ROLES.md`). `/resources` has a Team filter for roles, and `/resources?role=sales` opens with Sales ticked. `/resources` lists everything newest first, with Content type and Audience filters; "everyone" shows under both audiences. `/resources?type=ebook` opens with a type ticked.
 
 ## Newsletter sign-ups
 

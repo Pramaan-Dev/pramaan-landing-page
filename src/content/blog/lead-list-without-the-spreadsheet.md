@@ -4,6 +4,7 @@ description: "For sales leads and founders: describe the people you want to reac
 author: "Pramaan"
 date: 2026-11-06
 audience: business
+roles: [sales, founders]
 draft: false
 og:
   tag: "For sales teams"

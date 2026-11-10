@@ -4,6 +4,7 @@ description: "For founders, sales and marketing leads: build an ideal customer p
 author: "Pramaan"
 date: 2026-11-07
 audience: business
+roles: [founders, sales, marketing]
 draft: false
 og:
   tag: "For founders and sales leads"

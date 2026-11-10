@@ -4,6 +4,7 @@ description: "418 GTM skills from 84 authors, each mapped to the Pramaan superpo
 author: "Pramaan"
 date: 2026-11-06
 audience: developers
+roles: [sales, marketing]
 draft: false
 og:
   tag: "Agent skills"

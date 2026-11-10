@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { ROLE } from './lib/roles.mjs';
 
 // Legal pages: Markdown written by scripts/build-legal.mjs.
 const legal = defineCollection({
@@ -10,6 +11,8 @@ const legal = defineCollection({
 
 // Who a resource is for; the /resources hub filters on it. "everyone" shows under both.
 const audience = z.enum(['business', 'developers', 'everyone']).default('everyone');
+// Departments it is for (ids in src/lib/roles.mjs); the hub's Team filter. Empty: not for one team in particular.
+const roles = z.array(z.enum(Object.keys(ROLE) as [string, ...string[]])).default([]);
 const person = z.object({ name: z.string(), role: z.string(), photo: z.string().optional() });
 
 const blog = defineCollection({
@@ -20,6 +23,7 @@ const blog = defineCollection({
     author: z.string().default('Pramaan'),
     date: z.coerce.date(),
     audience,
+    roles,
     draft: z.boolean().default(false),
     // Share image (scripts/og-images.mjs): `tag` top right; `steps` draws a how-to's first steps, `ask` + `done` the
     // ask-to-done flow, `code` + `note` a command box. None of them: the description in one card.
@@ -46,6 +50,7 @@ const events = defineCollection({
     // Recording, shown once the event is over: `url` (video page or file), `still` (a frame, for the share image), `length` ("42 min").
     replay: z.object({ url: z.string(), still: z.string().optional(), length: z.string().optional() }).optional(),
     audience,
+    roles,
     draft: z.boolean().default(false),
   }),
 });
@@ -63,6 +68,7 @@ const guides = defineCollection({
     cover: z.string().optional(),
     contributors: z.array(person).default([]),
     audience,
+    roles,
     draft: z.boolean().default(false),
   }),
 });
