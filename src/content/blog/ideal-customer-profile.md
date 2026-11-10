@@ -122,7 +122,7 @@ Once the checks hold up, use them every day:
 - **Find more companies like your best ones.** "[Find companies like your best customers](/missions/lead.lookalikes.find)" takes your customers' websites and returns similar companies, with no duplicates, each with a reason it was picked.
 - **Catch companies at the right moment.** "[Find companies showing buying signals](/missions/company.signals.find)" looks for dated events, like funding or a launch, and checks each company against your ICP.
 - **See which fitting companies visit your site.** "[Identify companies visiting your site](/missions/company.visitors.identify)" names the companies behind your traffic and keeps the ones that fit. It never names the people.
-- **Build the list.** "[Build a list of companies](/missions/company.list.build)" counts matches first, then pulls a list of the size you set.
+- **Build the list.** "[Build a list of companies](/missions/company.list.build)" counts matches first, then pulls a list of the size you set. Pulling the list needs your approval.
 
 From there, [Build a list of people to contact](/missions/lead.list.build) finds the right person at each company. We cover that in [How sales teams build a lead list without the spreadsheet](/blog/lead-list-without-the-spreadsheet).
 
@@ -133,12 +133,6 @@ From there, [Build a list of people to contact](/missions/lead.list.build) finds
 - **Building it from hopes.** Base it on the companies that buy and stay, using your customer data.
 - **Writing it once.** Your best customers change when your product and prices change. Review it every quarter against the deals you won and lost.
 - **Mixing it up with the persona.** Company traits go in the ICP. Job titles and goals go in the persona.
-
-## How do I stay in control?
-
-Researching, scoring and counting companies only reads data. Nothing goes out to anyone.
-
-The steps that cost more or change things wait for your approval. Pulling a company list needs approval, and the export stops at the size you set. Pushing leads into your CRM needs approval too. Pramaan runs on a prepaid balance, and you pay only for what runs.
 
 ## What else can my team ask for?
 
@@ -159,8 +153,5 @@ No. You ask in plain words, or your AI assistant asks for you.
 
 **How often should I update my ICP?**
 Once a quarter, or sooner after a big change to your product or prices.
-
-**What does it cost?**
-You pay per use from a prepaid balance. Counting a market comes before any list is pulled, so you see the size before you spend on the export.
 
 [Get early access](/#start) and score your first 100 companies against your ICP.

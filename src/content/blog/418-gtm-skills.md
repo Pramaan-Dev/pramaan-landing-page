@@ -82,10 +82,6 @@ It waits for your approval. 68 of the 418 skills include a step that sends, post
 
 When the agent reaches one of those steps, Pramaan returns `approval_required` instead of running it. The agent has to show you the exact inputs and the price, and get your approval before it can try again. One approval covers one call.
 
-## What does it cost?
-
-The skills are free to add. The Pramaan calls they make are paid per use from a prepaid balance. Your agent can quote any call before running it, so it can tell you the price up front. The [docs](https://docs.pramaan.dev) explain how quotes and the balance work.
-
 ## Next steps
 
 - [Browse all 418 skills](/skills) by category.

@@ -38,12 +38,6 @@ You describe the list once, in plain words, and Pramaan runs the jobs in order. 
 
 **You decide.** You read the drafts, edit what you like, and send from your own mailbox when you're ready.
 
-## How do I stay in control?
-
-Every email in this flow stays a draft in your inbox. Pramaan does not send messages, place calls, move money or delete anything without your approval.
-
-You also control the spend. Pramaan runs on a prepaid balance. The count is shown before the export, the export stops at the number you chose, and you only pay for what runs.
-
 ## What else can my team ask for?
 
 - "Research Acme before my call on Thursday." This runs [Research a company](/missions/company.research): their register record, recent news, site pages and a written summary, with sources.
@@ -60,9 +54,6 @@ No. The drafts sit in your inbox. Sending is always your call.
 
 **Where do the emails come from?**
 Pramaan looks them up from data providers, so you never sign up with them yourself. Each one is labeled with the result of a mailbox check.
-
-**What does it cost?**
-You pay per use from a prepaid balance. You see the match count before you export, and the export never goes past the number you set.
 
 **What else can it do?**
 There are 891 missions and 10,428 superpowers today. [Browse the missions](/missions).

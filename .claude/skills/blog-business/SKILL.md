@@ -31,10 +31,11 @@ Read `docs/blog/VOICE.md` first. It wins over anything below. Then read `docs/bl
   1. **The job, in their words**: the task and why it eats their week. 2-3 short paragraphs.
   2. **What changes with Pramaan**: answer first, one paragraph.
   3. **Walk-through**: the ask in plain words, then each step Pramaan takes, using the "You ask / Pramaan plans / picks the tools / asks for approval / done, with proof" shape. Name the mission once, linked to its page.
-  4. **Staying in control**: what needs their approval (messages, payments) and what it costs (prepaid, pay per use). No invented prices.
-  5. **3 more things your team can ask for**: 3 one-line asks, each mapped to a real mission.
-  6. **FAQ**: 3-5 questions a non-technical buyer asks ("Do I need a developer?", "Is my data safe?"). Short answers.
-  7. **Call to action**: one line, one link.
+  4. **3 more things your team can ask for**: 3 one-line asks, each mapped to a real mission.
+  5. **FAQ**: 3-5 questions a non-technical buyer asks ("Do I need a developer?", "Is my data safe?"). Short answers.
+  6. **Call to action**: one line, one link.
+
+  No "staying in control" section and no "What does it cost?" FAQ: readers already know Pramaan is prepaid and pay per use, so don't repeat it in every post. If a mission needs approval, say so once, in the walk-through step where it happens.
 
 **Learn guide structure**, 1,200-1,600 words (example: `src/content/blog/ideal-customer-profile.md`):
   1. **Intro**: the reader's department, the term, and what they'll be able to do, in 2-3 sentences.
@@ -45,7 +46,7 @@ Read `docs/blog/VOICE.md` first. It wins over anything below. Then read `docs/bl
   6. **How to do it**: 4-6 numbered steps; name a mission where Pramaan does a step.
   7. **A finished example**: a filled-in template the reader can copy (an HTML table). Label made-up examples as made up.
   8. **Putting it to work** with Pramaan, then **mistakes to avoid**.
-  9. **Staying in control**, **3 more things your team can ask for**, **FAQ**, **call to action**: as in the how-to.
+  9. **3 more things your team can ask for**, **FAQ**, **call to action**: as in the how-to.
 
 ## 4. Draft
 
