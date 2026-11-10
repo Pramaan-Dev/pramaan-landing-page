@@ -2,7 +2,7 @@
 title: "How to find creators in your niche with real audiences"
 description: "For marketing teams: find creators in a niche, check their audience and comments, and save a first outreach draft. Nothing is sent without you."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-03
 audience: business
 roles: [marketing]
 draft: false

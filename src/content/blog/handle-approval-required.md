@@ -2,7 +2,7 @@
 title: "How to handle approval_required in your agent"
 description: "Handle approval_required with the Pramaan TypeScript SDK and REST API: check which superpowers need approval, ask first, and handle 403 and 202."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-29
 audience: developers
 draft: false
 og:

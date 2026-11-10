@@ -2,7 +2,7 @@
 title: "Website visitor identification: how it works"
 description: "For marketing and sales teams: learn how website visitor identification names the companies on your site, and how to act on the ones that fit."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-12
 audience: business
 roles: [marketing, sales]
 draft: false

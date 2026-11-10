@@ -2,7 +2,7 @@
 title: "How to check your prices against the marketplace"
 description: "For e-commerce teams: see what comparable items sell for in your area, and which products beat yours on Amazon, without opening ten tabs."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-31
 audience: business
 roles: [ecommerce]
 draft: false

@@ -2,7 +2,7 @@
 title: "How to find companies hiring for the role you help"
 description: "For recruiting-tech and services sales teams: find companies hiring for a role, see their open roles, and read what the hiring says about them."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-23
 audience: business
 roles: [sales]
 draft: false

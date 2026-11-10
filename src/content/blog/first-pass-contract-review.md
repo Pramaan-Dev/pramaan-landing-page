@@ -2,7 +2,7 @@
 title: "How to do a first pass on a contract"
 description: "For legal and compliance teams: check a contract against the clauses you require and the phrases you flag, with exact quotes for each hit."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-23
 audience: business
 roles: [legal]
 draft: false

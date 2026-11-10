@@ -2,7 +2,7 @@
 title: "How to compare shipping rates before you book"
 description: "For operations teams: compare carrier quotes and delivery times for a parcel, and plan routes for up to 100 deliveries without a spreadsheet."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-16
 audience: business
 roles: [operations]
 draft: false

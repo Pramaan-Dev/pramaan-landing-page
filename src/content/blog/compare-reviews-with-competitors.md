@@ -2,7 +2,7 @@
 title: "How to compare your reviews with a competitor's"
 description: "For product and growth teams: compare ratings and review themes against local competitors, and map the apps that compete with yours."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-28
 audience: business
 roles: [product]
 draft: false

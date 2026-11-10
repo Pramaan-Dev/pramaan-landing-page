@@ -2,7 +2,7 @@
 title: "Email deliverability: why emails land in spam and how to fix it"
 description: "For sales and marketing teams: learn why emails land in spam, check your domain setup, clean your list and fix deliverability before the next send."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-27
 audience: business
 roles: [sales, marketing]
 draft: false

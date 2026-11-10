@@ -2,7 +2,7 @@
 title: "Answer engine optimization (AEO): how to get cited by AI"
 description: "For marketing teams: what answer engine optimization is, how to see where AI answers mention your brand, and how to plan page fixes to get cited."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-01
 audience: business
 roles: [marketing]
 draft: false

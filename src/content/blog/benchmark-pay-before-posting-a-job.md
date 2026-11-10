@@ -2,7 +2,7 @@
 title: "How to benchmark pay before you post a job"
 description: "For HR and hiring leads: check what a role pays from several sources, see how big the talent pool is, and set a salary range before you post."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-11
 audience: business
 roles: [hr]
 draft: false

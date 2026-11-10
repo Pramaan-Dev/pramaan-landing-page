@@ -2,7 +2,7 @@
 title: "How to give Claude Code 10,000+ superpowers with MCP"
 description: "Add the Pramaan MCP server to Claude Code with one command, then search, price and run 10,428 superpowers by asking in plain words."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-24
 audience: developers
 draft: false
 og:

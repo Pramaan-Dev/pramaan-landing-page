@@ -2,7 +2,7 @@
 title: "How to send email from your agent with your own inbox"
 description: "Connect a Gmail inbox, then have your agent send email from it with email.send and the Pramaan TypeScript SDK, after your approval."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-03
 audience: developers
 draft: false
 og:

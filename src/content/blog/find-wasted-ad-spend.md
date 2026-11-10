@@ -2,7 +2,7 @@
 title: "How to find ads that spent money and brought nothing"
 description: "For marketing teams: list the ads, ad sets and campaigns that spent with no conversions, spot tired creative, and get one spend report."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-01
 audience: business
 roles: [marketing]
 draft: false

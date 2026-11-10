@@ -2,7 +2,7 @@
 title: "How to clean a messy address list"
 description: "For operations teams: fix, deduplicate and map a messy list of addresses in one pass, with the rejects listed so you know what to correct by hand."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-18
 audience: business
 roles: [operations]
 draft: false

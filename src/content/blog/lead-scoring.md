@@ -2,7 +2,7 @@
 title: "Lead scoring: how to rank leads by fit and timing"
 description: "For sales and marketing teams: score leads on how well they fit and whether now is the moment, so reps call the best ones first."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-27
 audience: business
 roles: [sales, marketing]
 draft: false

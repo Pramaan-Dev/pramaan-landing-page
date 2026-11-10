@@ -2,7 +2,7 @@
 title: "Account-based marketing (ABM): a plain guide"
 description: "For marketing and sales teams: pick a short list of target accounts, research each one, map the buyers, and reach them with messages that fit."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-02
 audience: business
 roles: [marketing, sales]
 draft: false

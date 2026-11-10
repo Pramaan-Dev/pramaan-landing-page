@@ -2,7 +2,7 @@
 title: "How to shortlist investors for your raise"
 description: "For founders: rank investors from comparable funding rounds, see named partners and verified work emails, and benchmark your round."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-06
 audience: business
 roles: [founders]
 draft: false

@@ -2,7 +2,7 @@
 title: "How to check a payee before you pay them"
 description: "For finance teams: check a new payee's bank details and the supplier behind them before money moves, with a record of what was checked."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-21
 audience: business
 roles: [finance]
 draft: false

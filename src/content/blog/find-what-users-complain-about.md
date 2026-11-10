@@ -2,7 +2,7 @@
 title: "How to find what users complain about"
 description: "For product teams: pull complaints, feature requests and common questions from public posts, grouped by theme with exact excerpts."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-26
 audience: business
 roles: [product]
 draft: false

@@ -2,7 +2,7 @@
 title: "How to sort expenses into categories without a spreadsheet"
 description: "For finance teams: turn card descriptors and new bank transactions into merchants and spending categories, with booked and pending totals kept apart."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-20
 audience: business
 roles: [finance]
 draft: false

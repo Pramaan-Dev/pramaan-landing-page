@@ -2,7 +2,7 @@
 title: "How to check if staff emails were in a breach"
 description: "For IT and security teams: check up to 20 work addresses for known breach exposure, then review who has access to your app and who is inactive."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-04
 audience: business
 roles: [security]
 draft: false

@@ -2,7 +2,7 @@
 title: "How to retry API calls safely with idempotency keys"
 description: "Retry Pramaan REST API calls without sending twice: one Idempotency-Key per action, what a replay returns, and a retry loop in TypeScript."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-04
 audience: developers
 draft: false
 og:

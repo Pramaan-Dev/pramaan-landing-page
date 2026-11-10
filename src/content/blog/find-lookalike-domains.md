@@ -2,7 +2,7 @@
 title: "How to find fake domains copying your brand"
 description: "For IT and security teams: list close variants of your domain that exist, read their records, and check a suspect email before anyone clicks."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-02
 audience: business
 roles: [security]
 draft: false

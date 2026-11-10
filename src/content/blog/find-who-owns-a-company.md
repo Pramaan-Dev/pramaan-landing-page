@@ -2,7 +2,7 @@
 title: "How to find who really owns a company"
 description: "For legal and compliance teams: map a company's disclosed owners and check its court and insolvency record before you sign or onboard."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-25
 audience: business
 roles: [legal]
 draft: false

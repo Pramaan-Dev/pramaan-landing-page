@@ -2,7 +2,7 @@
 title: "How to screen a pile of resumes"
 description: "For HR and hiring teams: get quoted evidence from each resume against your stated requirements, and check your job ad, so a person can decide."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-07
 audience: business
 roles: [hr]
 draft: false

@@ -2,7 +2,7 @@
 title: "How to verify webhook signatures in TypeScript"
 description: "Check that a Pramaan webhook is real with the TypeScript SDK's verifyWebhook, or by hand with Web Crypto, and test it locally."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-24
 audience: developers
 draft: false
 og:

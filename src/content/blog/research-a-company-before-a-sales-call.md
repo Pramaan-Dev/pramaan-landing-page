@@ -2,7 +2,7 @@
 title: "How to research a company before a sales call"
 description: "For reps and account execs: get one sourced company profile, a founder brief and a recent-changes snapshot before the call, without ten browser tabs."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-21
 audience: business
 roles: [sales]
 draft: false

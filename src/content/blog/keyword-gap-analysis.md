@@ -2,7 +2,7 @@
 title: "Keyword gap analysis: find what rivals rank for and you don't"
 description: "For marketing teams: run a keyword gap analysis, find the searches and links rivals win that you miss, and turn the gaps into articles."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-06
 audience: business
 roles: [marketing]
 draft: false

@@ -2,7 +2,7 @@
 title: "Lead enrichment: how to fill the gaps in your CRM"
 description: "For sales and marketing teams: add the missing company and contact details to your leads, keep what you already have, and keep records fresh."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-07
 audience: business
 roles: [sales, marketing]
 draft: false

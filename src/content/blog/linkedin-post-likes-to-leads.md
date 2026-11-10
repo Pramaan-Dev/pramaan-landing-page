@@ -2,7 +2,7 @@
 title: "How to turn LinkedIn post likes into leads"
 description: "For sales and founder-led outbound: list who reacted to or commented on a LinkedIn post, then watch a profile so new engaged leads come to you."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-28
 audience: business
 roles: [sales]
 draft: false

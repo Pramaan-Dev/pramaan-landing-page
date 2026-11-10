@@ -2,7 +2,7 @@
 title: "How to plan your day from your calendar and inbox"
 description: "For founders and operations leads: see today's meetings, urgent mail and open tasks in one view, and turn action items in email into tasks."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-15
 audience: business
 roles: [founders, operations]
 draft: false

@@ -2,7 +2,7 @@
 title: "TAM: how to size your market before you sell"
 description: "For founders and sales leads: size your total addressable market from a real count of companies that fit, then narrow it to the share you can win."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-17
 audience: business
 roles: [founders, sales]
 draft: false

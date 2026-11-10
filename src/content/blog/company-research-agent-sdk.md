@@ -2,7 +2,7 @@
 title: "How to build a company research agent with the SDK"
 description: "Build a TypeScript company research agent with the Pramaan SDK: a quick profile from companies.enrich, then a full sourced report from company.research."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-29
 audience: developers
 draft: false
 og:

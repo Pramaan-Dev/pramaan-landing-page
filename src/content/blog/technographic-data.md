@@ -2,7 +2,7 @@
 title: "Technographic data: what your prospects run"
 description: "For sales and marketing teams: learn what technographic data is, how to see the software a prospect runs, and how to use it to pick and time outreach."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-22
 audience: business
 roles: [sales, marketing]
 draft: false

@@ -2,7 +2,7 @@
 title: "Buying signals: what they are and how to act on them"
 description: "For sales and marketing teams: what buying signals are, which ones to watch, and how to reach the right person while the moment is fresh."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-22
 audience: business
 roles: [sales, marketing]
 draft: false

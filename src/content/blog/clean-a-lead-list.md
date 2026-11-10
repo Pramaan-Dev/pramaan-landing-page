@@ -2,7 +2,7 @@
 title: "How to clean a lead list before you send anything"
 description: "For sales and RevOps teams: check every row, spot duplicates and bad addresses, audit the list for risk and grade lead quality before you email."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-25
 audience: business
 roles: [sales]
 draft: false

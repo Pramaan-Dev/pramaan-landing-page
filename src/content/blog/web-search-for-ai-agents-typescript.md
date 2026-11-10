@@ -2,7 +2,7 @@
 title: "How to add web search to an AI agent in TypeScript"
 description: "Give your AI agent web search and page reading in TypeScript with the Pramaan SDK: web.search, web.read and two tool definitions."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-09
 audience: developers
 draft: false
 og:

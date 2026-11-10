@@ -2,7 +2,7 @@
 title: "How to watch a competitor's pricing page"
 description: "For founders: watch a competitor's pricing page on a schedule and see the plans before and after each change. Starts only after you approve."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-10
 audience: business
 roles: [founders]
 draft: false

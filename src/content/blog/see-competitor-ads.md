@@ -2,7 +2,7 @@
 title: "How to see every ad a competitor is running"
 description: "For marketers: see a competitor's ads across networks, search ad copy and landing pages, group library ads into themes, and compare them with yours."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-30
 audience: business
 roles: [marketing]
 draft: false

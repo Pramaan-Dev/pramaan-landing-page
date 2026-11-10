@@ -2,7 +2,7 @@
 title: "How to check a supplier is a real business"
 description: "For founders and finance teams: check a supplier is on the official register, see risk signals, and get a first-look company overview."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-08
 audience: business
 roles: [founders, finance]
 draft: false

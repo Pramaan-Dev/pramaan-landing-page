@@ -2,7 +2,7 @@
 title: "How to sort outreach replies so hot ones go first"
 description: "For sales reps and SDRs: sort replies to your outreach into interested, not now, wrong person and unsubscribe, then get a draft answer for the hot ones."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-09-26
 audience: business
 roles: [sales]
 draft: false

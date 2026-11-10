@@ -2,7 +2,7 @@
 title: "How to spot an at-risk customer before they churn"
 description: "For customer success teams: check one account's usage, feedback, billing and tickets in one view, and watch your key accounts for company changes."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-13
 audience: business
 roles: [customer-success]
 draft: false

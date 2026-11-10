@@ -2,7 +2,7 @@
 title: "How to use your own provider key and pay Pramaan nothing"
 description: "Save your own provider key in Pramaan and calls to that service carry no Pramaan fee. Check it over the REST API with X-Pramaan-Price-Micro."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-08
 audience: developers
 draft: false
 og:

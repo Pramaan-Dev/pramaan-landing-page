@@ -2,7 +2,7 @@
 title: "How to find people already posting about your brand"
 description: "For marketing teams: find accounts that already post about your brand, see what's said right now, and group complaints and requests."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-05
 audience: business
 roles: [marketing]
 draft: false

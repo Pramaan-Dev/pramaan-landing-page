@@ -2,7 +2,7 @@
 title: "How to draft support answers from your help docs"
 description: "For support teams: turn a customer message into a draft reply built only from your own help documents, with every sentence checked. Nothing is sent."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-05
 audience: business
 roles: [customer-success]
 draft: false

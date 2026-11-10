@@ -2,7 +2,7 @@
 title: "How to run long jobs and wait for the result"
 description: "Start a long-running Pramaan superpower as a job with the TypeScript SDK, wait for the result, cancel it, and handle failures."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-19
 audience: developers
 draft: false
 og:

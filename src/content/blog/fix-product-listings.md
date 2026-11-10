@@ -2,7 +2,7 @@
 title: "How to fix product listings that don't sell"
 description: "For e-commerce teams: get a suggested title and bullets for a marketplace listing, and better titles for your catalog, with the old text kept."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-30
 audience: business
 roles: [ecommerce]
 draft: false

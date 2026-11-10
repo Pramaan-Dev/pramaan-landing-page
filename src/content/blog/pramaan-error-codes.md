@@ -2,7 +2,7 @@
 title: "How to read Pramaan errors and fix each one"
 description: "Every Pramaan REST API error code, what it means and the fix, plus a fetch helper that retries only when it is safe."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-11-09
 audience: developers
 draft: false
 og:

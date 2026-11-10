@@ -2,7 +2,7 @@
 title: "How to see what a call costs before it runs"
 description: "Ask the Pramaan REST API what a superpower or mission can cost at most, cap the price, and check your prepaid balance before anything runs."
 author: "Pramaan"
-date: 2026-11-10
+date: 2026-10-14
 audience: developers
 draft: false
 og:
