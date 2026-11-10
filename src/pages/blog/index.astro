@@ -6,14 +6,18 @@ import BlogCard from '../../components/BlogCard.astro';
 import BlogBand from '../../components/BlogBand.astro';
 import Newsletter from '../../components/Newsletter.astro';
 import { posts, fmtDate } from '../../lib/blog.mjs';
+import { allResources, TYPE, fmtDay } from '../../lib/resources.mjs';
 const list = await posts();
+const others = (await allResources()).filter((r) => r.type !== 'blog');
 const [lead, ...rest] = list;
 const forAud = (a) => list.filter((p) => p.data.audience === a || p.data.audience === 'everyone');
 const ROWS = [
   { id: 'guides', name: 'Guides', blurb: 'Step by step, start to finish.', items: list.filter((p) => p.data.og.steps) },
   { id: 'business', name: 'For business teams', blurb: 'Jobs you can hand to an agent, no code needed.', items: forAud('business') },
   { id: 'developers', name: 'For developers', blurb: 'MCP, SDK and HTTP: build on Pramaan.', items: forAud('developers') },
-].filter((r) => r.items.length);
+  { id: 'ebooks', name: 'Ebooks and reports', blurb: 'Longer reads to keep and share.', res: others.filter((r) => r.type !== 'event'), unit: ['item', 'items'] },
+  { id: 'events', name: 'Events', blurb: 'Live demos, meetups and replays.', res: others.filter((r) => r.type === 'event'), unit: ['event', 'events'] },
+].map((r) => ({ unit: ['article', 'articles'], ...r, n: (r.items ?? r.res).length })).filter((r) => r.n);
 ---
 <Base title="Blog | Pramaan" description="How-tos, launches and notes from the Pramaan team on handing real work to AI agents." canonical="https://www.pramaan.dev/blog" footerProps={{ variant: 'catalogue', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
@@ -47,9 +51,16 @@ const ROWS = [
         {ROWS.map((r) => (
           <section class="bl-row" id={r.id}>
             <div class="bl-row__head">
-              <div><span class="eyebrow bl-bracket">{r.items.length} {r.items.length === 1 ? 'article' : 'articles'}</span><h2 class="bl-h2">{r.name}</h2><p>{r.blurb}</p></div>
+              <div><span class="eyebrow bl-bracket">{r.n} {r.unit[r.n === 1 ? 0 : 1]}</span><h2 class="bl-h2">{r.name}</h2><p>{r.blurb}</p></div>
             </div>
-            <div class="posts__grid bl-grid">{r.items.map((p) => <BlogCard p={p} />)}</div>
+            <div class="posts__grid bl-grid">{r.items ? r.items.map((p) => <BlogCard p={p} />) : r.res.map((x) => (
+              <a class="pcard bl-card" href={x.href}>
+                <img class="bl-og" src={x.og} alt="" width="1200" height="630" loading="lazy" />
+                <span class="pcard__meta">{TYPE[x.type]} | {x.note && `${x.note} | `}{fmtDay(x.date)}</span>
+                <b class="pcard__title">{x.title}</b>
+                <span class="pcard__sub bl-clamp">{x.description}</span>
+              </a>
+            ))}</div>
           </section>
         ))}
       </>}

@@ -1,6 +1,11 @@
 ---
 // The one top menu. `variant` picks the link set; `current` marks the active page; `skin="builder"` uses the UI builder's own class names.
 const { variant = 'site', current, skin = 'site' } = Astro.props;
+import { events } from '../lib/events.mjs';
+import { guides } from '../lib/resources.mjs';
+// Events and Ebooks appear in the menu only once something is published
+const hasEvents = (await events()).length > 0;
+const hasGuides = (await guides()).length > 0;
 
 // Inline line icons (1.5px stroke, currentColor), one per Resources card
 const ICON = {
@@ -12,8 +17,9 @@ const ICON = {
   calendar: '<rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/>',
 };
 const resources = [
-  { href: '/resources', label: 'All resources', key: 'resources', icon: 'grid' },
   { href: '/blog', label: 'Blog', key: 'blog', icon: 'note' },
+  ...(hasGuides ? [{ href: '/blog#ebooks', label: 'Ebooks and reports', key: 'guides', icon: 'book' }] : []),
+  ...(hasEvents ? [{ href: '/events', label: 'Events', key: 'events', icon: 'calendar' }] : []),
   { href: '/ui-builder', label: 'UI builder', key: 'ui-builder', icon: 'pencil' },
   { href: '/skills', label: 'Skills', key: 'skills', icon: 'book' },
 ];

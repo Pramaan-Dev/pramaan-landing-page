@@ -5,7 +5,6 @@ import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
 import OgImage from '../../components/OgImage.astro';
 import { guides, allResources, TYPE, AUDIENCE, fmtDay } from '../../lib/resources.mjs';
-import { coverOf } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
   const all = await guides();
@@ -26,6 +25,7 @@ const md = `# ${g.data.title}\n\n${TYPE[g.data.type]}, ${fmtDay(g.data.date)}${g
     <meta property="og:url" content={url} />
     <OgImage kind="guides" id={g.id} />
     <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/blog.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
@@ -33,15 +33,13 @@ const md = `# ${g.data.title}\n\n${TYPE[g.data.type]}, ${fmtDay(g.data.date)}${g
     <div class="container">
       <ViewToggle />
       <div data-human-view>
-        <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/resources">Resources</a> / <a href={`/resources?type=${g.data.type}`}>{TYPE[g.data.type]}s</a> / <span>{g.data.title}</span></nav>
+        <nav class="detail__crumbs" aria-label="Breadcrumb"><a href="/blog">Blog</a> / <a href="/blog#ebooks">Ebooks and reports</a> / <span>{g.data.title}</span></nav>
         <section class="evx evx--top">
           <div class="evx__main">
             <span class="post__meta">{TYPE[g.data.type]}</span>
             <h1 class="evx__title">{g.data.title}</h1>
             <p class="evx__sub">{g.data.description}</p>
-            <div class={`evx__cover cover cover--${coverOf(g.id)}`}>
-              {g.data.cover ? <img src={g.data.cover} alt="" loading="lazy" /> : <span class="evx__book" aria-hidden="true"><b>{g.data.title}</b><small>Pramaan {kind}</small></span>}
-            </div>
+            <img class="bl-og" src={g.data.cover ?? `/og/guides/${g.id}.png`} alt="" width="1200" height="630" />
           </div>
           <aside class="evx__card" aria-label={`About this ${kind}`}>
             <dl>
@@ -73,12 +71,12 @@ const md = `# ${g.data.title}\n\n${TYPE[g.data.type]}, ${fmtDay(g.data.date)}${g
             <h2 class="evx__side-h">Other resources</h2>
             {others.map((o) => (
               <a class="pcard" href={o.href}>
-                <div class={`pcard__cover cover cover--${coverOf(o.id)}`} aria-hidden="true"></div>
+                <img class="bl-og" src={o.og} alt="" width="1200" height="630" loading="lazy" />
                 <b class="pcard__title">{o.title}</b>
                 <span class="pcard__meta"><span class="rtag">{TYPE[o.type]}</span> {fmtDay(o.date)}</span>
               </a>
             ))}
-            <a class="evx__all" href="/resources">All resources &rarr;</a>
+            <a class="evx__all" href="/blog#ebooks">All ebooks and reports &rarr;</a>
           </aside>
         </section>
       </div>

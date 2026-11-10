@@ -7,6 +7,8 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file' },
+  // /resources was the old all-in-one list; the blog hub now holds every type
+  redirects: { '/resources': '/blog' },
   // legal text must stay as written: no curly quotes, no auto-linked emails
   markdown: { gfm: false, smartypants: false },
   integrations: [

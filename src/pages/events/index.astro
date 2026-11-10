@@ -1,54 +1,48 @@
 ---
+// Events hub, in the blog hub's look: heading, Upcoming and Past rows of share-image cards, dark closing band.
 import Base from '../../layouts/Base.astro';
+import BlogBand from '../../components/BlogBand.astro';
 import { events, split, fmtWhen, FORMAT } from '../../lib/events.mjs';
-import { coverOf } from '../../lib/blog.mjs';
 const { upcoming, past } = split(await events());
+const ROWS = [
+  { id: 'upcoming', name: 'Upcoming', blurb: 'Save a seat and bring your questions.', items: upcoming },
+  { id: 'past', name: 'Past', blurb: 'Notes and replays from earlier events.', items: past },
+];
 ---
-<Base title="Events | Pramaan" description="Live demos, talks and meetups from the Pramaan team." canonical="https://www.pramaan.dev/events" footerProps={{ variant: 'catalogue', count: '3510', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
+<Base title="Events | Pramaan" description="Live demos, talks and meetups from the Pramaan team." canonical="https://www.pramaan.dev/events" footerProps={{ variant: 'catalogue', countLabel: 'Superpowers', eyebrow: 'find', tools: ['ui-builder', 'ui-inspiration'] }}>
   <Fragment slot="head">
     <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/blog.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
   <main>
-    <section class="cat-hero">
-      <div class="container cat-hero__inner">
-        <h1 class="display">Events</h1>
-        <p class="lead">Live demos, talks and meetups. Come and watch an agent get real work done, and ask us anything.</p>
-      </div>
-    </section>
     <div class="container">
-      <div class="posts">
-        <h2 class="ev-head">Upcoming</h2>
-        {upcoming.length === 0 && <p class="caption">Nothing scheduled right now. Check back soon.</p>}
-        {upcoming.length > 0 && (
-          <div class="posts__grid">
-            {upcoming.map((e) => (
-              <a class="pcard" href={`/events/${e.id}`}>
-                <div class={`pcard__cover cover cover--${coverOf(e.id)}`} aria-hidden="true"></div>
-                <span class="pcard__meta">{FORMAT[e.data.format]} | {fmtWhen(e)}</span>
-                <b class="pcard__title">{e.data.title}</b>
-                <span class="pcard__sub">{e.data.description}</span>
-                <span class="pcard__more">Details</span>
-              </a>
-            ))}
+      <section class="bl-hubhead">
+        <span class="eyebrow bl-bracket">Events</span>
+        <h1>Watch an agent <em>get work done</em></h1>
+        <p>Live demos, talks and meetups. Come and watch, then ask us anything.</p>
+      </section>
+      {ROWS.map((r) => (r.items.length > 0 || r.id === 'upcoming') && (
+        <section class="bl-row" id={r.id}>
+          <div class="bl-row__head">
+            <div><span class="eyebrow bl-bracket">{r.items.length} {r.items.length === 1 ? 'event' : 'events'}</span><h2 class="bl-h2">{r.name}</h2><p>{r.blurb}</p></div>
           </div>
-        )}
-        {past.length > 0 && (
-          <>
-            <h2 class="ev-head">Past</h2>
-            <div class="posts__grid">
-              {past.map((e) => (
-                <a class="pcard" href={`/events/${e.id}`}>
+          {r.items.length === 0 ? <p class="caption">Nothing scheduled right now. Check back soon.</p> : (
+            <div class="posts__grid bl-grid">
+              {r.items.map((e) => (
+                <a class="pcard bl-card" href={`/events/${e.id}`}>
+                  <img class="bl-og" src={`/og/events/${e.id}.png`} alt="" width="1200" height="630" loading="lazy" />
                   <span class="pcard__meta">{FORMAT[e.data.format]} | {fmtWhen(e)}</span>
                   <b class="pcard__title">{e.data.title}</b>
-                  <span class="pcard__more">Details</span>
+                  <span class="pcard__sub bl-clamp">{e.data.description}</span>
                 </a>
               ))}
             </div>
-          </>
-        )}
-      </div>
+          )}
+        </section>
+      ))}
     </div>
+    <BlogBand />
   </main>
 </Base>

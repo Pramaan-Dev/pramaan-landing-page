@@ -5,7 +5,6 @@ import ViewToggle from '../../components/ViewToggle.astro';
 import AgentView from '../../components/AgentView.astro';
 import OgImage from '../../components/OgImage.astro';
 import { events, split, isPast, fmtWhen, FORMAT, eventMd } from '../../lib/events.mjs';
-import { coverOf } from '../../lib/blog.mjs';
 
 export async function getStaticPaths() {
   const all = await events();
@@ -41,6 +40,7 @@ const ld = JSON.stringify({
     <script is:inline type="application/ld+json" set:html={ld}></script>
     <link rel="alternate" type="text/markdown" href={`${url}.md`} />
     <link rel="stylesheet" href="/catalogue.css" />
+    <link rel="stylesheet" href="/blog.css" />
     <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
     <script is:inline src="/components/ticket-stub-footer.js" defer></script>
   </Fragment>
@@ -97,7 +97,7 @@ const ld = JSON.stringify({
             <h2 class="evx__side-h">Other events</h2>
             {others.map((o) => (
               <a class="pcard" href={`/events/${o.id}`}>
-                <div class={`pcard__cover cover cover--${coverOf(o.id)}`} aria-hidden="true"></div>
+                <img class="bl-og" src={`/og/events/${o.id}.png`} alt="" width="1200" height="630" loading="lazy" />
                 <b class="pcard__title">{o.data.title}</b>
                 <span class="pcard__meta">{isPast(o) ? 'Past' : FORMAT[o.data.format]} | {fmtWhen(o)}</span>
               </a>
