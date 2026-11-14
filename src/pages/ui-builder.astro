@@ -17,6 +17,7 @@ import Base from '../layouts/Base.astro';
   --color-off-black:#242424; --color-ink:#000; --color-graphite:#4e4d4d; --color-smoke:#797776; --color-ash:#cecac8;
   --font-mono:'ABC Diatype Mono','JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --font-serif:'Untitled Serif','Newsreader',Georgia,'Times New Roman',serif;
+  --font-sans:'Untitled Sans','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;   /* same stack as public/styles.css */
   --page-max-width:1432px; --gutter:40px;
   --bg:#f6f3f1; --blob-dark:transparent; --blob-light:transparent;
   --glass:rgba(255,255,255,.55); --glass-strong:#fff; --glass-edge:#cecac8; --glass-shadow:none;
@@ -27,7 +28,10 @@ import Base from '../layouts/Base.astro';
   --thread:#242424; --thread-solid:#000; --on-thread:#fff; --thread-glow:transparent; --thread-edge:transparent;
   --focus:#2b59d1; --needs:#8a5300; --done:#116b33; --blocked:#b91c1c;
   --pane:rgba(246,243,241,.97);   /* dialogs and pop-ups */
-  --serif:var(--font-serif); --sans:var(--font-mono); --mono:var(--font-mono);
+  --serif:var(--font-serif); --sans:var(--font-sans); --mono:var(--font-mono);
+  /* type roles for the builder's own frame (the preview is the user's design). Sans for words, serif for titles, mono only for values (hex, px, token names, code).
+     Weights: 400 text, 500 labels and the selected state, 600 a notice title. Tracking: 0 on sans and mono, -.01em on the 17px serif, -.02em on 21-22px serif, +.04em on the one uppercase button. */
+  --t-micro:11px; --t-meta:12px; --t-ui:13px; --t-body:14px; --t-title:17px; --t-dialog:21px; --t-bar:22px; --t-code:13px;
   --r-island:24px; --r-card:16px; --r-ctl:12px; --r-pill:9999px; --gap:12px; --blur:12px; --blur-btn:0px;
   /* names the builder's styles already use, pointed at the glass tokens */
   --c-bg:var(--glass-strong); --c-panel:var(--glass); --c-inset:var(--surface-sunk); --c-line:var(--line); --c-text:var(--fg);
@@ -36,8 +40,8 @@ import Base from '../layouts/Base.astro';
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{background:var(--bg)}
-body{margin:0;background:transparent;color:var(--fg);font:14px/1.5 var(--sans);letter-spacing:0;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);scroll-padding-top:96px} /* keep keyboard focus clear of the 80px sticky nav */
+body{margin:0;background:transparent;color:var(--fg);font:400 var(--t-body)/1.5 var(--sans);letter-spacing:0;-webkit-font-smoothing:antialiased}
 /* ---------- Website header and intro (class names prefixed: the preview owns .nav, .logo, .btn, .tag) ---------- */
 .site-wrap{width:100%;max-width:var(--page-max-width);margin:0 auto;padding:0 var(--gutter)}
 .site-nav{position:sticky;top:0;z-index:20;background:rgba(246,243,241,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
@@ -59,10 +63,10 @@ body{margin:0;background:transparent;color:var(--fg);font:14px/1.5 var(--sans);l
 .nav-open .site-nav__toggle span:first-child{transform:translateY(4.5px) rotate(45deg)}
 .nav-open .site-nav__toggle span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
 .uib-hero{padding-top:56px;padding-bottom:12px}
-.uib-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--color-off-black);border-radius:100px;font-size:12px;text-transform:uppercase;letter-spacing:-.02em}
+.uib-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--color-off-black);border-radius:100px;font:500 var(--t-meta)/1.2 var(--sans);text-transform:none;letter-spacing:0}
 .uib-tag i{width:8px;height:8px;border-radius:50%;background:var(--color-coral)}
 .uib-hero h1{margin:20px 0 16px;font:400 64px/1.1 var(--font-serif);letter-spacing:-.02em;color:var(--color-off-black)}
-.uib-hero p{margin:0;max-width:760px;font-size:20px;line-height:1.5;letter-spacing:-.02em;color:var(--color-graphite)}
+.uib-hero p{margin:0;max-width:760px;font-size:20px;line-height:1.5;letter-spacing:-.01em;color:var(--color-graphite)}
 /* Resources menu: same as styles.css .navres (not loaded here) */
 .navres{position:relative}
 .navres summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:18px;text-transform:uppercase;letter-spacing:-.022em;line-height:1.2;white-space:nowrap;color:var(--color-off-black);transition:color .2s}
@@ -92,13 +96,14 @@ body{margin:0;background:transparent;color:var(--fg);font:14px/1.5 var(--sans);l
   :root{--gutter:24px}
   .uib-hero{padding-top:32px;padding-bottom:8px} .uib-hero h1{font-size:40px}
 }
+.site-nav{font-family:var(--font-mono)}   /* the site header keeps its mono look; the builder body is sans */
 button{font:inherit;color:inherit}
 svg{flex:none}
 
 .top{height:56px;display:flex;align-items:center;gap:14px;padding:0 20px}
-.mark{width:22px;height:22px;border-radius:6px;background:var(--c-pri);display:grid;place-items:center;color:var(--c-pri-fg);font-weight:700;font-size:13px}
+.mark{width:22px;height:22px;border-radius:6px;background:var(--c-pri);display:grid;place-items:center;color:var(--c-pri-fg);font-weight:600;font-size:var(--t-ui)}
 .crumb{color:var(--c-muted)}
-.crumb b{color:var(--c-text);font-weight:600}
+.crumb b{color:var(--c-text);font-weight:500}
 .sp{flex:1}
 .ibtn{width:34px;height:34px;display:grid;place-items:center;border:0;background:transparent;border-radius:8px;cursor:pointer}
 .ibtn:hover{background:var(--c-hover)}
@@ -111,34 +116,34 @@ svg{flex:none}
 /* sidebar */
 .side{background:var(--c-panel);border:1px solid var(--c-line);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
 .side .scroll{overflow:auto;padding:6px;flex:1}
-.grp{font-size:11.5px;color:var(--c-muted);padding:12px 12px 4px;display:flex;align-items:center;gap:6px}
-.grp em{font-style:normal;font-size:10.5px;padding:1px 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-text)}
+.grp{font:400 var(--t-title)/1.2 var(--serif);letter-spacing:-.01em;color:var(--c-text);padding:12px 12px 4px;display:flex;align-items:center;gap:6px}
+.grp em{font:400 var(--t-micro)/1.4 var(--sans);letter-spacing:0;padding:1px 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-text)}
 .row{position:relative;display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;cursor:pointer}
 .row:hover{background:var(--c-hover)}
 .row:focus-within{outline:2px solid var(--c-line)}
 .row .t{flex:1;min-width:0}
-.row small{display:block;font-size:11.5px;color:var(--c-muted);line-height:1.3}
-.row b{display:block;font-weight:500;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.row select,.row input[type=color]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0}
+.row small{display:block;font-size:var(--t-meta);font-weight:400;color:var(--c-muted);line-height:1.3}
+.row b{display:block;font-weight:500;font-size:var(--t-ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row select,.row input[type=color]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0;font:inherit}
 .chip{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
 .glyph{font-size:12px;color:var(--c-muted);min-width:22px;text-align:right}
 .urlrow{display:flex;gap:6px;padding:4px 12px 8px}
 .urlrow input{flex:1;min-width:0;height:32px;border:1px solid var(--c-line);border-radius:8px;padding:0 10px;background:var(--c-bg);color:inherit;font:inherit;font-size:13px}
-.urlnote{font-size:11.5px;color:var(--c-muted);padding:0 12px 6px}
+.urlnote{font-size:var(--t-meta);color:var(--c-muted);padding:0 12px 6px}
 .bring{padding:4px 12px 8px;display:grid;gap:6px}
-.bring textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--c-line);border-radius:8px;padding:8px 10px;background:var(--c-bg);color:inherit;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+.bring textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--c-line);border-radius:8px;padding:8px 10px;background:var(--c-bg);color:inherit;font:400 var(--t-code)/1.6 var(--mono);letter-spacing:0}
 .bring textarea.drag{border-color:var(--c-text);border-style:dashed}
 .bring .acts{display:flex;gap:6px}
-.bring .acts .ghost{height:30px;font-size:12.5px;padding:0 10px}
-.bring .ex{font-size:11.5px;color:var(--c-muted)}
-.bring .ex button{border:0;background:none;padding:0;color:var(--c-text);text-decoration:underline;cursor:pointer;font-size:11.5px}
-.found{font-size:11.5px;color:var(--c-muted);line-height:1.45}
+.bring .acts .ghost{height:30px;padding:0 10px}
+.bring .ex{font-size:var(--t-meta);color:var(--c-muted)}
+.bring .ex button{border:0;background:none;padding:0;color:var(--c-text);text-decoration:underline;cursor:pointer;font-size:var(--t-meta)}
+.found{font-size:var(--t-meta);color:var(--c-muted);line-height:1.45}
 .found b{color:var(--c-text);font-weight:500}
 .foot{border-top:1px solid var(--c-line);padding:10px;display:grid;gap:8px}
 .foot .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.guard{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--c-muted);padding:2px 4px}
+.guard{display:flex;align-items:center;gap:8px;font-size:var(--t-meta);color:var(--fg-2);padding:2px 4px}
 .guard i{width:7px;height:7px;border-radius:50%}
-.guard button{margin-left:auto;border:0;background:none;text-decoration:underline;cursor:pointer;font-size:12px;color:var(--c-text)}
+.guard button{margin-left:auto;border:0;background:none;text-decoration:underline;cursor:pointer;font-size:var(--t-meta);color:var(--c-text)}
 
 /* canvas */
 .canvas{position:relative;background:var(--c-inset);border:1px solid var(--c-line);border-radius:16px;overflow:auto;padding:28px 28px 90px}
@@ -154,20 +159,32 @@ svg{flex:none}
   container-type:inline-size; margin:0 auto; max-width:1180px; color:var(--text); font-family:var(--font);
   transition:max-width var(--m) ease;
 }
-.stage{--page:#f4f4f5; background:var(--page); padding:calc(20px*var(--d)); border:1px solid var(--c-line); border-radius:20px}
-.stage.dark{--page:#0b0b0d; --card:#141416; --text:#fafafa; --muted:#a1a1aa; --line:#27272a; --soft:#1f1f23; --danger:#f87171; --ok:#4ade80}
+.stage{--page:#f4f4f5; color-scheme:light; background:var(--page); padding:calc(20px*var(--d)); border:1px solid var(--c-line); border-radius:20px}
+.stage.dark{color-scheme:dark; --page:#0b0b0d; --card:#141416; --text:#fafafa; --muted:#a1a1aa; --line:#27272a; --soft:#1f1f23; --danger:#f87171; --ok:#4ade80}
 .stage.mobile{max-width:390px; border-radius:36px; padding:14px}
+.stage.desktop{max-width:1440px}
 .stage *{transition:background-color var(--m) ease,color var(--m) ease,border-radius var(--m) ease,padding var(--m) ease}
+/* containment: an applied design reaches only what is inside #stage. Containers are capped so no design can make an oval;
+   only pill-shaped parts (buttons, tags, switches) may go fully round. The builder's own parts that sit inside the stage
+   (the app-preview note, its Android/iOS switch, the phone captions) keep Pramaan's look, not the design's. */
+.stage .card,.stage .site,.stage .foot2,.stage .modal .box{border-radius:min(var(--rc,calc(var(--r) + 4px)),28px)}
+.stage .appnote,.stage .seg2,.stage .seg2 button,.stage .pf figcaption{font-family:var(--sans);letter-spacing:0;direction:ltr}
+.stage.geo-measure,.stage.geo-measure *{transition:none !important}   /* the shape check reads final radii, not a transition's first frame */
+.stage .appnote,.stage .seg2 button{font-size:var(--t-ui,13px)}
+.stage .pf figcaption{font-size:var(--t-meta,12px)}
+/* small builder text on the canvas: --fg-3 is about 4.3:1 there (3.8:1 on the switch track), --fg-2 about 8:1 */
+.stage .appnote,.stage .seg2 button:not([aria-pressed="true"]),.stage .pf figcaption{color:var(--fg-2)}
 .grid{columns:3;column-gap:calc(16px*var(--d))}
 @container (max-width: 920px){ .grid{columns:2} }
 @container (max-width: 560px){ .grid{columns:1} }
+@container (min-width: 1240px){ .grid{columns:4} }
 .card{break-inside:avoid;margin:0 0 calc(16px*var(--d));background:var(--card);border:1px solid var(--line);border-radius:var(--rc,calc(var(--r) + 4px));padding:calc(20px*var(--d));box-shadow:var(--cs,0 1px 2px rgba(0,0,0,.04))}
 .ch{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:calc(14px*var(--d))}
 .ch h4{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em;font-family:var(--hf,inherit)}
 .ch p{margin:2px 0 0;font-size:13px;color:var(--muted)}
 .lbl{display:block;font-size:13px;font-weight:500;margin:calc(10px*var(--d)) 0 6px}
 .inp{width:100%;height:calc(36px*var(--d));padding:0 12px;border:1px solid var(--line);border-radius:var(--ri,calc(var(--r)*.8));background:transparent;color:var(--text);font:inherit;font-size:14px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stage .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:calc(38px*var(--d));margin-top:calc(14px*var(--d));border:0;border-radius:var(--rb,calc(var(--r)*.8));background:var(--p);color:var(--p-fg);font:inherit;font-weight:500;font-size:14px;cursor:pointer}
 .btn.o{background:transparent;color:var(--text);border:1px solid var(--line);margin-top:8px}
 .btn.sm{width:auto;height:30px;padding:0 12px;margin:0;font-size:13px}
@@ -246,9 +263,9 @@ svg{flex:none}
 .ib.f{background:var(--p);color:var(--p-fg);border-color:transparent}
 .chk{display:flex;align-items:center;gap:8px;font-size:13.5px;margin-top:10px}
 .chk input{accent-color:var(--p);width:16px;height:16px;margin:0}
-.sw{position:relative;width:34px;height:20px;border-radius:99px;background:var(--p);flex:none}
-.sw::after{content:"";position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:var(--p-fg)}
-.sw.off{background:var(--line)} .sw.off::after{left:2px;background:var(--card)}
+.stage .sw{position:relative;width:34px;height:20px;border-radius:99px;background:var(--p);flex:none}
+.stage .sw::after{content:"";position:absolute;top:2px;left:16px;width:16px;height:16px;border-radius:50%;background:var(--p-fg)}
+.stage .sw.off{background:var(--line)} .stage .sw.off::after{left:2px;background:var(--card)}
 .tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 9px;border-radius:var(--rt,calc(var(--r)*.6));border:1px solid var(--line);color:var(--text)}
 .seg{display:inline-flex;padding:3px;border-radius:calc(var(--r)*.8);background:var(--soft);gap:2px}
 .seg span{padding:5px 12px;border-radius:calc(var(--r)*.6);font-size:13px;color:var(--muted)}
@@ -289,14 +306,14 @@ dialog::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
 .dh{padding:18px 20px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .dh__acts{display:flex;align-items:center;gap:8px;flex:none}
 .dx{border:0;background:none;color:var(--c-muted);font-size:24px;line-height:1;cursor:pointer;padding:2px 4px;margin-left:4px} .dx:hover{color:var(--c-text)}
-.dh h3{margin:0;font-size:16px}
-.dh p{margin:4px 0 0;color:var(--c-muted);font-size:13px}
+.dh h3{margin:0}
+.dh p{margin:4px 0 0;color:var(--c-muted);font-size:var(--t-ui)}
 .tabs{display:flex;gap:2px;padding:14px 20px 0;flex-wrap:wrap}
 .tabs button{border:0;background:none;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--c-muted)}
 .tabs button[aria-pressed="true"]{background:var(--c-hover);color:var(--c-text);font-weight:500}
-dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-inset);border:1px solid var(--c-line);max-height:300px;overflow:auto;font:12.5px/1.6 "JetBrains Mono",ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}
+dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-inset);border:1px solid var(--c-line);max-height:300px;overflow:auto;font:400 var(--t-code)/1.6 var(--mono);letter-spacing:0;white-space:pre-wrap;word-break:break-word}
 .df{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 20px 18px;flex-wrap:wrap}
-.df span{font-size:12.5px;color:var(--c-muted)}
+.df span{font-size:var(--t-meta);color:var(--fg-2)}
 
 /* ---------- native app preview: iOS (Apple guidelines) and Android (Material 3) ---------- */
 .stage.ios,.stage.android{max-width:1180px;background:transparent;border:0;padding:0}
@@ -391,19 +408,71 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .m3-done{text-align:center;padding:40px 24px} .m3-done .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:var(--m3-pc);color:var(--m3-onpc)}
 .m3-banner{display:flex;gap:10px;margin:6px 14px 14px;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--danger) 14%,var(--page));color:var(--danger);font-size:13px}
 
+/* ---------- Acme sample content (stage only) and Get code copy feedback ---------- */
+.stage .ac-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 0}
+.stage .ac-vs{margin-inline-start:8px;font-size:12px;color:var(--muted)}
+.stage .ac-chart{display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:8px;row-gap:6px;margin-top:calc(18px*var(--d));font-variant-numeric:tabular-nums}
+.stage .ac-y{position:relative;height:120px;font-size:11px;line-height:1;color:var(--muted);text-align:end}
+.stage .ac-y span{position:absolute;inset-inline-end:0;bottom:var(--y);translate:0 50%}
+.stage .ac-plot{position:relative;height:120px}
+.stage .ac-g{position:absolute;inset-inline:0;height:0;bottom:calc(var(--y) - 1px);border-top:1px solid var(--line)}
+.stage .ac-bars{position:absolute;inset:0;display:flex;align-items:flex-end;gap:4px}
+.stage .ac-b{flex:1;min-width:0;background:var(--p);border-radius:min(calc(var(--r)*.4),4px) min(calc(var(--r)*.4),4px) 0 0}
+.stage .ac-mark{position:absolute;top:0;bottom:0;inset-inline-start:50%;border-inline-start:1px dashed var(--muted)}
+.stage .ac-mark span{position:absolute;top:2px;inset-inline-end:6px;white-space:nowrap;font-size:11px;line-height:1.2;color:var(--muted);background:var(--card);padding:1px 4px}
+.stage .ac-days{grid-column:2;display:flex;gap:4px;font-size:11px;line-height:1;color:var(--muted)}
+.stage .ac-days span{flex:1;min-width:0;text-align:center}
+.stage .ac-mini span,.stage .ac-mini span:nth-child(odd){opacity:.9}
+.stage .ac-fine{display:block;margin-top:12px;font-size:12.5px;color:var(--muted)}
+.stage .ac-logos{margin-top:calc(30px*var(--d))}
+.stage .ac-cap{display:block;font-size:12px;color:var(--muted);margin-bottom:12px}
+.stage .ac-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 28px}
+.stage .ac-wm{display:inline-flex;align-items:center;gap:6px;font-size:15px;line-height:1;color:var(--muted)}
+.stage .ac-wm svg{flex:none}
+.stage .ac-w1{font-weight:800;letter-spacing:-.03em}
+.stage .ac-w2{font-weight:500;text-transform:lowercase}
+.stage .ac-w3{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:16px}
+.stage .ac-w4{font-weight:600;font-size:14px}
+.stage .ac-w4 em{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:400}
+.stage .ac-w5{font-variant-caps:all-small-caps;font-weight:600;font-size:16px}
+.stage .ac-src{align-items:flex-start;line-height:1.4}
+.stage .ac-src i{margin-top:-1px}
+.stage .ac-status{display:inline-flex;align-items:center;gap:6px;justify-self:start;margin-top:4px;font-size:12px}
+.stage .ac-dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+.gc-copy{min-width:112px}
+.cta.gc-copy[data-state="copied"],.cta.gc-copy[data-state="copied"]:hover{background:var(--done);border-color:var(--done);color:#fff;box-shadow:none}
+.df .gc-status{flex:1 0 100%;min-height:1.5em;font-family:var(--sans);font-size:var(--t-meta,12px);line-height:1.5;color:var(--done)}
+.df .gc-status.gc-err{color:var(--blocked)}
+.cta.gc-copy[data-state="failed"],.cta.gc-copy[data-state="failed"]:hover{background:var(--blocked);border-color:var(--blocked);color:#fff;box-shadow:none}
+
 /* notifications (builder chrome, top right) */
-.notice{position:fixed;top:66px;right:16px;z-index:60;width:min(360px,calc(100vw - 32px));display:flex;gap:10px;align-items:flex-start;
+.notice{display:flex;gap:10px;align-items:flex-start;
   padding:12px 12px 12px 14px;border-radius:12px;background:var(--c-panel);color:var(--c-text);border:1px solid var(--c-line);
   box-shadow:0 14px 36px rgba(0,0,0,.32);font-size:13px;animation:nin .18s ease}
 .notice[hidden]{display:none}
 .notice .dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex:none;background:var(--c-ok)}
 .notice.warn .dot{background:#f59e0b} .notice.err .dot{background:var(--c-bad)} .notice.info .dot{background:var(--c-muted)}
-.notice .nt{flex:1;min-width:0;display:grid;gap:3px} .notice .nt span{color:var(--c-muted);line-height:1.4}
+.notice .nt{flex:1;min-width:0;display:grid;gap:3px} .notice .nt span{color:var(--fg-2);line-height:1.4}
 .notice .na{display:flex;gap:12px;margin-top:6px}
-.notice .na button,.notice .x{border:0;background:none;color:var(--c-text);cursor:pointer;font-size:12.5px;padding:0}
+.notice .na button,.notice .x{border:0;background:none;color:var(--c-text);cursor:pointer;font-size:var(--t-meta);padding:0}
 .notice .na button{text-decoration:underline;text-underline-offset:3px} .notice .x{font-size:16px;line-height:1;color:var(--c-muted)}
 @keyframes nin{from{opacity:0;transform:translateY(-6px)}}
 @media (prefers-reduced-motion: reduce){.notice{animation:none}}
+/* notices are a stack: #notice (.nq) is the fixed container, each message is a static .notice.nq-item with its own timer */
+.nq{position:fixed;top:66px;right:16px;z-index:60;width:min(360px,calc(100vw - 32px));display:grid;gap:8px;pointer-events:none}
+.nq:empty{display:none}
+.nq .notice.nq-item{max-width:100%;pointer-events:auto;font-family:var(--sans);letter-spacing:0;text-transform:none}
+.nq-item .nt b{font-size:13px;font-weight:600;letter-spacing:0}
+.nq-item .nt span{font-size:var(--t-meta,12px);letter-spacing:0}
+.nq-item .na button,.nq-item .x{font-family:inherit;letter-spacing:0;text-transform:none}
+@media (min-width: 861px){ .nq{top:128px;right:28px} body.uib-focus .nq{top:72px} }
+@media (max-width: 860px){ .nq-item .na button{min-height:44px;padding:0 4px} .nq-item .x{min-width:44px;min-height:44px} }
+/* shape check, persistent Undo, corner glyph (builder chrome) */
+.geo-read{margin-top:6px}
+.guard .geo-undo{display:flex;align-items:center;margin:0 0 6px;padding:2px 0;min-height:28px}
+@media (max-width: 860px){ .guard .geo-undo{min-height:44px} }
+.sp-seg .sp-cg{display:block;width:20px;height:20px}
+.sp-cname .sp-px{margin-left:6px}
 
 /* editable colour table */
 .ctab{padding:2px 6px 6px}
@@ -412,10 +481,10 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .crow input[type=color]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;border:0}
 .crow .sw2{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4);flex:none}
 .crow .t{flex:1;min-width:0}
-.crow b{display:block;font-weight:500;font-size:12.5px}
-.crow code{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--c-muted);margin-left:4px}
-.crow small{display:block;font-size:11px;color:var(--c-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.crow .undo{position:relative;z-index:1;border:0;background:none;color:var(--c-text);cursor:pointer;font-size:11.5px;text-decoration:underline}
+.crow b{display:block;font-weight:500;font-size:var(--t-ui);color:var(--fg)}
+.crow code{font:400 var(--t-meta)/1.3 var(--mono);letter-spacing:0;font-variant-numeric:tabular-nums;color:var(--c-muted);margin-left:4px}
+.crow small{display:block;font-size:var(--t-meta);font-weight:400;color:var(--c-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crow .undo{position:relative;z-index:1;border:0;background:none;color:var(--c-text);cursor:pointer;font-size:var(--t-meta);text-decoration:underline}
 
 /* readability check */
 .guard{display:block}
@@ -429,9 +498,9 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .read .list{max-height:230px;overflow:auto;padding-top:4px}
 /* a failing button check offers two fixes, each with a tiny button showing the result */
 .read .fx2{display:grid;gap:5px;padding:4px 0 2px 16px}
-.read .fx2 button{display:flex;align-items:center;gap:6px;margin:0;padding:3px 8px 3px 3px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface-sunk);color:var(--fg);text-decoration:none;font-size:11.5px;text-align:left;line-height:1.25}
-.read .fx2 button:hover{background:var(--btn-glass-hover)} .read .fx2 small{display:block;color:var(--fg-3);font-size:10.5px}
-.read .fxs{flex:none;padding:2px 7px;border-radius:99px;font-size:11px;font-weight:600}
+.read .fx2 button{display:flex;align-items:center;gap:6px;margin:0;padding:3px 8px 3px 3px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface-sunk);color:var(--fg);text-decoration:none;font-size:var(--t-meta);text-align:left;line-height:1.25}
+.read .fx2 button:hover{background:var(--btn-glass-hover)} .read .fx2 small{display:block;color:var(--fg-2);font-size:var(--t-micro)}
+.read .fxs{flex:none;padding:2px 7px;border-radius:99px;font-size:var(--t-micro);font-weight:600}
 
 /* design browser */
 #gal{width:min(1080px,calc(100vw - 32px))}
@@ -440,12 +509,12 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 #gal .df{padding-top:14px;border-top:1px solid rgba(0,0,0,.1)}
 #gal .ggrid{mask-image:linear-gradient(transparent,#000 14px,#000 calc(100% - 28px),transparent)}
 .gbar{display:flex;gap:8px;align-items:center;padding:14px 20px 0;flex-wrap:wrap}
-.gbar input{flex:1;min-width:200px;height:34px;border:1px solid var(--c-line);border-radius:8px;padding:0 12px;background:var(--c-bg);color:inherit;font:inherit;font-size:13.5px}
-.gfil{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 20px 12px;font-size:12.5px;color:var(--fg-3)}
+.gbar input{flex:1;min-width:200px;height:34px;border:1px solid var(--c-line);border-radius:8px;padding:0 12px;background:var(--c-bg);color:inherit;font:inherit;font-size:var(--t-body);line-height:1.5}
+.gfil{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 20px 12px;font-size:var(--t-meta);font-weight:400;color:var(--fg-2)}
 .gfil[hidden]{display:none}
-.gfil select{height:32px;padding:0 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:12.5px;cursor:pointer}
+.gfil select{height:32px;padding:0 10px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:var(--t-ui);cursor:pointer}
 .gfil select.set{border-color:var(--fg);background:var(--btn-glass-hover)}
-.gfil button[data-clear]{border:0;background:none;color:var(--fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:12.5px}
+.gfil button[data-clear]{border:0;background:none;color:var(--fg);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:var(--t-meta)}
 .gfil i{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4)}
 .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;padding:14px 20px;max-height:60vh;overflow:auto}
 .gcard{border:1px solid var(--c-line);border-radius:12px;overflow:hidden;background:var(--c-inset);cursor:pointer;text-align:left;padding:0;color:inherit;font:inherit}
@@ -460,54 +529,58 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .gpop.on{opacity:1;transform:none}
 .gpop img{display:block;width:100%;transform:translateY(0)}
 .gpop.on img.run{transform:translateY(var(--dist,0));transition:transform var(--scroll,5s) linear .5s}
-.gpop .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-size:12.5px}
-.gpop .cap b{display:block;font-size:14px}
-.gcard .bad{display:inline-block;margin-left:6px;font-size:10.5px;padding:0 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--c-muted)}
+.gpop .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.78));color:#fff;font-size:var(--t-meta)}
+.gpop .cap b{display:block;font-size:var(--t-body)}
+.gcard .bad{display:inline-block;margin-left:6px;font-size:var(--t-micro);font-weight:400;padding:0 6px;border-radius:99px;border:1px solid var(--c-line);color:var(--fg-2)}
 @media (prefers-reduced-motion: reduce){ .gth img{transform:none} .gpop.on img.run{transform:none;transition:none} }
 .gcard div{padding:8px 10px 10px}
-.gcard b{display:block;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gcard small{font-size:11.5px;color:var(--c-muted)}
+.gcard b{display:block;font-size:var(--t-ui);font-weight:500;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcard small{font-size:var(--t-meta);font-weight:400;color:var(--fg-2)}
 .gdet{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:18px;padding:14px 20px}
 .gdet[hidden],.ggrid[hidden],.gbar[hidden]{display:none}
 .gshot{max-height:62vh;overflow:auto;border:1px solid var(--c-line);border-radius:12px;background:var(--c-inset)}
 .gshot img{display:block;width:100%}
-.ginfo{display:grid;gap:10px;align-content:start;font-size:13px}
-.ginfo h4{margin:0;font-size:17px} .ginfo a{color:var(--c-muted)}
-.ginfo .ns{color:var(--c-text);font-style:italic} .ginfo .meta{color:var(--c-muted)}
-.ginfo p{margin:0;color:var(--c-muted);line-height:1.5;max-height:10em;overflow:auto}
+.ginfo{display:grid;gap:10px;align-content:start;font-size:var(--t-body);line-height:1.5}
+.ginfo h4{margin:0} .ginfo a{color:var(--fg-2)}
+.ginfo .ns{color:var(--c-text);font-style:italic} .ginfo .meta{color:var(--fg-2)}
+.ginfo p{margin:0;color:var(--fg-2);font-size:var(--t-body);line-height:1.5;max-height:10em;overflow:auto}
 .gsw{display:flex;gap:6px;flex-wrap:wrap} .gsw i{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(127,127,127,.4)}
 .ginfo .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.ginfo small{color:var(--c-muted);font-size:11.5px}
+.ginfo small{color:var(--fg-2);font-size:var(--t-meta);font-weight:400}
 @media (max-width: 760px){ .gdet{grid-template-columns:1fr} }
-.gnone{grid-column:1/-1;color:var(--c-muted);font-size:13.5px;margin:20px 0;text-align:center}
+.gnone{grid-column:1/-1;color:var(--fg-2);font-size:var(--t-body);line-height:1.5;margin:20px 0;text-align:center}
 
 /* ---------- Glass chrome: islands, pill buttons, one accent (DESIGN.md §6–7) ---------- */
+/* numbers line up and do not jump as they change */
+.side,.top,dialog,.ddm,.notice,#notice{font-variant-numeric:tabular-nums}
 .top,.side,.canvas{background:var(--glass);-webkit-backdrop-filter:blur(var(--blur)) saturate(1.1);backdrop-filter:blur(var(--blur)) saturate(1.1);
   border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow);border-radius:var(--r-island)}
 .top{height:56px;margin-top:var(--gap);padding:0 12px 0 20px;gap:10px}
 .app{gap:var(--gap);padding:var(--gap) 0;height:calc(100vh - 80px - 56px - var(--gap));min-height:560px}
 /* line the builder up with the header and heading column */
 .top,.app{width:calc(100% - 2*var(--gutter));max-width:calc(var(--page-max-width) - 2*var(--gutter));margin-left:auto;margin-right:auto}
-.wordmark{display:inline-flex;align-items:center;gap:7px;font:400 21px var(--serif);letter-spacing:-.02em;color:var(--fg);text-decoration:none}
+.wordmark{display:inline-flex;align-items:center;gap:7px;font:400 var(--t-bar) var(--serif);letter-spacing:-.02em;color:var(--fg);text-decoration:none}
 .wordmark i{width:8px;height:8px;border-radius:50%;background:var(--fg);margin-top:6px}
-.crumb{font:400 22px var(--serif);letter-spacing:-.02em;color:var(--fg);white-space:nowrap}
+.crumb{font:400 var(--t-bar) var(--serif);letter-spacing:-.02em;color:var(--fg);white-space:nowrap}
 @media (max-width:600px){ body .top{height:auto;flex-wrap:wrap;padding:12px 16px;row-gap:8px} .top .sp{flex-basis:100%;height:0} }
 .shared{font-size:12px;color:var(--fg-2);padding:3px 10px;border:1px solid var(--line);border-radius:999px}
 /* quiet glass button (default) and the thread button (the single accent, for the main action) */
 .ghost,.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 16px;border-radius:var(--r-pill);
   border:1px solid var(--btn-edge);background:var(--btn-glass);box-shadow:var(--btn-shadow);-webkit-backdrop-filter:blur(var(--blur-btn));backdrop-filter:blur(var(--blur-btn));
-  color:var(--fg);font-size:12.5px;font-weight:400;text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap;cursor:pointer;transition:background .12s,transform .12s}
+  color:var(--fg);font-size:var(--t-ui);font-weight:500;text-transform:none;letter-spacing:0;white-space:nowrap;cursor:pointer;transition:background .12s,transform .12s}
 .ghost:hover{background:var(--btn-glass-hover)} .ghost:active,.cta:active{transform:translateY(1px)}
 .cta{background:var(--thread);border-color:var(--thread-edge);color:var(--on-thread);box-shadow:0 1px 0 var(--thread-edge) inset,0 4px 14px var(--thread-glow)}
 .cta:hover{background:var(--thread-solid)}
+/* the one uppercase text in the builder's frame: the primary action */
+.cta[data-open-export]{text-transform:uppercase;letter-spacing:.04em;font-size:var(--t-meta)}
 .ibtn{width:36px;height:36px;border-radius:var(--r-pill);color:var(--fg)} .ibtn:hover{background:var(--btn-glass-hover)}
 :where(button,a,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 /* sidebar */
 .side .scroll{padding:10px 8px}
-.grp{font-size:12px;color:var(--fg-3);padding:14px 12px 4px}
+.grp{font:400 var(--t-title)/1.2 var(--serif);letter-spacing:-.01em;text-transform:none;color:var(--fg);padding:14px 12px 4px}
 .grp em{border-color:var(--line);color:var(--fg-2);border-radius:var(--r-pill)}
 .row,.crow{border-radius:var(--r-ctl)} .row:hover,.crow:hover{background:var(--surface-sunk)}
-.row small{color:var(--fg-3)} .row b{color:var(--fg)}
+.row small{color:var(--fg-2)} .row b{color:var(--fg)}
 /* A row is outlined only while tabbing (html[data-kb], set in the script), never after a mouse click.
    :focus-visible alone can't do this: Chrome counts a clicked <select> as keyboard-focused. */
 .row:focus-within{outline:none} html[data-kb] .row:focus-within,html[data-kb] .crow:focus-within{outline:2px solid var(--focus);outline-offset:-2px}
@@ -516,10 +589,67 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .chip,.crow .sw2{box-shadow:0 0 0 1px var(--glass-edge),inset 0 0 0 1px rgba(127,127,127,.35)}
 .urlrow input,.bring textarea,.gbar input{background:var(--glass-strong);border:1px solid var(--line);border-radius:var(--r-ctl);color:var(--fg)}
 .urlrow input:focus,.bring textarea:focus,.gbar input:focus{border-color:var(--fg);outline:none}
-.urlnote,.found,.bring .ex{color:var(--fg-3)} .found b,.bring .ex button{color:var(--fg)}
+.urlnote,.found,.bring .ex{color:var(--fg-2)} .found b,.bring .ex button{color:var(--fg)}
 .foot{border-top:1px solid var(--line-soft);padding:12px}
 .side .ghost{height:32px;padding:0 12px;border-color:var(--line);background:var(--surface-sunk);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 .side .ghost:hover{background:var(--line)}
+/* settings panel: the first choices are visible controls in plain words, the extras sit in closed groups.
+   One active state everywhere (aria-checked): white fill + ink ring + weight 500 on segments, a double ring on round swatches. */
+.side .scroll{padding:10px 10px 14px;overscroll-behavior:contain}
+@media (min-width:861px){ .side .scroll{scrollbar-gutter:stable} .foot > .cta{display:none} }   /* the toolbar holds the one filled Get code */
+.sp-h{font:400 var(--t-title)/1.2 var(--serif);text-transform:none;letter-spacing:-.01em;color:var(--fg);padding:16px 12px 8px}
+/* small text in the panel: --fg-3 is 4.26:1 on the panel glass, under the 4.5:1 that 11-12.5px text needs; --fg-2 is about 8:1 */
+.sp-h .sp-cnote{margin-left:auto;font:400 var(--t-meta)/1.2 var(--sans);text-transform:none;letter-spacing:0;color:var(--fg-2)}
+.side .urlnote,.side .found,.side .bring .ex,.side .read summary,.sp-more .crow code,.sp-more .crow small{color:var(--fg-2)}
+.sp-hint{margin:2px 0 4px;padding:10px 34px 10px 12px;position:relative;border:1px dashed var(--line);border-radius:var(--r-ctl);font-size:var(--t-ui);line-height:1.45;color:var(--fg-2)}
+.sp-hint button{position:absolute;top:4px;right:4px;width:28px;height:28px;border:0;border-radius:var(--r-pill);background:none;color:var(--fg-2);font-size:18px;line-height:1;cursor:pointer}
+.sp-hint button:hover{background:var(--btn-glass-hover);color:var(--fg)}
+.sp-presets{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.sp-pre{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;min-width:0;min-height:64px;padding:6px 0 4px;border:0;border-radius:var(--r-ctl);background:none;
+  color:var(--fg-2);font:inherit;font-size:var(--t-meta);letter-spacing:0;cursor:pointer}
+/* a style is a small card, not a dot: its own corners (set inline) and its own font, so it never reads as a colour swatch */
+.sp-pre .sw{width:44px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:15px;line-height:1;letter-spacing:0;box-shadow:0 0 0 1px var(--glass-edge),inset 0 0 0 1px rgba(127,127,127,.35)}
+.sp-pre .nm{line-height:1.15;text-align:center} .sp-pre .nm small{display:block;font-size:var(--t-micro);letter-spacing:0;color:var(--fg-2);font-weight:400}
+.sp-pre[aria-checked="true"]{color:var(--fg);font-weight:500}
+.sp-pre[aria-checked="true"] .sw{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.sp-pre:not([aria-checked="true"]):hover{background:var(--btn-glass-hover)}
+.sp-browse{width:calc(100% - 4px);margin:8px 2px 0;justify-content:center}
+.sp-lab{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:12px 12px 6px;font-size:var(--t-ui);line-height:1.3;color:var(--fg-2)}
+.sp-lab > span:first-child{font-weight:500;color:var(--fg)}
+.sp-swatches + .row{margin-top:10px}
+/* mono is for values only (hex, px, token names); a value that is a word (a corner name) is sans */
+.sp-hex,.sp-px{font:400 var(--t-meta)/1.3 var(--mono);letter-spacing:0;font-variant-numeric:tabular-nums;color:var(--fg-2)}
+.sp-v{font:400 var(--t-meta)/1.3 var(--sans);letter-spacing:0;color:var(--fg)} .sp-v.sp-cname,.sp-v.sp-dname{color:var(--fg-2)}
+.sp-dname .sp-px{margin-left:6px}
+/* a menu row (Font, Animation, Sample language) reads like Main colour and Corners: name on the left, value on the right */
+.row.sp-row .t{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.row.sp-row .sp-rl{flex:none;font-size:var(--t-ui);font-weight:500;line-height:1.3;color:var(--fg)}
+.row.sp-row .sp-rv{min-width:0;color:var(--fg-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-swatches{display:grid;grid-template-columns:repeat(9,1fr);justify-items:center;align-items:center;padding:0 2px}
+.sp-sw,.sp-custom{position:relative;width:100%;max-width:32px;aspect-ratio:1;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.sp-sw::before,.sp-custom::before{content:"";position:absolute;inset:2px;border-radius:50%;box-shadow:0 0 0 1px var(--glass-edge),inset 0 0 0 1px rgba(127,127,127,.35)}
+.sp-sw::before{background:var(--c)}
+.sp-custom::before{background:conic-gradient(#f43f5e,#f59e0b,#84cc16,#06b6d4,#6366f1,#d946ef,#f43f5e)}
+.sp-custom[data-on]::after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--cur);box-shadow:0 0 0 1.5px var(--glass-strong)}
+.sp-sw[aria-checked="true"]::before,.sp-custom[data-on]::before{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.sp-sw:not([aria-checked="true"]):hover::before{box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--line)}
+.sp-custom:hover{background:none}
+.sp-seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:2px;padding:3px;margin:0 2px;border-radius:var(--r-ctl);background:var(--surface-sunk)}
+.sp-seg button{display:flex;align-items:center;justify-content:center;min-width:0;height:40px;padding:0 2px;border:0;border-radius:9px;background:none;font:inherit;font-size:var(--t-ui);color:var(--fg-2);cursor:pointer}
+.sp-seg button[aria-checked="true"]{background:var(--glass-strong);color:var(--fg);font-weight:500;box-shadow:inset 0 0 0 1px var(--fg)}
+.sp-seg button:not([aria-checked="true"]):hover{background:var(--btn-glass-hover)}
+.sp-up{padding:0 12px 4px}
+.sp-link{border:0;background:none;padding:2px 0;color:var(--fg-2);font:inherit;font-size:12px;text-decoration:underline;text-underline-offset:2px;cursor:pointer} .sp-link:hover{color:var(--fg)}
+.sp-more{border-top:1px solid var(--line-soft);margin-top:14px} .sp-more + .sp-more{margin-top:0} .sp-more[open]{padding-bottom:8px}
+.sp-more summary{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 8px;border-radius:var(--r-ctl);font-size:var(--t-ui);font-weight:500;color:var(--fg);cursor:pointer;list-style:none}
+.sp-more summary::-webkit-details-marker{display:none}
+.sp-more summary::after{content:"";flex:none;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s ease}
+.sp-more[open] summary::after{transform:translateY(2px) rotate(225deg)}
+.sp-more summary:hover{background:var(--btn-glass-hover)}
+@media (prefers-reduced-motion: reduce){ .sp-more summary::after{transition:none} }
+@media (max-width:860px){ .sp-seg button{height:44px} .sp-pre{min-height:68px} .sp-more summary{min-height:48px} }
+/* the font menu: each built-in font in its own face, and a quiet kind tag (Serif, Sans, Rounded, Mono...) on every font */
+.ddi .ddk{margin-left:auto;padding-left:14px;font:400 var(--t-micro)/1.2 var(--sans);text-transform:none;letter-spacing:0;color:var(--fg-2)}
 /* canvas and the bottom bar */
 .canvas{padding:24px 24px 90px}
 .dock{padding:4px;gap:2px;border-radius:var(--r-pill);background:var(--pane);-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur));
@@ -529,9 +659,65 @@ dialog pre{margin:12px 20px;padding:14px;border-radius:10px;background:var(--c-i
 .dock .sep{background:var(--line)}
 /* the preview options sit in the toolbar, not floating over the preview */
 .top{height:auto;min-height:56px;flex-wrap:wrap;row-gap:6px;padding-top:8px;padding-bottom:8px}
-.top .dock{position:static;translate:none;margin:0;width:auto;padding:0;border:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;justify-content:flex-start}
-.top .dock button{padding:6px 10px;font-size:12.5px}
+.top .dock{position:static;translate:none;margin:0;width:auto;padding:0;border:0;background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px;justify-content:flex-start}
 body .canvas{padding-bottom:24px}
+.top-acts{display:contents}
+/* toolbar groups: Screen and Theme are segmented controls (one selected, white fill + ink ring), State is the pill dropdown */
+.tb-seg{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border-radius:var(--r-pill);background:var(--surface-sunk)}
+.tb-seg button{height:30px;padding:0 10px;border:0;border-radius:var(--r-pill);background:none;font-size:var(--t-ui);color:var(--fg-2);white-space:nowrap;cursor:pointer}
+.tb-seg button:hover{background:var(--btn-glass-hover)}
+.tb-seg button[aria-pressed="true"]{background:var(--glass-strong);color:var(--fg);font-weight:500;box-shadow:inset 0 0 0 1px var(--fg)}
+.top .dock .ddt{height:36px;padding:0 10px 0 14px;color:var(--fg);font-size:var(--t-ui)}
+.top .dock .ddt::before{content:"State";color:var(--fg-2)}
+.top .dock .ddi{padding:6px 10px 6px 8px;color:inherit;border-radius:8px}
+.tb-focus[aria-pressed="true"]{background:var(--btn-glass-hover);border-color:var(--fg)}
+@media (max-width: 860px){ .tb-title,.tb-focus{display:none} .tb-seg button{padding:0 8px} }
+/* desktop app shell: slim nav, one-row toolbar, the workspace fills the rest of the screen under it.
+   --uib-above (set by script) is the page distance from the top to the toolbar's bottom edge. */
+@media (min-width: 861px){
+  /* keyboard focus clears the nav and the sticky toolbar; a stable gutter stops a 15px jump when Full screen removes the page scrollbar */
+  html{scroll-padding-top:124px;scrollbar-gutter:stable}
+  :root{--side-w:320px}
+  /* the toolbar (and its Get code) never scrolls away under the nav */
+  .top{position:sticky;top:56px;z-index:15}
+  body.uib-focus .top{top:0}
+  .app .canvas,.side .scroll{scrollbar-width:thin}
+  /* once the page has scrolled (toward the footer), the preview and settings hand a scroll they can't use back to the page,
+     so scrolling up over them returns to the builder. At the top they keep it to themselves. (.uib-scrolled is set by script) */
+  body.uib-scrolled .app .canvas,body.uib-scrolled .side .scroll{overscroll-behavior-y:auto}
+  /* the toolbar's Get code is the only filled button on screen: the site's own CTA steps down to an outline here */
+  .site-nav__actions .site-btn--black{background:transparent;color:var(--color-off-black);border-color:var(--color-off-black)}
+  .site-nav__actions .site-btn--black:hover{background:var(--color-off-black);color:var(--color-parchment)}
+  .site-nav__inner{height:56px}
+  .site-nav .site-wrap{max-width:none;padding:0 28px}
+  .site-logo__mark{width:26px;height:26px} .site-logo__word{font-size:22px}
+  .site-nav__links a,.navres summary{font-size:14px}
+  .site-btn{height:36px;padding:0 18px;font-size:12.5px}
+  .nav-open .site-nav__links{top:56px}
+  /* the intro stays for screen readers and search; the title lives in the toolbar */
+  .uib-hero{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .top,.app{width:calc(100% - 32px);max-width:2400px}
+  .top{min-height:52px;margin-top:8px;padding:6px 8px 6px 18px;gap:10px;flex-wrap:nowrap}
+  .tb-title{font:400 var(--t-bar) var(--serif);letter-spacing:-.02em;white-space:nowrap;margin-right:6px}
+  .top .dock{flex-wrap:nowrap}
+  .tb-seg{flex-wrap:nowrap}
+  .top-acts{display:flex;gap:8px;flex:none}
+  .tb-focus{padding:0 12px} .tb-focus svg{width:16px;height:16px}
+  .app{grid-template-columns:var(--side-w,320px) minmax(0,1fr);padding:8px 0 12px;
+    height:calc(100vh - var(--uib-above, 116px));height:calc(100dvh - var(--uib-above, 116px));min-height:420px}
+  /* Full screen: a class on body (not the browser Fullscreen API). Nav, settings and footer step aside; the toolbar stays. */
+  body.uib-focus .site-nav,body.uib-focus .side,body.uib-focus ticket-stub-footer{display:none}
+  body.uib-focus .app{grid-template-columns:minmax(0,1fr)}
+}
+@media (min-width: 861px) and (max-width: 1099px){ :root{--side-w:300px} .top{flex-wrap:wrap;row-gap:6px} .top .dock{flex-wrap:wrap} }
+@media (min-width: 1600px){ :root{--side-w:344px} }
+@media (min-width: 861px) and (max-width: 1279px){ .tb-title{display:none} }
+/* safety net for wider system fonts: the title gives way before Get code is pushed off the edge */
+@media (min-width: 861px){ .tb-title{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis} }
+/* a 13-inch laptop (1280) keeps the words "Full screen": the toolbar buttons tighten first, the label goes only below 1181 */
+@media (min-width: 861px) and (max-width: 1320px){ .top .ghost,.top .cta{padding:0 12px} .top{gap:8px} .tb-title{margin-right:0} }
+@media (min-width: 861px) and (max-width: 1180px){ .tb-focus{padding:0 10px} .tb-focus span{display:none} }
 .seg2{background:var(--surface-sunk);border-radius:var(--r-pill)} .seg2 button{border-radius:var(--r-pill)}
 .seg2 button[aria-pressed="true"]{background:var(--btn-glass-hover);box-shadow:var(--btn-shadow)}
 .stage:not(.ios):not(.android){border-color:var(--card-edge);box-shadow:var(--card-shadow)}
@@ -540,31 +726,31 @@ dialog,.notice{background:var(--pane);-webkit-backdrop-filter:blur(28px) saturat
   border:1px solid var(--glass-edge);box-shadow:var(--glass-shadow),0 24px 60px rgba(0,0,0,.35);color:var(--fg)}
 dialog{border-radius:var(--r-island)} .notice{border-radius:var(--r-card)}
 dialog::backdrop{background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.dh h3,.ginfo h4{font:400 21px var(--serif);letter-spacing:-.02em} .dh p{color:var(--fg-3)}
-.tabs button{border-radius:var(--r-pill);color:var(--fg-3)} .tabs button[aria-pressed="true"]{background:var(--btn-glass-hover);color:var(--fg);box-shadow:var(--btn-shadow)}
+.dh h3,.ginfo h4{font:400 var(--t-dialog)/1.2 var(--serif);letter-spacing:-.02em} .dh p{color:var(--fg-2)}
+.tabs button{border-radius:var(--r-pill);color:var(--fg-2)} .tabs button[aria-pressed="true"]{background:var(--btn-glass-hover);color:var(--fg);box-shadow:var(--btn-shadow)}
 dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-radius:var(--r-card);font-family:var(--mono)}
 .gcard{background:linear-gradient(180deg,var(--card-top),var(--card-bottom));border:1px solid var(--card-edge);box-shadow:var(--card-shadow);border-radius:var(--r-card)}
 .gcard:hover,.gcard:focus-visible{outline:2px solid var(--fg)}
 .gshot{border-radius:var(--r-card);border-color:var(--card-edge)} .gpop{border-radius:var(--r-card);border-color:var(--glass-edge);background:var(--bg)}
-.read summary,.read .ck span{color:var(--fg-3)}
+.read summary,.read .ck span{color:var(--fg-2)}
 /* Dropdowns: a trigger button with a chevron, and a menu panel of items with a check on the chosen one.
    The native <select> stays in the page, hidden, as the value and the source of change events.
    The panel is a popover, so the sidebar's scrolling and the dialog's blur cannot clip it. */
-.ddt{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 10px 0 14px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:12.5px;white-space:nowrap;cursor:pointer}
+.ddt{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 10px 0 14px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--surface-sunk);color:var(--fg);font:inherit;font-size:var(--t-ui);white-space:nowrap;cursor:pointer}
 .ddt svg{opacity:.6;transition:transform .15s ease} .ddt[aria-expanded="true"] svg{transform:rotate(180deg)}
 .ddt:hover,.ddt[aria-expanded="true"]{background:var(--btn-glass-hover)} .ddt.set{border-color:var(--fg);background:var(--btn-glass-hover)}
 .ddt.over{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;border-radius:inherit;background:none} .ddt.over:focus-visible{outline:none}
 .glyph svg{vertical-align:middle;transition:transform .15s ease} .row:has(.ddt[aria-expanded="true"]) .glyph svg{transform:rotate(180deg)}
 .ddm{position:fixed;inset:auto;margin:0;padding:4px;min-width:160px;max-width:calc(100vw - 16px);overflow-y:auto;border:1px solid var(--glass-edge);border-radius:var(--r-ctl);
-  background:var(--pane);-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur));color:var(--fg);font:13px/1.4 var(--sans);
+  background:var(--pane);-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur));color:var(--fg);font:400 var(--t-ui)/1.4 var(--sans);letter-spacing:0;
   box-shadow:0 12px 32px rgba(0,0,0,.28);cursor:default;transition:opacity .15s ease,transform .15s ease}
 @starting-style{ .ddm:popover-open{opacity:0;transform:translateY(-8px) scale(.95)} }
 .ddi{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px 6px 8px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;text-align:left;white-space:nowrap;cursor:default}
 .ddi:hover,.ddi:focus-visible{background:var(--btn-glass-hover);outline:none} .ddi[aria-selected="true"]{font-weight:500}
 .ddc{display:inline-flex;flex:none;width:16px;height:16px} .dds{height:1px;margin:4px -4px;background:var(--line)}
-.ddq{display:block;width:calc(100% - 4px);margin:2px 2px 6px;height:32px;padding:0 10px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--glass-strong);color:var(--fg);font:inherit;font-size:12.5px}
+.ddq{display:block;width:calc(100% - 4px);margin:2px 2px 6px;height:32px;padding:0 10px;border:1px solid var(--line);border-radius:var(--r-ctl);background:var(--glass-strong);color:var(--fg);font:inherit;font-size:var(--t-ui)}
 .ddq:focus{outline:none;border-color:var(--fg)}
-.ddh{padding:8px 10px 4px;font-size:11px;color:var(--fg-3);text-transform:uppercase;letter-spacing:-.02em} .ddh:empty{display:none}
+.ddh{padding:8px 10px 4px;font-size:var(--t-meta);color:var(--fg-2);text-transform:none;letter-spacing:0} .ddh:empty{display:none}
 .ddi[hidden]{display:none}
 @media (prefers-reduced-motion: reduce){ .ddm,.ddt svg,.glyph svg{transition:none} }
 @media (max-width: 860px){
@@ -591,6 +777,37 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   body.side-open .side-fab{display:none}
 }
 @media (max-width: 860px) and (prefers-reduced-motion: reduce){ body .side,.side-shade{transition:none} }
+
+/* ---------- stage: the preview fills the canvas, in a frame that reads as the right device (desktop only) ---------- */
+@media (min-width: 861px){
+  .app .canvas{padding:20px;overscroll-behavior:contain;scrollbar-gutter:stable}
+  .app .canvas:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+  .app .canvas:has(> .stage.mobile, > .stage.ios, > .stage.android){display:grid;grid-template-columns:minmax(0,1fr);align-content:center;align-content:safe center}
+  .stage:empty{min-height:60vh}
+  /* website: a quiet browser bar. Builder chrome, not theme: only the --c-* aliases */
+  .stage.desktop::before{content:"acme.example";display:flex;align-items:center;justify-content:center;height:34px;margin:calc(-20px*var(--d)) calc(-20px*var(--d)) calc(20px*var(--d));border-bottom:1px solid var(--c-line);border-radius:19px 19px 0 0;color:var(--c-muted);font:12px var(--mono);direction:ltr;
+    background:radial-gradient(circle at 18px 50%,var(--c-line) 5px,transparent 5.5px),radial-gradient(circle at 36px 50%,var(--c-line) 5px,transparent 5.5px),radial-gradient(circle at 54px 50%,var(--c-line) 5px,transparent 5.5px),var(--c-inset)}
+  /* mobile web: a real phone, scrolls inside, fitted to the canvas height */
+  .app .stage.mobile{width:390px;max-width:100%;height:min(844px,var(--cv-h,640px));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;margin:10px auto;border:0;box-shadow:0 0 0 9px #0d0d0f,0 0 0 10px #2a2a2e,0 24px 50px rgba(0,0,0,.25)}
+  /* apps: the three-phone row is zoomed to the canvas (--cv-fit is written on #canvas by fitStage) */
+  .stage.ios,.stage.android{max-width:none;width:100%}
+  .stage.ios .phones,.stage.android .phones{zoom:var(--cv-fit,1);flex-wrap:nowrap}
+  .stage.ios .appnote,.stage.android .appnote{max-width:calc(952px*var(--cv-fit,1))}
+}
+/* touch: every control is at least 44px tall on phones and tablets (the round swatches keep a 32px dot inside a 44px target).
+   Last in the sheet so it wins over the toolbar and panel rules above at the same specificity. */
+@media (max-width:860px){
+  .tb-seg button,.top .ghost,.top .cta,.top .dock .ddt{height:44px}
+  .sp-swatches{grid-template-columns:repeat(5,1fr);row-gap:6px}
+  .sp-sw,.sp-custom{max-width:44px}
+  .sp-sw::before,.sp-custom::before{inset:6px} .sp-custom[data-on]::after{inset:13px}
+  .sp-hint{padding-right:48px} .sp-hint button{top:0;right:0;width:44px;height:44px}
+  .side .ghost,.side .cta,.side .bring .acts .ghost{height:44px}
+  .side-x{min-width:44px;min-height:44px}
+  .sp-link,.bring .ex button{display:inline-flex;align-items:center;min-height:44px;padding:0}
+  .side .read summary{min-height:44px}
+}
+@media (min-width:861px) and (pointer:coarse){ .tb-seg button,.top .ghost,.top .cta,.top .dock .ddt{height:40px} }
 </style>
 </Fragment>
 
@@ -603,12 +820,16 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 </section>
 
 <div class="top">
+  <span class="tb-title" aria-hidden="true">UI builder</span>
   <div class="dock" id="dock"></div>
   <span class="shared" id="sharedTag" hidden>Shared design</span>
   <span class="sp"></span>
+  <span class="top-acts">
   <button class="ghost" data-open-gallery>Browse designs</button>
   <button class="ghost" id="share">Share link</button>
+  <button class="ghost tb-focus" id="focusBtn" type="button" aria-pressed="false" aria-label="Full screen" aria-keyshortcuts="F" title="Full screen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg><span>Full screen</span></button>
   <button class="cta" data-open-export>Get code</button>
+  </span>
 </div>
 
 <button class="cta side-fab" data-side-open aria-controls="side" aria-expanded="false">&#9881; Customise</button>
@@ -619,21 +840,21 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
     <div class="scroll" id="rows"></div>
     <div class="foot">
       <div class="guard" id="guard"></div>
-      <div class="two"><button class="ghost" id="shuffle">Shuffle</button><button class="ghost" id="reset">Reset</button></div>
+      <div class="two"><button class="ghost" id="shuffle">Surprise me</button><button class="ghost" id="reset">Start over</button></div>
       <button class="cta" data-open-export>Get code</button>
     </div>
   </aside>
 
-  <main class="canvas">
+  <main class="canvas" id="canvas" tabindex="0" aria-label="Preview of your design">
     <div class="stage" id="stage"></div>
   </main>
 </div>
 
 <dialog id="ex">
-  <div class="dh"><div><h3>Get code</h3><p id="exSub"></p></div><span class="dh__acts"><button class="ghost" id="download">Download</button><button class="cta" id="copy">Copy</button><button class="dx" id="exClose" aria-label="Close">&times;</button></span></div>
+  <div class="dh"><div><h3>Get code</h3><p id="exSub"></p></div><span class="dh__acts"><button class="ghost" id="download">Download</button><button class="cta gc-copy" id="copy">Copy</button><button class="dx" id="exClose" aria-label="Close">&times;</button></span></div>
   <div class="tabs" id="exTabs"></div>
   <pre id="exOut"></pre>
-  <div class="df"><span id="exHint"></span></div>
+  <div class="df"><span id="exHint"></span><span id="exStatus" class="gc-status" role="status" aria-live="polite"></span></div>
 </dialog>
 
 <dialog id="gal">
@@ -669,25 +890,26 @@ const COPY = {
   formal:  {payH:'Complete your upgrade', payB:a=>`Complete payment of ${a}`, payErr:'The payment could not be processed. Please use a different card.', payOk:'Payment received. A receipt has been issued.', signH:'Sign in to your account', signS:'Enter your registered email address.', signB:'Request verification code', signErr:'The verification code is incorrect.', signOk:'Authentication successful.', srchH:'Research', srchEmpty:'No matching results', srchEmptyS:'Please refine your query.', netErr:'The request could not be completed. Please retry.', emptyCart:'No items selected', usageEmpty:'No API activity recorded'},
 };
 
-const DEFAULTS = {preset:'graphite', state:'ready', device:'desktop', mode:'light', locale:'en-US|USD', ex:'shadcn', importText:'', imported:null, importNote:'', beforeImport:null,
+const DEFAULTS = {preset:'graphite', state:'ready', device:'desktop', mode:'light', locale:'en-US|USD', ex:'DESIGN.md', importText:'', imported:null, importNote:'', beforeImport:null,
   edits:null, sources:null, fontNote:'', importFrom:null, appFont:'brand', style:null};
 const S = {...DEFAULTS, ...PRESETS.graphite};
 const LOOK = ['primary','font','radius','density','motion'];
 
-/* sidebar rows: [key, label, options[[value,label]] | 'color'] */
+/* sidebar rows: [key, label, options[[value,label]] | 'color']. Labels are plain words for the panel; keys and values are
+   what S, the share link and the export use, so they never change here. drawRows() decides which control each row gets. */
 const GROUPS = [
   ['Look', null, [
-    ['preset','Preset', [...Object.entries(PRESETS).map(([k,p])=>[k,p.label]), ['custom','Custom']]],
+    ['preset','Style', [...Object.entries(PRESETS).map(([k,p])=>[k,p.label]), ['custom','Custom']]],
     // To do, 'Your stack' picker: one choice (shadcn on Radix or Base UI, MUI, Mantine, Chakra, React Native,
     // SwiftUI, Compose) that sets both the preview components and the export. It replaces the old
     // 'Component library' row (Radix vs Base UI), removed because nothing read it.
-    ['primary','Primary', 'color'],
+    ['primary','Main colour', 'color'],
     ['font','Font', FONTS],
-    ['radius','Radius', [[0,'None'],[4,'Small'],[10,'Medium'],[12,'Large'],[20,'Full']]],
-    ['density','Density', [[.85,'Compact'],[1,'Default'],[1.05,'Relaxed'],[1.1,'Comfortable']]],
-    ['motion','Motion', [[0,'Off'],[120,'Snappy'],[180,'Smooth'],[200,'Smooth+'],[280,'Gentle']]],
+    ['radius','Corners', [[0,'None'],[4,'Small'],[10,'Medium'],[12,'Large'],[20,'Full']]],
+    ['density','Spacing', [[.85,'Compact'],[1,'Default'],[1.05,'Relaxed'],[1.1,'Roomy']]],
+    ['motion','Animation', [[0,'Off'],[120,'Snappy'],[180,'Smooth'],[200,'Smooth+'],[280,'Gentle']]],
     // changes only the sample screens, not the design or the exported code. Copy tone has no row; presets still set it.
-    ['locale','Locale', [['en-US|USD','English · USD'],['en-IN|INR','English · INR'],['ar-AE|AED','Arabic · RTL']]],
+    ['locale','Sample language', [['en-US|USD','English · USD'],['en-IN|INR','English · INR'],['ar-AE|AED','Arabic · RTL']]],
   ]],
 ];
 
@@ -708,7 +930,9 @@ const CHEVRON = ICON('m6 9 6 6 6-6'), CHECK = ICON('M20 6 9 17l-5-5');
 function dress(root){
   for (const sel of root.querySelectorAll('select:not([hidden])')){
     sel.hidden = true;
-    const row = sel.closest('.row'), name = sel.getAttribute('aria-label') || '', cur = sel.selectedOptions[0]?.textContent || '';
+    // no option carries the selected attribute when the value is not in the list (a Google or uploaded font): name the real one
+    const row = sel.closest('.row'), name = sel.getAttribute('aria-label') || '', offList = sel.dataset.k === 'font' && !sel.querySelector('option[selected]');
+    const cur = offList ? fontLabel(fontName()) : sel.selectedOptions[0]?.textContent || '';
     const t = Object.assign(document.createElement('button'), {type:'button', className:`ddt${row ? ' over' : ''}${sel.classList.contains('set') ? ' set' : ''}`});
     const m = Object.assign(document.createElement('div'), {className:'ddm', popover:'auto'});
     t.setAttribute('aria-haspopup', 'listbox'); t.setAttribute('aria-expanded', 'false'); t.setAttribute('aria-label', cur.startsWith(name) ? cur : `${name}: ${cur}`);
@@ -717,8 +941,10 @@ function dress(root){
     if (isFont) m.innerHTML = `<input class="ddq" type="text" placeholder="Search Google fonts" aria-label="Search fonts" autocomplete="off" spellcheck="false">`;
     m.setAttribute('role', 'listbox'); m.setAttribute('aria-label', name);
     for (const o of sel.options){
-      const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:`<span class="ddc">${o.selected ? CHECK : ''}</span><span></span>`});
-      b.lastChild.textContent = o.textContent; b.dataset.v = o.value; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', o.selected);
+      const on = !offList && o.selected;
+      const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:`<span class="ddc">${on ? CHECK : ''}</span><span></span>`});
+      b.lastChild.textContent = o.textContent; b.dataset.v = o.value; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', on);
+      if (isFont) { b.lastChild.style.fontFamily = o.value; const k = FONT_KIND[o.textContent]; if (k) b.append(Object.assign(document.createElement('span'), {className:'ddk', textContent:k})); }
       m.append(b); if (o.value === '') m.append(Object.assign(document.createElement('div'), {className:'dds'}));   // "any" sits apart from the real values
     }
     if (isFont) { m.append(Object.assign(document.createElement('div'), {className:'ddh', textContent:'Google Fonts'}), Object.assign(document.createElement('div'), {className:'ddg'}));
@@ -755,78 +981,194 @@ function dress(root){
 // Font menu search: the built-in fonts that match, then up to 40 Google fonts (most popular first) from data/google-fonts.json,
 // fetched once on first use. An empty search shows the 25 most popular.
 let googleFonts;
+// what kind of font each one is, in plain words: the built-ins by name, Google's by its category code
+const FONT_KIND = {Geist:'Sans', Inter:'Sans', Fraunces:'Serif', Nunito:'Rounded', 'JetBrains Mono':'Mono'};
+const GF_KIND = {s:'Sans', r:'Serif', m:'Mono', d:'Display', h:'Handwriting'};
 async function fontSearch(m, raw){
   const q = raw.trim().toLowerCase();
   for (const b of m.querySelectorAll('.ddi:not([data-gf])')) b.hidden = !!q && !b.textContent.toLowerCase().includes(q);
   googleFonts ||= fetch('data/google-fonts.json').then(r => r.json()).catch(() => []);
   const list = await googleFonts, own = new Set(FONTS.map(f => f[1].toLowerCase()));
   if (m.querySelector('.ddq').value.trim().toLowerCase() !== q) return;   // a newer keystroke is already searching
-  const hits = list.filter(([f]) => !own.has(f.toLowerCase()) && (!q || f.toLowerCase().includes(q)))
+  // a search for a kind ("serif", "mono", "handwriting") lists that kind too
+  const hits = list.filter(([f, c]) => !own.has(f.toLowerCase()) && (!q || f.toLowerCase().includes(q) || (q.length > 2 && (GF_KIND[c] || '').toLowerCase().startsWith(q))))
     .sort((a, b) => q ? a[0].toLowerCase().startsWith(q) === b[0].toLowerCase().startsWith(q) ? 0 : a[0].toLowerCase().startsWith(q) ? -1 : 1 : 0)
     .slice(0, q ? 40 : 25);
   const g = m.querySelector('.ddg'); g.textContent = '';
   for (const [f, c] of hits) { const b = Object.assign(document.createElement('button'), {type:'button', className:'ddi', innerHTML:'<span class="ddc"></span><span></span>'});
-    b.lastChild.textContent = f; b.dataset.gf = f; b.dataset.c = c; b.setAttribute('role', 'option'); b.setAttribute('aria-selected', fontName() === f); if (fontName() === f) b.firstChild.innerHTML = CHECK; g.append(b); }
+    b.lastChild.textContent = f; b.dataset.gf = f; b.dataset.c = c; b.setAttribute('role', 'option');
+    if (GF_KIND[c]) b.append(Object.assign(document.createElement('span'), {className:'ddk', textContent:GF_KIND[c]})); b.setAttribute('aria-selected', fontName() === f); if (fontName() === f) b.firstChild.innerHTML = CHECK; g.append(b); }
   m.querySelector('.ddh').textContent = hits.length ? 'Google Fonts' : q ? 'No Google font by that name' : '';
 }
 // a panel is placed against the window, so it closes when anything behind it scrolls
 document.addEventListener('scroll', e => { if (!e.target.closest?.('.ddm')) document.querySelector('.ddm:popover-open')?.hidePopover(); }, true);
 
 /* ---------- sidebar ---------- */
+// Style, Main colour, Corners and Spacing are visible controls (radiogroups of buttons); the rest sit in closed groups.
+// Open/closed state of those groups outlives every redraw; the first-run tip is shown until it is dismissed or a setting changes.
+const SP_OPEN = {colours:false, extra:false, bring:false};
+// one plain word per style, so its character shows before it is clicked (display only; the keys stay as they are)
+const SP_MOOD = {graphite:'Neutral', indigo:'Modern', fern:'Serif', peony:'Friendly', ember:'Sharp'};
+// true: the tip shows. 'ok': the first change turned it into a short confirmation that keeps the tip's height, so nothing
+// moves under the pointer; it folds away once the pointer or focus leaves the panel. false: gone.
+let SP_HINT = true; try { SP_HINT = !localStorage.getItem('pramaan-uib-hint'); } catch {}
+const SP_SWATCHES = [['#18181b','Black'],['#4f46e5','Indigo'],['#2563eb','Blue'],['#0891b2','Teal'],['#166534','Green'],['#ea580c','Orange'],['#db2777','Pink'],['#7c3aed','Purple']];
+const SP_OPTS = Object.fromEntries(GROUPS[0][2].map(r => [r[0], r]));   // key -> [key, label, options]
+/* ---------- one rule for shape: whatever a design, preset, file or share link carries, it is normalised before paint ----------
+   R_FULL is the 'Full' Corners option; R_BASE_MAX caps the base radius; R_CARD_MAX is the ceiling for any container.
+   Only pill-shaped parts (buttons, tags) may be fully round, and only through the design's own per-element radii. */
+const R_FULL = 20, R_BASE_MAX = 24, R_CARD_MAX = 28;
+/** A radius from outside (a library look, a file, an old save) as a safe base: {r, pill}. Anything above R_BASE_MAX means "very round": Full, with pill buttons. */
+function capRadius(n){
+  n = Math.round(Number(n));
+  if (!Number.isFinite(n) || n < 0) return {r:10, pill:false};
+  return n > R_BASE_MAX ? {r:R_FULL, pill:true} : {r:n, pill:false};
+}
+/** The one choke point (render, restore and undo all call it): keeps radius, spacing and animation inside sane bounds. */
+function normLook(){
+  const was = S.radius, {r, pill} = capRadius(was);
+  // the design's own pill buttons and tags stay (S.radius === S.style.base keeps them), everything else stops at Full
+  if (pill && S.style && S.style.base === was) { const R = S.style.radius || {}; S.style.radius = {...R, btn:R.btn ?? 999, tag:R.tag ?? 999}; }
+  if (S.style && S.style.base === was) S.style.base = r;
+  S.radius = r;
+  const d = Number(S.density); S.density = Number.isFinite(d) ? Math.min(1.25, Math.max(.8, d)) : 1;
+  const m = Number(S.motion); S.motion = Number.isFinite(m) ? Math.min(400, Math.max(0, Math.round(m))) : 180;
+  canonFont();
+}
+/** A font that is one of the Font menu's own (a free match for a private font, an old save's "'Inter', 'Inter', …") uses that
+ *  menu entry's exact stack, so the menu, its label and the export all name the same font. */
+function canonFont(){
+  const n = fontName().toLowerCase(), own = FONTS.find(f => f[1].toLowerCase() === n);
+  if (!own || S.font === own[0]) return;
+  if (S.style && S.style.bodyStack === S.font) S.style.bodyStack = own[0];
+  S.font = own[0];
+}
+/** The option of a segmented row (Corners, Spacing) nearest to the current value (a tie goes to the larger), so exactly one
+ *  segment is always selected. */
+function spSeg(k){
+  let best = null;
+  for (const [v] of SP_OPTS[k][2]) { const dv = Math.abs(v - S[k]); if (!best || dv < best.d - 1e-9 || (Math.abs(dv - best.d) < 1e-9 && v > best.v)) best = {v, d:dv}; }
+  return best.v;
+}
+const spRadiusSeg = () => spSeg('radius');
+/** HTML for a segmented row's value: the label alone when exact ("Full"), otherwise the nearest label plus the exact value
+ *  ("Large 16px", "Roomy 1.12×"). */
+function spSegName(k){
+  const opts = SP_OPTS[k][2], hit = opts.find(o => o[0] === S[k]);
+  if (hit) return hit[1];
+  const near = opts.find(o => o[0] === spSeg(k));
+  return `${near[1]} <code class="sp-px">${k === 'radius' ? Math.round(S.radius) + 'px' : +Number(S[k]).toFixed(2) + '×'}</code>`;
+}
+const spRadiusName = () => spSegName('radius');
+// top-left corner only, one step per option, so each Corners button is visibly different from its neighbours
+const SP_GLYPH = {0:'M3 17V3H17', 4:'M3 17V6a3 3 0 0 1 3-3H17', 10:'M3 17V9a6 6 0 0 1 6-6H17', 12:'M3 17V13A10 10 0 0 1 13 3H17', 20:'M3 17A14 14 0 0 1 17 3'};
+const spGlyph = v => `<svg class="sp-cg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="${SP_GLYPH[v] || SP_GLYPH[10]}"/></svg>`;
+const SP_HINT_OK = 'Nice. Keep going: the preview updates as you choose.';
+function spHintDone(now = false){ if (!SP_HINT) return; try { localStorage.setItem('pramaan-uib-hint', '1'); } catch {}
+  const el = document.querySelector('#rows .sp-hint');
+  if (now || !el) { SP_HINT = false; el?.remove(); return; }
+  SP_HINT = 'ok'; SP_HINT_H = el.offsetHeight; el.style.minHeight = SP_HINT_H + 'px'; el.firstChild.textContent = SP_HINT_OK; }
+let SP_HINT_H = 0;
+// fold the confirmation away only once nothing in the panel is under the pointer or holding focus
+const spHintFold = () => { if (SP_HINT === 'ok') spHintDone(true); };
+$('.side').addEventListener('pointerleave', spHintFold);
+// a redraw replaces the focused control and focus is put back right after, so check once things have settled
+$('.side').addEventListener('focusout', () => setTimeout(() => { const s = $('.side'); if (!s.contains(document.activeElement) && !s.matches(':hover')) spHintFold(); }));
 function drawRows(){
+  const pri = theme('light').primary, T = theme(S.mode), dark = S.mode === 'dark';
+  const keep = $('#rows').scrollTop;
+  // a select row keeps the old markup: dress() turns its <select> into the menu, and nothing else has to know
+  const selRow = (k, icon) => { const [, label, opts] = SP_OPTS[k];
+    // a font from an imported file is a whole stack ('Plus Jakarta Sans', Inter, ...): show its first name, like the built-in ones
+    const val = k === 'font' && !opts.some(o => o[0] === S.font) ? fontLabel(fontName()) : labelOf(opts, S[k]);
+    // one label grammar for every setting, as Main colour and Corners: the name on the left, its value on the right
+    return `<label class="row sp-row"><span class="t"><span class="sp-rl">${label}</span><span class="sp-v sp-rv">${esc(val)}</span></span>${icon}`
+      + `<select data-k="${k}" aria-label="${label}">${opts.map(([v,l]) => `<option value="${v}" ${String(v)===String(S[k])?'selected':''}>${l}</option>`).join('')}</select></label>`; };
+  const chev = `<span class="glyph">${CHEVRON}</span>`;
+  const radio = (k, v, on, attrs, inner = '') => `<button type="button" role="radio" data-k="${k}" data-v="${v}" aria-checked="${on}" ${attrs}>${inner}</button>`;
   let h = '';
-  for (const [g,badge,rows] of GROUPS){
-    if (g !== 'Look') h += `<div class="grp">${g}${badge?`<em>${badge}</em>`:''}</div>`;
-    for (const [key,label,opts] of rows){
-      const color = opts==='color';
-      // a font from an imported file is a whole stack ('Plus Jakarta Sans', Inter, ...): show its first name, like the built-in ones
-      const val = color ? theme('light').primary.toUpperCase() : key==='font' && !opts.some(o => o[0]===S.font) ? fontName() : labelOf(opts,S[key]);
-      const icon = color || key==='preset' ? `<span class="chip" style="background:${theme('light').primary}"></span>`
-        : key==='font' ? `<span class="glyph" style="font-family:${S.font.replace(/"/g,'')};font-size:15px;color:var(--c-text)">Aa</span>`
-        : key==='radius' ? `<span style="width:16px;height:16px;border:2px solid var(--c-muted);border-right:0;border-bottom:0;border-top-left-radius:${Math.min(S.radius,12)}px"></span>`
-        : `<span class="glyph">${CHEVRON}</span>`;
-      const ctl = color ? `<input type="color" data-k="primary" value="${S.primary}" aria-label="${label}">`
-        : `<select data-k="${key}" aria-label="${label}">${opts.map(([v,l])=>`<option value="${v}" ${String(v)===String(S[key])?'selected':''}>${l}</option>`).join('')}</select>`;
-      h += `<label class="row"><span class="t"><small>${label}</small><b>${val}</b></span>${icon}${ctl}</label>`;
-      if (key==='font') h += `<div class="urlrow"><button class="ghost" id="pickFont" style="height:30px;font-size:12.5px">Upload your font</button>`
-        + `<input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>${S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : ''}`;
-    }
-    if (g==='Look') { const T = theme(S.mode);
-      h += `<div class="grp">Colours (${S.mode==='dark'?'dark':'light'})</div><div class="ctab">`
-        + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
-          return `<label class="crow" title="${escA(src)}"><span class="sw2" style="background:${T[k]}"></span>`
-            + `<span class="t"><b>${SLOT_DOC[k]}<code>${T[k]}</code></b><small>${esc(src)}</small></span>`
-            + `${edited ? `<button class="undo" data-undo="${k}">Undo</button>` : ''}<input type="color" data-slot="${k}" value="${T[k]}" aria-label="${SLOT_DOC[k]} colour"></label>`; }).join('')
-        + `<div class="urlnote">Switch Light or Dark in the bottom bar to edit that mode.</div></div>`; }
-    // "From my site → Extract" stays out until it calls companies.brand.styleguide from a server route (extract() below is a stand-in)
-    if (g==='Look') h += `<div class="grp">Bring your design <em>new</em></div><div class="bring">`
-      + `<div class="ex"><button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
-      + `<textarea id="design" spellcheck="false" aria-label="Your design file" placeholder="Paste a DESIGN.md, CSS variables or design tokens (JSON), or drop a file here">${esc(S.importText)}</textarea>`
-      + `<div class="acts"><button class="ghost" id="applyDesign">Apply</button><button class="ghost" id="pickFile">Upload file</button>${S.imported?'<button class="ghost" id="clearDesign">Remove</button>':''}<input type="file" id="designFile" accept=".md,.markdown,.css,.json,.txt" hidden></div>`
-      + (window.DESIGNS ? `<button class="ghost" data-open-gallery style="height:30px;font-size:12.5px">Or browse ${window.DESIGNS.length.toLocaleString()} real designs</button>` : '')
-      + `<div class="found" id="found">${S.importNote}</div></div>`;
-  }
-  $('#rows').innerHTML = h; dress($('#rows'));
+  if (SP_HINT) h += `<p class="sp-hint"${SP_HINT === 'ok' && SP_HINT_H ? ` style="min-height:${SP_HINT_H}px"` : ''}>${SP_HINT === 'ok' ? SP_HINT_OK : 'Pick a style to start. The preview updates as you choose.'}<button type="button" data-hint-x aria-label="Dismiss tip">&times;</button></p>`;
+  // "Custom mix" sits in the heading line, so it appears without pushing the controls below it down under the pointer
+  h += `<div class="grp sp-h">Start from a style<span class="sp-cnote"${S.preset === 'custom' ? '' : ' hidden'}>Custom mix</span></div><div class="sp-presets" role="radiogroup" aria-label="Style">`
+    + Object.entries(PRESETS).map(([k,p]) => radio('preset', k, S.preset === k, `class="sp-pre" aria-label="${p.label}: ${SP_MOOD[k]}"`,
+        `<span class="sw" aria-hidden="true" style="background:${p.primary};color:${fgFor(p.primary)};font-family:${escA(p.font)};border-radius:${Math.min(p.radius, 16)}px">Aa</span>`
+        + `<span class="nm" aria-hidden="true">${p.label}<small>${SP_MOOD[k]}</small></span>`)).join('')
+    + `</div>`
+    + (window.DESIGNS ? `<button type="button" class="ghost sp-browse" data-open-gallery>Browse ${window.DESIGNS.length.toLocaleString()} real designs</button>` : '');
+  h += `<div class="grp sp-h">Make it yours</div>`
+    + `<div class="sp-lab"><span>Main colour</span><code class="sp-hex">${pri.toUpperCase()}</code></div>`
+    + `<div class="sp-swatches" role="radiogroup" aria-label="Main colour">`
+    + SP_SWATCHES.map(([c,n]) => radio('primary', c, pri.toLowerCase() === c, `class="sp-sw" style="--c:${c}" aria-label="${n}" title="${n}"`)).join('')
+    + `<label class="row sp-custom" title="Pick any colour" style="--cur:${pri}"${SP_SWATCHES.some(s => s[0] === pri.toLowerCase()) ? '' : ' data-on'}>`
+    + `<input type="color" data-k="primary" value="${S.primary}" aria-label="Pick any colour"></label></div>`
+    + selRow('font', `<span class="glyph" style="font-family:${S.font.replace(/"/g,'')};font-size:15px;color:var(--c-text)">Aa</span>`)
+    + `<div class="sp-up"><button type="button" class="sp-link" id="pickFont">Upload your font</button><input type="file" id="fontFile" accept=".woff2,.woff,.otf,.ttf" hidden></div>`
+    + (S.fontNote ? `<div class="urlnote">${S.fontNote}</div>` : '')
+    + `<div class="sp-lab"><span>Corners</span><span class="sp-v sp-cname">${spRadiusName()}</span></div>`
+    + `<div class="sp-seg" role="radiogroup" aria-label="Corners">`
+    + SP_OPTS.radius[2].map(([v,l]) => radio('radius', v, v === spRadiusSeg(), `class="sp-c" aria-label="${l}" title="${l}"`, spGlyph(v))).join('')
+    + `</div><div class="sp-lab"><span>Spacing</span><span class="sp-v sp-dname">${spSegName('density')}</span></div>`
+    + `<div class="sp-seg" role="radiogroup" aria-label="Spacing">`
+    + SP_OPTS.density[2].map(([v,l]) => radio('density', v, v === spSeg('density'), '', l)).join('') + `</div>`;
+  const open = d => SP_OPEN[d] || (d === 'bring' && (S.imported || S.importText)) ? ' open' : '';
+  h += `<details class="sp-more" data-d="colours"${open('colours')}><summary>Fine-tune colours</summary><div class="ctab">`
+    + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
+        return `<label class="crow" title="${escA(src)}"><span class="sw2" style="background:${T[k]}"></span>`
+          + `<span class="t"><b>${SLOT_DOC[k]}<code>${T[k]}</code></b><small>${esc(src)}</small></span>`
+          + `${edited ? `<button class="undo" data-undo="${k}">Undo</button>` : ''}<input type="color" data-slot="${k}" value="${T[k]}" aria-label="${SLOT_DOC[k]} colour"></label>`; }).join('')
+    + `<div class="urlnote">These are the ${dark ? 'Dark' : 'Light'} colours. Switch Light or Dark in the top bar to edit the other set.</div></div></details>`;
+  h += `<details class="sp-more" data-d="extra"${open('extra')}><summary>Animation and sample text</summary>`
+    + selRow('motion', chev) + selRow('locale', chev)
+    + `<div class="urlnote">Sample language only changes the example text, not your design.</div></details>`;
+  // "From my site → Extract" stays out until it calls companies.brand.styleguide from a server route (extract() below is a stand-in)
+  h += `<details class="sp-more" data-d="bring"${open('bring')}><summary>Use my own design file</summary><div class="bring">`
+    + `<div class="ex"><button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
+    + `<textarea id="design" spellcheck="false" aria-label="Your design file" placeholder="Paste a DESIGN.md, CSS variables or design tokens (JSON), or drop a file here">${esc(S.importText)}</textarea>`
+    + `<div class="acts"><button class="ghost" id="applyDesign">Apply</button><button class="ghost" id="pickFile">Upload file</button>${S.imported?'<button class="ghost" id="clearDesign">Remove</button>':''}<input type="file" id="designFile" accept=".md,.markdown,.css,.json,.txt" hidden></div>`
+    + `<div class="found" id="found">${S.importNote}</div></div></details>`;
+  $('#rows').innerHTML = h; dress($('#rows')); $('#rows').scrollTop = keep;   // innerHTML empties the list first: put the scroll back
+  spSync();
   if ($('#extract')) $('#extract').onclick = extract;
   $('#pickFont').onclick = () => $('#fontFile').click();
   $('#fontFile').onchange = e => useFontFile(e.target.files[0]);
   document.querySelectorAll('#rows [data-open-gallery]').forEach(b => b.onclick = openGallery);
   wireDesign();
 }
-$('#rows').addEventListener('input', e => {
-  if (e.target.id === 'design'){ S.importText = e.target.value; return; }
-  const sl = e.target.dataset.slot;
-  if (sl) { setSlot(S.mode, sl, e.target.value); render(false); return; }   // keep the picker open while dragging
-  const k = e.target.dataset.k; if (!k) return;
-  let v = e.target.value;
+/** Bring the visible controls in step with S without redrawing (a dragged colour picker must stay open): checked states,
+ *  roving tabindex (the checked radio is the one tab stop of its group), the hex, the corner name and the "Custom" line. */
+function spSync(){
+  const pri = theme('light').primary.toLowerCase();
+  const set = (sel, fn) => { const el = $(sel); if (el) fn(el); };
+  set('#rows .sp-hex', el => el.textContent = pri.toUpperCase());
+  set('#rows .sp-cname', el => el.innerHTML = spRadiusName());
+  set('#rows .sp-dname', el => el.innerHTML = spSegName('density'));
+  set('#rows .sp-cnote', el => el.hidden = S.preset !== 'custom');
+  set('#rows .sp-custom', el => { el.toggleAttribute('data-on', !SP_SWATCHES.some(s => s[0] === pri)); el.style.setProperty('--cur', pri); });
+  document.querySelectorAll('#rows [role="radio"][data-k]').forEach(b => { const k = b.dataset.k, v = b.dataset.v;
+    b.setAttribute('aria-checked', String(k === 'primary' ? v === pri : k === 'preset' ? S.preset === v : k === 'radius' || k === 'density' ? Number(v) === spSeg(k) : String(S[k]) === v)); });
+  document.querySelectorAll('#rows [role="radiogroup"]').forEach(g => { const items = [...g.querySelectorAll('[role="radio"]')];
+    const cur = items.find(b => b.getAttribute('aria-checked') === 'true') || items[0]; items.forEach(b => b.tabIndex = b === cur ? 0 : -1); });
+}
+/** One look change, from a select, the colour picker or a button. Numbers are coerced from their string form exactly as before. */
+function setLook(k, v){
   if (typeof S[k] === 'number') v = Number(v);
-  if (k === 'preset'){ if (v !== 'custom') Object.assign(S, PRESETS[v], {preset:v, imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); }
-  else { S[k] = v; if (LOOK.includes(k) || k==='tone') S.preset = 'custom';
+  spHintDone();
+  // choosing a style is the one thing that retires the "Undo" under the settings: the visitor has moved on from that design
+  if (k === 'preset'){ lastUndo = null; lastUndoWhat = '';
+    if (v !== 'custom') Object.assign(S, PRESETS[v], {preset:v, imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); }
+  else { S[k] = v; if (k === 'font') S.fontNote = ''; if (LOOK.includes(k) || k==='tone') S.preset = 'custom';
     // a hand-picked primary beats the imported one in both modes
     if (k === 'primary' && S.imported) for (const p of [S.imported.light, S.imported.dark]) { delete p.primary; delete p.primaryFg; }
     // a new brand colour gets a fresh automatic button-text colour; one pinned by an earlier Fix no longer applies
     if (k === 'primary' && S.edits) for (const m of ['light', 'dark']) { delete S.edits[m].primary; delete S.edits[m].primaryFg; } }
   render(k !== 'primary');   // keep the colour picker open while dragging
+}
+$('#rows').addEventListener('input', e => {
+  if (e.target.id === 'design'){ S.importText = e.target.value; return; }
+  const sl = e.target.dataset.slot;
+  if (sl) { setSlot(S.mode, sl, e.target.value); render(false); return; }   // keep the picker open while dragging
+  const k = e.target.dataset.k; if (!k) return;
+  setLook(k, e.target.value);
 });
 // picker closed: redraw so the row shows "Edited by you" and its Undo button
 $('#rows').addEventListener('change', e => { if (e.target.dataset.slot) render(); });
@@ -834,6 +1176,27 @@ $('#rows').addEventListener('click', e => { const u = e.target.closest('[data-un
   e.preventDefault(); delete S.edits[S.mode][u.dataset.undo];
   if (u.dataset.undo === 'primary') delete S.edits[S.mode].primaryFg;   // a Darken-button fix pinned the text colour too
   render(); });
+// buttons: the drawer rebuilds on most changes, so put keyboard focus back on the button that was used
+$('#rows').addEventListener('click', e => {
+  if (e.target.closest('[data-hint-x]')) { spHintDone(true); $('#rows .sp-pre[tabindex="0"]')?.focus(); return; }
+  const b = e.target.closest('button[data-k][data-v]'); if (!b) return;
+  const k = b.dataset.k, v = b.dataset.v;
+  setLook(k, v);
+  [...document.querySelectorAll('#rows [role="radio"]')].find(x => x.dataset.k === k && x.dataset.v === v)?.focus({preventScroll:true});
+});
+// radiogroups: arrows move and choose, Home and End jump
+$('#rows').addEventListener('keydown', e => {
+  const b = e.target.closest?.('[role="radio"]'); if (!b || e.altKey || e.ctrlKey || e.metaKey) return;
+  const items = [...b.closest('[role="radiogroup"]').querySelectorAll('[role="radio"]')], i = items.indexOf(b), n = items.length;
+  const j = {ArrowRight:(i+1)%n, ArrowDown:(i+1)%n, ArrowLeft:(i-1+n)%n, ArrowUp:(i-1+n)%n, Home:0, End:n-1}[e.key];
+  if (j === undefined) return; e.preventDefault(); items[j].click();
+});
+// the closed groups keep the visitor's choice across redraws (toggle does not bubble: listen in the capture phase)
+$('#rows').addEventListener('toggle', e => { const d = e.target.closest?.('details.sp-more'); if (d) SP_OPEN[d.dataset.d] = d.open; }, true);
+// "Review colours" in a notification: leave Full screen (it hides the panel) and open the colour group first, so the scroll has something to land on
+document.addEventListener('click', e => { const a = e.target.closest?.('#notice [data-a]');
+  if (a && a.textContent === 'Review colours') { if (document.body.classList.contains('uib-focus')) setFocus(false);
+    SP_OPEN.colours = true; const d = $('#rows details[data-d="colours"]'); if (d) d.open = true; } }, true);
 
 function extract(){
   const u = $('#url').value.trim().replace(/^https?:\/\//,''); if (!u){ $('#urlnote').textContent = 'Type a domain first.'; return; }
@@ -842,11 +1205,15 @@ function extract(){
   Object.assign(S, {primary:ctx.fillStyle, font:FONTS[h%3][0], radius:[4,10,12,20][(h>>4)%4], preset:'custom'});
   render(); $('#urlnote').textContent = `Extracted from ${u} (simulated in this mockup).`;
 }
-$('#shuffle').onclick = () => { const r = a => a[Math.floor(Math.random()*a.length)];
-  Object.assign(S, {primary:'#'+[0,0,0].map(()=>Math.floor(40+Math.random()*170).toString(16).padStart(2,'0')).join(''),
+$('#shuffle').onclick = () => { const r = a => a[Math.floor(Math.random()*a.length)]; spHintDone();
+  lastUndo = JSON.stringify({...snapshot(), importText:S.importText}); lastUndoWhat = 'Surprise me';   // for the Undo, as Start over does
+  // a clear, saturated brand colour (any hue, 55-85% saturation, 32-50% lightness), never a muddy grey-green
+  Object.assign(S, {primary:hsl2hex(Math.random()*360, .55 + Math.random()*.3, .32 + Math.random()*.18),
     font:r(FONTS)[0], radius:r([0,4,10,12,20]), density:r([.85,1,1.05,1.1]), tone:r(['plain','friendly','formal']), preset:'custom',
-    imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); render(); };
-$('#reset').onclick = () => { Object.assign(S, DEFAULTS, PRESETS.graphite); render(); };
+    imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); render();
+  notify('Surprised you with a new look.', 'Undo brings back your design, including any file or colour edits.', 'info', [['Undo', undoDesign]], {key:'design'}); };
+$('#reset').onclick = () => { lastUndo = JSON.stringify({...snapshot(), importText:S.importText}); lastUndoWhat = 'Start over'; spHintDone();   // for the Undo
+  Object.assign(S, DEFAULTS, PRESETS.graphite); render(); notify('Design reset.', '', 'info', [['Undo', undoDesign]], {key:'design'}); };
 
 /* ---------- bring your design: DESIGN.md, CSS variables or design tokens ---------- */
 // Every format is reduced to (name, value) pairs, then names are matched to the preview's slots.
@@ -1024,25 +1391,56 @@ const loadFont = name => {
 };
 
 /* ---------- notifications ---------- */
-let noticeTimer, lastUndo = null; const noticeQueue = [];
-/** Top-right message. actions: [['label', fn], …]. Stays while hovered; closes after 6 s otherwise.
- *  Background messages (queue = true) wait for the current one, so a font warning never hides a design's Undo. */
-function notify(title, text, kind = 'ok', actions = [], queue = false){
-  let n = $('#notice');
-  if (!n) { n = Object.assign(document.createElement('div'), {id:'notice'}); n.setAttribute('role', 'status'); n.setAttribute('aria-live', 'polite'); document.body.appendChild(n); }
-  if (queue && !n.hidden && n.className) { noticeQueue.push([title, text, kind, actions]); return; }
-  n.className = `notice ${kind}`; n.hidden = false;
-  n.innerHTML = `<i class="dot"></i><div class="nt"><b>${title}</b>${text ? `<span>${text}</span>` : ''}`
-    + `${actions.length ? `<div class="na">${actions.map(([l], i) => `<button data-a="${i}">${l}</button>`).join('')}</div>` : ''}</div>`
-    + `<button class="x" data-a="x" aria-label="Dismiss">×</button>`;
-  const close = () => { n.hidden = true; if (noticeQueue.length) setTimeout(() => notify(...noticeQueue.shift()), 200); }, arm = () => { clearTimeout(noticeTimer); noticeTimer = setTimeout(close, 6000); };
-  n.onclick = e => { const a = e.target.closest('[data-a]')?.dataset.a; if (a === undefined) return; if (a !== 'x') actions[Number(a)][1](); close(); };
-  n.onmouseenter = () => clearTimeout(noticeTimer); n.onmouseleave = arm; arm();
+// lastUndo is the snapshot the Undo restores; lastUndoWhat names it ("the ThoughtLab design", "Surprise me") for the Undo
+// button under the settings, which stays until it is used or a style is chosen, whatever happens to the notices.
+let lastUndo = null, lastUndoWhat = '';
+const NQ_MAX = 3;
+/** The notice stack. #notice is the container (a labelled live region); each message is its own .notice.nq-item. */
+function nqHost(){
+  let h = $('#notice');
+  if (h) return h;
+  h = Object.assign(document.createElement('div'), {id:'notice', className:'nq'});
+  h.setAttribute('role', 'region'); h.setAttribute('aria-label', 'Notifications'); h.setAttribute('aria-live', 'polite');
+  document.body.appendChild(h);
+  // Undo and the x close their message; "Review colours" and "Upload your font" leave it open
+  h.addEventListener('click', e => { const b = e.target.closest('[data-a]'), el = b?.closest('.nq-item'); if (!el) return;
+    if (b.dataset.a === 'x') return nqClose(el);
+    const act = el._actions[Number(b.dataset.a)]; if (!act) return;
+    act[1](); if (act[0] === 'Undo') nqClose(el); });
+  return h;
+}
+const nqClose = el => { clearTimeout(el._t); el.remove(); };
+/** Top-right message. actions: [['label', fn], …]. opts: {key, sticky}; a boolean is the old "queue" flag and is ignored, because
+ *  every message now has its own slot. The same key replaces its message in place; at most three show, and a fourth removes the
+ *  oldest message that has no actions first. Plain messages close after 6 s, ones with actions after 12 s; hover and focus pause
+ *  the timer. Focus is never moved. */
+function notify(title, text, kind = 'ok', actions = [], opts = {}){
+  if (!opts || typeof opts !== 'object') opts = {};
+  const host = nqHost(), key = opts.key || '', life = opts.sticky ? 0 : actions.length ? 12000 : 6000;
+  const el = document.createElement('div');
+  el.className = `notice nq-item ${kind}`; el.setAttribute('role', kind === 'err' ? 'alert' : 'status'); el._actions = actions;
+  if (key) el.dataset.key = key;
+  el.innerHTML = `<i class="dot"></i><div class="nt"><b>${title}</b>${text ? `<span>${text}</span>` : ''}`
+    + `${actions.length ? `<div class="na">${actions.map(([l], i) => `<button type="button" data-a="${i}">${l}</button>`).join('')}</div>` : ''}</div>`
+    + `<button type="button" class="x" data-a="x" aria-label="Dismiss">×</button>`;
+  const held = () => el.matches(':hover') || el.matches(':focus-within');
+  const arm = () => { clearTimeout(el._t); if (life) el._t = setTimeout(() => { if (held()) return arm(); nqClose(el); }, life); };
+  el.addEventListener('mouseenter', () => clearTimeout(el._t));
+  el.addEventListener('mouseleave', () => { if (!held()) arm(); });
+  el.addEventListener('focusin', () => clearTimeout(el._t));
+  el.addEventListener('focusout', () => setTimeout(() => { if (el.isConnected && !held()) arm(); }));
+  const same = key && [...host.children].find(c => c.dataset.key === key);
+  if (same) { clearTimeout(same._t); same.replaceWith(el); }
+  else { host.append(el);
+    while (host.children.length > NQ_MAX) { const old = [...host.children].slice(0, -1);
+      nqClose(old.find(c => !c._actions.length) || old.find(c => !c._actions.some(a => a[0] === 'Undo')) || old[0]); } }
+  arm();
 }
 function undoDesign(){
-  if (!lastUndo) return; Object.assign(S, JSON.parse(lastUndo)); lastUndo = null;
+  if (!lastUndo) return; Object.assign(S, JSON.parse(lastUndo)); lastUndo = null; lastUndoWhat = '';
+  normLook();
   for (const f of S.font.split(',').slice(0, 2)) loadFont(f.replace(/['"]/g,'').trim());
-  render(); notify('Design undone', 'Back to how it was before.', 'info');
+  render(); notify('Design undone', 'Back to how it was before.', 'info', [], {key:'design'});
 }
 const showColours = () => { const c = $('.ctab'); if (c) c.previousElementSibling.scrollIntoView({behavior:'smooth', block:'start'}); };
 
@@ -1057,10 +1455,12 @@ function lookToDesign(L){
  *  radii only while the radius is the design's. Change either and everything follows your choice instead. */
 function activeStyle(){
   const X = S.style; if (!X || !S.imported) return {};
-  const R = X.radius || {}, rad = S.radius === X.base, v = n => n == null ? null : n >= 999 ? '999px' : n + 'px';
+  // radii by role: containers stop at R_CARD_MAX; only buttons, inputs and tags may be a pill (999px). Nothing else ever gets 999.
+  const R = X.radius || {}, rad = S.radius === X.base, num = n => typeof n === 'number' && Number.isFinite(n) && n >= 0;
+  const card = n => num(n) ? Math.min(n, R_CARD_MAX) + 'px' : null, v = n => num(n) ? (n >= 100 ? '999px' : n + 'px') : null;
   return {'--hf':S.font === X.bodyStack ? X.headStack : null, '--hw':S.font === X.bodyStack ? X.headWeight : null,
     '--ht':S.font === X.bodyStack && X.headTrack != null ? X.headTrack + 'em' : null,
-    '--rb':rad ? v(R.btn) : null, '--rc':rad ? v(R.card) : null, '--ri':rad ? v(R.input) : null, '--rt':rad ? v(R.tag) : null,
+    '--rb':rad ? v(R.btn) : null, '--rc':rad ? card(R.card) : null, '--ri':rad ? v(R.input) : null, '--rt':rad ? v(R.tag) : null,
     '--cs':X.cardShadow === false ? 'none' : null, ob:X.btn === 'outline'};
 }
 function applyDesign(given){
@@ -1068,46 +1468,63 @@ function applyDesign(given){
   if (!text) { S.importNote = 'Paste or upload a file first.'; render(); return notify('Nothing to apply', 'Paste or upload a design file first.', 'err'); }
   const d = given?.look ? given : parseDesign(text);
   if (d.error) { S.importNote = d.error; render(); return notify('Could not read that file', d.error, 'err'); }
-  const {light, dark} = d, radius = light.radius ?? dark.radius, raw = light.font ?? dark.font, font = raw && (FREE_FONTS[raw.toLowerCase()]?.[1] || raw);
+  const {light, dark} = d, rawRadius = light.radius ?? dark.radius, raw = light.font ?? dark.font;
+  // a radius from a file or the library is bounded here: above R_BASE_MAX it becomes Full, and a library look keeps its pill buttons
+  const cr = rawRadius == null ? null : capRadius(rawRadius), radius = cr ? cr.r : null;
+  // a site's own private font (a build-time @font-face alias) is never shown by name: it becomes the closest free font
+  const privFont = raw && isPrivateFont(raw) ? raw : null, font = raw && !privFont ? (FREE_FONTS[raw.toLowerCase()]?.[1] || cleanFontName(raw) || raw) : null;
+  const privAlt = privFont ? lookalike(privFont, d.substitute) : '';
   for (const s of [light, dark]) { delete s.radius; delete s.font; }
   // text on primary must be readable on primary, or the button label disappears
   const lp = light.primary || dark.primary;
   if (light.primaryFg && (!lp || contrast(light.primaryFg, lp) < 3)) delete light.primaryFg;
   if (dark.primaryFg && contrast(dark.primaryFg, dark.primary || lp || '#ffffff') < 3) delete dark.primaryFg;
   const slots = new Set([...Object.keys(light), ...Object.keys(dark)]);
-  if (!slots.size && radius == null && !font) {
+  if (!slots.size && radius == null && !font && !privFont) {
     S.importNote = `Nothing recognised in this ${d.kind}. Name tokens like primary, background, text, border, radius or font.`; render();
     return notify('Nothing applied', `No colours, radius or font found in this ${d.kind}.`, 'err');
   }
-  lastUndo = JSON.stringify(snapshot());   // for the notification's Undo
+  lastUndo = JSON.stringify(snapshot()); lastUndoWhat = S.importFrom ? `the ${S.importFrom} design` : 'applying your design file';   // for the Undo
   if (!S.imported) S.beforeImport = {primary:S.primary, font:S.font, radius:S.radius, density:S.density, preset:S.preset};
   if (light.primary || dark.primary) S.primary = light.primary || dark.primary;
   delete light.primary;                                   // light primary lives in S.primary so the picker can change it
   if (radius != null) S.radius = radius;
   S.fontNote = '';
-  if (font) { const alt = FREE_FAMILY[font.toLowerCase()] ? '' : GF_ALIAS[font] || lookalike(font, d.substitute);
-    S.font = `'${font}'${alt && alt !== font ? `, '${alt}'` : ''}, system-ui, sans-serif`; loadFont(font); if (alt) loadFont(alt); checkFont(); }
+  if (privFont) {   // no warning and no raw name: the preview uses the free match and says so
+    S.font = `'${privAlt}', system-ui, sans-serif`; canonFont(); loadFont(privAlt);
+    S.fontNote = `This site uses its own private font. Showing ${esc(privAlt)}, the closest free match. Upload the font file if you have it.`; }
+  else if (font) { const alt = FREE_FAMILY[font.toLowerCase()] ? '' : GF_ALIAS[font] || lookalike(font, d.substitute);
+    S.font = `'${font}'${alt && alt !== font ? `, '${alt}'` : ''}, system-ui, sans-serif`; canonFont(); loadFont(font); if (alt) loadFont(alt); checkFont(); }
   S.style = null;
+  let privHead = null;
   if (d.look) { const L = d.look, X = S.style = {bodyStack:S.font, base:S.radius, radius:L.radius, headWeight:L.headWeight, headTrack:L.headTrack,
       cardShadow:L.cardShadow, btn:L.btn};
+    // a capped radius leaves the design's pill buttons and tags in place; S.radius === X.base keeps them while Full is selected
+    if (cr?.pill) X.radius = {...L.radius, btn:L.radius?.btn ?? 999, tag:L.radius?.tag ?? 999};
     S.density = L.density || 1;
-    if (L.head) { const h = FREE_FONTS[L.head.toLowerCase()]?.[1] || L.head, alt = FREE_FAMILY[h.toLowerCase()] ? '' : GF_ALIAS[h] || lookalike(h, L.headSub);
-      X.headStack = `'${h}'${alt && alt !== h ? `, '${alt}'` : ''}, ${S.font}`; loadFont(h); if (alt) loadFont(alt); } }
+    if (L.head) { const hp = isPrivateFont(L.head), h = hp ? '' : FREE_FONTS[L.head.toLowerCase()]?.[1] || cleanFontName(L.head) || L.head,
+        alt = hp ? lookalike(L.head, L.headSub) : FREE_FAMILY[h.toLowerCase()] ? '' : GF_ALIAS[h] || lookalike(h, L.headSub);
+      if (hp) privHead = {name:L.head, alt};
+      X.headStack = hp ? `'${alt}', ${S.font}` : `'${h}'${alt && alt !== h ? `, '${alt}'` : ''}, ${S.font}`; if (h) loadFont(h); if (alt) loadFont(alt); } }
+  // the design's own text and notes may name the private font too: show the free match there as well
+  for (const p of [privFont && {name:privFont, alt:privAlt}, privHead]) if (p) {
+    if (given?.look) S.importText = hideFont(S.importText, p.name, p.alt);
+    if (d.sources) for (const m of ['light', 'dark']) for (const k in d.sources[m]) d.sources[m][k] = hideFont(d.sources[m][k], p.name, p.alt); }
   S.edits = null; S.sources = d.sources;
   const darkOnly = !Object.keys(light).length && Object.keys(dark).length > 0, lightOnly = Object.keys(light).length > 0 && !Object.keys(dark).length;
   if (darkOnly) S.mode = 'dark';
   if (lightOnly) S.mode = 'light';   // after a dark design, a light one would otherwise show on the default dark palette
   S.imported = {light, dark}; S.preset = 'custom';
-  if (radius != null) slots.add('radius'); if (font) slots.add('font');
+  if (radius != null) slots.add('radius'); if (font || privFont) slots.add('font');
   const missing = ['primary','bg','text','line','radius','font'].filter(k => !slots.has(k)).map(k => SLOT_LABEL[k]);
   const from = S.importFrom ? esc(S.importFrom) : d.kind; S.importFrom = null;
   S.importNote = '';   // success is told by the notification below; the sidebar note only shows problems
   render();
   const colours = [...slots].filter(k => k !== 'radius' && k !== 'font').length;
-  notify(`${from} loaded`, `${colours} colour${colours === 1 ? '' : 's'}${radius != null ? ', radius' : ''}${font ? `, font ${esc(font)}` : ''}`
+  notify(`${from} loaded`, `${colours} colour${colours === 1 ? '' : 's'}${radius != null ? ', radius' : ''}${privFont ? `, font ${esc(privAlt)} (closest match to the site's own font)` : font ? `, font ${esc(font)}` : ''}`
     + `${darkOnly ? ' · dark-only, switched to dark' : Object.keys(dark).length ? ' · light and dark' : ''}`
     + `${missing.length ? ` · not in file: ${missing.join(', ')}` : ''}.`, missing.length > 2 ? 'warn' : 'ok',
-    [['Undo', undoDesign], ['Review colours', showColours]]);
+    [['Undo', undoDesign], ['Review colours', showColours]], {key:'design'});
 }
 
 async function readDesignFile(f){
@@ -1185,9 +1602,9 @@ function wireDesign(){
   $('#pickFile').onclick = () => $('#designFile').click();
   $('#designFile').onchange = e => readDesignFile(e.target.files[0]);
   const clear = $('#clearDesign');
-  if (clear) clear.onclick = () => { lastUndo = JSON.stringify(snapshot());
+  if (clear) clear.onclick = () => { lastUndo = JSON.stringify(snapshot()); lastUndoWhat = 'removing your design file';
     Object.assign(S, S.beforeImport || {}, {imported:null, importNote:'', beforeImport:null, edits:null, sources:null, fontNote:''}); render();
-    notify('Design removed', 'Back to the look you had before importing.', 'info', [['Undo', undoDesign]]); };
+    notify('Design removed', 'Back to the look you had before importing.', 'info', [['Undo', undoDesign]], {key:'design'}); };
   ta.ondragover = e => { e.preventDefault(); ta.classList.add('drag'); };
   ta.ondragleave = () => ta.classList.remove('drag');
   ta.ondrop = e => { e.preventDefault(); ta.classList.remove('drag'); readDesignFile(e.dataTransfer.files[0]); };
@@ -1195,10 +1612,19 @@ function wireDesign(){
 }
 
 /* ---------- dock (applies to every card at once) ---------- */
-const DOCK = [['state',['ready','loading','empty','error','success']],['device',['desktop','mobile','ios','android']],['mode',['light','dark']]];
+const DOCK_SEGS = [['Screen','device',['desktop','mobile','ios','android']],['Theme','mode',['light','dark']]];
 const DOCK_LABEL = {mobile:'Mobile web', ios:'iOS app', android:'Android app'};
-$('#dock').onclick = e => { const b = e.target.closest('button'); if (!b) return; S[b.dataset.k] = b.dataset.v; render(); };
-const drawDock = () => $('#dock').innerHTML = DOCK.map(([k,vs]) => vs.map(v => `<button data-k="${k}" data-v="${v}" aria-pressed="${S[k]===v}">${DOCK_LABEL[v] || v[0].toUpperCase()+v.slice(1)}</button>`).join('')).join('<span class="sep"></span>');
+const DOCK_STATES = ['ready','loading','empty','error','success'];
+const cap1 = v => v[0].toUpperCase() + v.slice(1);
+$('#dock').onclick = e => { const b = e.target.closest('button[data-k][data-v]'); if (!b) return;
+  const {k, v} = b.dataset; S[k] = v; render(); $(`#dock [data-k="${k}"][data-v="${v}"]`)?.focus(); };   // the redraw replaced the button: put focus back
+$('#dock').addEventListener('input', e => { const k = e.target.dataset.k; if (k) { S[k] = e.target.value; render(); } });
+const drawDock = () => {
+  $('#dock').innerHTML = DOCK_SEGS.map(([label,k,vs]) => `<span class="tb-seg" role="group" aria-label="${label}">`
+    + vs.map(v => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="${S[k]===v}">${DOCK_LABEL[v] || cap1(v)}</button>`).join('') + '</span>').join('')
+    + `<select data-k="state" aria-label="State">${DOCK_STATES.map(v => `<option value="${v}"${S.state===v?' selected':''}>${cap1(v)}</option>`).join('')}</select>`;
+  dress($('#dock'));
+};
 
 /* ---------- cards ---------- */
 const money = usd => { const [loc,cur] = S.locale.split('|'); return new Intl.NumberFormat(loc,{style:'currency',currency:cur,maximumFractionDigits:cur==='INR'?0:2}).format(usd*LOCALES[S.locale]); };
@@ -1209,6 +1635,19 @@ const card = (title, sub, body, side='') => `<section class="card"><div class="c
 const emptyB = (icon, t, s) => `<div class="empty"><div class="ic">${ico(icon)}</div><b>${t}</b>${s||''}</div>`;
 const errB = t => `<div class="alert err">${ico(I.alert)}<span>${t}</span></div>`;
 
+// Acme sample data: 14 days of API calls, Monday to Sunday twice. Weekends dip; weekday volume steps up about 40% after SDK 2.0 shipped.
+const AC_CALLS = [2840,2910,3020,2960,2780,1120,980,3410,3980,4220,4310,4150,1640,1490];
+const AC_MAX = 5000, AC_DAYS = ['M','T','W','T','F','S','S'];
+const AC_TOTAL = AC_CALLS.reduce((a, b) => a + b, 0);
+const AC_FMT = n => n.toLocaleString('en-US');
+const AC_CHART_LABEL = `Bar chart of API calls over the last 14 days, ${AC_FMT(AC_TOTAL)} in total. Calls dip every weekend, and weekday volume steps up about 40% after SDK 2.0 shipped.`;
+const acChart = () => `<div class="ac-chart" role="img" aria-label="${AC_CHART_LABEL}">
+  <div class="ac-y" aria-hidden="true"><span style="--y:100%">5k</span><span style="--y:50%">2.5k</span><span style="--y:0%">0</span></div>
+  <div class="ac-plot" aria-hidden="true"><i class="ac-g" style="--y:0%"></i><i class="ac-g" style="--y:50%"></i><i class="ac-g" style="--y:100%"></i>
+    <div class="ac-bars">${AC_CALLS.map(v => `<span class="ac-b" style="height:${(v / AC_MAX * 100).toFixed(1)}%"></span>`).join('')}</div>
+    <div class="ac-mark"><span>SDK 2.0 shipped</span></div></div>
+  <div class="ac-days" aria-hidden="true">${AC_CALLS.map((_, i) => `<span>${AC_DAYS[i % 7]}</span>`).join('')}</div></div>`;
+
 function cards(){
   const C = COPY[S.tone], st = S.state, price = money(29);
 
@@ -1216,10 +1655,9 @@ function cards(){
     const body = st==='loading' ? sk(2)+`<div class="sk" style="height:110px;margin-top:16px"></div>`
       : st==='empty' ? emptyB(I.chart, C.usageEmpty, '<br><span>Calls show up here in real time.</span>')
       : st==='error' ? errB(C.netErr)
-      : `<div><span class="big">48,210</span><span class="up">+12.4%</span></div>
-         <div class="bars">${[38,52,44,61,57,70,66,82,74,90,86,100].map(v=>`<span style="height:${v}%"></span>`).join('')}</div>
-         <div class="axis"><span>Sep 1</span><span>Sep 15</span><span>Sep 30</span></div>`;
-    return card('API calls', 'All capabilities · this month', body, `<span class="badge">metered</span>`);
+      : `<div class="ac-head"><span class="big">${AC_FMT(AC_TOTAL)}</span><span class="up">+18.2%</span><span class="ac-vs">vs previous 14 days</span></div>
+         ${acChart()}`;
+    return card('API calls', 'Last 14 days · all endpoints', body, `<span class="badge ok">Live</span>`);
   })();
 
   const checkout = (() => {
@@ -1236,36 +1674,36 @@ function cards(){
   })();
 
   const search = (() => {
-    const box = `<input class="inp" value="${st==='empty'?'zxqv widget tariffs':'How are solar panels recycled?'}" aria-label="Search">`;
-    const R = [['Panel recycling, step by step','example.org','Frames and glass are recovered first; silicon recovery is improving.'],
-               ['Recovery rates by region','example.net','Collection schemes differ widely between regions.'],
-               ['What end-of-life handling costs','example.com','Transport is often the largest share of the total.']];
+    const box = `<input class="inp" value="${st==='empty'?'export invoices to Xero':'Can I get a refund on an annual plan?'}" aria-label="Search">`;
+    const R = [['Annual plans: 30-day refund window','Billing policy · section 4.2 · updated 12 Oct','Full refund within 30 days of purchase, pro-rated credit after that.'],
+               ['How refunds are paid out','Help centre · Refunds and credits','Back to the original card in 5 to 7 business days.'],
+               ['Seats added mid-term','Terms of service · section 7.3','Seats added during a term are refunded pro rata.']];
     const body = box + (st==='loading' ? sk(6)
       : st==='empty' ? emptyB(I.search, C.srchEmpty, `<br><span>${C.srchEmptyS}</span>`)
       : st==='error' ? `<div style="margin-top:12px">${errB(C.netErr)}</div>`
-      : `<div style="margin-top:12px">${R.map((r,i)=>`<div class="res"><a href="#">${r[0]}</a><p>${r[2]}</p><span class="src"><i>${i+1}</i>${r[1]}</span></div>`).join('')}</div>`);
+      : `<div style="margin-top:12px">${R.map((r,i)=>`<div class="res"><a href="#">${r[0]}</a><p>${r[2]}</p><span class="src ac-src"><i>${i+1}</i>${r[1]}</span></div>`).join('')}</div>`);
     return card(C.srchH, 'Answers with a source on every line', body, `<span class="badge">cited</span>`);
   })();
 
   const signin = (() => {
     const body = st==='loading' ? sk(4)
       : st==='success' ? `<div class="done"><div class="ring">${ico(I.check)}</div><p>${C.signOk}</p></div>`
-      : `${st==='error'?errB(C.signErr):''}<label class="lbl">Email</label><input class="inp" ${st==='empty'?'placeholder="you@example.com"':'value="sam@example.com"'} aria-label="Email">
+      : `${st==='error'?errB(C.signErr):''}<label class="lbl">Email</label><input class="inp" ${st==='empty'?'placeholder="name@company.com"':'value="maya@haldenfreight.com"'} aria-label="Email">
          <button class="btn">${C.signB}</button><div class="or">or</div><button class="btn o">Continue with Google</button>`;
     return card(C.signH, C.signS, body);
   })();
 
   const company = (() => {
     const body = st==='loading' ? sk(5) : st==='empty' ? emptyB(I.building, 'No company found', '<br><span>Check the domain and try again.</span>') : st==='error' ? errB(C.netErr)
-      : `<div class="ent"><div class="av">A</div><div><b style="font-weight:600">Acme Robotics</b><div style="font-size:13px;color:var(--muted)">acme.example · Industrial automation</div></div></div>
-         <div class="kv"><div><small>Employees</small><b>120–250</b></div><div><small>Founded</small><b>2019</b></div><div><small>HQ</small><b>Pune</b></div><div><small>Funding</small><b>Series A</b></div></div>`;
-    return card('Company', 'Enriched from 3 sources', body);
+      : `<div class="ent"><div class="av">H</div><div><b style="font-weight:600">Halden Freight</b><div style="font-size:13px;color:var(--muted)">Logistics software · Rotterdam</div></div></div>
+         <div class="kv"><div><small>Employees</small><b>212</b></div><div><small>Founded</small><b>2016</b></div><div><small>Funding</small><b>Series B · $34M</b></div><div><small>Last checked</small><b>2 hours ago</b></div></div>`;
+    return card('Company', 'Matched from 3 sources', body);
   })();
 
   const payments = (() => {
-    const T = [['NS','Nova Studio','Pro · monthly',29,'Paid'],['KL','Kite Labs','Team · annual',290,'Paid'],['OC','Orbit Co','Pro · monthly',29,'Refunded'],['FC','Fern & Co','Starter',9,'Paid']];
+    const T = [['HF','Halden Freight','Team · annual · 12 seats',14256,'Paid'],['CH','Corvane Health','Pro · monthly',29,'Paid'],['QL','Quillon Labs','Pro · monthly',29,'Refunded'],['MF','Marlow & Finch','Starter · monthly',9,'Paid']];
     const body = st==='loading' ? sk(6) : st==='empty' ? emptyB(I.inbox, 'No payments yet', '<br><span>They appear here as soon as one clears.</span>') : st==='error' ? errB(C.netErr)
-      : T.map(t=>`<div class="tx"><div class="av s">${t[0]}</div><div class="t"><b>${t[1]}</b><small>${t[2]}</small></div><div style="text-align:right"><div class="amt">${money(t[3])}</div><span class="badge ${t[4]==='Paid'?'ok':''}">${t[4]}</span></div></div>`).join('');
+      : T.map(t=>`<div class="tx"><div class="av s">${t[0]}</div><div class="t"><b>${esc(t[1])}</b><small>${t[2]}</small></div><div style="text-align:right"><div class="amt">${money(t[3])}</div><span class="badge ${t[4]==='Paid'?'ok':''}">${t[4]}</span></div></div>`).join('');
     return card('Recent payments', 'Across your customers', body, `<button class="btn o sm">View all</button>`);
   })();
 
@@ -1280,14 +1718,25 @@ function cards(){
 const I2 = {menu:'<path d="M4 7h16M4 12h16M4 17h16"/>', plus:'<path d="M12 5v14M5 12h14"/>', heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
   x:'<path d="M6 6l12 12M18 6 6 18"/>', info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'};
 
+// Fictional customer wordmarks: a 16px mark in currentColor plus a name set differently from its neighbours
+const acMark = d => `<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">${d}</svg>`;
+const AC_LOGOS = [
+  ['ac-w1', acMark('<path d="M2 2h12v12h-5V9H7v5H2z"/>'), 'Halden'],
+  ['ac-w2', acMark('<circle cx="8" cy="8" r="6"/>'), 'Corvane'],
+  ['ac-w3', acMark('<path d="M8 2 14.5 14h-13z"/>'), 'Quillon'],
+  ['ac-w4', acMark('<path d="M8 1.5 14.5 8 8 14.5 1.5 8z"/>'), 'Marlow <em>&amp;</em> Finch'],
+  ['ac-w5', acMark('<path d="M8 1.5 14 5v6l-6 3.5L2 11V5z"/>'), 'Tessera'],
+].map(([c, m, n]) => `<span class="ac-wm ${c}">${m}<span>${n}</span></span>`).join('');
+
 function site(){
   return `<div class="site"><header class="nav"><span class="brand"><span class="logo"></span>Acme</span>
-      <nav class="links"><a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a><a href="#">Customers</a></nav>
-      <span class="navr"><a class="lnk" href="#">Sign in</a><button class="btn sm">Get started</button><button class="ib menu" aria-label="Menu">${ico(I2.menu)}</button></span></header>
-    <section class="hero"><span class="eyebrow">New · Research API</span><h1>Ship answers your users can check.</h1>
-      <p>One SDK for search, enrichment and payments. Every result arrives with its source.</p>
-      <div class="ctas"><button class="btn">Start free</button><button class="btn o">Book a demo</button></div>
-      <div class="logos"><span>NOVA</span><span>KITE</span><span>ORBIT</span><span>FERN</span><span>LUMEN</span></div></section></div>`;
+      <nav class="links"><a href="#">Docs</a><a href="#">Pricing</a><a href="#">Changelog</a><a href="#">Customers</a></nav>
+      <span class="navr"><a class="lnk" href="#">Sign in</a><button class="btn sm">Get API key</button><button class="ib menu" aria-label="Menu">${ico(I2.menu)}</button></span></header>
+    <section class="hero"><span class="eyebrow">New · SDK 2.0 with streaming answers</span><h1>Ship answers your users can check.</h1>
+      <p>Acme is one SDK for search, company data and payments. Every answer links to the source it came from.</p>
+      <div class="ctas"><button class="btn">Get an API key</button><button class="btn o">Read the docs</button></div>
+      <span class="ac-fine">Free for your first 1,000 calls a month. No card needed.</span>
+      <div class="ac-logos"><span class="ac-cap">Used in production by 1,900 teams</span><div class="ac-row">${AC_LOGOS}</div></div></section></div>`;
 }
 
 function gallery(){
@@ -1304,30 +1753,30 @@ function gallery(){
        <div class="chk"><span class="sw"></span> Usage alerts<span style="flex:1"></span><span class="sw off"></span> Beta</div>`),
     card('Badges and tags', 'Status, counts, filters',
       `<div class="wrap"><span class="badge">Draft</span><span class="badge ok">Paid</span><span class="badge err">Failed</span><span class="badge p">New</span></div>
-       <div class="wrap" style="margin-top:10px"><span class="tag">Fintech ${ico(I2.x).replace('18','12').replace('18','12')}</span><span class="tag">Series A</span><span class="tag">India</span></div>`),
+       <div class="wrap" style="margin-top:10px"><span class="tag">Logistics ${ico(I2.x).replace('18','12').replace('18','12')}</span><span class="tag">Series B</span><span class="tag">Netherlands</span></div>`),
     card('Tabs', 'Segmented control and underline tabs',
       `<div class="seg"><span class="on">Monthly</span><span>Annual</span></div>
        <div class="utabs"><span class="on">Overview</span><span>Usage</span><span>Billing</span></div>`),
     card('Alerts and toasts', 'Info, success, error, toast',
       `<div class="alert info">${ico(I2.info)}<span>Your trial ends in 5 days.</span></div>
        <div class="alert ok">${ok}<span>Domain verified.</span></div>${errB('Card declined. Try another card.')}
-       <div class="toast"><span>Invite sent to sam@example.com</span><u>Undo</u></div>`),
+       <div class="toast"><span>Invite sent to ines@haldenfreight.com</span><u>Undo</u></div>`),
     card('Pricing', 'Plan card',
       `<span class="badge p">Most popular</span><div class="price" style="margin-top:10px">${money(29)}<small> / month</small></div>
-       <ul class="feat"><li>${ok}10,000 API calls</li><li>${ok}Cited answers</li><li>${ok}Email support</li></ul><button class="btn">Choose Pro</button>`),
+       <ul class="feat"><li>${ok}50,000 API calls a month</li><li>${ok}Sources on every answer</li><li>${ok}Email support within 1 business day</li></ul><button class="btn">Choose Pro</button>`),
     card('Testimonial', 'Quote with author',
-      `<p class="quote">“We replaced four vendors with one SDK and shipped checkout in a day.”</p>
-       <div class="who"><div class="av s">PR</div><div><b>Priya Rao</b><small>CTO, Nova Studio</small></div></div>`),
+      `<p class="quote">“Refund tickets dropped by a third in the first month, because every answer links to the policy it came from.”</p>
+       <div class="who"><div class="av s">ID</div><div><b>Ines Duarte</b><small>Head of Support, Halden Freight</small></div></div>`),
     card('FAQ', 'Accordion',
       `<div class="acc"><details open><summary>Can I bring my own keys?</summary><p>Yes. Email and payments use your own accounts.</p></details>
        <details><summary>Is there a free tier?</summary><p>The first 1,000 calls each month are free.</p></details>
        <details><summary>Where is data stored?</summary><p>In the region you choose at sign-up.</p></details></div>`),
     card('Code block', 'Install and CLI output',
-      `<pre class="code"><i>$</i> npm i @pramaan/sdk
-<i>$</i> npx pramaan login
-<b>✓</b> Signed in as sam@example.com</pre>`),
+      `<pre class="code"><i>$</i> npm i @acme/sdk
+<i>$</i> npx acme login
+<b>✓</b> Signed in as maya@haldenfreight.com</pre>`),
     card('Progress', 'Bar and stepper',
-      `<div class="ln" style="padding-top:0"><span>Monthly quota</span><span>64%</span></div><div class="prog"><span style="width:64%"></span></div>
+      `<div class="ln" style="padding-top:0"><span>Monthly quota</span><span>96,140 of 150,000 calls</span></div><div class="prog"><span style="width:64%"></span></div>
        <div class="steps"><div class="done"><i></i>Account</div><div class="now"><i></i>Payments</div><div><i></i>Go live</div></div>`),
     card('Dialog', 'Modal over the page',
       `<div class="modal"><div class="box"><h5>Delete this key?</h5><p>Apps using it stop working right away.</p>
@@ -1337,7 +1786,7 @@ function gallery(){
        <span class="tip" data-tip="Copied to clipboard"><button class="btn o sm">Copy key</button></span>`),
     card('Table', 'Rows with a header',
       `<table class="tbl"><thead><tr><th>Customer</th><th>Plan</th><th>Amount</th></tr></thead>
-       <tbody><tr><td>Nova Studio</td><td>Pro</td><td>${money(29)}</td></tr><tr><td>Kite Labs</td><td>Team</td><td>${money(290)}</td></tr><tr><td>Fern &amp; Co</td><td>Starter</td><td>${money(9)}</td></tr></tbody></table>`),
+       <tbody><tr><td>Halden Freight</td><td>Team</td><td>${money(14256)}</td></tr><tr><td>Corvane Health</td><td>Pro</td><td>${money(29)}</td></tr><tr><td>Marlow &amp; Finch</td><td>Starter</td><td>${money(9)}</td></tr></tbody></table>`),
   ].join('');
 }
 
@@ -1349,8 +1798,8 @@ const I3 = {home:'<path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/>', card:'<rect x="3" 
   chev:'<path d="m9 6 6 6-6 6"/>', back:'<path d="m15 6-6 6 6 6"/>', user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/>', bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/>',
   bat:'<rect x="2" y="7" width="18" height="10" rx="3"/><path d="M22 11v2"/>', wifi:'<path d="M2 9a15 15 0 0 1 20 0M5 13a10 10 0 0 1 14 0M8.5 16.5a5 5 0 0 1 7 0"/>'};
-const PAY = [['NS','Nova Studio','Pro · monthly',29],['KL','Kite Labs','Team · annual',290],['FC','Fern & Co','Starter',9]];
-const miniBars = () => `<div class="bars s">${[38,52,44,61,57,70,66,82,74,90,86,100].map(v => `<span style="height:${v}%"></span>`).join('')}</div>`;
+const PAY = [['HF','Halden Freight','Team · annual',14256],['CH','Corvane Health','Pro · monthly',29],['MF','Marlow & Finch','Starter · monthly',9]];
+const miniBars = () => `<div class="bars s ac-mini">${AC_CALLS.map(v => `<span style="height:${(v / AC_MAX * 100).toFixed(1)}%"></span>`).join('')}</div>`;
 const skel = n => Array.from({length:n}, (_, i) => `<div class="sk2" style="width:${90 - i * 14}%"></div>`).join('');
 
 // Material 3 needs "container" shades of primary; derived here from the brand colour for each mode
@@ -1376,7 +1825,7 @@ const IOS = {
     const body = st === 'loading' ? `<div class="ios-group" style="padding:14px">${skel(5)}</div>`
       : st === 'empty' ? `<div class="ios-done"><b>${C.usageEmpty}</b><p style="color:var(--muted);font-size:13px">Calls show up here in real time.</p></div>`
       : `${st === 'error' ? `<div class="ios-group"><div class="ios-row" style="color:var(--danger)">${icoS(I.alert,18)}<span class="t">${C.netErr}</span></div></div>` : ''}`
-        + `<div class="ios-group"><div class="ios-stat"><small>API calls · this month</small><span class="big">48,210<span class="up">+12.4%</span></span>${miniBars()}</div></div>`
+        + `<div class="ios-group"><div class="ios-stat"><small>API calls · last 14 days</small><span class="big">${AC_FMT(AC_TOTAL)}<span class="up">+18.2%</span></span>${miniBars()}</div></div>`
         + `<div class="ios-h">Recent payments</div><div class="ios-group">${PAY.map(p => `<div class="ios-row"><span class="av s" style="border-radius:50%">${p[0]}</span>`
         + `<span class="t"><b>${esc(p[1])}</b><small>${p[2]}</small></span><span>${money(p[3])}</span></div>`).join('')}</div>`;
     return `${IOS.sb()}<div class="ios-nav"><span></span><span class="tint">Edit</span></div><h1 class="ios-large">Usage</h1><div class="body">${body}</div>${IOS.tabs('Home')}`;
@@ -1411,11 +1860,11 @@ const AND = {
     const body = st === 'loading' ? `<div class="m3-card">${skel(5)}</div>`
       : st === 'empty' ? `<div class="m3-done"><b>${C.usageEmpty}</b><p style="color:var(--muted);font-size:13px">Calls show up here in real time.</p></div>`
       : `${st === 'error' ? `<div class="m3-banner">${icoS(I.alert,18)}<span>${C.netErr}</span></div>` : ''}`
-        + `<div class="m3-card"><small>API calls · this month</small><span class="big">48,210<span class="up">+12.4%</span></span>${miniBars()}</div>`
+        + `<div class="m3-card"><small>API calls · last 14 days</small><span class="big">${AC_FMT(AC_TOTAL)}<span class="up">+18.2%</span></span>${miniBars()}</div>`
         + `<div class="m3-sub">Recent payments</div>${PAY.map(p => `<div class="m3-li"><span class="m3-av">${p[0]}</span>`
         + `<span class="t"><b>${esc(p[1])}</b><small>${p[2]}</small></span><span>${money(p[3])}</span></div>`).join('')}`
         + (st === 'success' ? `<div class="m3-snack"><span>${C.payOk}</span><u>View</u></div>` : '');
-    return `${AND.sb()}<div class="m3-bar"><span class="m3-ic">${icoS(I2.menu,22)}</span><span class="tt">Usage</span><span class="m3-av" style="width:32px;height:32px">S</span></div>`
+    return `${AND.sb()}<div class="m3-bar"><span class="m3-ic">${icoS(I2.menu,22)}</span><span class="tt">Usage</span><span class="m3-av" style="width:32px;height:32px">M</span></div>`
       + `<div class="body">${body}<span class="m3-fab">${icoS(I2.plus,22)}</span></div>${AND.nav('Home')}`;
   },
   form(C, st, price){
@@ -1442,8 +1891,8 @@ const AND = {
 
 function appScreens(os){
   const C = COPY[S.tone], st = S.state, price = money(29), P = os === 'ios' ? IOS : AND;
-  return `<div class="appnote"><span><b>${os === 'ios' ? 'iOS app' : 'Android app'}</b> · ${os === 'ios' ? "Apple's design guidelines" : 'Material 3'}: `
-    + `your colours, corner radius and font on native controls. Export: React Native, ${os === 'ios' ? 'SwiftUI' : 'Compose'}.</span>`
+  return `<div class="appnote"><span><b>${os === 'ios' ? 'iOS app' : 'Android app'}</b> · `
+    + `Your colours, corners and font on ${os === 'ios' ? "Apple's own" : "Google's Material"} buttons and lists.</span>`
     + `<span class="seg2"><button data-appfont="brand" aria-pressed="${S.appFont !== 'system'}">Brand font</button>`
     + `<button data-appfont="system" aria-pressed="${S.appFont === 'system'}">${os === 'ios' ? 'SF Pro' : 'Roboto'}</button></span></div>`
     + `<div class="phones" style="${appVars(os, theme(S.mode))}">`
@@ -1452,8 +1901,28 @@ function appScreens(os){
     + `</div>`;
 }
 
-const footer = () => `<footer class="foot2" style="margin-top:calc(16px*var(--d))"><div><b>Acme</b><span>© 2026 Acme Inc.</span></div>
-  <div><b>Product</b><span>Pricing</span><span>Changelog</span></div><div><b>Company</b><span>About</span><span>Careers</span></div><div><b>Legal</b><span>Privacy</span><span>Terms</span></div></footer>`;
+const footer = () => `<footer class="foot2" style="margin-top:calc(16px*var(--d))"><div><b>Acme</b><span>© 2026 Acme Labs, Inc.</span><span class="ac-status"><i class="ac-dot"></i>All systems normal</span></div>
+  <div><b>Product</b><span>Pricing</span><span>Changelog</span><span>Status</span></div><div><b>Developers</b><span>Docs</span><span>API reference</span><span>SDKs</span></div><div><b>Company</b><span>About</span><span>Careers</span><span>Security</span></div></footer>`;
+
+/* ---------- stage fit: the preview is as large and as whole as the canvas allows (cv- variables live on #canvas) ---------- */
+let cvLast = '';
+const fitStage = () => {
+  const c = $('#canvas'), st = $('#stage'); if (!c || !st) return;
+  if (!matchMedia('(min-width:861px)').matches) { c.style.removeProperty('--cv-fit'); c.style.removeProperty('--cv-h'); return; }
+  const dev = ['desktop', 'mobile', 'ios', 'android'].find(d => st.classList.contains(d)) || '';
+  if (dev !== cvLast) { cvLast = dev; c.scrollTop = 0; st.scrollTop = 0; }
+  const h = c.clientHeight - 40, w = c.clientWidth - 44; // 4px of slack so rounding never wraps the row
+  c.style.setProperty('--cv-h', Math.max(420, h - 20) + 'px');
+  // 952x662 is the natural size of the three-phone row (3x300 + 2x26 wide; 630 + 10 + caption tall). The note above it changes height with the zoom, so measure twice.
+  for (let i = 0; i < 2; i++) {
+    const note = st.querySelector('.appnote'), availH = h - (note ? note.offsetHeight + 18 : 0);
+    // floor .45: at 861-975px the canvas is narrower than 952x.6, and the row must shrink rather than wrap a phone below
+    c.style.setProperty('--cv-fit', (Math.floor(Math.max(.45, Math.min(1.35, availH / 662, w / 952)) * 1000) / 1000).toFixed(3));
+  }
+};
+if ('ResizeObserver' in window) new ResizeObserver(fitStage).observe($('#canvas'));
+new MutationObserver(fitStage).observe($('#stage'), {childList: true});
+fitStage();
 
 /* ---------- export ---------- */
 const slug = () => S.preset==='custom' ? 'custom-' + S.primary.slice(1) : S.preset;
@@ -1613,11 +2082,40 @@ const HINT = {'shadcn':'Complete globals.css for shadcn/ui on Tailwind v4: repla
   'Tailwind v3':'Replace tailwind.config.js. Colours switch with class="dark" on <html>; adjust content paths to your project.', 'CSS':'Plain CSS variables for any stack; dark mode via data-theme="dark".',
   'DESIGN.md':'Hand to your AI coding tool so new screens match. Imports back into this builder.', 'Tokens':'W3C design-token format, light and dark.',
   'Figma':'Light and dark values per variable, for a Figma variables collection.'};
-const TAB_ORDER = ['shadcn','Tailwind v4','Tailwind v3','CSS','SCSS','MUI','Mantine','Chakra','React Native','SwiftUI','Compose','DESIGN.md','Tokens','Figma'];
+// DESIGN.md first: it is the one a founder can use without a developer (paste it into an AI builder)
+const TAB_ORDER = ['DESIGN.md','shadcn','Tailwind v4','Tailwind v3','CSS','SCSS','MUI','Mantine','Chakra','React Native','SwiftUI','Compose','Tokens','Figma'];
+/** The chosen font's Google Fonts stylesheet, when it comes from Google (the five built-ins, or one picked or imported from there). */
+const gfHref = () => { const n = fontName(), st = document.getElementById('gf-' + n.replace(/\W/g,''));
+  return FONTS.some(f => f[1] === n) || st?.textContent ? `https://fonts.googleapis.com/css2?family=${encodeURIComponent(n).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap` : null; };
+/** Exports name the font; this also loads it, so the pasted result looks like the preview. */
+function withFont(fmt, out){
+  const u = gfHref(), n = fontName(); if (!u) return out;
+  const imp = `@import url("${u}");`, line1 = s => s.replace(/^([^\n]*\n)/, `$1${imp}\n`);
+  if (fmt === 'shadcn' || fmt === 'Tailwind v4') return out.replace('@import "tailwindcss";', `${imp}\n@import "tailwindcss";`);   // must come before Tailwind
+  if (fmt === 'CSS') return `${imp}\n\n${out}`;
+  if (fmt === 'SCSS') return line1(out);
+  if (['MUI','Mantine','Chakra','Tailwind v3'].includes(fmt)) return out.replace(/^([^\n]*\n)/, `$1// Font: load ${n} in your HTML <head>: <link rel="stylesheet" href="${u}">\n`);
+  if (['React Native','SwiftUI','Compose'].includes(fmt)) return out.replace(/^([^\n]*\n)/, `$1// Font: ${n}, free from https://fonts.google.com/specimen/${encodeURIComponent(n).replace(/%20/g,'+')}\n`);
+  if (fmt === 'DESIGN.md') return out.replace('- **Substitute:** Inter\n', `- **Load from:** ${u} (free on Google Fonts)\n- **Substitute:** Inter\n`);
+  if (fmt === 'Figma') return `${out}\nfont/source       ${u}`;
+  return out;
+}
+// Get code feedback: the copied state and its message stay until the content changes (tab switch, reopen) or Copy is pressed again
+function gcReset(){
+  const b = $('#copy'), s = $('#exStatus');
+  b.removeAttribute('data-state'); b.textContent = 'Copy';
+  s.textContent = ''; s.classList.remove('gc-err'); s.setAttribute('role', 'status'); s.setAttribute('aria-live', 'polite');
+}
+function gcSay(msg, bad){
+  const s = $('#exStatus');
+  s.classList.toggle('gc-err', !!bad); s.setAttribute('role', bad ? 'alert' : 'status'); s.setAttribute('aria-live', bad ? 'assertive' : 'polite');
+  requestAnimationFrame(() => { s.textContent = msg; });   // empty first, then set on the next frame, so a repeated copy is announced again
+}
 function drawExport(){
+  gcReset();
   $('#exTabs').innerHTML = TAB_ORDER.map(k=>`<button data-v="${k}" aria-pressed="${S.ex===k}">${k}</button>`).join('');
-  $('#exOut').textContent = EX[S.ex](); $('#exHint').textContent = HINT[S.ex];
-  $('#exSub').textContent = 'Choose your format, then copy or download.';
+  $('#exOut').textContent = withFont(S.ex, EX[S.ex]()); $('#exHint').textContent = HINT[S.ex];
+  $('#exSub').textContent = 'Building with an AI tool (Lovable, v0, Cursor, Claude)? Copy DESIGN.md and paste it in. Handing it to a developer? Pick their stack.';
 }
 $('#download').onclick = () => {
   const url = URL.createObjectURL(new Blob([$('#exOut').textContent], {type:'text/plain'}));
@@ -1629,7 +2127,24 @@ document.querySelectorAll('[data-open-export]').forEach(b => b.onclick = () => {
 $('#exClose').onclick = () => $('#ex').close();
 // a click on the dimmed area outside a dialog lands on the <dialog> itself: close it
 document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
-$('#copy').onclick = () => { try { navigator.clipboard.writeText($('#exOut').textContent); $('#copy').textContent='Copied'; setTimeout(()=>$('#copy').textContent='Copy',1200); } catch(e){} };
+$('#copy').onclick = async () => {
+  const btn = $('#copy'), out = $('#exOut'), text = out.textContent;
+  gcReset();
+  let ok = false;
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(text); ok = true; } } catch(e){}
+  if (!ok) {   // no clipboard API, or it refused: select the code and use the legacy copy command
+    try { const r = document.createRange(), sel = getSelection(); r.selectNodeContents(out); sel.removeAllRanges(); sel.addRange(r); ok = document.execCommand('copy'); } catch(e){}
+  }
+  if (ok) {
+    btn.dataset.state = 'copied'; btn.innerHTML = `${icoS(I.check,16)}Copied`;
+    gcSay(`Copied ${FILE[S.ex] || S.ex} to your clipboard. Paste it into your AI tool or project.`);
+  } else {
+    btn.dataset.state = 'failed'; btn.textContent = 'Copy failed';   // visible at the top even when the message below is off screen
+    gcSay('Could not copy automatically. The code is selected: press Ctrl+C (Cmd+C on a Mac), or use Download.', true);   // the code stays selected
+    // on a phone the message sits below the code: bring it into view
+    requestAnimationFrame(() => requestAnimationFrame(() => $('#exStatus').scrollIntoView({block:'nearest'})));
+  }
+};
 
 /* ---------- readability check: every text/background pair, WCAG AA ---------- */
 const CHECKS = [
@@ -1639,17 +2154,20 @@ const CHECKS = [
 ];
 // The readability list starts closed (the red dot and "6 of 7 pass" flag a problem) and keeps the visitor's open/closed choice across redraws
 let guardOpen = false;
-$('#guard').addEventListener('toggle', e => { guardOpen = e.target.open; }, true);   // toggle does not bubble: listen in the capture phase
+let geoOpen = false;   // the shape check keeps its own open/closed choice
+$('#guard').addEventListener('toggle', e => { if (e.target.classList.contains('geo-read')) geoOpen = e.target.open; else guardOpen = e.target.open; }, true);   // toggle does not bubble: listen in the capture phase
 function drawGuard(){
   const T = theme(S.mode), res = CHECKS.map(([label, fg, bg, min], i) => ({i, label, min, cr:contrast(T[fg], T[bg])}));
   const bad = res.filter(r => r.cr < r.min), dot = ok => `<i style="background:${ok ? 'var(--c-ok)' : 'var(--c-bad)'}"></i>`;
-  $('#guard').innerHTML = `<details class="read"${guardOpen ? ' open' : ''}><summary>${dot(!bad.length)}Readability (${S.mode}): ${res.length - bad.length} of ${res.length} pass</summary>`
+  // the Undo of the last big change (a design, Surprise me, Start over) lives here until it is used or a style is chosen
+  const undo = lastUndo ? `<button type="button" class="sp-link geo-undo" id="undoLast">Undo ${esc(lastUndoWhat || 'the last change')}</button>` : '';
+  $('#guard').innerHTML = undo + `<details class="read"${guardOpen ? ' open' : ''}><summary>${dot(!bad.length)}Readability (${S.mode}): ${res.length - bad.length} of ${res.length} pass</summary>`
     + `<div class="list">${res.map(r => { const plans = r.cr < r.min ? fixPlans(CHECKS[r.i]) : [];
       return `<div class="ck">${dot(r.cr >= r.min)}<span>${r.label} · ${r.cr.toFixed(1)}:1${plans.length > 1 ? ` (needs ${r.min})` : ''}</span>`
         + `${plans.length === 1 ? `<button data-fix="${r.i}">Fix</button>` : ''}</div>`
         + (plans.length > 1 ? `<div class="fx2">${plans.map((p, j) => `<button data-fix="${r.i}" data-plan="${j}" title="${p.label}: ${p.slot === 'primary' ? 'button' : 'text'} becomes ${p.value}, ${p.note}"><span class="fxs" style="background:${p.bg};color:${p.fg}">Aa</span>`
           + `<span>${p.label}<small>${p.note} · ${p.cr.toFixed(1)}:1</small></span></button>`).join('')}</div>` : ''); }).join('')}`
-    + `${bad.length > 1 ? `<div class="ck"><span></span><button data-fixall>Fix all</button></div>` : ''}</div></details>`;
+    + `${bad.length > 1 ? `<div class="ck"><span></span><button data-fixall>Fix all</button></div>` : ''}</div></details>` + geoHtml();
 }
 // Fix checks every background the colour sits on (text is on both page and cards), so one fix never breaks another.
 // If no single colour can pass on all of them, it moves the failing background toward the other one instead.
@@ -1706,6 +2224,69 @@ $('#guard').addEventListener('click', e => { const b = e.target.closest('[data-f
   if ('fixall' in b.dataset) for (let n = 0; n < 4 && CHECKS.some(c => fixPlans(c).length); n++) for (const c of CHECKS) fixCheck(c);
   else fixCheck(CHECKS[Number(b.dataset.fix)], Number(b.dataset.plan || 0));
   render(); });
+
+/* ---------- shape check: measured on the painted preview, beside the readability check ----------
+   Three questions: do cards keep sane corners, is anything tall an oval, is anything cut off by a rounded outline.
+   Web previews only (the app screens have their own fixed shapes). The result is cached on everything that changes shape,
+   so dragging a colour does not measure again. */
+const GEO_LABELS = ['Cards keep their corners', 'Buttons and tags are not ovals', 'Nothing is cut off'];
+const GEO_CORNERS = ['borderTopLeftRadius', 'borderTopRightRadius', 'borderBottomRightRadius', 'borderBottomLeftRadius'];
+let geoCache = {key:'', res:null};
+const geoKey = st => JSON.stringify([S.radius, S.density, S.font, S.device, S.mode, S.state, S.locale, S.tone, S.style,
+  ['--r', '--rc', '--ri', '--rt', '--rb'].map(k => st.style.getPropertyValue(k))]);   // the radius variables too, so a forced one is measured
+function geoMeasure(st){
+  const px = v => /^[\d.]+px/.test(v) ? parseFloat(v) : 0;   // only pixel radii can run away; a percentage is a deliberate shape
+  let cards = true, ovals = true, cut = true;
+  st.classList.add('geo-measure');   // no transitions while measuring: read the final radii, not a transition's first frame
+  try {
+    for (const el of st.querySelectorAll('.card,.site,.foot2,.modal .box')) { const b = el.getBoundingClientRect(); if (!b.width) continue;
+      const r = px(getComputedStyle(el).borderTopLeftRadius);
+      if (r > R_CARD_MAX + .01 || r * 2 > Math.min(b.width, b.height) + .5) cards = false; }
+    for (const el of st.querySelectorAll('*')) { const b = el.getBoundingClientRect(); if (b.height <= 56) continue;
+      const cs = getComputedStyle(el);
+      if (GEO_CORNERS.some(p => { const r = px(cs[p]); return r > R_CARD_MAX && r * 2 >= b.height - .5; })) { ovals = false; break; } }
+    // the nearest corner of the element against that corner's arc: a point inside the corner square but beyond the arc is cut off
+    const clipped = (el, box) => { if (!el || !box) return false;
+      const r = el.getBoundingClientRect(), c = box.getBoundingClientRect(), cs = getComputedStyle(box); if (!r.width || !c.width) return false;
+      const lim = Math.min(c.width, c.height) / 2;
+      return [[r.left, r.top, c.left, c.top, 1, 1], [r.right, r.top, c.right, c.top, -1, 1], [r.right, r.bottom, c.right, c.bottom, -1, -1], [r.left, r.bottom, c.left, c.bottom, 1, -1]]
+        .some(([x, y, bx, by, sx, sy], i) => { const R = Math.min(px(cs[GEO_CORNERS[i]]), lim); if (!R) return false;
+          const dx = (x - bx) * sx, dy = (y - by) * sy;   // how far in from the box corner, along each edge
+          return dx < R && dy < R && Math.hypot(R - dx, R - dy) > R + .5; }); };
+    const site = st.querySelector('.site');
+    if (clipped(st.querySelector('.links a'), site) || clipped(st.querySelector('.brand'), site)) cut = false;
+    for (const h of st.querySelectorAll('.ch h4')) if (clipped(h, h.closest('.card, .modal .box'))) { cut = false; break; }
+  } finally { st.classList.remove('geo-measure'); }
+  return [cards, ovals, cut].map((ok, i) => ({label:GEO_LABELS[i], ok}));
+}
+function geoResult(){
+  const st = $('#stage');
+  if (!st || (S.device !== 'desktop' && S.device !== 'mobile') || !st.offsetWidth) return null;
+  const key = geoKey(st);
+  if (geoCache.key !== key) geoCache = {key, res:geoMeasure(st)};
+  return geoCache.res;
+}
+function geoHtml(){
+  const res = geoResult(); if (!res) return '';
+  const ok = res.filter(r => r.ok).length, dot = good => `<i style="background:${good ? 'var(--c-ok)' : 'var(--c-bad)'}"></i>`;
+  return `<details class="read geo-read"${geoOpen ? ' open' : ''}><summary>${dot(ok === res.length)}Shapes: ${ok} of ${res.length} fit</summary><div class="list">`
+    + res.map(r => `<div class="ck">${dot(r.ok)}<span>${r.label}</span>${r.ok ? '' : '<button type="button" data-geofix>Fix</button>'}</div>`).join('') + `</div></details>`;
+}
+/** Fix for a failing shape: back to Full at most, and the design's own container radii above their caps dropped. */
+function geoFix(){
+  const was = S.radius; S.radius = Math.min(S.radius, R_FULL);
+  if (S.style) { if (S.style.base === was) S.style.base = S.radius;
+    const R = S.style.radius; if (R) { for (const k of ['card', 'input']) if (R[k] > R_CARD_MAX) delete R[k];
+      for (const k of ['btn', 'tag']) if (R[k] > R_CARD_MAX && R[k] < 100) delete R[k]; } }
+  render();
+}
+$('#guard').addEventListener('click', e => {
+  if (e.target.closest('[data-geofix]')) { e.preventDefault(); geoFix(); }
+  else if (e.target.closest('#undoLast')) { e.preventDefault(); undoDesign(); $('#guard summary')?.focus({preventScroll:true}); } });
+// a web font arriving changes text widths, so the "cut off" answer is measured again once it has loaded
+let geoFontTimer;
+document.fonts?.addEventListener?.('loadingdone', () => { clearTimeout(geoFontTimer); geoFontTimer = setTimeout(() => {
+  geoCache = {key:'', res:null}; if (!$('#guard').contains(document.activeElement)) drawGuard(); }, 150); });
 
 /* ---------- design browser: 1,282 real styles in designs/ ---------- */
 // Designs a viewer hid as broken (their own browser only; the team list is designs/_hidden.json)
@@ -1764,9 +2345,9 @@ function showDesign(slug){
   $('#galDetail').hidden = false;
   $('#galDetail').innerHTML = `<div class="gshot" tabindex="0" aria-label="Full page of ${escA(d.d || d.t)}">${shots.map(s => `<img alt="" src="${DB}${d.s}/${s}">`).join('')}</div>`
     + `<div class="ginfo"><h4>${esc(d.d || d.t)}</h4>${d.u ? `<a href="${escA(d.u)}" target="_blank" rel="noopener">${esc(d.u)}</a>` : ''}`
-    + `<span class="meta">${esc([d.th, d.i].filter(Boolean).join(' · '))}${d.fo ? ` · font ${esc(d.fo)}` : ''}</span>`
-    + `${d.ns ? `<span class="ns">${esc(d.ns)}</span>` : ''}${d.sw && d.sw.length ? `<div class="gsw">${d.sw.map(c => `<i title="${c}" style="background:${c}"></i>`).join('')}</div>` : ''}`
-    + `<p>${esc(d.x)}</p>${d.f ? '' : '<small>No full-page image for this one; showing the screen previews.</small>'}`
+    + `<span class="meta">${esc([d.th, d.i].filter(Boolean).join(' · '))}${d.fo ? ` · ${isPrivateFont(d.fo) ? 'its own font' : `font ${esc(fontLabel(d.fo))}`}` : ''}</span>`
+    + `${d.ns ? `<span class="ns">${esc(hideFont(d.ns, d.fo, 'its own font'))}</span>` : ''}${d.sw && d.sw.length ? `<div class="gsw">${d.sw.map(c => `<i title="${c}" style="background:${c}"></i>`).join('')}</div>` : ''}`
+    + `<p>${esc(hideFont(d.x, d.fo, 'its own font'))}</p>${d.f ? '' : '<small>No full-page image for this one; showing the screen previews.</small>'}`
     + `<div class="acts"><button class="cta" id="galApply">Apply this design</button><button class="ghost" id="galBack">Back to all designs</button></div>`
     + `<button class="ghost" id="galHide" style="height:28px;font-size:12px;justify-self:start">Preview looks broken? Hide this design</button></div>`;
   $('#galHide').onclick = () => { hiddenDesigns().add(slug); saveHidden(); showGrid(); drawGallery();
@@ -1837,10 +2418,17 @@ function restore(){
   if (!got || typeof got !== 'object') return;
   if (got.importNote === 'Opened from a shared link.') got.importNote = '';   // older copies saved this note
   for (const k of [...SAVE_KEYS, 'importText']) if (k in got) S[k] = got[k];
-  if (typeof S.radius !== 'number' || typeof S.density !== 'number' || !/^#[0-9a-f]{6}$/i.test(S.primary)) Object.assign(S, DEFAULTS, PRESETS.graphite);
+  if (typeof S.radius !== 'number' || typeof S.density !== 'number' || typeof S.font !== 'string' || !/^#[0-9a-f]{6}$/i.test(S.primary)) Object.assign(S, DEFAULTS, PRESETS.graphite);
+  // an older save or share link may carry a site's private font alias: swap it for its free match before anything shows or exports it
+  const priv = fontName();
+  if (priv && isPrivateFont(priv)) { const alt = lookalike(priv), swap = t => typeof t === 'string' ? t.split(`'${priv}'`).join(`'${alt}'`) : t;
+    if (S.style && S.style.bodyStack === S.font) S.style.bodyStack = swap(S.style.bodyStack);
+    if (S.style) S.style.headStack = swap(S.style.headStack);
+    S.font = swap(S.font); }
   // A look saved under an old preset name (neutral, ledger...) keeps its values as a custom look.
   if (S.preset !== 'custom' && !PRESETS[S.preset]) S.preset = 'custom';
   for (const f of S.font.split(',').slice(0, 2)) loadFont(f.replace(/['"]/g,'').trim());
+  normLook();   // a saved or shared 999px (or any out-of-range value) is brought back inside bounds on load
   if (S.imported) checkFont();
 }
 $('#share').onclick = async () => {
@@ -1876,10 +2464,10 @@ function checkFont(){
   const [font, alt] = S.font.split(',').map(f => f.replace(/['"]/g,'').trim()), stack = S.font;
   const run = () => { if (S.font !== stack) return;   // a newer design or font has replaced this one
     const before = S.fontNote;
-    S.fontNote = hasFont(font) ? '' : `${esc(font)} isn't available here, so the preview shows ${alt && !/^system/.test(alt) ? esc(alt) + ', a close match' : 'the system font'}. Upload the font file to see it exactly.`;
+    S.fontNote = hasFont(font) ? '' : `${esc(fontLabel(font))} isn't available here, so the preview shows ${alt && !/^system/.test(alt) ? esc(alt) + ', a close match' : 'the system font'}. Upload the font file to see it exactly.`;
     if (S.fontNote !== before) { render();
-      if (S.fontNote) notify(`Font not available: ${esc(font)}`, alt && !/^system/.test(alt) ? `Showing ${esc(alt)}, the closest free match.` : 'Showing the system font.',
-        'warn', [['Upload your font', () => $('#fontFile')?.click()]], true); } };
+      if (S.fontNote) notify(`Font not available: ${esc(fontLabel(font))}`, alt && !/^system/.test(alt) ? `Showing ${esc(alt)}, the closest free match.` : 'Showing the system font.',
+        'warn', [['Upload your font', () => $('#fontFile')?.click()]], {key:'font'}); } };
   setTimeout(run, 1500); setTimeout(run, 4000);   // after the Google Fonts stylesheet and files arrive
 }
 // A font picked from the Font menu's Google search: asked of Google Fonts directly (not through loadFont, whose paid-font
@@ -1897,10 +2485,42 @@ async function useGoogleFont(raw, cat){
   render(); checkFont();
   notify(`Font: ${esc(name)}`, 'Loaded from Google Fonts.', 'ok');
 }
+/* Font names. The builder's own chrome faces and any family a stylesheet already serves are never re-registered by an uploaded
+   file (that would restyle the whole page, not just the preview); private font aliases are never shown by name. */
+const CHROME_FAMILIES = ['jetbrains mono', 'newsreader', 'abc diatype mono', 'untitled serif', 'untitled sans'];
+const UPLOADED_FONTS = new Set();   // names this page registered from a file, so uploading the same font again may reuse its name
+const FONT_GENERIC = new Set(['sans', 'serif', 'mono', 'body', 'heading', 'display', 'primary', 'secondary', 'default', 'base', 'text', 'title', 'ui', 'custom', 'font', 'main', 'brand', 'system']);
+/** A next/font style name ("__Inter_d65c78", "__Inter_Fallback_d65c78") as the plain family it stands for ("Inter"). */
+const cleanFontName = n => String(n || '').trim().replace(/^_+/, '').replace(/_(?=[0-9a-f]*\d)[0-9a-f]{4,}$/i, '').replace(/_Fallback$/i, '').replace(/_/g, ' ').trim();
+const freeFont = n => FREE_FONTS[String(n).toLowerCase()]?.[1] || FREE_FAMILY[String(n).toLowerCase()]?.[1] || '';
+/** True for a name that only means something on the site it came from: a build-time alias, a variable, a role word. */
+function isPrivateFont(name){
+  const raw = String(name || '').trim(); if (!raw) return false;
+  if (freeFont(raw)) return false;
+  const c = cleanFontName(raw), low = c.toLowerCase();
+  if (freeFont(c)) return false;
+  if (!c || /^_/.test(c) || /_[0-9a-f]{4,}$/i.test(c) || /var\(|--/.test(raw)) return true;
+  if (FONT_GENERIC.has(low)) return true;
+  return c.length <= 3 && low !== 'din';
+}
+/** A font's name for people: the real free family when known, otherwise the cleaned name with a capital first letter. */
+function fontLabel(name){
+  const free = freeFont(name); if (free) return free;
+  const c = cleanFontName(name); return c ? c[0].toUpperCase() + c.slice(1) : String(name || '');
+}
+/** Replace a private font's name in a piece of text (a design file, its notes) with another wording. */
+function hideFont(text, name, to){
+  if (!name || !isPrivateFont(name)) return text;
+  return String(text ?? '').replace(new RegExp('\\b' + String(name).trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), to);
+}
+const fontServed = n => [...document.fonts].some(ff => ff.family.replace(/['"]/g, '').trim().toLowerCase() === n.toLowerCase() && !UPLOADED_FONTS.has(ff.family.replace(/['"]/g, '').trim()));
 async function useFontFile(f){
   if (!f) return;
-  const cur = fontName(), name = cur && !/^(geist|inter|system-ui)$/i.test(cur) ? cur : f.name.replace(/\.[^.]+$/,'');
-  try { const face = new FontFace(name, await f.arrayBuffer()); await face.load(); document.fonts.add(face);
+  const base = f.name.replace(/\.[^.]+$/,''), taken = n => CHROME_FAMILIES.includes(n.toLowerCase()) || fontServed(n);
+  const cur = fontName(); let name = cur && !/^(geist|inter|system-ui)$/i.test(cur) ? cur : base;
+  if (taken(name)) name = base;
+  if (taken(name)) name = 'Your ' + base;
+  try { const face = new FontFace(name, await f.arrayBuffer()); await face.load(); document.fonts.add(face); UPLOADED_FONTS.add(name);
     if (fontName() !== name) S.font = `'${name}', system-ui, sans-serif`;
     S.preset = 'custom'; S.fontNote = `Showing ${esc(name)} from ${esc(f.name)}. The file stays on this computer until you reload.`;
   } catch { S.fontNote = `${esc(f.name)} could not be read as a font. Use a .woff2, .woff, .otf or .ttf file.`; }
@@ -1955,19 +2575,19 @@ function slotSource(mode, k){
 }
 
 function refreshRows(){
-  const pr = $('#rows [data-k="primary"]'); if (pr) pr.closest('.row').querySelector('b').textContent = theme('light').primary.toUpperCase();
-  document.querySelectorAll('#rows .chip').forEach(c => c.style.background = theme('light').primary);
+  spSync();   // hex, checked swatches and segments, "Custom" line
   const T = theme(S.mode);
   document.querySelectorAll('#rows .crow').forEach(r => { const k = r.querySelector('input').dataset.slot;
     r.querySelector('.sw2').style.background = T[k]; r.querySelector('code').textContent = T[k]; r.querySelector('small').textContent = slotSource(S.mode, k); });
 }
 
 function render(redrawRows = true){
+  normLook();   // first: whatever got into S, the stage only ever paints a bounded look
   const st = $('#stage'), T = theme(S.mode);
   // The page colour belongs to the preview device only; the builder canvas around it never changes.
   Object.entries({'--p':T.primary, '--p-fg':T.primaryFg, '--page':T.page, '--card':T.card, '--text':T.text, '--muted':T.muted,
     '--line':T.line, '--soft':T.soft, '--danger':T.danger, '--ok':T.ok,
-    '--r':S.radius+'px', '--d':S.density, '--m':S.motion+'ms', '--font':S.font}).forEach(([k,v]) => st.style.setProperty(k,v));
+    '--r':Math.min(S.radius, R_BASE_MAX)+'px', '--d':S.density, '--m':S.motion+'ms', '--font':S.font}).forEach(([k,v]) => st.style.setProperty(k,v));
   const X = activeStyle();
   for (const k of ['--hf','--hw','--ht','--rb','--rc','--ri','--rt','--cs']) X[k] != null ? st.style.setProperty(k, X[k]) : st.style.removeProperty(k);
   st.className = `stage ${S.mode} ${S.device}${X.ob ? ' ob' : ''}`;
@@ -2008,12 +2628,67 @@ $('#stage').addEventListener('click', e => { const b = e.target.closest('[data-a
 document.addEventListener('keydown', e => { if (e.key === 'Tab') document.documentElement.dataset.kb = '1'; });
 document.addEventListener('pointerdown', () => { delete document.documentElement.dataset.kb; });
 // a shared link pasted into a tab that already shows the builder only changes the hash
-window.addEventListener('hashchange', () => { if (/^#t=/.test(location.hash)) { restore(); render(); openedFromLink(); } });
-// phones: the settings drawer
-const sideOpen = open => { document.body.classList.toggle('side-open', open); $('[data-side-open]').setAttribute('aria-expanded', String(open)); };
+// A link pasted into a tab that is already open shows exactly what a fresh load of it shows (nothing of the previous design
+// survives), and the Undo under the settings brings back the work it replaced.
+window.addEventListener('hashchange', () => { if (!/^#t=/.test(location.hash)) return;
+  const before = JSON.stringify({...snapshot(), importText:S.importText});
+  Object.assign(S, DEFAULTS, PRESETS.graphite); restore();
+  lastUndo = before; lastUndoWhat = 'opening the shared link';
+  render(); openedFromLink(); });
+// phones: the settings drawer. Closed, it is off-screen, so it is inert (out of the Tab order); open, it is the only
+// thing the keyboard reaches, focus starts on its close button and returns to Customise when it closes.
+const narrow = matchMedia('(max-width: 860px)');
+const behindDrawer = () => [$('.site-nav'), $('.uib-hero'), $('.top'), $('#canvas'), $('[data-side-open]'), $('ticket-stub-footer')].filter(Boolean);   // not #notice: its Undo must stay reachable
+const sideInert = () => { const open = document.body.classList.contains('side-open') && narrow.matches;
+  $('.side').inert = narrow.matches && !open; behindDrawer().forEach(el => el.inert = open); };
+const sideOpen = open => { const was = document.body.classList.contains('side-open');
+  document.body.classList.toggle('side-open', open); $('[data-side-open]').setAttribute('aria-expanded', String(open)); sideInert();
+  if (!narrow.matches || open === was) return;
+  if (open) $('.side-x').focus(); else $('[data-side-open]').focus(); };
 $('[data-side-open]').onclick = () => sideOpen(true);
 document.querySelectorAll('[data-side-close]').forEach(b => b.onclick = () => sideOpen(false));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('side-open') && !document.querySelector(':popover-open, dialog[open]')) sideOpen(false); });
+narrow.addEventListener('change', () => { if (!narrow.matches) document.body.classList.remove('side-open'); sideInert(); });
+sideInert();
+// desktop: the workspace fills the screen below the toolbar. The toolbar can wrap onto a second line, so measure where
+// the workspace starts (the toolbar itself is sticky, so its own box moves once the page scrolls).
+const fitWorkspace = () => {
+  const app = $('.app'); if (!app) return;
+  document.documentElement.style.setProperty('--uib-above', Math.ceil(app.getBoundingClientRect().top + scrollY) + 'px');
+};
+// once the page has scrolled toward the footer, the preview and settings pass a scroll back to the page (see .uib-scrolled)
+const markScrolled = () => document.body.classList.toggle('uib-scrolled', scrollY > 0);
+addEventListener('scroll', markScrolled, {passive:true}); markScrolled();
+fitWorkspace();
+addEventListener('resize', fitWorkspace);
+addEventListener('load', fitWorkspace);
+document.fonts?.ready.then(fitWorkspace);
+if ('ResizeObserver' in window) new ResizeObserver(fitWorkspace).observe($('.top'));
+// Full screen: a class on body, desktop only. Nav, settings and footer step aside; the toolbar (with Get code) stays.
+const wide = matchMedia('(min-width: 861px)');
+const setFocus = on => {
+  // focus inside something Full screen hides (settings, site nav) would drop to the page: move it to the toggle instead
+  const lost = on && document.activeElement?.closest?.('.side, .site-nav, ticket-stub-footer');
+  document.body.classList.toggle('uib-focus', on);
+  if (lost) $('#focusBtn').focus();
+  const b = $('#focusBtn'); b.setAttribute('aria-pressed', String(on));
+  b.querySelector('span').textContent = on ? 'Exit full screen' : 'Full screen';
+  b.setAttribute('aria-label', on ? 'Exit full screen' : 'Full screen');
+  b.title = on ? 'Exit full screen (Esc)' : 'Full screen (F)';
+  fitWorkspace();
+};
+const inFocus = () => document.body.classList.contains('uib-focus');
+const overlayOpen = () => document.querySelector(':popover-open, dialog[open]');
+$('#focusBtn').onclick = () => setFocus(!inFocus());
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.defaultPrevented) return;
+  // WCAG 2.1.4: the bare F only works while the builder's own frame has focus (nothing focused, the preview canvas
+  // itself, or the toolbar), never inside the preview's sample, the settings, the site nav or a text field
+  const t = e.target, fScope = t === document.body || t === document.documentElement || t.id === 'canvas' || !!t.closest?.('.top');
+  if ((e.key === 'f' || e.key === 'F') && !e.shiftKey && wide.matches && fScope && !t.closest?.('input, textarea, select, [contenteditable]') && !overlayOpen()) { e.preventDefault(); setFocus(!inFocus()); }
+  else if (e.key === 'Escape' && inFocus() && !overlayOpen()) { setFocus(false); $('#focusBtn').focus(); }
+});
+wide.addEventListener('change', () => { if (!wide.matches && inFocus()) setFocus(false); });
 </script>
 </Fragment>
 </Base>
