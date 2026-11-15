@@ -897,14 +897,27 @@ body{letter-spacing:-.025em}
 /* mockup: the waitlist step before Get code */
 #wl{width:min(460px,calc(100vw - 32px))}
 #wl .dh{padding:24px 24px 0}
-.wl-form{display:flex;gap:8px;padding:18px 24px 0;flex-wrap:wrap}
-.wl-form input[type=email]{flex:1;min-width:200px;height:48px;padding:0 18px;border:1px solid var(--color-off-black);border-radius:9999px;background:#fff;color:var(--color-off-black);font:400 15px/1 var(--font-mono);letter-spacing:-.02em}
+.wl-form{display:flex;flex-direction:column;gap:10px;padding:18px 24px 0}
+.wl-form input[type=email]{width:100%;height:48px;padding:0 18px;border:1px solid var(--color-off-black);border-radius:9999px;background:#fff;color:var(--color-off-black);font:400 15px/1 var(--font-mono);letter-spacing:-.02em}
 .wl-form input[type=email]:focus{outline:2px solid var(--color-lake-blue);outline-offset:2px}
-.wl-form .cta{height:48px;padding:0 22px;border-radius:9999px;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;background:var(--color-off-black);color:#fff}
+.wl-form .cta{width:100%;height:48px;padding:0 22px;border-radius:9999px;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;background:var(--color-off-black);color:#fff}
 .wl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .wl-msg{min-height:20px;margin:10px 24px 0;font:400 13px/1.5 var(--font-mono);color:var(--color-off-black)}
+.wl-msg.bad{color:var(--color-red,#e3122f)}
+.wl-form input[aria-invalid=true]{border-color:var(--color-red,#e3122f)}
+/* checking: spinner in the button, a bar that fills over the usual 5-8 s, and a line that says what's happening */
+.wl-form.busy input[type=email]{opacity:.6}
+.wl-form .cta .spin{display:none;width:14px;height:14px;margin-right:10px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:wlspin .8s linear infinite}
+.wl-form.busy .cta .spin{display:inline-block}
+.wl-form .cta{display:inline-flex;align-items:center;justify-content:center}
+@keyframes wlspin{to{transform:rotate(360deg)}}
+.wl-bar{height:3px;margin:14px 24px 0;border-radius:3px;background:var(--color-sunk,#efebe8);overflow:hidden;visibility:hidden}
+.wl-bar i{display:block;height:100%;width:0;background:var(--color-off-black);border-radius:3px}
+.wl-bar.on{visibility:visible}
+.wl-bar.on i{width:92%;transition:width 8s cubic-bezier(.2,.7,.3,1)}
+.wl-bar.done i{width:100%;transition:width .25s ease-out}
+@media (prefers-reduced-motion: reduce){ .wl-form .cta .spin{animation:none} .wl-bar.on i{transition:none;width:60%} }
 .wl-fine{margin:4px 24px 24px;font:400 12px/1.5 var(--font-mono);color:var(--color-smoke)}
-@media (max-width: 860px){ .wl-form .cta{width:100%} }
 /* mockup: tooltips, in the site's look (dark pill, mono caption) */
 .uib-tip{position:fixed;z-index:100;max-width:260px;padding:8px 12px;border-radius:12px;background:var(--color-off-black);color:var(--color-parchment);
   font:400 12px/1.45 var(--font-mono);letter-spacing:-.02em;pointer-events:none;opacity:0;transition:opacity .12s ease}
@@ -1203,14 +1216,15 @@ body{letter-spacing:-.025em}
 
 <!-- mockup: Get code asks for an email once; joining the waitlist unlocks the code straight away (this browser remembers it) -->
 <dialog id="wl" aria-labelledby="wlT">
-  <div class="dh"><div><h3 id="wlT">Get your code</h3><p>Join the Pramaan waitlist and your code unlocks straight away.</p></div><button class="dx" id="wlClose" aria-label="Close">&times;</button></div>
+  <div class="dh"><div><h3 id="wlT">Get your code</h3><p>Join the waitlist to unlock your code.</p></div><button class="dx" id="wlClose" aria-label="Close">&times;</button></div>
   <form class="wl-form" id="wlForm" novalidate>
     <input type="email" name="email" id="wlEmail" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
     <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="wl-hp">
-    <button class="cta" type="submit">Join and get code</button>
+    <button class="cta" type="submit"><span class="spin" aria-hidden="true"></span><span class="lbl">Get code</span></button>
   </form>
+  <div class="wl-bar" id="wlBar" aria-hidden="true"><i></i></div>
   <p class="wl-msg" id="wlMsg" role="status" aria-live="polite"></p>
-  <p class="wl-fine">We'll email you when your Pramaan account is ready. No spam.</p>
+  <p class="wl-fine">We'll email when you're in, plus occasional updates.</p>
 </dialog>
 
 <dialog id="gal">
@@ -2501,7 +2515,7 @@ $('#download').onclick = () => {
 $('#exTabs').onclick = e => { const v = e.target.dataset.v; if (v){ S.ex = v; drawExport(); } };
 ['change', 'input'].forEach(t => $('#exPick').addEventListener(t, e => { const v = e.target.value; if (v && v !== S.ex){ S.ex = v; drawExport(); } }));
 // Waitlist before Get code: off until the email check (api/waitlist.js) ships. true = ask for an email first.
-const WAITLIST_GATE = false;
+const WAITLIST_GATE = true;
 /* ---------- waitlist gate: Get code asks for an email once, then unlocks for good on this browser ---------- */
 const WL_KEY = 'uib-access';
 const hasAccess = () => { try { return !!localStorage.getItem(WL_KEY); } catch { return true; } };   // storage blocked: don't lock people out
@@ -2515,18 +2529,28 @@ $('#wlForm').addEventListener('submit', async e => {
   e.preventDefault();
   const form = e.currentTarget, btn = form.querySelector('button'), msg = $('#wlMsg'), data = Object.fromEntries(new FormData(form));
   const email = String(data.email || '').trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'That email address doesn\'t look right. Check it and try again.'; $('#wlEmail').focus(); return; }
-  btn.disabled = true; msg.textContent = 'Checking your email...';
+  const input = $('#wlEmail'), bar = $('#wlBar'), lbl = btn.querySelector('.lbl');
+  const say = (text, bad) => { msg.textContent = text; msg.classList.toggle('bad', !!bad); input.setAttribute('aria-invalid', bad ? 'true' : 'false'); };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { say('That email address doesn\'t look right. Check it and try again.', true); input.focus(); return; }
+  // checking a new address asks the person's mail server, which takes 5-8 s: show it moving and say why
+  const idle = () => { form.classList.remove('busy'); btn.disabled = false; input.readOnly = false; lbl.textContent = 'Get code'; bar.className = 'wl-bar'; steps.forEach(clearTimeout); };
+  form.classList.add('busy'); btn.disabled = true; input.readOnly = true; lbl.textContent = 'Checking';
+  bar.className = 'wl-bar'; void bar.offsetWidth; bar.className = 'wl-bar on';
+  say('Checking if this email exists...');
+  const steps = [];
   try {
     const res = await fetch('/api/waitlist', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({...data, email, source:'ui-builder'})});
     const out = await res.json().catch(() => ({}));
-    btn.disabled = false;
-    if (res.status === 400) { msg.textContent = out.message; return; }
-    // joined, or our side isn't ready: either way they get the code (a sign-up problem on our end shouldn't cost them the tool)
+    if (res.status === 400) { idle(); say(out.message, true); input.focus(); input.select(); return; }
+    steps.forEach(clearTimeout); bar.className = 'wl-bar on done'; say('Done.');
+    await new Promise(r => setTimeout(r, 300));
+    idle(); say('');
+    // joined, unconfirmed, or our side isn't ready: they get the code either way (a sign-up problem shouldn't cost them the tool)
+    const joined = res.ok && out.code === 'ok';
     unlock(email);
-    notify(res.ok ? 'You\'re on the waitlist' : 'Your code is unlocked', res.ok ? 'We\'ll email you when your Pramaan account is ready.' : 'We couldn\'t add you to the waitlist just now; we\'ll ask again another time.', res.ok ? 'ok' : 'info');
-    if (!res.ok) try { localStorage.removeItem(WL_KEY); } catch {}   // not on the list yet: ask again next visit
-  } catch { btn.disabled = false; msg.textContent = 'We couldn\'t reach the server. Check your connection and try again.'; }
+    notify(joined ? 'You\'re on the waitlist' : 'Your code is unlocked', joined ? 'We\'ll email you when your Pramaan account is ready.' : 'We couldn\'t confirm that inbox, so you\'re not on the waitlist yet. We\'ll ask again next time.', joined ? 'ok' : 'info');
+    if (!joined) try { localStorage.removeItem(WL_KEY); } catch {}   // not on the list: ask again next visit
+  } catch { idle(); say('We couldn\'t reach the server. Check your connection and try again.', true); }
 });
 $('#exClose').onclick = () => $('#ex').close();
 // a click on the dimmed area outside a dialog lands on the <dialog> itself: close it
