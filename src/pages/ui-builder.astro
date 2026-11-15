@@ -57,6 +57,9 @@ body{margin:0;background:transparent;color:var(--fg);font:400 var(--t-body)/1.5 
 .site-btn:hover{transform:translateY(-1px)}
 .site-btn--black{background:var(--color-off-black);color:#fff} .site-btn--black:hover{background:var(--color-ink)}
 .site-btn--ghost{border-color:var(--color-off-black);color:var(--color-off-black)} .site-btn--ghost:hover{background:var(--color-off-black);color:var(--color-parchment)}
+/* mockup: the home page's menu buttons: black Log in, blue Get early access */
+.site-nav__actions .site-btn--ghost{background:var(--color-off-black);color:#fff;border-color:var(--color-off-black)} .site-nav__actions .site-btn--ghost:hover{background:var(--color-ink)}
+.site-nav__actions .site-btn--black{background:var(--color-lake-blue);color:#fff;border-color:var(--color-lake-blue)} .site-nav__actions .site-btn--black:hover{background:#2450c0}
 .site-nav__toggle{display:none;background:none;border:0;width:40px;height:40px;margin-left:auto;position:relative;cursor:pointer}
 .site-nav__toggle span{position:absolute;left:8px;right:8px;height:1.5px;background:var(--color-off-black);transition:transform .2s}
 .site-nav__toggle span:first-child{top:15px} .site-nav__toggle span:last-child{top:24px}
@@ -673,6 +676,9 @@ body .canvas{padding-bottom:24px}
 .top .dock .ddi{padding:6px 10px 6px 8px;color:inherit;border-radius:8px}
 .tb-focus[aria-pressed="true"]{background:var(--btn-glass-hover);border-color:var(--fg)}
 @media (max-width: 860px){ .tb-title,.tb-focus{display:none} .tb-seg button{padding:0 8px} }
+/* mockup: three tab groups need the room, so the title goes first and the toolbar wraps on mid-size screens */
+@media (max-width: 1560px){ .tb-title{display:none} }
+@media (min-width: 861px) and (max-width: 1360px){ .top,.top .dock{flex-wrap:wrap !important} }
 /* desktop app shell: slim nav, one-row toolbar, the workspace fills the rest of the screen under it.
    --uib-above (set by script) is the page distance from the top to the toolbar's bottom edge. */
 @media (min-width: 861px){
@@ -680,21 +686,14 @@ body .canvas{padding-bottom:24px}
   html{scroll-padding-top:124px;scrollbar-gutter:stable}
   :root{--side-w:320px}
   /* the toolbar (and its Get code) never scrolls away under the nav */
-  .top{position:sticky;top:56px;z-index:15}
+  .top{position:sticky;top:80px;z-index:15}
+  /* the menu spans the same width as the builder under it, so it lines up on wide screens */
+  .site-nav .site-wrap{max-width:none;padding:0 28px}
   body.uib-focus .top{top:0}
   .app .canvas,.side .scroll{scrollbar-width:thin}
   /* once the page has scrolled (toward the footer), the preview and settings hand a scroll they can't use back to the page,
      so scrolling up over them returns to the builder. At the top they keep it to themselves. (.uib-scrolled is set by script) */
   body.uib-scrolled .app .canvas,body.uib-scrolled .side .scroll{overscroll-behavior-y:auto}
-  /* the toolbar's Get code is the only filled button on screen: the site's own CTA steps down to an outline here */
-  .site-nav__actions .site-btn--black{background:transparent;color:var(--color-off-black);border-color:var(--color-off-black)}
-  .site-nav__actions .site-btn--black:hover{background:var(--color-off-black);color:var(--color-parchment)}
-  .site-nav__inner{height:56px}
-  .site-nav .site-wrap{max-width:none;padding:0 28px}
-  .site-logo__mark{width:26px;height:26px} .site-logo__word{font-size:22px}
-  .site-nav__links a,.navres summary{font-size:14px}
-  .site-btn{height:36px;padding:0 18px;font-size:12.5px}
-  .nav-open .site-nav__links{top:56px}
   /* the intro stays for screen readers and search; the title lives in the toolbar */
   .uib-hero{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
   .top,.app{width:calc(100% - 32px);max-width:2400px}
@@ -808,6 +807,190 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
   .side .read summary{min-height:44px}
 }
 @media (min-width:861px) and (pointer:coarse){ .tb-seg button,.top .ghost,.top .cta,.top .dock .ddt{height:40px} }
+/* ---------- mockup: the builder frame in the website's design system (public/styles.css) ----------
+   mono for all UI words, uppercase mono buttons and labels, serif titles, pill buttons, big round cards,
+   lake blue for the main action. The preview inside .stage keeps the user's own design. */
+:root{--sans:var(--font-mono);--r-island:32px;--r-card:24px}
+body{letter-spacing:-.025em}
+.tb-seg button,.top .ghost,.top .cta,.side .ghost,.side .cta,dialog .ghost,dialog .cta{font-family:var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;border-radius:var(--r-pill)}
+.top .cta{background:var(--color-off-black);color:#fff;border-color:var(--color-off-black)} .top .cta:hover{background:var(--color-ink)}   /* black: Get early access is the one blue button per view */
+.tb-seg button[aria-pressed="true"]{background:var(--color-off-black);color:var(--color-parchment);box-shadow:none}
+.sp-lab span,.sp-lab>:first-child,.read summary{font-family:var(--font-mono);text-transform:uppercase;font-size:12px;letter-spacing:-.02em;color:var(--color-smoke)}
+.grp,.tb-title{font-family:var(--font-serif);letter-spacing:-.02em}
+.grp{font-size:20px}
+.side .row>.t>b,.sp-rl,.sp-more>summary{font-family:var(--font-mono);text-transform:uppercase;font-size:12px;font-weight:400;letter-spacing:-.02em;color:var(--color-off-black)}
+.sp-seg button{text-transform:uppercase;font-size:12px;letter-spacing:-.02em}
+/* ---------- mockup: phones (mobile-mockup.html built for real) ---------- */
+.tb-lab,.side-dock,.side-done,.gtop,.ex-pick{display:none}
+/* mockup, phones: Browse designs. The header (with its x) stays pinned while you scroll; on one design it becomes
+   Back + Apply this design. No "hide this design" button, and no "Styles from real sites / Show more" footer. */
+@media (max-width: 860px){
+  #gal .dh{position:sticky;top:0;z-index:5;background:var(--color-parchment);align-items:center}
+  #gal.detail .dh-t{display:none}
+  #gal.detail .gtop{display:flex;gap:8px;flex:1;min-width:0}
+  #gal .gtop button{height:40px;padding:0 14px;border-radius:9999px;font:400 12px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;white-space:nowrap}
+  #gal .gtop .cta{background:var(--color-off-black);color:#fff;border:0}
+  #gal .ginfo .acts,#galHide,#gal .df{display:none !important}
+  /* title, then the Download and Copy icons and x on the same row; the note full width under them */
+  .dh:has(#exSub){display:grid !important;grid-template-columns:1fr auto auto auto;column-gap:8px;row-gap:10px;align-items:center}
+  .dh:has(#exSub) > div{display:contents}
+  .dh:has(#exSub) h3{grid-row:1;grid-column:1}
+  .dh:has(#exSub) #exSub{grid-row:2;grid-column:1/-1}
+  .dh:has(#exSub) .dh__acts{display:contents}
+  .dh:has(#exSub) #download{grid-row:1;grid-column:2}
+  .dh:has(#exSub) #copy{grid-row:1;grid-column:3}
+  .dh:has(#exSub) #exClose{grid-row:1;grid-column:4}
+  .dh:has(#exSub) .gc-ico{width:44px;height:44px}
+  #exSub{margin-top:6px;line-height:1.5}
+  /* notices ("Font not available" and the like) sit at the bottom, above Customize, not over the site menu;
+     and they step aside while the site menu is open */
+  .nq{top:auto !important;bottom:calc(84px + env(safe-area-inset-bottom)) !important;left:16px;right:16px;width:auto !important}
+  .nav-open .nq{display:none !important}
+  /* Get code: one dropdown for the 15 formats instead of four rows of tabs */
+  #exTabs{display:none !important}
+  /* the drawer is the one thing that scrolls: the settings list inside it must not hold on to the scroll
+     (overscroll-behavior:contain on an inner list that has nothing to scroll swallowed every swipe) */
+  .side .scroll{overflow:visible !important;overscroll-behavior:auto !important}
+  .ex-pick{display:block;margin:4px 0 12px;padding:0 20px}   /* same side padding as the code box */
+  .ex-pick .dd{display:block;width:100%}
+  .ex-pick .ddt,.ex-pick select{width:100%;height:44px;justify-content:space-between;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em}
+}
+@media (max-width: 860px){
+  /* toolbar: only Share and Get code; Screen, Theme and State live in the Customize drawer */
+  .top{display:flex !important;gap:8px;margin:6px auto 0 !important;width:calc(100% - 48px) !important;   /* same edges as the preview card below */padding:8px !important;border-radius:9999px;height:auto;min-height:0}
+  .top .dock,.top .sp,.top #sharedTag,.top .tb-side,.top .tb-tour,.top .tb-focus{display:none !important}
+  .top .top-acts{display:flex;gap:8px;flex:1}
+  .top #share,.top [data-open-export]{flex:1;justify-content:center;height:40px !important;padding:0 12px !important;font-size:12px;margin:0}
+  .side .foot > [data-open-export]{display:none}   /* Get code is on the page, right under the menu */
+  /* the drawer ends in a pinned Done bar; a fade above it shows the list carries on underneath */
+  .side-done{display:block;position:sticky;bottom:0;z-index:2;margin-top:auto;padding:28px 16px calc(16px + env(safe-area-inset-bottom));
+    background:linear-gradient(rgba(246,243,241,0),var(--color-parchment) 26px)}
+  .side-done button{width:100%;height:48px;border:0;border-radius:9999px;background:var(--color-off-black);color:#fff;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;cursor:pointer}
+  /* the drawer's Preview group: Screen, Theme, State, each one row */
+  .side-dock{display:block;padding:0 8px 6px;border-bottom:1px solid var(--line-soft);margin-bottom:4px}
+  .side-dock .grp{margin-top:0}
+  .side-dock .tb-lab{display:block;font:400 11px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;color:var(--color-off-black);margin:12px 4px 8px}
+  .side-dock .tb-lab:first-child{margin-top:0}
+  .side-dock .tb-seg{display:flex;flex-wrap:nowrap !important;overflow-x:auto;scrollbar-width:none;padding:3px !important}
+  .side-dock .tb-seg::-webkit-scrollbar{display:none}
+  .side-dock .tb-seg button{flex:1 0 auto;height:40px !important;padding:0 8px !important;font-size:11.5px}
+  /* Customize: the site's button style, 48px, line icon; it hides once you scroll past the builder so it never covers the footer */
+  .side-fab{height:48px;padding:0 20px 0 16px;gap:10px;align-items:center;border-radius:9999px;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;
+    background:var(--color-off-black);color:#fff;transition:opacity .2s,transform .2s}
+  .side-fab svg{width:18px;height:18px}
+  body.past-app .side-fab{opacity:0;transform:translateY(12px);pointer-events:none}
+  /* drawer: no title, just a round close button top right; no "Pick a style" tip */
+  body .side{padding-top:52px;border-radius:28px 0 0 28px}
+  .side-x{top:10px !important;right:12px !important;width:38px;height:38px;padding:0 !important;border:1px solid var(--color-off-black) !important;border-radius:50%;display:grid !important;place-items:center;font-size:22px !important;color:var(--color-off-black) !important}
+  .side .sp-hint{display:none}
+  /* settings rows: same as desktop and /skills (ink text, faint wash on hover, solid black when open) */
+  .sp-more summary{color:var(--color-off-black);margin:4px 0;min-height:44px;font-family:var(--font-mono);text-transform:uppercase;font-size:11.5px}
+  .sp-more[open] summary{background:var(--color-off-black);color:var(--color-parchment)}
+  .ctab::before{content:attr(data-title);display:block;padding:10px 12px 4px;font:400 18px/1.2 var(--font-serif);letter-spacing:-.02em}
+}
+/* mockup: no "Free tool / UI builder" header on any screen size; kept for screen readers and search, as desktop already does */
+.uib-hero{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* mockup: Download and Copy as round icon buttons */
+.gc-ico,.dh .gc-ico,.dh:has(#exSub) .gc-ico{width:40px !important;min-width:0 !important;height:40px !important;padding:0 !important;display:inline-grid !important;place-items:center;border-radius:9999px !important;flex:none}
+@media (max-width: 860px){ .dh .gc-ico,.dh:has(#exSub) .gc-ico{width:44px !important;height:44px !important} }
+.gc-ico svg{width:18px;height:18px}
+/* mockup: the waitlist step before Get code */
+#wl{width:min(460px,calc(100vw - 32px))}
+#wl .dh{padding:24px 24px 0}
+.wl-form{display:flex;gap:8px;padding:18px 24px 0;flex-wrap:wrap}
+.wl-form input[type=email]{flex:1;min-width:200px;height:48px;padding:0 18px;border:1px solid var(--color-off-black);border-radius:9999px;background:#fff;color:var(--color-off-black);font:400 15px/1 var(--font-mono);letter-spacing:-.02em}
+.wl-form input[type=email]:focus{outline:2px solid var(--color-lake-blue);outline-offset:2px}
+.wl-form .cta{height:48px;padding:0 22px;border-radius:9999px;font:400 13px/1 var(--font-mono);text-transform:uppercase;letter-spacing:-.02em;background:var(--color-off-black);color:#fff}
+.wl-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.wl-msg{min-height:20px;margin:10px 24px 0;font:400 13px/1.5 var(--font-mono);color:var(--color-off-black)}
+.wl-fine{margin:4px 24px 24px;font:400 12px/1.5 var(--font-mono);color:var(--color-smoke)}
+@media (max-width: 860px){ .wl-form .cta{width:100%} }
+/* mockup: tooltips, in the site's look (dark pill, mono caption) */
+.uib-tip{position:fixed;z-index:100;max-width:260px;padding:8px 12px;border-radius:12px;background:var(--color-off-black);color:var(--color-parchment);
+  font:400 12px/1.45 var(--font-mono);letter-spacing:-.02em;pointer-events:none;opacity:0;transition:opacity .12s ease}
+.uib-tip.on{opacity:1;transition-delay:.35s}
+.uib-tip.tapped.on{transition-delay:0s}   /* phones: a tap shows it at once */
+/* phones: a small i after each label shows it can be tapped for help */
+@media (max-width: 860px){
+  .tb-lab,.grp.sp-h,.sp-lab>span:first-child{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .tb-lab::after,.grp.sp-h::after,.sp-lab>span:first-child::after{content:"i";display:inline-grid;place-items:center;width:15px;height:15px;margin-left:7px;vertical-align:1px;
+    border:1px solid currentColor;border-radius:50%;font:500 9px/1 var(--font-mono);font-style:normal;text-transform:none;opacity:.7}
+  .tb-lab{padding:2px 0}
+}
+@media (prefers-reduced-motion: reduce){ .uib-tip{transition:none} }
+/* mockup: first-visit tour: a spotlight (the page dims around one part) and a card with steps */
+.tour-spot{position:fixed;z-index:110;border-radius:20px;box-shadow:0 0 0 9999px rgba(20,20,20,.55);pointer-events:none;transition:all .25s ease}
+.tour-card{position:fixed;z-index:111;width:340px;padding:20px 22px 16px;border-radius:24px;background:var(--color-parchment);color:var(--color-off-black);box-shadow:0 12px 40px rgba(0,0,0,.25);font-family:var(--font-mono);letter-spacing:-.02em}
+.tour-card .tour-n{margin:0 0 6px;font-size:12px;text-transform:uppercase;color:var(--color-smoke)}
+.tour-card h3{margin:0 0 8px;font:400 24px/1.2 var(--font-serif);letter-spacing:-.02em}
+.tour-card p{margin:0;font-size:14px;line-height:1.5}
+.tour-acts{display:flex;align-items:center;gap:8px;margin-top:16px} .tour-acts span{flex:1}
+.tour-acts button{height:36px;padding:0 16px;border-radius:9999px;border:1px solid var(--color-off-black);background:none;color:inherit;font:inherit;font-size:12px;text-transform:uppercase;white-space:nowrap;cursor:pointer}
+.tour-acts .tour-skip{border-color:transparent;padding:0 4px;color:var(--color-smoke)}
+.tour-acts .tour-next{background:var(--color-lake-blue);border-color:var(--color-lake-blue);color:#fff}
+@media (prefers-reduced-motion: reduce){ .tour-spot{transition:none} }
+.tb-tour{display:none}
+@media (min-width: 861px){ .top .tb-tour{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;font-family:var(--font-mono);font-size:15px} }
+/* mockup: collapsible settings panel (desktop only; phones already use the Customise drawer) */
+.tb-side{display:none;width:36px;height:36px;padding:0;place-items:center;flex:none}
+.tb-side svg{width:18px;height:18px}
+.tb-side[aria-pressed="true"]{background:var(--color-off-black);color:var(--color-parchment);border-color:var(--color-off-black)}
+@media (min-width: 861px){
+  /* mockup: same content width as every other page (.container: 1432px less its 40px gutters); Full screen still uses the whole screen */
+  .top,.app{max-width:1352px}
+  body.uib-focus .top,body.uib-focus .app{max-width:2400px}
+  /* the narrower toolbar fits on one row once Full screen is an icon, like the panel button */
+  .top .tb-focus,.top .tb-side{display:inline-flex;align-items:center;justify-content:center;gap:0;width:36px;height:36px;padding:0}
+  .top .tb-focus span{display:none}
+  .top .tb-focus svg,.top .tb-side svg{display:block;width:18px;height:18px;margin:0}
+  .tb-side{display:inline-grid}
+  /* the panel slides shut and open: the grid column shrinks to 0 while the panel fades */
+  .app{transition:grid-template-columns .45s cubic-bezier(.2,.7,.2,1),column-gap .45s ease}
+  .side{min-width:0;transition:opacity .3s ease,visibility 0s linear 0s}
+  body.side-collapsed .app{grid-template-columns:0 minmax(0,1fr);column-gap:0}
+  body.side-collapsed .side{opacity:0;visibility:hidden;border-width:0;transition:opacity .25s ease,visibility 0s linear .45s,border-width 0s linear .45s}
+}
+/* mockup: Fine-tune colours, Animation and sample text, and Use my own design file open as a layer to the right of the
+   panel, on top of the preview, instead of opening downward. --fly-* are set by script from the panel's position. */
+.fly-x{display:none}
+@media (min-width: 861px){
+  .side{-webkit-backdrop-filter:none;backdrop-filter:none}   /* a blurred panel would trap the fixed layer inside it */
+  .sp-more summary::after{transform:rotate(-45deg)} .sp-more[open] summary::after{transform:rotate(135deg)}
+  /* rows follow the site's category list (/skills): ink text, a faint wash on hover, solid black when open */
+  /* a gap above and below, so the hover wash and black fill clear the divider lines; 36px + 2x4px keeps the old 44px per row */
+  .sp-more summary{color:var(--color-off-black);margin:4px 0;min-height:36px;scroll-margin:8px 0}
+  .sp-more summary:hover{background:rgba(36,36,36,.05);color:var(--color-off-black)}
+  .sp-more[open] summary,.sp-more[open] summary:hover{background:var(--color-off-black);color:var(--color-parchment)}
+  /* buttons follow the site's outline button: hover fills black */
+  .top .ghost:hover,.side .ghost:hover,.tour-acts .tour-back:hover{background:var(--color-off-black);color:var(--color-parchment);border-color:var(--color-off-black)}
+  /* every button lifts 1px on hover, like .btn on the site */
+  .top .ghost,.top .cta,.side .ghost,.tour-acts button,.side-note button{transition:background-color .2s,color .2s,border-color .2s,transform .2s}
+  .top .ghost:hover,.top .cta:hover,.side .ghost:hover,.tour-acts button:hover,.side-note button:hover{transform:translateY(-1px)}
+  @media (prefers-reduced-motion: reduce){ .top .ghost:hover,.top .cta:hover,.side .ghost:hover,.tour-acts button:hover,.side-note button:hover{transform:none} }
+  .tb-seg button:not([aria-pressed="true"]):hover{background:rgba(36,36,36,.05);color:var(--color-off-black)}
+  .sp-seg button:hover{background:rgba(36,36,36,.05)}
+  .sp-more[open]{padding-bottom:0}
+  .sp-more[open] > :not(summary){position:fixed;z-index:30;top:var(--fly-top,160px);left:var(--fly-left,360px);width:380px;max-height:var(--fly-h,70vh);overflow:auto;
+    margin:0;padding:56px 16px 16px;border:1px solid var(--color-ash);border-radius:24px;background:var(--color-parchment);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+  body.fly-anim .sp-more[open] > :not(summary){animation:fly-in .22s ease both}   /* only when opened by a click, not on every redraw */
+  .sp-more[open] > :not(summary)::before{content:attr(data-title);position:absolute;top:18px;left:20px;font:400 20px/1.2 var(--font-serif);letter-spacing:-.02em;color:var(--color-off-black)}
+  .sp-more[open] .fly-x{display:grid;place-items:center;position:absolute;top:12px;right:12px;width:32px;height:32px;border:0;border-radius:9999px;background:none;font-size:20px;color:var(--color-off-black);cursor:pointer}
+  .sp-more[open] .fly-x:hover{background:var(--btn-glass-hover)}
+  @keyframes fly-in{from{opacity:0;transform:translateX(-10px)}}
+}
+@media (prefers-reduced-motion: reduce){ .sp-more[open] > :not(summary){animation:none} }
+/* after the tour: a note under the panel button, and the button's divider slides shut and open to show what it does */
+.side-note{position:fixed;z-index:105;width:280px;padding:14px 16px 12px;border-radius:18px;background:var(--color-off-black);color:var(--color-parchment);
+  font:400 13px/1.5 var(--font-mono);letter-spacing:-.02em;box-shadow:0 10px 30px rgba(0,0,0,.25);animation:note-in .3s ease both}
+.side-note::before{content:"";position:absolute;top:-6px;left:22px;width:12px;height:12px;background:inherit;transform:rotate(45deg);border-radius:2px}
+.side-note b{display:block;margin-bottom:4px;font-weight:500;text-transform:uppercase;font-size:12px}
+.side-note button{margin-top:10px;height:30px;padding:0 14px;border-radius:9999px;border:1px solid var(--color-parchment);background:none;color:inherit;font:inherit;font-size:11px;text-transform:uppercase;cursor:pointer}
+@keyframes note-in{from{opacity:0;transform:translateY(-6px)}}
+.tb-side.nudge{animation:side-ring 1.6s ease-out 3}
+.tb-side.nudge svg path{animation:side-shut 1.6s ease-in-out 3}
+@keyframes side-ring{0%{box-shadow:0 0 0 0 rgba(43,89,209,.55)}70%{box-shadow:0 0 0 12px rgba(43,89,209,0)}100%{box-shadow:0 0 0 0 rgba(43,89,209,0)}}
+@keyframes side-shut{0%,100%{transform:translateX(0)}35%,55%{transform:translateX(-5px)}}
+@media (prefers-reduced-motion: reduce){ .app,.side{transition:none} .tb-side.nudge,.tb-side.nudge svg path,.side-note{animation:none} }
 </style>
 </Fragment>
 
@@ -820,29 +1003,189 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 </section>
 
 <div class="top">
-  <span class="tb-title" aria-hidden="true">UI builder</span>
+  <button class="ghost tb-side" id="sideBtn" type="button" aria-pressed="false" aria-controls="side" aria-label="Hide settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
+  <script is:inline>{   // own block scope: the builder's main script declares names like card and step at the top level
+    // mockup: collapse the settings panel on desktop so the preview gets the full width
+    document.getElementById('sideBtn').onclick = (e) => { const b = e.currentTarget, on = document.body.classList.toggle('side-collapsed');
+      b.setAttribute('aria-pressed', String(on)); b.ariaLabel = on ? 'Show settings' : 'Hide settings'; };
+
+    // mockup: one floating tooltip for the builder's controls, on hover and keyboard focus.
+    // Matched by selector at show time, so controls the script redraws keep their tips. [selector, tip, heading text if the selector is shared]
+    const TIPS = [
+      ['#tourBtn', 'Take a one-minute tour of the builder.'],
+      ['#sideBtn', 'Show or hide the settings panel. Hide it to give the preview the full width.'],
+      ['#dock [aria-label="Screen"]', 'Preview your design on a desktop site, a mobile website, an iPhone app or an Android app.'],
+      ['#dock [aria-label="Theme"]', 'Switch the preview between light and dark mode. Both are in the code you copy.'],
+      ['#dock [aria-label="State"]', 'See your screens while loading, with no data yet, after an error, and after success.'],
+      ['#share', 'Copy a link to this design. Anyone who opens it sees exactly what you see.'],
+      ['#focusBtn', 'Full screen: only the toolbar and the preview. Press F to switch, Esc to leave.'],
+      ['[data-open-export]', 'Copy your design as code for your framework, or as a DESIGN.md file for your AI coding tool.'],
+      ['.grp.sp-h', 'Pick a ready-made look to start from. You can change any part of it below.', 'Start from a style'],
+      ['.grp.sp-h', 'Change the main colour, font, corners and spacing. The preview updates as you choose.', 'Make it yours'],
+      ['.sp-browse', 'Start from the colours, font and corners of a real product\'s design.'],
+      ['#pickFont', 'Use your own font file (.woff2, .woff, .otf or .ttf). It stays on your computer.'],
+      ['[role="radiogroup"][aria-label="Corners"]', 'How round buttons, cards and fields are, from square to fully round.'],
+      ['[role="radiogroup"][aria-label="Spacing"]', 'How much room sits inside and between things. Compact fits more on screen.'],
+      ['.sp-more[data-d="colours"] > summary', 'Change any single colour, such as text, borders or the error red.'],
+      ['.sp-more[data-d="extra"] > summary', 'Animation speed, and the language and tone of the sample text.'],
+      ['.sp-more[data-d="bring"] > summary', 'Paste a DESIGN.md, CSS variables or design tokens to load a design you already have.'],
+      ['.read:not(.geo-read) > summary', 'Checks that text is easy to read on every background. Open it to see and fix any that fail.'],
+      ['.geo-read > summary', 'Checks that rounded corners fit every button, card and tag without looking stretched.'],
+      ['#shuffle', 'Try a random style. Undo brings the last one back.'],
+      ['#reset', 'Go back to the default style and clear your changes.'],
+      ['#download', 'Download this as a file.'],
+      ['#copy', 'Copy this to your clipboard.'],
+      // phones: no hover, so each label carries a small i; tapping the label shows its tip
+      ['.tb-lab[data-g="device"]', 'Preview your design on a desktop site, a mobile website, an iPhone app or an Android app.'],
+      ['.tb-lab[data-g="mode"]', 'Switch the preview between light and dark mode. Both are in the code you copy.'],
+      ['.tb-lab[data-g="state"]', 'See your screens while loading, with no data yet, after an error, and after success.'],
+      ['.sp-lab', 'The colour for buttons, links and highlights.', 'Main colour'],
+      ['.sp-lab', 'How round buttons, cards and fields are, from square to fully round.', 'Corners'],
+      ['.sp-lab', 'How much room sits inside and between things. Compact fits more on screen.', 'Spacing'],
+    ];
+    const PHONE_TIP = '.tb-lab, .grp.sp-h, .sp-lab';   // not Font: that whole row is the button that opens the font list   // what a tap opens on phones
+    const phone = () => matchMedia('(max-width: 860px)').matches;
+    const tip = Object.assign(document.createElement('div'), { className: 'uib-tip', role: 'tooltip', id: 'uibTip' });
+    document.body.appendChild(tip);
+    const find = (t) => { if (!t || !t.closest) return null;
+      for (const [sel, text, head] of TIPS) { const el = t.closest(sel);
+        if (el && (!head || el.textContent.trim().startsWith(head))) return [el, text]; }
+      return null; };
+    let shown = null;
+    const show = (e, tapped) => { if ((phone() && !tapped) || document.body.classList.contains('touring')) return;
+      const hit = find(e.target); if (!hit) return hide(); const [el, text] = hit; if (el === shown) return;
+      tip.classList.toggle('tapped', !!tapped);
+      shown = el; tip.textContent = text; tip.classList.add('on');
+      const r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+      const below = r.bottom + 10 + t.height < innerHeight;
+      tip.style.top = (below ? r.bottom + 10 : r.top - 10 - t.height) + 'px';
+      tip.style.left = Math.max(12, Math.min(r.left + r.width / 2 - t.width / 2, innerWidth - t.width - 12)) + 'px';
+      el.setAttribute('aria-describedby', 'uibTip'); };
+    const hide = () => { if (shown) shown.removeAttribute('aria-describedby'); shown = null; tip.classList.remove('on'); };
+    document.addEventListener('mouseover', show); document.addEventListener('focusin', show);
+    document.addEventListener('focusout', hide); document.addEventListener('scroll', hide, true);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+    // a tap on a label opens its tip (a second tap, or a tap anywhere else, closes it)
+    document.addEventListener('click', (e) => {
+      const lab = phone() && e.target.closest?.(PHONE_TIP);
+      if (!lab) return hide();
+      if (lab === shown) return hide();
+      hide(); show(e, true); });
+
+    // mockup: on phones the Customize button hides once the builder has scrolled mostly out of view (the footer is showing)
+    const pastApp = () => { const a = document.querySelector('.app'); if (!a) return;
+      document.body.classList.toggle('past-app', a.getBoundingClientRect().bottom < innerHeight * 0.5); };
+    addEventListener('scroll', pastApp, { passive: true }); addEventListener('resize', pastApp);
+
+    // mockup: the three "more" sections open as a layer beside the panel. One at a time; Esc, the x or a click outside closes it.
+    const flyPos = () => { const s = document.querySelector('.side'); if (!s) return; const r = s.getBoundingClientRect(), st = document.documentElement.style;
+      st.setProperty('--fly-left', r.right + 12 + 'px'); st.setProperty('--fly-top', Math.max(r.top, 12) + 'px');
+      st.setProperty('--fly-h', Math.min(r.bottom, innerHeight - 12) - Math.max(r.top, 12) + 'px'); };
+    const flyClose = () => document.querySelectorAll('.sp-more[open]').forEach((d) => { d.open = false; });
+    document.addEventListener('toggle', (e) => { const d = e.target; if (!d.classList?.contains('sp-more') || !d.open) return;
+      d.querySelector('summary')?.scrollIntoView({ block: 'nearest' });   // the open row is never cut off at the panel's edge
+      flyPos(); document.querySelectorAll('.sp-more[open]').forEach((o) => { if (o !== d) o.open = false; }); }, true);
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.sp-more > summary')) { document.body.classList.add('fly-anim'); setTimeout(() => document.body.classList.remove('fly-anim'), 300); }
+      if (e.target.closest('.fly-x')) { e.preventDefault(); flyClose(); return; }
+      if (!e.target.closest('.sp-more') && !e.target.closest('dialog') && !e.target.closest('.notice')) flyClose(); }, true);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.querySelector('.sp-more[open]')) flyClose(); });
+    addEventListener('resize', flyPos); addEventListener('scroll', flyPos, { passive: true });
+    document.addEventListener('click', (e) => { if (e.target.closest('#sideBtn')) flyClose(); }, true);
+
+    // mockup: first-visit guided tour. Seven steps, each spotlights one part of the builder with a short card.
+    // Runs once per browser (localStorage); the ? button in the toolbar replays it. Desktop only: phones use the Customise drawer.
+    const STEPS = [
+      ['.sp-presets', 'Pick a starting style', 'Choose a ready-made look. The sample site on the right changes straight away.'],
+      ['.sp-swatches', 'Make it yours', 'Change the main colour here, then the font, corners and spacing below. Every change shows in the preview.'],
+      ['#canvas', 'See it on real screens', 'This sample product shows your design on real pages: sign-in, payments, charts, tables and more. Scroll to see them all.'],
+      ['#dock', 'Try every screen and state', 'Switch between desktop, mobile web and app, light and dark, and see how screens look while loading, empty or after an error.'],
+      ['#focusBtn', 'Go full screen', 'Hide everything except the preview to see your design at full size. Press F to switch it on or off, and Esc to leave.'],
+      ['#share', 'Share your design', 'Copies a link to this exact design. Send it to your team or a client: they see the same colours, font and screens, no sign-up needed.'],
+      ['[data-open-export]', 'Take it with you', 'Get code copies your design for your framework, or as a DESIGN.md file for your AI coding tool, so new screens match.'],
+    ];
+    const spot = Object.assign(document.createElement('div'), { className: 'tour-spot' });
+    const card = Object.assign(document.createElement('div'), { className: 'tour-card', role: 'dialog' });
+    card.setAttribute('aria-live', 'polite');
+    let step = -1;
+    const place = () => {
+      const el = document.querySelector(STEPS[step][0]); if (!el) return;
+      const r = el.getBoundingClientRect(), pad = 6;
+      Object.assign(spot.style, { top: r.top - pad + 'px', left: r.left - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+      const c = card.getBoundingClientRect(), gap = 16;
+      // beside the target when it is tall (the preview), else below it, else above it
+      let top, left;
+      if (r.height > innerHeight * 0.5) { top = r.top + 40; left = r.left + 40; }
+      else if (r.bottom + gap + c.height < innerHeight) { top = r.bottom + gap; left = r.left; }
+      else { top = r.top - gap - c.height; left = r.left; }
+      card.style.top = Math.max(12, top) + 'px';
+      card.style.left = Math.max(12, Math.min(left, innerWidth - c.width - 12)) + 'px'; };
+    const go = (i) => {
+      if (i >= STEPS.length) return endTour(true);
+      if (i < 0) return endTour();
+      step = i; const [sel, title, body] = STEPS[i];
+      if (sel.startsWith('.sp') && document.body.classList.contains('side-collapsed')) document.getElementById('sideBtn').click();
+      document.querySelector(sel)?.scrollIntoView({ block: 'nearest' });
+      card.innerHTML = `<p class="tour-n">${i + 1} of ${STEPS.length}</p><h3>${title}</h3><p>${body}</p>`
+        + `<div class="tour-acts">${i === STEPS.length - 1 ? '' : '<button type="button" class="tour-skip">Skip tour</button>'}<span></span>`
+        + (i ? `<button type="button" class="tour-back">Back</button>` : '')
+        + `<button type="button" class="tour-next">${i === STEPS.length - 1 ? 'Start designing' : 'Next'}</button></div>`;
+      card.setAttribute('aria-label', `Tour, step ${i + 1} of ${STEPS.length}: ${title}`);
+      place(); card.querySelector('.tour-next').focus(); };
+    const endTour = (finished) => { step = -1; spot.remove(); card.remove(); document.body.classList.remove('touring');
+      try { localStorage.setItem('uib-tour-done', '1'); } catch {}
+      if (finished) tuckPanel(); };
+    // finishing the tour slides the panel shut so the design gets the room, then shows where to reopen it
+    const tuckPanel = () => {
+      const btn = document.getElementById('sideBtn');
+      if (!document.body.classList.contains('side-collapsed')) btn.click();
+      document.querySelector('.side-note')?.remove();
+      const note = Object.assign(document.createElement('div'), { className: 'side-note', role: 'status' });
+      note.innerHTML = '<b>Settings are tucked away</b>Your design has the full width now. Click this button to open the settings again, anytime.<br><button type="button">Got it</button>';
+      const r = btn.getBoundingClientRect();
+      note.style.top = r.bottom + 14 + 'px'; note.style.left = Math.max(12, r.left - 16) + 'px';
+      document.body.appendChild(note);
+      btn.classList.remove('nudge'); void btn.offsetWidth; btn.classList.add('nudge');
+      const done = () => { note.remove(); btn.classList.remove('nudge'); document.removeEventListener('click', away, true); };
+      const away = (e) => { if (e.target.closest('.side-note button') || e.target.closest('#sideBtn')) done(); };
+      setTimeout(() => document.addEventListener('click', away, true), 0);
+      setTimeout(done, 12000); };
+    const startTour = () => { if (matchMedia('(max-width: 860px)').matches) return;
+      hide(); document.body.classList.add('touring'); document.body.append(spot, card); go(0); };
+    card.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; e.stopPropagation();
+      if (b.classList.contains('tour-next')) go(step + 1); else if (b.classList.contains('tour-back')) go(step - 1); else endTour(); });
+    document.addEventListener('keydown', (e) => { if (step < 0) return;
+      if (e.key === 'Escape') { e.stopImmediatePropagation(); endTour(); }
+      else if (e.key === 'ArrowRight') go(step + 1); else if (e.key === 'ArrowLeft' && step) go(step - 1); }, true);
+    addEventListener('resize', () => { if (step >= 0) place(); });
+    document.addEventListener('click', (e) => { if (e.target.closest?.('#tourBtn')) startTour(); });   // the button is drawn after this script
+    let seen = false; try { seen = localStorage.getItem('uib-tour-done') === '1' || /^#t=/.test(location.hash) || new URLSearchParams(location.search).has('design'); } catch {}
+    if (!seen) setTimeout(startTour, 900);   // after the panel and preview have drawn; not when opening a shared design link
+  }</script>
   <div class="dock" id="dock"></div>
   <span class="shared" id="sharedTag" hidden>Shared design</span>
   <span class="sp"></span>
   <span class="top-acts">
-  <button class="ghost" data-open-gallery>Browse designs</button>
-  <button class="ghost" id="share">Share link</button>
-  <button class="ghost tb-focus" id="focusBtn" type="button" aria-pressed="false" aria-label="Full screen" aria-keyshortcuts="F" title="Full screen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg><span>Full screen</span></button>
+  <button class="ghost tb-tour" id="tourBtn" type="button" aria-label="Take the tour">?</button>
+  <button class="ghost" id="share">Share</button>
+  <button class="ghost tb-focus" id="focusBtn" type="button" aria-pressed="false" aria-label="Full screen" aria-keyshortcuts="F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg><span>Full screen</span></button>
   <button class="cta" data-open-export>Get code</button>
   </span>
 </div>
 
-<button class="cta side-fab" data-side-open aria-controls="side" aria-expanded="false">&#9881; Customise</button>
+<button class="cta side-fab" data-side-open aria-controls="side" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Customize</button>
 <div class="side-shade" data-side-close></div>
 <div class="app">
   <aside class="side" id="side" aria-label="Customise">
     <button class="side-x" data-side-close aria-label="Close settings">&times;</button>
+    <div class="side-dock" id="sideDock"></div>   <!-- mockup: phones show Screen, Theme and State here instead of in the toolbar -->
     <div class="scroll" id="rows"></div>
     <div class="foot">
       <div class="guard" id="guard"></div>
       <div class="two"><button class="ghost" id="shuffle">Surprise me</button><button class="ghost" id="reset">Start over</button></div>
       <button class="cta" data-open-export>Get code</button>
     </div>
+    <div class="side-done"><button type="button" data-side-close>Done</button></div>   <!-- mockup: phones get a Done bar pinned to the drawer's bottom -->
   </aside>
 
   <main class="canvas" id="canvas" tabindex="0" aria-label="Preview of your design">
@@ -851,14 +1194,29 @@ dialog pre{background:var(--surface-sunk);border:1px solid var(--line);border-ra
 </div>
 
 <dialog id="ex">
-  <div class="dh"><div><h3>Get code</h3><p id="exSub"></p></div><span class="dh__acts"><button class="ghost" id="download">Download</button><button class="cta gc-copy" id="copy">Copy</button><button class="dx" id="exClose" aria-label="Close">&times;</button></span></div>
+  <div class="dh"><div><h3>Get code</h3><p id="exSub"></p></div><span class="dh__acts"><button class="ghost gc-ico" id="download" aria-label="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg></button><button class="cta gc-copy gc-ico" id="copy" aria-label="Copy"></button><button class="dx" id="exClose" aria-label="Close">&times;</button></span></div>
   <div class="tabs" id="exTabs"></div>
+  <div class="ex-pick" id="exPick"></div>   <!-- mockup: phones pick the format from a dropdown instead of 15 tabs -->
   <pre id="exOut"></pre>
   <div class="df"><span id="exHint"></span><span id="exStatus" class="gc-status" role="status" aria-live="polite"></span></div>
 </dialog>
 
+<!-- mockup: Get code asks for an email once; joining the waitlist unlocks the code straight away (this browser remembers it) -->
+<dialog id="wl" aria-labelledby="wlT">
+  <div class="dh"><div><h3 id="wlT">Get your code</h3><p>Join the Pramaan waitlist and your code unlocks straight away.</p></div><button class="dx" id="wlClose" aria-label="Close">&times;</button></div>
+  <form class="wl-form" id="wlForm" novalidate>
+    <input type="email" name="email" id="wlEmail" placeholder="you@company.com" aria-label="Your email" autocomplete="email" required>
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="wl-hp">
+    <button class="cta" type="submit">Join and get code</button>
+  </form>
+  <p class="wl-msg" id="wlMsg" role="status" aria-live="polite"></p>
+  <p class="wl-fine">We'll email you when your Pramaan account is ready. No spam.</p>
+</dialog>
+
 <dialog id="gal">
-  <div class="dh"><div><h3>Browse designs</h3><p id="galSub"></p></div><button class="dx" id="galClose" aria-label="Close">&times;</button></div>
+  <div class="dh"><div class="dh-t"><h3>Browse designs</h3><p id="galSub"></p></div>
+    <div class="gtop"><button class="ghost" id="galBack2" type="button">Back</button><button class="cta" id="galApply2" type="button">Apply this design</button></div>   <!-- mockup: phones, on one design -->
+    <button class="dx" id="galClose" aria-label="Close">&times;</button></div>
   <div class="gbar"><input id="galQ" type="search" placeholder="Search: fintech, rounded, blue, pricing, linear…" aria-label="Search designs"><span class="tabs" id="galTh" style="padding:0"></span></div>
   <div class="gfil" id="galFil"></div>
   <div class="ggrid" id="galGrid"></div>
@@ -1087,7 +1445,7 @@ function drawRows(){
   const chev = `<span class="glyph">${CHEVRON}</span>`;
   const radio = (k, v, on, attrs, inner = '') => `<button type="button" role="radio" data-k="${k}" data-v="${v}" aria-checked="${on}" ${attrs}>${inner}</button>`;
   let h = '';
-  if (SP_HINT) h += `<p class="sp-hint"${SP_HINT === 'ok' && SP_HINT_H ? ` style="min-height:${SP_HINT_H}px"` : ''}>${SP_HINT === 'ok' ? SP_HINT_OK : 'Pick a style to start. The preview updates as you choose.'}<button type="button" data-hint-x aria-label="Dismiss tip">&times;</button></p>`;
+  if (SP_HINT && SP_HINT !== 'ok') h += `<p class="sp-hint"${SP_HINT === 'ok' && SP_HINT_H ? ` style="min-height:${SP_HINT_H}px"` : ''}>${SP_HINT === 'ok' ? SP_HINT_OK : 'Pick a style to start. The preview updates as you choose.'}<button type="button" data-hint-x aria-label="Dismiss tip">&times;</button></p>`;
   // "Custom mix" sits in the heading line, so it appears without pushing the controls below it down under the pointer
   h += `<div class="grp sp-h">Start from a style<span class="sp-cnote"${S.preset === 'custom' ? '' : ' hidden'}>Custom mix</span></div><div class="sp-presets" role="radiogroup" aria-label="Style">`
     + Object.entries(PRESETS).map(([k,p]) => radio('preset', k, S.preset === k, `class="sp-pre" aria-label="${p.label}: ${SP_MOOD[k]}"`,
@@ -1111,17 +1469,18 @@ function drawRows(){
     + `<div class="sp-seg" role="radiogroup" aria-label="Spacing">`
     + SP_OPTS.density[2].map(([v,l]) => radio('density', v, v === spSeg('density'), '', l)).join('') + `</div>`;
   const open = d => SP_OPEN[d] || (d === 'bring' && (S.imported || S.importText)) ? ' open' : '';
-  h += `<details class="sp-more" data-d="colours"${open('colours')}><summary>Fine-tune colours</summary><div class="ctab">`
+  const flyX = `<button type="button" class="fly-x" aria-label="Close">&times;</button>`;   // mockup: the layer's close button
+  h += `<details class="sp-more" data-d="colours"${open('colours')}><summary>Fine-tune colours</summary><div class="ctab" data-title="${dark ? 'Dark' : 'Light'} mode colours">${flyX}`
     + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
         return `<label class="crow" title="${escA(src)}"><span class="sw2" style="background:${T[k]}"></span>`
           + `<span class="t"><b>${SLOT_DOC[k]}<code>${T[k]}</code></b><small>${esc(src)}</small></span>`
           + `${edited ? `<button class="undo" data-undo="${k}">Undo</button>` : ''}<input type="color" data-slot="${k}" value="${T[k]}" aria-label="${SLOT_DOC[k]} colour"></label>`; }).join('')
-    + `<div class="urlnote">These are the ${dark ? 'Dark' : 'Light'} colours. Switch Light or Dark in the top bar to edit the other set.</div></div></details>`;
-  h += `<details class="sp-more" data-d="extra"${open('extra')}><summary>Animation and sample text</summary>`
+    + `</div></details>`;
+  h += `<details class="sp-more" data-d="extra"${open('extra')}><summary>Animation and sample text</summary><div class="sp-fly-body" data-title="Animation and sample text">${flyX}`
     + selRow('motion', chev) + selRow('locale', chev)
-    + `<div class="urlnote">Sample language only changes the example text, not your design.</div></details>`;
+    + `</div></details>`;
   // "From my site → Extract" stays out until it calls companies.brand.styleguide from a server route (extract() below is a stand-in)
-  h += `<details class="sp-more" data-d="bring"${open('bring')}><summary>Use my own design file</summary><div class="bring">`
+  h += `<details class="sp-more" data-d="bring"${open('bring')}><summary>Use my own design file</summary><div class="bring" data-title="Use my own design file">${flyX}`
     + `<div class="ex"><button data-sample="css">CSS variables</button> · <button data-sample="tokens">Tokens</button> · <button data-sample="md">DESIGN.md</button></div>`
     + `<textarea id="design" spellcheck="false" aria-label="Your design file" placeholder="Paste a DESIGN.md, CSS variables or design tokens (JSON), or drop a file here">${esc(S.importText)}</textarea>`
     + `<div class="acts"><button class="ghost" id="applyDesign">Apply</button><button class="ghost" id="pickFile">Upload file</button>${S.imported?'<button class="ghost" id="clearDesign">Remove</button>':''}<input type="file" id="designFile" accept=".md,.markdown,.css,.json,.txt" hidden></div>`
@@ -1371,10 +1730,15 @@ function parseDesign(text){
     substitute:sub && (sub[1] || sub[2]).trim()};
 }
 
+// Every Google Fonts family name (public/google-fonts.json, 10 KB gzipped, from fonts.google.com/metadata/fonts), fetched once.
+// Only names on it are asked of Google, so a design's own font never triggers a failed request in the console.
+let gfNames = null;
+const onGoogle = name => (gfNames ||= fetch('/google-fonts.json').then(r => r.json()).then(a => new Set(a)).catch(() => null))
+  .then(set => !set || set.has(String(name).toLowerCase()));   // list missing: ask Google as before
 // Loads a font from Google Fonts. Known paid fonts are never requested, and other names are fetched first and only
 // added if Google has them, so a missing font does not show up as a failed stylesheet in the browser.
 const loadFont = name => {
-  if (!name || /^(system-ui|sans-serif|serif|monospace|ui-|-apple)/i.test(name)) return;
+  if (!name || /^(system-ui|sans-serif|serif|monospace|cursive|fantasy|emoji|math|fangsong|ui-|-apple)$|^(ui-|-apple)/i.test(name)) return;   // CSS's built-in families are never on Google Fonts
   const low = name.toLowerCase(), free = FREE_FAMILY[low];
   if (free && free[0] !== 'g') {   // Fontshare or Fontsource: their stylesheets always exist, so link them directly
     const id = 'ff-' + name.replace(/\W/g,''); if (document.getElementById(id)) return;
@@ -1386,8 +1750,8 @@ const loadFont = name => {
   if (GF_ALIAS[name] || Object.keys(LOOKALIKE).some(k => low.includes(k))) return;   // not on Google Fonts
   const id = 'gf-' + name.replace(/\W/g,''); if (document.getElementById(id)) return;
   const style = Object.assign(document.createElement('style'), {id}); document.head.appendChild(style);
-  fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
-    .then(r => r.ok ? r.text() : '').then(css => { style.textContent = css; }).catch(() => {});
+  onGoogle(name).then(ok => ok && fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
+    .then(r => r.ok ? r.text() : '').then(css => { style.textContent = css; })).catch(() => {});
 };
 
 /* ---------- notifications ---------- */
@@ -1612,19 +1976,22 @@ function wireDesign(){
 }
 
 /* ---------- dock (applies to every card at once) ---------- */
-const DOCK_SEGS = [['Screen','device',['desktop','mobile','ios','android']],['Theme','mode',['light','dark']]];
-const DOCK_LABEL = {mobile:'Mobile web', ios:'iOS app', android:'Android app'};
 const DOCK_STATES = ['ready','loading','empty','error','success'];
+const DOCK_SEGS = [['Screen','device',['desktop','mobile','ios','android']],['Theme','mode',['light','dark']],['State','state',DOCK_STATES]];
+const DOCK_LABEL = {mobile:'Mobile web', ios:'iOS', android:'Android'};
 const cap1 = v => v[0].toUpperCase() + v.slice(1);
 $('#dock').onclick = e => { const b = e.target.closest('button[data-k][data-v]'); if (!b) return;
   const {k, v} = b.dataset; S[k] = v; render(); $(`#dock [data-k="${k}"][data-v="${v}"]`)?.focus(); };   // the redraw replaced the button: put focus back
 $('#dock').addEventListener('input', e => { const k = e.target.dataset.k; if (k) { S[k] = e.target.value; render(); } });
 const drawDock = () => {
-  $('#dock').innerHTML = DOCK_SEGS.map(([label,k,vs]) => `<span class="tb-seg" role="group" aria-label="${label}">`
-    + vs.map(v => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="${S[k]===v}">${DOCK_LABEL[v] || cap1(v)}</button>`).join('') + '</span>').join('')
-    + `<select data-k="state" aria-label="State">${DOCK_STATES.map(v => `<option value="${v}"${S.state===v?' selected':''}>${cap1(v)}</option>`).join('')}</select>`;
+  $('#dock').innerHTML = DOCK_SEGS.map(([label,k,vs]) => `<span class="tb-lab" data-g="${k}" aria-hidden="true">${label}</span><span class="tb-seg" data-g="${k}" role="group" aria-label="${label}">`
+    + vs.map(v => `<button type="button" data-k="${k}" data-v="${v}" aria-pressed="${S[k]===v}">${DOCK_LABEL[v] || cap1(v)}</button>`).join('') + '</span>').join('');
   dress($('#dock'));
+  // mockup: the same three groups in the Customize drawer, for phones
+  const sd = $('#sideDock'); if (sd) sd.innerHTML = $('#dock').innerHTML;
 };
+$('#sideDock')?.addEventListener('click', e => { const b = e.target.closest('button[data-k][data-v]'); if (!b) return;
+  const {k, v} = b.dataset; S[k] = v; render(); $(`#sideDock [data-k="${k}"][data-v="${v}"]`)?.focus(); });
 
 /* ---------- cards ---------- */
 const money = usd => { const [loc,cur] = S.locale.split('|'); return new Intl.NumberFormat(loc,{style:'currency',currency:cur,maximumFractionDigits:cur==='INR'?0:2}).format(usd*LOCALES[S.locale]); };
@@ -2100,10 +2467,16 @@ function withFont(fmt, out){
   if (fmt === 'Figma') return `${out}\nfont/source       ${u}`;
   return out;
 }
+// Download and Copy are icon buttons; Copy shows a tick when it worked and a cross when it didn't
+const GC_ICO = {
+  copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></svg>',
+  ok: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  bad: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+};
 // Get code feedback: the copied state and its message stay until the content changes (tab switch, reopen) or Copy is pressed again
 function gcReset(){
   const b = $('#copy'), s = $('#exStatus');
-  b.removeAttribute('data-state'); b.textContent = 'Copy';
+  b.removeAttribute('data-state'); b.innerHTML = GC_ICO.copy; b.setAttribute('aria-label', 'Copy');
   s.textContent = ''; s.classList.remove('gc-err'); s.setAttribute('role', 'status'); s.setAttribute('aria-live', 'polite');
 }
 function gcSay(msg, bad){
@@ -2114,7 +2487,10 @@ function gcSay(msg, bad){
 function drawExport(){
   gcReset();
   $('#exTabs').innerHTML = TAB_ORDER.map(k=>`<button data-v="${k}" aria-pressed="${S.ex===k}">${k}</button>`).join('');
-  $('#exOut').textContent = withFont(S.ex, EX[S.ex]()); $('#exHint').textContent = HINT[S.ex];
+  $('#exPick').innerHTML = `<select aria-label="Code format">${TAB_ORDER.map(k => `<option value="${k}"${S.ex===k?' selected':''}>${k}</option>`).join('')}</select>`;
+  dress($('#exPick'));
+  $('#exOut').textContent = withFont(S.ex, EX[S.ex]()); $('#exHint').textContent = (S.ex === 'DESIGN.md' && matchMedia('(max-width: 860px)').matches)   // mockup: clearer wording on phones
+    ? 'Copy or download this, then give it to your AI coding tool so new screens match.' : HINT[S.ex];
   $('#exSub').textContent = 'Building with an AI tool (Lovable, v0, Cursor, Claude)? Copy DESIGN.md and paste it in. Handing it to a developer? Pick their stack.';
 }
 $('#download').onclick = () => {
@@ -2123,7 +2499,35 @@ $('#download').onclick = () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 };
 $('#exTabs').onclick = e => { const v = e.target.dataset.v; if (v){ S.ex = v; drawExport(); } };
-document.querySelectorAll('[data-open-export]').forEach(b => b.onclick = () => { drawExport(); $('#ex').showModal(); });
+['change', 'input'].forEach(t => $('#exPick').addEventListener(t, e => { const v = e.target.value; if (v && v !== S.ex){ S.ex = v; drawExport(); } }));
+// Waitlist before Get code: off until the email check (api/waitlist.js) ships. true = ask for an email first.
+const WAITLIST_GATE = false;
+/* ---------- waitlist gate: Get code asks for an email once, then unlocks for good on this browser ---------- */
+const WL_KEY = 'uib-access';
+const hasAccess = () => { try { return !!localStorage.getItem(WL_KEY); } catch { return true; } };   // storage blocked: don't lock people out
+const openExport = () => { drawExport(); $('#ex').showModal(); };
+const unlock = email => { try { localStorage.setItem(WL_KEY, email || '1'); } catch {} $('#wl').close(); openExport(); };
+document.querySelectorAll('[data-open-export]').forEach(b => b.onclick = () => {
+  if (!WAITLIST_GATE || hasAccess()) return openExport();
+  $('#wlMsg').textContent = ''; $('#wl').showModal(); $('#wlEmail').focus(); });
+$('#wlClose').onclick = () => $('#wl').close();
+$('#wlForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.currentTarget, btn = form.querySelector('button'), msg = $('#wlMsg'), data = Object.fromEntries(new FormData(form));
+  const email = String(data.email || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { msg.textContent = 'That email address doesn\'t look right. Check it and try again.'; $('#wlEmail').focus(); return; }
+  btn.disabled = true; msg.textContent = 'Checking your email...';
+  try {
+    const res = await fetch('/api/waitlist', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({...data, email, source:'ui-builder'})});
+    const out = await res.json().catch(() => ({}));
+    btn.disabled = false;
+    if (res.status === 400) { msg.textContent = out.message; return; }
+    // joined, or our side isn't ready: either way they get the code (a sign-up problem on our end shouldn't cost them the tool)
+    unlock(email);
+    notify(res.ok ? 'You\'re on the waitlist' : 'Your code is unlocked', res.ok ? 'We\'ll email you when your Pramaan account is ready.' : 'We couldn\'t add you to the waitlist just now; we\'ll ask again another time.', res.ok ? 'ok' : 'info');
+    if (!res.ok) try { localStorage.removeItem(WL_KEY); } catch {}   // not on the list yet: ask again next visit
+  } catch { btn.disabled = false; msg.textContent = 'We couldn\'t reach the server. Check your connection and try again.'; }
+});
 $('#exClose').onclick = () => $('#ex').close();
 // a click on the dimmed area outside a dialog lands on the <dialog> itself: close it
 document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
@@ -2136,10 +2540,10 @@ $('#copy').onclick = async () => {
     try { const r = document.createRange(), sel = getSelection(); r.selectNodeContents(out); sel.removeAllRanges(); sel.addRange(r); ok = document.execCommand('copy'); } catch(e){}
   }
   if (ok) {
-    btn.dataset.state = 'copied'; btn.innerHTML = `${icoS(I.check,16)}Copied`;
+    btn.dataset.state = 'copied'; btn.innerHTML = GC_ICO.ok; btn.setAttribute('aria-label', 'Copied');
     gcSay(`Copied ${FILE[S.ex] || S.ex} to your clipboard. Paste it into your AI tool or project.`);
   } else {
-    btn.dataset.state = 'failed'; btn.textContent = 'Copy failed';   // visible at the top even when the message below is off screen
+    btn.dataset.state = 'failed'; btn.innerHTML = GC_ICO.bad; btn.setAttribute('aria-label', 'Copy failed');   // visible at the top even when the message below is off screen
     gcSay('Could not copy automatically. The code is selected: press Ctrl+C (Cmd+C on a Mac), or use Download.', true);   // the code stays selected
     // on a phone the message sits below the code: bring it into view
     requestAnimationFrame(() => requestAnimationFrame(() => $('#exStatus').scrollIntoView({block:'nearest'})));
@@ -2336,13 +2740,13 @@ function openGallery(){
   for (let i = G.order.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [G.order[i], G.order[j]] = [G.order[j], G.order[i]]; }
   G.n = 60; showGrid(); drawGallery(); $('#gal').showModal(); $('#galGrid').scrollTop = 0; $('#galQ').focus();
 }
-function showGrid(){ $('#galDetail').hidden = true; $('#galGrid').hidden = false; $('.gbar').hidden = false; $('#galFil').hidden = false; }
+function showGrid(){ $('#gal').classList.remove('detail'); $('#galDetail').hidden = true; $('#galGrid').hidden = false; $('.gbar').hidden = false; $('#galFil').hidden = false; }
 // Detail view: the site's full page as a scrollable image, its labels and colours, then Apply
 function showDesign(slug){
   const d = (window.DESIGNS || []).find(x => x.s === slug); if (!d) return;
   const shots = d.f ? [d.f] : (d.pv && d.pv.length ? d.pv : [d.img]);
   $('#galGrid').hidden = true; $('.gbar').hidden = true; $('#galFil').hidden = true; $('#galMore').hidden = true;
-  $('#galDetail').hidden = false;
+  $('#galDetail').hidden = false; $('#gal').classList.add('detail'); $('#gal').scrollTop = 0;
   $('#galDetail').innerHTML = `<div class="gshot" tabindex="0" aria-label="Full page of ${escA(d.d || d.t)}">${shots.map(s => `<img alt="" src="${DB}${d.s}/${s}">`).join('')}</div>`
     + `<div class="ginfo"><h4>${esc(d.d || d.t)}</h4>${d.u ? `<a href="${escA(d.u)}" target="_blank" rel="noopener">${esc(d.u)}</a>` : ''}`
     + `<span class="meta">${esc([d.th, d.i].filter(Boolean).join(' · '))}${d.fo ? ` · ${isPrivateFont(d.fo) ? 'its own font' : `font ${esc(fontLabel(d.fo))}`}` : ''}</span>`
@@ -2355,6 +2759,7 @@ function showDesign(slug){
       [['Undo', () => { hiddenDesigns().delete(slug); saveHidden(); drawGallery(); }]]); };
   $('#galApply').onclick = () => applyFromGallery(slug);
   $('#galBack').onclick = () => { showGrid(); drawGallery(); };
+  $('#galApply2').onclick = () => applyFromGallery(slug); $('#galBack2').onclick = $('#galBack').onclick;   // the phone top bar
   $('#galDetail .gshot').scrollTop = 0;
 }
 function applyFromGallery(slug){ $('#galHint').textContent = 'Loading…';
@@ -2434,7 +2839,7 @@ function restore(){
 $('#share').onclick = async () => {
   const url = location.href.split('#')[0] + '#t=' + b64u(JSON.stringify(snapshot()));
   try { await navigator.clipboard.writeText(url); $('#share').textContent = 'Link copied'; } catch { prompt('Copy this link', url); }
-  setTimeout(() => { $('#share').textContent = 'Share link'; }, 1600);
+  setTimeout(() => { $('#share').textContent = 'Share'; }, 1600);
 };
 
 /* ---------- fonts: lookalikes for paid fonts, and font file upload ---------- */
@@ -2476,7 +2881,7 @@ async function useGoogleFont(raw, cat){
   const typed = String(raw || '').replace(/['";]/g, '').trim(); if (!typed) return;
   const name = GF_ALIAS[typed] || typed, id = 'gf-' + name.replace(/\W/g, '');
   const fallback = cat === 'r' ? 'Georgia, serif' : cat === 'm' ? 'ui-monospace, monospace' : 'system-ui, sans-serif';
-  const css = await fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
+  const css = !(await onGoogle(name)) ? '' : await fetch(`https://fonts.googleapis.com/css2?family=${encodeURIComponent(name).replace(/%20/g,'+')}:wght@400;500;600;700&display=swap`)
     .then(r => r.ok ? r.text() : '').catch(() => '');
   if (!css) return notify(`Font not found: ${esc(typed)}`, 'Google Fonts has no font by that name. Check the spelling, or upload the font file.', 'err',
     [['Upload your font', () => $('#fontFile')?.click()]]);
