@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title={"UI inspiration | Pramaan"} description={"Over a thousand real website designs to start from. Pick one and open it in the free UI builder with its colours, fonts and corners already applied."} nav="site" footerProps={{"variant":"catalogue","count":"1283","countLabel":"Designs","eyebrow":"research","tools":["ui-builder","ui-inspiration"]}}>
+<Base title={"Design inspiration | Pramaan"} description={"Over a thousand real website designs to start from. Pick one and open it in the free design system builder with its colors, fonts and corners already applied."} nav="site" footerProps={{"variant":"catalogue","count":"1283","countLabel":"Designs","eyebrow":"research","tools":["ui-builder","ui-inspiration"]}}>
 <Fragment slot="head">
 <link rel="stylesheet" href="/catalogue.css" />
   <link rel="stylesheet" href="/components/ticket-stub-footer.css" />
@@ -34,9 +34,9 @@ import Base from '../layouts/Base.astro';
       <div class="wash wash--hero-a" aria-hidden="true"></div>
       <div class="wash wash--hero-b" aria-hidden="true"></div>
       <div class="container cat-hero__inner">
-        <span class="tag"><span class="tag__dot"></span>UI inspiration</span>
+        <span class="tag"><span class="tag__dot"></span>Design inspiration</span>
         <h1 class="display">Start from a real design.</h1>
-        <p class="lead">Styles taken from real websites: colours, fonts, spacing and corners. Pick one and open it in the free <a href="/ui-builder">UI builder</a>, already applied, then copy the code or the prompt for your coding tool.</p>
+        <p class="lead">Styles taken from real websites: colors, fonts, spacing and corners. Pick one and open it in the free <a href="/design-system-builder">design system builder</a>, already applied, then copy the code or the prompt for your coding tool.</p>
         <label class="cat-search">
           <span aria-hidden="true">&#9906;</span>
           <input type="search" placeholder="Search designs, e.g. fintech, rounded blue, dark" aria-label="Search designs" data-short="Search designs" data-q />
@@ -53,7 +53,7 @@ import Base from '../layouts/Base.astro';
 
   
 <Fragment slot="foot">
-<!-- Design library: images, style guides and the index live on the designs host (same base as ui-builder.html). -->
+<!-- Design library: images, style guides and the index live on the designs host (same base as the design system builder). -->
   <script is:inline>const DB = 'https://design.pramaan.dev/';</script>
   <script is:inline src="https://design.pramaan.dev/_gallery.js"></script>
   <script is:inline src="/dropdown.js"></script>

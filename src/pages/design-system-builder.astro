@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title={"UI builder | Pramaan"} description={"Free UI builder: pick a colour, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code."} robots="noindex" nav="site" navSkin="builder" current="ui-builder" appCss={false} sharedScript={false} fonts={"https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&family=Nunito:wght@400;600;800&display=swap"} footerProps={{"variant":"tool","count":"3510","countLabel":"Superpowers","eyebrow":"find","tools":["ui-inspiration"]}}>
+<Base title={"Design system builder | Pramaan"} description={"Free design system builder: pick a color, font and corner style, or paste your own design file. See it on a live sample site, share it as a link and copy the code."} robots="noindex" nav="site" navSkin="builder" current="ui-builder" appCss={false} sharedScript={false} fonts={"https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&family=Nunito:wght@400;600;800&display=swap"} footerProps={{"variant":"tool","count":"3510","countLabel":"Superpowers","eyebrow":"find","tools":["ui-inspiration"]}}>
 <Fragment slot="head">
 <!-- Newsreader and JetBrains Mono are the website's fonts; the rest are the preview's font choices. -->
 
@@ -1011,7 +1011,7 @@ body{letter-spacing:-.025em}
 
 <section class="uib-hero site-wrap">
   <span class="uib-tag"><i></i>Free tool</span>
-  <h1>UI builder</h1>
+  <h1>Design system builder</h1>
   <p>Design your app's look in minutes.</p>
 </section>
 
@@ -3048,7 +3048,7 @@ const fromLink = /^#t=/.test(location.hash);
 restore();
 render();
 if (fromLink) openedFromLink();
-// Opened from UI inspiration (/ui-builder?design=<slug>): apply that design, then drop the parameter so a reload keeps later edits
+// Opened from Design inspiration (/design-system-builder?design=<slug>): apply that design, then drop the parameter so a reload keeps later edits
 const wantDesign = new URLSearchParams(location.search).get('design');
 if (wantDesign && (window.DESIGNS || []).some(d => d.s === wantDesign)) {
   applyFromGallery(wantDesign); history.replaceState(null, '', location.pathname + location.hash); }

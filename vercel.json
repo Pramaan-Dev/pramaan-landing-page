@@ -5,6 +5,8 @@
   "cleanUrls": true,
   "redirects": [
     { "source": "/resources", "destination": "/blog", "permanent": true },
+    { "source": "/ui-builder", "destination": "/design-system-builder", "permanent": true },
+    { "source": "/ui-inspiration", "destination": "/design-inspiration", "permanent": true },
     { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/security.txt", "destination": "/.well-known/security.txt", "permanent": true },
     { "source": "/legal{/}?", "destination": "/legal/terms", "permanent": false }

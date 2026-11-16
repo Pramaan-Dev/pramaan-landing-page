@@ -144,5 +144,6 @@ One skill per category, on top of the agent skill. Each lists every superpower a
 - [Superpowers data](https://www.pramaan.dev/data/superpowers.json): every superpower with its family, effect and flags, as JSON
 - [Missions data](https://www.pramaan.dev/data/missions.json): every mission with its steps, effect, maximum price and flags, as JSON
 - [Blog](https://www.pramaan.dev/blog): posts from the team ([RSS](https://www.pramaan.dev/blog/rss.xml))
-- [UI inspiration](https://www.pramaan.dev/ui-inspiration): a gallery of interface designs
+- [Design inspiration](https://www.pramaan.dev/design-inspiration): a gallery of interface designs
+- [Design system builder](https://www.pramaan.dev/design-system-builder): pick colors, fonts and corners, preview them on sample screens and copy the code or a DESIGN.md
 - [AI catalog](https://www.pramaan.dev/.well-known/ai-catalog.json): machine-readable pointer to the skill and API

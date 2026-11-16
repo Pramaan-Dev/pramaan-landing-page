@@ -8,13 +8,15 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   // /resources was the old all-in-one list; the blog hub now holds every type
-  redirects: { '/resources': '/blog' },
+  // the UI builder and UI inspiration were renamed on 2026-11-16; old links and shared designs keep working
+  redirects: { '/resources': '/blog', '/ui-builder': '/design-system-builder', '/ui-inspiration': '/design-inspiration' },
   // legal text must stay as written: no curly quotes, no auto-linked emails
   markdown: { gfm: false, smartypants: false },
   integrations: [
     sitemap({
-      // legal drafts and the UI builder are noindex; /simple repeats the home page and was never listed
-      filter: (url) => !/\/(legal|ui-builder|simple)(\/|$)/.test(url),
+      // legal drafts and the design system builder are noindex; /simple repeats the home page and was never listed;
+      // /ui-builder and /ui-inspiration are redirects
+      filter: (url) => !/\/(legal|design-system-builder|ui-builder|ui-inspiration|simple)(\/|$)/.test(url),
     }),
   ],
 });

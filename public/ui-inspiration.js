@@ -1,4 +1,4 @@
-// UI inspiration: browse the design library (window.DESIGNS from the designs host) and open one in the UI builder.
+// Design inspiration: browse the design library (window.DESIGNS from the designs host) and open one in the design system builder.
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
 const list = window.DESIGNS || [];
@@ -33,7 +33,7 @@ function draw(){
     <div class="insp-body"><b>${esc(d.d || d.t)}</b><small>${esc([d.th, d.i, d.fo].filter(Boolean).join(' · '))}</small>
       <p>${esc(d.ns)}</p>
       ${d.sw && d.sw.length ? `<span class="insp-sw">${d.sw.slice(0, 6).map(c => `<i title="${esc(c)}" style="background:${esc(c)}"></i>`).join('')}</span>` : ''}
-      <a class="btn btn--black insp-go" href="ui-builder?design=${encodeURIComponent(d.s)}">Open in UI builder &rarr;</a></div></article>`).join('')
+      <a class="btn btn--black insp-go" href="/design-system-builder?design=${encodeURIComponent(d.s)}">Open in the builder &rarr;</a></div></article>`).join('')
     || '<p>No designs match. Try fewer words, or clear a filter.</p>';
   $('[data-more]').hidden = hits.length <= G.n;
 }

@@ -12,7 +12,7 @@ const urls = [
   // old sitemap.xml
   '/', '/superpowers.html', '/missions.html', '/developers.html', '/ui-inspiration', '/skills', '/badge.html', '/llms.txt', '/skill.md', '/skills/index.md', '/catalogue/index.md',
   // root pages with and without .html
-  ...['index', 'simple', 'developers', 'badge', 'superpowers', 'missions', 'skills', 'ui-builder', 'ui-inspiration'].flatMap((p) => [`/${p}`, `/${p}.html`]),
+  ...['index', 'simple', 'developers', 'badge', 'superpowers', 'missions', 'skills', 'design-system-builder', 'design-inspiration'].flatMap((p) => [`/${p}`, `/${p}.html`]),
   // legal
   ...['terms', 'privacy', 'acceptable-use', 'messaging', 'background-checks', 'refunds', 'subprocessors', 'cookies', 'security'].flatMap((p) => [`/legal/${p}`, `/legal/${p}.html`]),
   // files
@@ -28,7 +28,8 @@ const urls = [
 // vercel.json rewrites and redirects: the source is served, so the target must exist
 const vercel = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url), 'utf8'));
 const ruled = [
-  ['/SKILL.md', '/skill.md'], ['/security.txt', '/.well-known/security.txt'], ['/legal', '/legal/terms'], ['/sitemap.xml', '/sitemap-index.xml'],
+  ['/SKILL.md', '/skill.md'], ['/security.txt', '/.well-known/security.txt'],
+  ['/ui-builder', '/design-system-builder'], ['/ui-inspiration', '/design-inspiration'], ['/legal', '/legal/terms'], ['/sitemap.xml', '/sitemap-index.xml'],
 ];
 
 let missing = 0;
