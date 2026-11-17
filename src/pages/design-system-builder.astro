@@ -1483,7 +1483,8 @@ function drawRows(){
     + `</div><div class="sp-lab"><span>Spacing</span><span class="sp-v sp-dname">${spSegName('density')}</span></div>`
     + `<div class="sp-seg" role="radiogroup" aria-label="Spacing">`
     + SP_OPTS.density[2].map(([v,l]) => radio('density', v, v === spSeg('density'), '', l)).join('') + `</div>`;
-  const open = d => SP_OPEN[d] || (d === 'bring' && (S.imported || S.importText)) ? ' open' : '';
+  // a section opens only when the visitor opened it: it is a floating panel now, so a loaded design file must not reopen it on every redraw
+  const open = d => SP_OPEN[d] ? ' open' : '';
   const flyX = `<button type="button" class="fly-x" aria-label="Close">&times;</button>`;   // mockup: the layer's close button
   h += `<details class="sp-more" data-d="colours"${open('colours')}><summary>Fine-tune colours</summary><div class="ctab" data-title="${dark ? 'Dark' : 'Light'} mode colours">${flyX}`
     + SLOTS_OUT.map(k => { const src = slotSource(S.mode, k), edited = !!S.edits?.[S.mode]?.[k];
@@ -2830,6 +2831,7 @@ $('#galGrid').addEventListener('click', hidePop);
 // look: the design's ready-made look from style.json (newer style.js files); without it the style guide is parsed as text
 window.__designLoaded = (slug, md, look) => { const d = (window.DESIGNS || []).find(x => x.s === slug);
   S.importText = md; S.importFrom = d ? (d.d || d.t) : slug; applyDesign(look && lookToDesign(look)); $('#gal').close();   // site name, not Refero's long title
+  S.importText = ''; render();   // the library's style guide only feeds applyDesign: "Use my own design file" stays empty for the visitor's own file
   $('#galHint').textContent = 'Styles from real sites. Click one to see its full page before applying it.'; };
 
 /* ---------- auto-save in this browser, and share links ---------- */
