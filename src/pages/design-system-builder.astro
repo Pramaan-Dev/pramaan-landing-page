@@ -1095,7 +1095,8 @@ body{letter-spacing:-.025em}
     const flyPos = () => { const s = document.querySelector('.side'); if (!s) return; const r = s.getBoundingClientRect(), st = document.documentElement.style;
       st.setProperty('--fly-left', r.right + 12 + 'px'); st.setProperty('--fly-top', Math.max(r.top, 12) + 'px');
       st.setProperty('--fly-h', Math.min(r.bottom, innerHeight - 12) - Math.max(r.top, 12) + 'px'); };
-    const flyClose = () => document.querySelectorAll('.sp-more[open]').forEach((d) => { d.open = false; });
+    // SP_OPEN is updated here, not only on the async toggle event: a click on a style redraws the panel before that event fires
+    const flyClose = () => document.querySelectorAll('.sp-more[open]').forEach((d) => { d.open = false; SP_OPEN[d.dataset.d] = false; });
     document.addEventListener('toggle', (e) => { const d = e.target; if (!d.classList?.contains('sp-more') || !d.open) return;
       d.querySelector('summary')?.scrollIntoView({ block: 'nearest' });   // the open row is never cut off at the panel's edge
       flyPos(); document.querySelectorAll('.sp-more[open]').forEach((o) => { if (o !== d) o.open = false; }); }, true);
@@ -2839,7 +2840,7 @@ const SAVE_KEYS = ['preset','mode','device','appFont','locale','primary','font',
 const snapshot = () => Object.fromEntries(SAVE_KEYS.map(k => [k, S[k]]));
 let saveTimer;
 function save(){ clearTimeout(saveTimer); saveTimer = setTimeout(() => {
-  try { localStorage.setItem('pramaan-ui-builder', JSON.stringify({...snapshot(), importText:S.importText.length < 200000 ? S.importText : ''})); } catch {} }, 300); }
+  try { localStorage.setItem('pramaan-ui-builder', JSON.stringify(snapshot())); } catch {} }, 300); }   // the design file box is not saved: it is blank on every visit unless the visitor pastes
 const b64u = s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 const unb64u = s => decodeURIComponent(escape(atob(s.replace(/-/g,'+').replace(/_/g,'/'))));
 function restore(){
@@ -2849,7 +2850,7 @@ function restore(){
   if (!got) try { got = JSON.parse(localStorage.getItem('pramaan-ui-builder') || 'null'); } catch {}
   if (!got || typeof got !== 'object') return;
   if (got.importNote === 'Opened from a shared link.') got.importNote = '';   // older copies saved this note
-  for (const k of [...SAVE_KEYS, 'importText']) if (k in got) S[k] = got[k];
+  for (const k of SAVE_KEYS) if (k in got) S[k] = got[k];
   if (typeof S.radius !== 'number' || typeof S.density !== 'number' || typeof S.font !== 'string' || !/^#[0-9a-f]{6}$/i.test(S.primary)) Object.assign(S, DEFAULTS, PRESETS.graphite);
   // an older save or share link may carry a site's private font alias: swap it for its free match before anything shows or exports it
   const priv = fontName();
