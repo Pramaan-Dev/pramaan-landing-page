@@ -705,9 +705,9 @@ body .canvas{padding-bottom:24px}
   .tb-focus{padding:0 12px} .tb-focus svg{width:16px;height:16px}
   .app{grid-template-columns:var(--side-w,320px) minmax(0,1fr);padding:8px 0 12px;
     height:calc(100vh - var(--uib-above, 116px));height:calc(100dvh - var(--uib-above, 116px));min-height:420px}
-  /* Full screen: a class on body (not the browser Fullscreen API). Nav, settings and footer step aside; the toolbar stays. */
-  body.uib-focus .site-nav,body.uib-focus .side,body.uib-focus ticket-stub-footer{display:none}
-  body.uib-focus .app{grid-template-columns:minmax(0,1fr)}
+  /* Full screen: a class on body (not the browser Fullscreen API). Nav and footer step aside; the toolbar stays.
+     Settings start hidden (setFocus collapses them) and the settings button opens them inside Full screen. */
+  body.uib-focus .site-nav,body.uib-focus ticket-stub-footer{display:none}
 }
 @media (min-width: 861px) and (max-width: 1099px){ :root{--side-w:300px} .top{flex-wrap:wrap;row-gap:6px} .top .dock{flex-wrap:wrap} }
 @media (min-width: 1600px){ :root{--side-w:344px} }
@@ -960,8 +960,7 @@ body{letter-spacing:-.025em}
   /* the panel slides shut and open: the grid column shrinks to 0 while the panel fades */
   .app{transition:grid-template-columns .45s cubic-bezier(.2,.7,.2,1),column-gap .45s ease}
   .side{min-width:0;transition:opacity .3s ease,visibility 0s linear 0s}
-  /* not in Full screen: it hides .side, so the canvas would fall into the 0 column */
-  body.side-collapsed:not(.uib-focus) .app{grid-template-columns:0 minmax(0,1fr);column-gap:0}
+  body.side-collapsed .app{grid-template-columns:0 minmax(0,1fr);column-gap:0}
   body.side-collapsed .side{opacity:0;visibility:hidden;border-width:0;transition:opacity .25s ease,visibility 0s linear .45s,border-width 0s linear .45s}
 }
 /* mockup: Fine-tune colours, Animation and sample text, and Use my own design file open as a layer to the right of the
@@ -1020,10 +1019,7 @@ body{letter-spacing:-.025em}
   <button class="ghost tb-side" id="sideBtn" type="button" aria-pressed="false" aria-controls="side" aria-label="Hide settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
   <script is:inline>{   // own block scope: the builder's main script declares names like card and step at the top level
     // mockup: collapse the settings panel on desktop so the preview gets the full width
-    document.getElementById('sideBtn').onclick = (e) => { const b = e.currentTarget, body = document.body;
-      // Full screen hides the settings panel: here the button leaves Full screen and shows the settings
-      const on = body.classList.contains('uib-focus') ? (document.getElementById('focusBtn').click(), body.classList.remove('side-collapsed'), false)
-        : body.classList.toggle('side-collapsed');
+    document.getElementById('sideBtn').onclick = (e) => { const b = e.currentTarget, on = document.body.classList.toggle('side-collapsed');
       b.setAttribute('aria-pressed', String(on)); b.ariaLabel = on ? 'Show settings' : 'Hide settings'; };
 
     // mockup: one floating tooltip for the builder's controls, on hover and keyboard focus.
@@ -3102,7 +3098,11 @@ document.fonts?.ready.then(fitWorkspace);
 if ('ResizeObserver' in window) new ResizeObserver(fitWorkspace).observe($('.top'));
 // Full screen: a class on body, desktop only. Nav, settings and footer step aside; the toolbar (with Get code) stays.
 const wide = matchMedia('(min-width: 861px)');
+let sideBeforeFocus = false;   // was the settings panel hidden before Full screen? Leaving puts it back that way
+const sideHidden = want => { if (document.body.classList.contains('side-collapsed') !== want) $('#sideBtn').click(); };
 const setFocus = on => {
+  if (on && !inFocus()) { sideBeforeFocus = document.body.classList.contains('side-collapsed'); sideHidden(true); }
+  else if (!on && inFocus()) sideHidden(sideBeforeFocus);
   // focus inside something Full screen hides (settings, site nav) would drop to the page: move it to the toggle instead
   const lost = on && document.activeElement?.closest?.('.side, .site-nav, ticket-stub-footer');
   document.body.classList.toggle('uib-focus', on);
