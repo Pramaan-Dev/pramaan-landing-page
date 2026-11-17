@@ -960,7 +960,8 @@ body{letter-spacing:-.025em}
   /* the panel slides shut and open: the grid column shrinks to 0 while the panel fades */
   .app{transition:grid-template-columns .45s cubic-bezier(.2,.7,.2,1),column-gap .45s ease}
   .side{min-width:0;transition:opacity .3s ease,visibility 0s linear 0s}
-  body.side-collapsed .app{grid-template-columns:0 minmax(0,1fr);column-gap:0}
+  /* not in Full screen: it hides .side, so the canvas would fall into the 0 column */
+  body.side-collapsed:not(.uib-focus) .app{grid-template-columns:0 minmax(0,1fr);column-gap:0}
   body.side-collapsed .side{opacity:0;visibility:hidden;border-width:0;transition:opacity .25s ease,visibility 0s linear .45s,border-width 0s linear .45s}
 }
 /* mockup: Fine-tune colours, Animation and sample text, and Use my own design file open as a layer to the right of the
