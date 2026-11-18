@@ -258,6 +258,7 @@ Search clinical trials, medical evidence, conditions, lab tests and public healt
 - `health.evidence-conditions.list`: List public evidence conditions on examine.com.
 - `health.evidence.search`: Search public evidence on examine.com.
 - `health.image-library.get`: Read image library on dermnetnz.org. Returns personal data: personal details as published.
+- `health.indicator.observations`: Read official global health indicator values by indicator code, optionally for one country, newest year first. Also weekly United States death counts (CDC_COVID19_DEATHS, CDC_INFLUENZA_DEATHS, CDC_PNEUMONIA_DEATHS, CDC_TOTAL_DEATHS, country USA; provisional, and weeks ended in the last 8 weeks are incomplete and marked provisional in breakdown) and England infection series (UKHSA_COVID19_CASES_BY_DAY, UKHSA_INFLUENZA_POSITIVITY_BY_WEEK, country GBR), newest first. Empty answers are free.
 - `health.lab-algorithms.list`: List public lab algorithms on mayocliniclabs.com.
 - `health.lab-tests.get`: Read published lab tests on mayocliniclabs.com.
 - `health.lab-tests.list`: List public lab tests on mayocliniclabs.com.
@@ -307,6 +308,7 @@ Look up medicines, drug interactions, prices, pharmacies and drug alerts.
 - `drugs.suggestions.list`: List public suggestions on cvs.com.
 - `health.branded-medicines.list`: List commercial medicine names by initial letter on altibbi.com.
 - `health.drug-alerts.get`: Read published drug alerts on pharmdata.co.uk.
+- `health.drug-shortages.search`: Search the official list of medicine shortages (United States) by generic or brand name and status, newest update first. Empty answers are free.
 - `health.generic-medicines.list`: List scientific medicine names by initial letter on altibbi.com.
 - `health.herbs.list`: List Ayurveda herb descriptions by initial letter on 1mg.com.
 - `health.medicine-information.get`: Read public medicine uses, dosage and precaution information on altibbi.com.

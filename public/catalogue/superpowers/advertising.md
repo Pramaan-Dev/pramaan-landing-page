@@ -19,6 +19,7 @@ Connect your ad accounts and read campaigns, ads, audiences, spend and results.
 - `ads.audiences.list`: List the custom and lookalike audiences in an ad account, with size (read-only).
 - `ads.campaigns.list`: List ad campaigns with status, budget and spend, impressions, clicks, conversions (read-only).
 - `ads.catalog-ad.create`: Create a catalog-template ad, paused, in an existing ad set, choosing its image or carousel format. Preview by default (checks the ad set and inputs, sends nothing); send an Idempotency-Key when creating. (needs approval)
+- `ads.conversions.adjust`: Retract, restate the value of, or add customer data to conversions already sent to Google Ads (refunds, late data). Customer identity is personal data. Send an Idempotency-Key. (needs approval)
 - `ads.conversions.send`: Report conversion events, including Meta Business Messaging attribution. Customer identity is personal data. Use stable event IDs and an Idempotency-Key. (needs approval)
 - `ads.insights.get`: Spend, impressions, reach, clicks and conversions for a campaign or ad, in total and per day.
 - `ads.lead.update`: Update a lead status and optional deal value on a connected ad account.
@@ -33,6 +34,8 @@ See the ads any company is running, from public ad libraries.
 - `ads.ad.detail-bulk`: Run ads.ad.detail for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 3.96 before the platform fee; the platform quotes the billed maximum before submission.
 - `ads.library.search`: Search a public ad library (Meta, LinkedIn or Google) for ads by keyword, advertiser name or website domain: creative text, media, format, landing page, run dates and delivery facts when disclosed.
 - `ads.library.search-bulk`: Run ads.library.search for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 51.48 before the platform fee; the platform quotes the billed maximum before submission.
+- `companies.google-ads.list`: List the Google ads a company is running, with its advertiser name, ad format and when each ad was first and last seen.
+- `companies.meta-ads.list`: List the Facebook and Instagram ads a company is running, with the page that runs them, the ad title, text and button.
 - `tiktok-ads.library-ad.get`: Read an archived short-video ad and its disclosed delivery details on library.tiktok.com.
 - `tiktok-ads.library-regions.list`: List the countries supported by the public short-video ad archive on library.tiktok.com.
 - `tiktok-ads.library.search`: Search the public short-video ad archive by advertiser or keyword on library.tiktok.com.
@@ -43,6 +46,24 @@ Size Bing ad audiences and see how keywords perform in Bing ads.
 
 - `bing.audience.estimate`: Size an ad campaign's audience on Bing for a targeting of ages, genders, bid and daily budget in one location.
 - `bing.keywords.performance`: How keywords perform in Bing ads by month, device and match type, with impressions, clicks and cost.
+
+## Creator campaigns
+
+Run your creator campaigns: let creators in, review drafts, send samples and run approved posts as ads.
+
+- `social.creator-campaign.ads.launch`: Run approved posts of one of your creator campaigns as ads on your own ad account. The ads are always created paused: switch them on in your ads account. A retry never makes a second ad. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.draft.approve`: Approve a creator's submitted draft so they can publish it. The creator is emailed; each version is decided once. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.draft.reject`: Reject a creator's submitted draft for good. The creator is emailed and the draft takes no new version. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.draft.request-revision`: Ask a creator to change a submitted draft and send a new version. The creator is emailed; each version is decided once. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.drafts.list`: List the drafts creators sent for review in one of your creator campaigns, latest version of each (contains personal data).
+- `social.creator-campaign.participant.approve`: Let a creator who is waiting to join one of your creator campaigns in. The creator is emailed. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.participant.deny`: Turn away a creator who is waiting to join one of your creator campaigns. The creator is emailed and can no longer submit. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.participants.list`: List the creators in one of your creator campaigns, including those waiting for a join decision (contains personal data).
+- `social.creator-campaign.sample.approve`: Approve a creator's free sample request: a single-use 100%-off code for that product is created in your store and emailed to them. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.sample.decline`: Decline a creator's pending free sample request with a reason. The creator is emailed. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.sample.ship`: Record that you sent an approved sample yourself, with an optional tracking link. The creator is emailed. Send an Idempotency-Key. (needs approval)
+- `social.creator-campaign.samples.list`: List the free product samples creators asked for in one of your creator campaigns (contains personal data: shipping addresses).
+- `social.creator-campaigns.list`: List the creator campaigns you run (read-only): state, how creators are paid, how many wait for a decision.
 
 ## Douyin brand and creator index
 
@@ -148,6 +169,7 @@ Manage your website tags, triggers and variables in Google Tag Manager.
 
 Browse the TikTok ad library and top ads by country.
 
+- `ads.tiktok.ad.get`: Read the name and call to action of one TikTok ad by its id.
 - `tiktok-ads.ad.detail`: Read a public TikTok ad library creative with its landing link and engagement counts. For the ad's industry and objective as well use tiktok.ad.detail.
 - `tiktok-ads.locations`: List the countries TikTok's ad library and trend pages can be filtered by, with the code each takes.
 - `tiktok-ads.top-ads`: List featured public TikTok advertisements. Returns personal data: public names, profile details and published content.

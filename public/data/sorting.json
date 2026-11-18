@@ -2167,6 +2167,14 @@
   "Game wikis": {
    "c": "Entertainment",
    "summary": "Search and read game wiki articles, categories and images."
+  },
+  "Creator campaigns": {
+   "c": "Advertising",
+   "summary": "Run your creator campaigns: let creators in, review drafts, send samples and run approved posts as ads."
+  },
+  "Retail product catalog": {
+   "c": "E-commerce",
+   "summary": "Search a catalog of products, brands, categories and retailer websites, with offers across retailers."
   }
  },
  "items": {
@@ -46554,6 +46562,778 @@
   },
   "payslips.list": {
    "c": "Hiring & assessments"
+  },
+  "ads.conversions.adjust": {
+   "c": "Advertising",
+   "f": "Ad accounts"
+  },
+  "ads.tiktok.ad.get": {
+   "c": "Advertising",
+   "f": "TikTok ads"
+  },
+  "aeo.bing.web-answer": {
+   "c": "AI search and SEO",
+   "f": "AI answer engines"
+  },
+  "aeo.chatgpt.shopping": {
+   "c": "AI search and SEO",
+   "f": "AI answer engines"
+  },
+  "agriculture.us-nass-stats.search": {
+   "c": "Government & public data",
+   "f": "Agriculture and crops"
+  },
+  "ai.questions.answer-typed": {
+   "c": "Research",
+   "f": "Web answers"
+  },
+  "airbnb.stays.search": {
+   "c": "Travel & places",
+   "f": "Flights and hotels"
+  },
+  "aliexpress.product.detail": {
+   "c": "E-commerce",
+   "f": "Online marketplaces"
+  },
+  "aliexpress.products.search": {
+   "c": "E-commerce",
+   "f": "Online marketplaces"
+  },
+  "apartments.listings.search": {
+   "c": "Travel & places",
+   "f": "Rentals and shared homes"
+  },
+  "apartments.property.detail": {
+   "c": "Travel & places",
+   "f": "Rentals and shared homes"
+  },
+  "ashby.jobs.search": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "bestbuy.product.detail": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "bestbuy.products.search": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "bing.product.detail": {
+   "c": "AI search and SEO",
+   "f": "Bing Search"
+  },
+  "bing.serp.autocomplete": {
+   "c": "AI search and SEO",
+   "f": "Bing Search"
+  },
+  "bluesky.user.followers": {
+   "c": "Social media",
+   "f": "Bluesky"
+  },
+  "climate.tree-cover-loss.history": {
+   "c": "Government & public data",
+   "f": "Environment and natural hazards"
+  },
+  "code.package-downloads.get": {
+   "c": "Developer tools",
+   "f": "Packages and repos"
+  },
+  "companies.cached-profile.check": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "companies.cached-profile.get": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "companies.employees.list": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "companies.firmographic.get": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "companies.fund-investments.list": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.funding-detail.get": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.funding-rounds.list": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.funding-summary.get": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.funds.list": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.google-ads.list": {
+   "c": "Advertising",
+   "f": "Ad libraries"
+  },
+  "companies.investments.list": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.location.get": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "companies.meta-ads.list": {
+   "c": "Advertising",
+   "f": "Ad libraries"
+  },
+  "companies.mna-investment.get": {
+   "c": "Data",
+   "f": "Company funding and investors"
+  },
+  "companies.organizations.count": {
+   "c": "Data",
+   "f": "Company search"
+  },
+  "companies.organizations.search": {
+   "c": "Data",
+   "f": "Company search"
+  },
+  "companies.organizations.search-prompt": {
+   "c": "Data",
+   "f": "Company search"
+  },
+  "companies.registry.claims.check": {
+   "c": "Data",
+   "f": "Company registers"
+  },
+  "companies.registry.financial-statements.list": {
+   "c": "Finance",
+   "f": "Company financials"
+  },
+  "companies.registry.ownership-graph.get": {
+   "c": "Data",
+   "f": "Company registers"
+  },
+  "companies.software-in-use.check": {
+   "c": "Data",
+   "f": "Company tech and traffic"
+  },
+  "companies.software-in-use.list": {
+   "c": "Data",
+   "f": "Company tech and traffic"
+  },
+  "companies.technology-changes.list": {
+   "c": "Data",
+   "f": "Company tech and traffic"
+  },
+  "companies.technology-customers.list": {
+   "c": "Data",
+   "f": "Company tech and traffic"
+  },
+  "data.open-datasets.describe": {
+   "c": "Research",
+   "f": "Public datasets"
+  },
+  "data.open-datasets.search": {
+   "c": "Research",
+   "f": "Public datasets"
+  },
+  "ebay.seller.profile": {
+   "c": "E-commerce",
+   "f": "eBay"
+  },
+  "economy.rates.observations": {
+   "c": "Finance",
+   "f": "Central banks"
+  },
+  "economy.sidra.values.list": {
+   "c": "Government & public data",
+   "f": "Official statistics"
+  },
+  "energy.grid.carbon-intensity.list": {
+   "c": "Government & public data",
+   "f": "Electricity grids and outages"
+  },
+  "energy.grid.europe-series.list": {
+   "c": "Government & public data",
+   "f": "Electricity grids and outages"
+  },
+  "energy.grid.generation-mix.list": {
+   "c": "Government & public data",
+   "f": "Electricity grids and outages"
+  },
+  "energy.grid.zone-carbon-intensity.get": {
+   "c": "Government & public data",
+   "f": "Electricity grids and outages"
+  },
+  "etsy.product.detail": {
+   "c": "E-commerce",
+   "f": "Online marketplaces"
+  },
+  "etsy.products.search": {
+   "c": "E-commerce",
+   "f": "Online marketplaces"
+  },
+  "eventbrite.events.search": {
+   "c": "Entertainment",
+   "f": "Event listings"
+  },
+  "facebook.hashtag.posts": {
+   "c": "Social media",
+   "f": "Facebook"
+  },
+  "facebook.marketplace.listings.browse": {
+   "c": "E-commerce",
+   "f": "Facebook Marketplace"
+  },
+  "facebook.page.posts": {
+   "c": "Social media",
+   "f": "Facebook"
+  },
+  "facebook.profiles.search": {
+   "c": "Social media",
+   "f": "Facebook"
+  },
+  "facebook.reel.detail": {
+   "c": "Social media",
+   "f": "Facebook"
+  },
+  "geo.locations.search": {
+   "c": "Travel & places",
+   "f": "Addresses and geocoding"
+  },
+  "github.repo.releases": {
+   "c": "Developer tools",
+   "f": "GitHub"
+  },
+  "github.repos.search": {
+   "c": "Developer tools",
+   "f": "GitHub"
+  },
+  "google.maps.menu": {
+   "c": "Travel & places",
+   "f": "Google Maps"
+  },
+  "google.maps.rank": {
+   "c": "Travel & places",
+   "f": "Google Maps"
+  },
+  "government.candidates.search": {
+   "c": "Government & public data",
+   "f": "Elections and polls"
+  },
+  "government.regulations.search": {
+   "c": "Government & public data",
+   "f": "Agencies, notices and public affairs"
+  },
+  "greenhouse.job.detail": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "greenhouse.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "hackernews.item.detail": {
+   "c": "Social media",
+   "f": "Hacker News"
+  },
+  "hackernews.user.profile": {
+   "c": "Social media",
+   "f": "Hacker News"
+  },
+  "health.drug-shortages.search": {
+   "c": "Health",
+   "f": "Medicines and pharmacies"
+  },
+  "health.indicator.observations": {
+   "c": "Health",
+   "f": "Medical research and conditions"
+  },
+  "homedepot.product.detail": {
+   "c": "E-commerce",
+   "f": "Home Depot"
+  },
+  "homedepot.products.search": {
+   "c": "E-commerce",
+   "f": "Home Depot"
+  },
+  "homes.listings.search": {
+   "c": "Travel & places",
+   "f": "Homes for sale"
+  },
+  "homes.property.detail": {
+   "c": "Travel & places",
+   "f": "Property listing details"
+  },
+  "ikea.product.detail": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "ikea.products.search": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "indeed.jobs.search": {
+   "c": "Hiring & assessments",
+   "f": "Job boards"
+  },
+  "instagram.search.creator-lists": {
+   "c": "Social media",
+   "f": "Creator discovery"
+  },
+  "job.postings.match": {
+   "c": "Hiring & assessments",
+   "f": "Job postings"
+  },
+  "job.salary.percentiles": {
+   "c": "Hiring & assessments",
+   "f": "Salaries"
+  },
+  "kroger.product.detail": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "kroger.products.search": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "law.judgments.search": {
+   "c": "Legal",
+   "f": "Court records"
+  },
+  "levels.salaries.search": {
+   "c": "Hiring & assessments",
+   "f": "Salaries"
+  },
+  "lever.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "linkedin.post.reshares.list": {
+   "c": "Social media",
+   "f": "LinkedIn"
+  },
+  "npm.package.detail": {
+   "c": "Developer tools",
+   "f": "Packages and repos"
+  },
+  "npm.packages.search": {
+   "c": "Developer tools",
+   "f": "Packages and repos"
+  },
+  "outreach.contact-groups.list": {
+   "c": "Email & calendar",
+   "f": "Connected email accounts"
+  },
+  "people.cached-profile.check": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.cached-profile.get": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.company-investments.list": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.founded-companies.list": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.fund-investments.list": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.linkedin-url.find": {
+   "c": "Data",
+   "f": "People profiles"
+  },
+  "people.phone.owner.check": {
+   "c": "Phone & messaging",
+   "f": "Phone number checks"
+  },
+  "people.prospects.count": {
+   "c": "Data",
+   "f": "People search"
+  },
+  "people.prospects.lookalike": {
+   "c": "Data",
+   "f": "People search"
+  },
+  "people.prospects.search": {
+   "c": "Data",
+   "f": "People search"
+  },
+  "people.prospects.search-prompt": {
+   "c": "Data",
+   "f": "People search"
+  },
+  "pinterest.user.profile": {
+   "c": "Social media",
+   "f": "Pinterest"
+  },
+  "places.intent.get": {
+   "c": "Travel & places",
+   "f": "Places"
+  },
+  "places.intent.search": {
+   "c": "Travel & places",
+   "f": "Places"
+  },
+  "podcast.episodes.search": {
+   "c": "Entertainment",
+   "f": "Radio and audio shows"
+  },
+  "podcast.search": {
+   "c": "Entertainment",
+   "f": "Radio and audio shows"
+  },
+  "prediction.polymarket.best-price": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.holders.list": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.live-open-interest": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.live-order-book": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.market-details": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.midpoint": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "prediction.polymarket.spread": {
+   "c": "Finance",
+   "f": "Polymarket"
+  },
+  "pypi.project.detail": {
+   "c": "Developer tools",
+   "f": "Packages and repos"
+  },
+  "realtor.listings.search": {
+   "c": "Travel & places",
+   "f": "Homes for sale"
+  },
+  "realtor.property.detail": {
+   "c": "Travel & places",
+   "f": "Property listing details"
+  },
+  "redfin.listings.search": {
+   "c": "Travel & places",
+   "f": "Homes for sale"
+  },
+  "remoteok.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Job boards"
+  },
+  "research.awards.search": {
+   "c": "Government & public data",
+   "f": "Public grants and funding"
+  },
+  "retail.brand.detail": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.brands.list": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.brands.search": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.categories.list": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.categories.search": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.category.detail": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.product.offers": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.product.resolve": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.products.browse": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.products.image-search": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.products.search": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.products.similar": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.retailer.detail": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.retailers.list": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "retail.retailers.search": {
+   "c": "E-commerce",
+   "f": "Retail product catalog"
+  },
+  "security.indicator.threat-intel": {
+   "c": "Identity & security",
+   "f": "Certificates and threat intel"
+  },
+  "shopify.store.products": {
+   "c": "E-commerce",
+   "f": "Online store catalogs"
+  },
+  "smartrecruiters.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "social.creator-campaign.ads.launch": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.draft.approve": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.draft.reject": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.draft.request-revision": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.drafts.list": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.participant.approve": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.participant.deny": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.participants.list": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.sample.approve": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.sample.decline": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.sample.ship": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaign.samples.list": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.creator-campaigns.list": {
+   "c": "Advertising",
+   "f": "Creator campaigns"
+  },
+  "social.instagram.stories.list": {
+   "c": "Social media",
+   "f": "Instagram"
+  },
+  "software.product-categories.list": {
+   "c": "Developer tools",
+   "f": "Software directory"
+  },
+  "software.product-customers.search": {
+   "c": "Developer tools",
+   "f": "Software directory"
+  },
+  "software.products.search": {
+   "c": "Developer tools",
+   "f": "Software directory"
+  },
+  "spotify.item.detail": {
+   "c": "Social media",
+   "f": "Spotify"
+  },
+  "sprouts.product.detail": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "sprouts.products.search": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "stackoverflow.question.answers": {
+   "c": "Developer tools",
+   "f": "Stack Overflow"
+  },
+  "stackoverflow.question.comments": {
+   "c": "Developer tools",
+   "f": "Stack Overflow"
+  },
+  "stackoverflow.question.detail": {
+   "c": "Developer tools",
+   "f": "Stack Overflow"
+  },
+  "steam.app.detail": {
+   "c": "Entertainment",
+   "f": "Game stores and releases"
+  },
+  "steam.apps.search": {
+   "c": "Entertainment",
+   "f": "Game stores and releases"
+  },
+  "substack.publication.posts": {
+   "c": "Social media",
+   "f": "Art and blog communities"
+  },
+  "target.product.detail": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "target.products.search": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "tech.vendors.list": {
+   "c": "Data",
+   "f": "Company tech and traffic"
+  },
+  "tiktok.collection.videos": {
+   "c": "Social media",
+   "f": "TikTok"
+  },
+  "tiktok.song.detail": {
+   "c": "Social media",
+   "f": "TikTok"
+  },
+  "tiktok.trending.videos": {
+   "c": "Social media",
+   "f": "TikTok"
+  },
+  "trade.us-flows.search": {
+   "c": "Data",
+   "f": "Trade data"
+  },
+  "ugc.clip.get": {
+   "c": "Developer tools",
+   "f": "Stock images, video and icons"
+  },
+  "ugc.clips.search": {
+   "c": "Developer tools",
+   "f": "Stock images, video and icons"
+  },
+  "walmart.product.detail": {
+   "c": "E-commerce",
+   "f": "Walmart"
+  },
+  "water.gauges.current": {
+   "c": "Government & public data",
+   "f": "Environment and natural hazards"
+  },
+  "wayfair.product.detail": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "wayfair.products.search": {
+   "c": "E-commerce",
+   "f": "Store products and prices"
+  },
+  "web.images.search": {
+   "c": "AI search and SEO",
+   "f": "Image search"
+  },
+  "web.page-excerpts": {
+   "c": "Web tools",
+   "f": "Web search"
+  },
+  "web.search-excerpts": {
+   "c": "Web tools",
+   "f": "Web search"
+  },
+  "web.serp.independent": {
+   "c": "Web tools",
+   "f": "Web search"
+  },
+  "web.tech.sites.list": {
+   "c": "Web tools",
+   "f": "Website technology"
+  },
+  "wholefoods.product.detail": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "wholefoods.products.search": {
+   "c": "E-commerce",
+   "f": "Grocery and supermarkets"
+  },
+  "wikipedia.article.detail": {
+   "c": "Education",
+   "f": "Wikis and encyclopedias"
+  },
+  "wikipedia.articles.search": {
+   "c": "Education",
+   "f": "Wikis and encyclopedias"
+  },
+  "workable.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "workday.jobs.list": {
+   "c": "Hiring & assessments",
+   "f": "Company jobs and reviews"
+  },
+  "yahoo.finance.history": {
+   "c": "Finance",
+   "f": "Stock prices and markets"
+  },
+  "yelp.place.detail": {
+   "c": "E-commerce",
+   "f": "Yelp reviews"
+  },
+  "zillow.listings.search": {
+   "c": "Travel & places",
+   "f": "Homes for sale"
+  },
+  "zillow.locations.search": {
+   "c": "Travel & places",
+   "f": "Homes for sale"
   }
  }
 }

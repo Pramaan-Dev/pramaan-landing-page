@@ -6,10 +6,12 @@ Rankings, keywords, backlinks, and how AI answer engines see your brand.
 
 Ask ChatGPT, Claude, Perplexity and others a question and get answers with sources.
 
+- `aeo.bing.web-answer`: Ask one question the way a person would on Bing's AI answer page, from a chosen country, and read the answer with the sources it cites. Use it to see how a brand or topic shows up in Bing's AI answers.
 - `aeo.brand-citations.get`: Read aggregate AI citation counts, topics and monthly brand visibility.
 - `aeo.brands.top`: Brands most frequently mentioned in AI answers for a keyword or domain (chatgpt platform only).
 - `aeo.brave.answer`: Ask the Brave answer engine a prompt; returns its answer text and cited sources.
 - `aeo.chatgpt.answer`: Ask the ChatGPT answer engine a prompt; returns its answer text and cited sources.
+- `aeo.chatgpt.shopping`: Ask ChatGPT a shopping question the way a person does in its web app, and get the answer with the products it shows in its shopping cards and the sources it cites.
 - `aeo.chatgpt.web-answer`: Ask ChatGPT a question the way a person does in its web app, and get the answer it shows with the sources it cites.
 - `aeo.citations.count`: How often AI assistants cite a site, and how many of its pages, in total and per assistant.
 - `aeo.claude.answer`: Ask the Claude answer engine a prompt; returns its answer text and cited sources.
@@ -77,6 +79,8 @@ Get Bing keyword ideas with search volume and cost per click.
 
 See Bing results for a query: web, news, images, videos and shopping.
 
+- `bing.product.detail`: Get a Bing Shopping product's details using its product token.
+- `bing.serp.autocomplete`: Get Bing search suggestions for a partial query, with entity details when shown.
 - `bing.serp.images`: Bing image results for a query, with each image's page and title.
 - `bing.serp.news`: Bing News results for a query, with each headline, source, snippet and date.
 - `bing.serp.organic`: Bing organic search results for a query: position, title, URL and snippet.
@@ -227,6 +231,7 @@ Search the web for images and the pages they appear on.
 - `image.reverse-search`: Find public web pages that contain or match an image.
 - `image.search`: Search the web for images matching keywords or a description; returns image URLs, the pages they appear on, titles and dimensions. image.find.match is the one-step mission that also checks each image against the description and the size asked for.
 - `media.stock-photos.search`: Search stock photos with licence information, image dimensions and required source and photographer credits. Display both credits and their links. Image and credit addresses are intentional source attribution. Empty results cost zero; a stock licence does not establish every depicted person's consent.
+- `web.images.search`: Image search only. Finds pictures matching 1-5 keyword queries and an optional natural-language description of what should be in the image. Returns up to 20 results, each with the direct image URL, the page it appears on, a title or caption, and pixel width and height. Supports fast (~1 s) and advanced (~3 s, higher quality) modes and country targeting.
 
 ## Keyword research
 

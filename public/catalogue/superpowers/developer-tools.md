@@ -408,6 +408,8 @@ Read public repository details and see trending repositories.
 - `github.repo.forks`: List public forks of a repository. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
 - `github.repo.issues`: List public repository issues and pull requests. Returns personal data: Public GitHub accounts and published repository content; no contact details or personal rankings..
 - `github.repo.profile`: Read public repository details, description, language and reported activity counts. Takes a repository URL and adds topics, archived state and last update; for several repositories by owner and name use code.repositories.lookup.
+- `github.repo.releases`: List repository releases and downloadable assets. Returns personal data: public account names and published content.
+- `github.repos.search`: Search public GitHub repositories by words and qualifiers, with stars, language and last update. Returns personal data: public repository names, which carry the owner's handle.
 - `github.trending.repositories`: List trending public repositories for a programming language and time period, without contributor profiles.
 - `github.user-or-org-profile.get`: Read user or org profile on deepwiki.com. Returns personal data: personal details as published.
 - `github.user.profile`: Read a public GitHub account profile without contact details. Returns personal data: Public GitHub handles, display names and biographies; no contact details or person scores..
@@ -575,6 +577,7 @@ Look up npm and Python packages and public code repositories.
 - `code.msys2-repositories.list`: List MSYS2 package repositories and their storage statistics on packages.msys2.org.
 - `code.msys2-traffic.get`: Read transfer statistics for the MSYS2 repository server on packages.msys2.org.
 - `code.npm.package`: Details of a package on the npm registry, such as its latest version, licence, dependencies and dates.
+- `code.package-downloads.get`: Read how often a published npm or PyPI package was downloaded over the last day, week or month. Counts come from the registry's public download statistics.
 - `code.projects.list`: List projects — developer learning roadmaps.
 - `code.public-projects.list`: List publicly advertised software project descriptions on merc.guru.
 - `code.pypi.package`: Details of a package on the Python package index, such as its latest version, licence, dependencies and releases.
@@ -602,6 +605,9 @@ Look up npm and Python packages and public code repositories.
 - `code.user-info.get`: Read user info on codechef.com. Returns personal data: personal details as published.
 - `code.user-profile.get`: Read user profile on leetcode.com. Returns personal data: personal details as published.
 - `code.user-repos.list`: List user repos on gitee.com. Returns personal data: personal details as published.
+- `npm.package.detail`: Get an npm package version and its dependencies.
+- `npm.packages.search`: Search npm packages by keywords and qualifiers.
+- `pypi.project.detail`: Get Python package metadata and release files from PyPI.
 
 ## Postgres database
 
@@ -692,6 +698,8 @@ Search a directory of software products and categories.
 - `software.platforms.list`: List software platform names and app counts on alternativeto.net.
 - `software.pricing-plans.list`: List advertised pricing plans for a software product on the chosen site.
 - `software.pricing.get`: Read a software vendor's published pricing plans.
+- `software.product-categories.list`: List the categories business software products are sorted into.
+- `software.product-customers.search`: Find companies that use a software product, described in plain words, with how the product is used and how likely the match is.
 - `software.product-details.get`: Read product details on producthunt.com. Returns personal data: personal details as published.
 - `software.product-features.get`: Read the publicly described features of a software product on the chosen site.
 - `software.product-info.get`: Read product info on jumpingbrowser.com. Returns personal data: personal details as published.
@@ -699,6 +707,7 @@ Search a directory of software products and categories.
 - `software.product-reviews.get`: Read product reviews on the chosen site. Returns personal data: personal details as published.
 - `software.product.get`: Read software product facts and aggregate ratings on the chosen site.
 - `software.products.compare`: Compare the aggregate ratings of two software products.
+- `software.products.search`: Search business software products by name, with their vendor, category, features and review score.
 - `software.project-links.get`: Read project links on baths-matter-31q.craft.me. Returns personal data: personal details as published.
 - `software.projects.search`: Search projects on curseforge.com. Returns personal data: personal details as published.
 - `software.public-credit-policy.get`: Read a public software credit policy and expiration rules on media.io.
@@ -770,6 +779,9 @@ Track software releases, changelogs and updates.
 
 Search Stack Overflow questions.
 
+- `stackoverflow.question.answers`: Read answers to a Stack Overflow question with pagination. Returns personal data: public account names and published content.
+- `stackoverflow.question.comments`: Read comments on a Stack Overflow question with pagination. Returns personal data: public account names and published content.
+- `stackoverflow.question.detail`: Get a Stack Overflow question, its text, tags, and statistics. Returns personal data: public account names and published content.
 - `stackoverflow.questions.search`: Stackoverflow.
 
 ## Stock images, video and icons
@@ -824,6 +836,8 @@ Find stock photos, footage, clipart, textures, fonts and icons.
 - `image.videos.search`: Search videos. Returns personal data: personal details as published.
 - `marketplace.vecteezy.vector.get`: Read vector on vecteezy.com.
 - `marketplace.vecteezy.vectors.search`: Search vectors on vecteezy.com.
+- `ugc.clip.get`: Get one licensable stock video clip found with ugc.clips.search, with its length, look and what it costs to license. Returns personal data: the broad traits of the person shown (age range, gender, hair colour, outfit).
+- `ugc.clips.search`: Search a catalogue of licensable stock video clips of people, by keyword or by describing the shot, with filters for the look of the person, the mood and the place. Searching never costs credits. Returns personal data: the broad traits of the person shown (age range, gender, hair colour, outfit).
 - `video.stock-footage.search`: Search stock footage by topic and category on artlist.io.
 - `video.stock-trending.list`: List trending public stock-video records and dimensions.
 

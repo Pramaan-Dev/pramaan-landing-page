@@ -28,8 +28,8 @@ Search news headlines and articles with sentiment and company tags.
 - `google.serp.news`: Google News results for a query: position, title, URL, snippet, source and date.
 - `news.filters.resolve`: Resolve Filter Ids.
 - `news.headlines.search`: Search News Headlines.
-- `news.news-ticker-summary`: News Ticker Summary.
-- `news.pm-scorings`: Pm Scorings.
+- `news.news-ticker-summary`: Get an AI-written summary of recent news for one stock ticker symbol.
+- `news.pm-scorings`: Get prediction-market price moves for an event or market, each scored against the news headline that may have caused it.
 - `news.signals.search`: News for a company, an industry or any open topic, with per-article sentiment, event tags, industry codes, mentioned companies and named people, products and locations.
 - `web.news.search`: Search recent news articles on a topic; returns headlines, links, excerpts and dates.
 

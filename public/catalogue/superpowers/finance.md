@@ -170,6 +170,7 @@ Follow central bank meetings, policy news, monetary data and calendars.
 - `economy.monetary-policy-meetings.list`: List monetary policy meetings in the United Kingdom.
 - `economy.monetary-series.get`: Read monetary series in Argentina.
 - `economy.monetary-series.list`: List monetary series in Argentina.
+- `economy.rates.observations`: Read the newest dated observations of a central-bank rate or exchange-rate series by its published name. Values come back oldest first; empty answers are free.
 - `government.sg-mas.coins.list`: Read details of Singapore circulation currency coins from MAS.
 - `government.sg-mas.news.search`: Full-text search over MAS news, media releases, speeches, parliamentary replies, publications and other content. Returns paginated results with facets for conte
 - `government.sg-mas.suggestions.get`: Read search autocomplete suggestions from MAS.
@@ -233,6 +234,7 @@ Read a company's statements, ratios, revenue estimates, credit history and filin
 - `companies.material-fact.detail`: Read a material-fact disclosure in full.
 - `companies.material-facts.list`: List an issuer's material-fact disclosures.
 - `companies.portfolio-omissions.list`: List organisations featured in a venture capital partnership's published account of opportunities it passed on, with available descriptions, websites and sector themes. Each entry belongs to a curated editorial portfolio retrospective.
+- `companies.registry.financial-statements.list`: List a company's filed financial statements, newest first, with each period's currency, accounting standard and every reported line item.
 - `companies.registry.financials.get`: Official company statements with periods, currency, line items and disclosed auditor names. At most 20 periods.
 - `companies.reporting-companies.search`: Find issuers in an annual financial statement archive using exchange, industry, sector, initial letter or text filters. Results identify registrants and the classification used by the document catalogue.
 - `companies.reporting-industries.list`: Browse the sector classification and nested industry identifiers used by an annual-statement document archive. The returned hierarchy supports narrowing issuer searches to a particular industry grouping or reporting-sector category.
@@ -738,16 +740,23 @@ Send money to people and businesses, singly or in bulk.
 
 Read Polymarket markets, prices, volume, positions and smart-money moves.
 
+- `prediction.polymarket.best-price`: Read the live best buy or best sell price of one Polymarket outcome token.
 - `prediction.polymarket.candles`: Price candles of a Polymarket market.
 - `prediction.polymarket.cohorts.stats`: Read anonymous Polymarket cohort counts for the source default window.
 - `prediction.polymarket.events`: Events on the Polymarket prediction market with their markets.
 - `prediction.polymarket.events-list`: List published Polymarket events from the first result page.
+- `prediction.polymarket.holders.list`: List the largest holders of each outcome token of Polymarket markets, with their public trader name, wallet address and how much they hold. Returns personal data: traders' public names, bios and wallet addresses.
+- `prediction.polymarket.live-open-interest`: Read the live open interest (value of outstanding positions) of one Polymarket market.
+- `prediction.polymarket.live-order-book`: Read the live bids and asks (price and size at each level) of one Polymarket outcome token.
+- `prediction.polymarket.market-details`: Read one Polymarket market by its id, with the question, outcomes, current outcome prices, volume and status.
 - `prediction.polymarket.markets`: Markets on the Polymarket prediction market, by market slug, with prices and volume.
+- `prediction.polymarket.midpoint`: Read the live midpoint price (halfway between best bid and best ask) of one Polymarket outcome token.
 - `prediction.polymarket.open-interest`: Daily open interest of a Polymarket market.
 - `prediction.polymarket.order-books`: Historical order book snapshots of a Polymarket outcome token.
 - `prediction.polymarket.positions`: A wallet's open and closed positions on Polymarket.
 - `prediction.polymarket.prices`: Price history of a Polymarket market.
 - `prediction.polymarket.smart-money`: Polymarket Smart Money.
+- `prediction.polymarket.spread`: Read the live gap between best bid and best ask of one Polymarket outcome token, a sign of how easy it is to trade.
 - `prediction.polymarket.trades`: List recent public prediction-market trades. Returns personal data: Public names, profiles, wallet activity or published records; see the result fields..
 - `prediction.polymarket.volume-split`: Trading volume of a Polymarket market split by YES and NO outcome.
 - `prediction.polymarket.volumes`: Trading volume and trade count of a Polymarket market over time.
@@ -898,6 +907,7 @@ Get stock quotes, history, indices, sectors, movers and company news.
 - `stocks.upcoming-listings.list`: List upcoming listings in Australia.
 - `stocks.volume-metrics.get`: Read volume metrics in the United States.
 - `stocks.volume.get`: Read a stock's traded volume against its average.
+- `yahoo.finance.history`: Read daily, weekly, or monthly prices and volume for a market symbol.
 
 ## Tax and VAT
 

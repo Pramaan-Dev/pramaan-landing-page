@@ -27,6 +27,7 @@ Look up TLS certificates, certificate authorities, threat reports and security a
 - `security.audited-companies.list`: List public companies with published security audit references on halborn.com.
 - `security.exploited-vulnerabilities.search`: Search known exploited vulnerabilities by CVE, vendor or product; absence means no catalogue entry, not that a vulnerability is safe.
 - `security.gb-iasme.certificates.search`: Search by company name or certificate reference number to find organisations holding a Cyber Essentials or Cyber Essentials Plus certificate issued in the last
+- `security.indicator.threat-intel`: Community threat intelligence on an IP address or domain: how many threat reports mention it, their titles and tags, and its reputation score when known.
 - `software.adversaries.list`: Browse adversaries on alienvault.com. Returns personal data: personal details as published.
 - `software.adversary-details.get`: Read adversary details on alienvault.com. Returns personal data: personal details as published.
 - `software.all-chains.get`: Read all chains on web3.okx.com. Returns personal data: personal details as published.

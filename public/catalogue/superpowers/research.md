@@ -178,6 +178,8 @@ Browse scientific journals, issues and articles by subject.
 
 Look up public data such as drug recalls, nutrition and earthquakes.
 
+- `data.open-datasets.describe`: Describe one open government dataset, its columns and when its rows last changed.
+- `data.open-datasets.search`: Search the catalogue of open government datasets by words in their title or description.
 - `data.vehicle-datasets.list`: List public vehicle image datasets on roboflow.com.
 - `data.vision-dataset.get`: Read a public computer vision dataset and its image counts on roboflow.com.
 - `data.vision-datasets.search`: Search public computer vision datasets by keyword on roboflow.com.
@@ -220,6 +222,7 @@ Look up maths sequences, materials, biology data and engineering calculations.
 
 Ask questions and get sourced answers or reports from the live web.
 
+- `ai.questions.answer-typed`: Takes shared context about a subject and up to 100 named questions, gathers web evidence, and returns a typed answer for each. Returns, per question, a probability that a statement is true ('noul'), the selected option with per-option probabilities ('choice'), or a probability-weighted level with its legend ('score') — or a refusal — plus the cited source URLs and titles and, optionally, their ...
 - `web.answers`: Research the web for a task and return a sourced answer, optionally in your JSON shape.
 - `web.answers-thread`: Answers that remember the conversation: ask a question grounded in the live web, get the answer with its sources, and continue by passing each turn's ref back as ref. Depth is chosen per turn: low $0.01, medium $0.05 (default), high $0.25; a high turn can take up to a minute and miss a short time budget. Domains can limit what the answer may draw on.
 - `web.chat`: Chat with an assistant grounded in the live web: send the conversation so far, get the next reply with the pages it drew on. "fast" is the low-latency tier; "light", "standard" and "deep" research more before answering. Multi-turn works by sending the full history each time.

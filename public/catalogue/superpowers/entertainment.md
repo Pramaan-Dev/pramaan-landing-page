@@ -317,6 +317,7 @@ Look up EA FC Ultimate Team players, prices, price history and squad challenges.
 
 Search events, venues, performers, concerts and festival programmes.
 
+- `eventbrite.events.search`: Search Eventbrite events by location and keyword.
 - `events.agenda.list`: List the upcoming events a venue or box office has published, with dates, venues and ticket links.
 - `events.artist.get`: Read one artist's profile from an events platform. Returns personal data: personal details as published.
 - `events.attendees.list`: List one event's attendees as published, with names and photos. Returns personal data: names and photos of event attendees as published.
@@ -460,6 +461,8 @@ Browse game stores, new releases, deals, player counts and top-rated games.
 - `games.web-game.get`: Read one web game's details.
 - `games.web-games.categories.list`: List a web games portal's categories.
 - `games.web-games.list`: List a web games portal's games with developers and categories. Returns personal data: published developer names.
+- `steam.app.detail`: Get Steam app details, descriptions, publishers, and regional prices.
+- `steam.apps.search`: Find Steam games and software with regional pricing.
 
 ## Game wikis
 
@@ -860,6 +863,8 @@ Find radio channels, schedules, now-playing songs and audio shows.
 - `music.spoken-categories.list`: List public spoken categories on ximalaya.com.
 - `music.spoken-tracks.list`: List public spoken tracks on ximalaya.com.
 - `music.ximalaya-albums.search`: Search albums on ximalaya.com. Returns personal data: personal details as published.
+- `podcast.episodes.search`: Search podcast episodes by words spoken or written in them, with the show each one belongs to. Transcripts are not returned.
+- `podcast.search`: Search podcasts by words in their title or description, with a reach score for each.
 
 ## Records and music merch
 

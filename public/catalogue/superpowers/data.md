@@ -133,9 +133,16 @@ Find funding rounds, acquisitions, investors and pre-IPO valuations for companie
 - `companies.acquisitions.signals`: Recent acquisitions and M&A deals from the press, as structured facts: acquirer, target, deal amount with its currency, announcement date and source link. The upstream feed is rebuilt often and can be legitimately empty for a while; an empty list means no announcements passed the filters.
 - `companies.early-stage-guide.get`: Read early stage guide from Bain Capital Ventures.
 - `companies.financing-events.search`: Search observed company financing events by financing type, location, company size, industry and first observation date; up to 50 events per page.
+- `companies.fund-investments.list`: List the investment funds a company has put money into, with the size and date of each.
+- `companies.funding-detail.get`: Read a company's funding stage, total raised, last funding date and the names of its investors, from its website domain.
 - `companies.funding-history`: A company's funding history: rounds with dates, amounts and investors, total raised, revenue, headcount, and the chief executive.
 - `companies.funding-history-bulk`: Run companies.funding-history for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 7.92 before the platform fee; the platform quotes the billed maximum before submission.
+- `companies.funding-rounds.list`: List the funding rounds a company has raised, with the stage, amount, date and investors of each.
+- `companies.funding-summary.get`: Read a company's total funding, revenue, size band, ownership and top competitors from its domain or name.
 - `companies.funding.signals`: Recent startup funding rounds from the technology press, as structured facts: company, amount with its currency, round type, announcement date and source link. A rolling feed of what was just announced, not a search over one company's history.
+- `companies.funds.list`: List the investment funds a company runs, with the size and date of each.
+- `companies.investments.list`: List the companies an investing company has put money into, with the date and amount.
+- `companies.mna-investment.get`: Read the companies a business has acquired or invested in, with counts, from its website domain.
 - `companies.portfolio.list`: List the companies an investor company has invested in, with when and how much each has raised in all.
 - `companies.pre-ipo.list`: Private companies tracked before going public, with their latest valuation.
 - `companies.pre-ipo.markets`: Markets where exposure to a private company's shares trades before it goes public.
@@ -185,6 +192,8 @@ Get a full profile of a company from its name, website or profile link.
 - `companies.buying-intents.list`: List technology buying interests reported for a company domain.
 - `companies.by-brand.search`: Find Moroccan businesses selling one brand.
 - `companies.by-phone.get`: Find published directory listings for a phone or fax number. Returns personal data: personal details as published.
+- `companies.cached-profile.check`: Probe cached organization coverage without retrieving a full profile. Returns profile availability and last-updated information. Supports company LinkedIn URLs or company IDs.
+- `companies.cached-profile.get`: Read a cached organization identity. Returns industry, headcount, headquarters, founding year, specialties and website. Supports company LinkedIn URLs and company IDs.
 - `companies.community-company-profile.get`: Read a company's profile in a software community on trailhead.salesforce.com. Returns personal data: personal details as published.
 - `companies.company-details.get`: Read company details on wlw.de. Returns personal data: personal details as published.
 - `companies.company-locations.get`: Read company locations. Returns personal data: personal details as published.
@@ -201,11 +210,13 @@ Get a full profile of a company from its name, website or profile link.
 - `companies.dismantlers.list`: List vehicle dismantling yards and the services they offer.
 - `companies.domain.find`: Use when you have a business name but need its website domain; for a company profile use companies.enrich. Find the most likely website domain for a company name.
 - `companies.domain.find-bulk`: Find company domains for up to 1000 company-name rows as one background job. Each result carries your row id; no record is found false.
+- `companies.employees.list`: List the current and former employees of a company, with their LinkedIn page, place and the dates they were there. Returns personal data: names, places and LinkedIn pages of the company's employees.
 - `companies.enrich`: Use when you need one company profile from its domain, name or LinkedIn page; for a list of businesses use companies.search. Company profile (industry, size, founding year, location, links) from a domain, name or LinkedIn URL.
 - `companies.enrich-bulk`: Enrich up to 100 companies in one asynchronous job — domain or profile URL per row, all rows the same kind (a company name is not an identifier and is not accepted); each result row carries the company's profile fields next to your row id and a found flag. Runs as a job: start it, then poll for the rows. Each matched company costs the same as a single enrich.
 - `companies.event-calendar.list`: List an exchange's corporate event calendar entries.
 - `companies.featured-internet-services.list`: List featured Swedish internet service business names.
 - `companies.fetch-company-context`: Get company context.
+- `companies.firmographic.get`: Read a company's basic facts from its website domain - name, legal name, type, founding year, size band, operating status, ownership and a short description.
 - `companies.founders.list`: List the founders of a company, with where they are based and their public LinkedIn, X and GitHub profiles. Returns personal data: founders' names, location and links to their public LinkedIn, X and GitHub profiles.
 - `companies.headcount.get`: How many people a company employs, with the split by department when the source has it.
 - `companies.identify`: Use when you must choose which company a name or domain refers to; for details about a known company use companies.enrich. Resolve one company from a website domain, a name or a profile URL; returns the candidate matches ranked by the source. Use it to disambiguate before enriching.
@@ -220,6 +231,7 @@ Get a full profile of a company from its name, website or profile link.
 - `companies.launch-posts.list`: List the latest posts companies made on startup community sites to launch a product or announce they are hiring, newest first.
 - `companies.linkedin.find`: Find a company's LinkedIn page from its name or website domain.
 - `companies.listings.search`: Search listings on yellowpages.com.eg. Returns personal data: personal details as published.
+- `companies.location.get`: Read where a company is based and its offices, from its website domain. Use it to find a headquarters city and country or a list of office locations.
 - `companies.name.match`: Compare two company names, allowing for legal suffixes and spelling, and say whether they are the same company.
 - `companies.name.normalize`: Normalize a company name: legal suffixes (Inc, LLC, Ltd, Corporation and similar) removed, sentence case with acronyms kept uppercase, and nothing but the name returned.
 - `companies.operations.get`: Disclosed company activities, industries and operating facts with period and currency. At most 100 rows per section.
@@ -298,6 +310,7 @@ Read official company register records, officers, owners, filings and licences.
 - `companies.registry.charge-history.list`: Registered charge events with dates, amounts and creditor names. At most 100 rows.
 - `companies.registry.charge.get`: Read a registered charge by its row handle, including creditor names and charged assets.
 - `companies.registry.charges.list`: List registered company charges, their assets and disclosed creditor names, which may identify people. At most 100 rows per page.
+- `companies.registry.claims.check`: Find a company in its official register and compare what you were told about it, such as its legal name, with what the register holds. Use it to check a business is what it says it is.
 - `companies.registry.contacts.get`: Publicly disclosed business contact emails and phone numbers. No personal contact enrichment.
 - `companies.registry.contributions.get`: Partnership contribution obligations, amounts received and disclosed partner names. At most 100 partner rows.
 - `companies.registry.filing.get`: Read a filing row, its disclosed annotations, associated filings and resolutions. Descriptions may name people; documents are not downloaded.
@@ -314,6 +327,7 @@ Read official company register records, officers, owners, filings and licences.
 - `companies.registry.officers.search`: Search public registered officers, returning disclosed names, roles, addresses and birth-date precision. Each row states its supported follow-ups. At most 100 rows; no person score.
 - `companies.registry.owner.get`: Read disclosed owner details, including public names, birth-date precision, nationality and service address. Protected identities remain absent.
 - `companies.registry.owners.list`: List disclosed controlling entities and beneficial owners, including public personal names. Significant control does not prove ultimate ownership. At most 100 rows.
+- `companies.registry.ownership-graph.get`: Walk a company's ownership chain upward through the official registers and list each company or person on the way, with how much of the company they own. Use it to find who stands behind a company. Returns personal data: names of owners and controllers that the register discloses.
 - `companies.registry.search`: Search the official company register by name; returns each match's registry number, jurisdiction, status and incorporation date.
 - `companies.registry.shareholdings.get`: Disclosed named and category shareholdings, including shareholder and officer names; at most 100 rows per section.
 - `companies.registry.statement.get`: Read a public control, registration, notice or trademark statement. Disclosed entity names may identify people; source metadata and person scores are omitted.
@@ -352,6 +366,9 @@ Find lists of companies by description, filters or lookalikes.
 - `companies.lookalike.search`: Find companies that resemble a set of example companies you give by their website domains, in size, industry and profile. Each company returned is billed.
 - `companies.match-search`: Find up to 100 company matches for identity and location hints. Returns company profiles without people or match scores.
 - `companies.natural-language.search`: Build a list of companies from one natural-language description, or from structured filters a filter lookup resolved. Each row is a company profile; totalMatches counts everything that fit. For a simple search by name, industry, technology or domain use companies.search.
+- `companies.organizations.count`: Size an account audience without purchasing profiles. Returns the matching organization count. Supports firmographic filters including industry, domain, employee count and headquarters.
+- `companies.organizations.search`: Build an account list with firmographic filters. Returns organization profiles and an opaque nextCursor. Supports industry, domain, name, employee count, founding year, specialties and headquarters, with up to 100 results per page.
+- `companies.organizations.search-prompt`: Turn a plain-language market description into an account search. Returns full company profiles and an opaque nextCursor. Supports natural-language prompts and up to 100 profiles per page.
 - `companies.profile.search`: Search detailed company profiles using typed predicates, up to 50 per page. Explicit groups add funding, workforce, growth, inferred technology use and hiring counts; arrays capped at 50.
 - `companies.search`: Use when you need a list of companies matching filters or a description; for one known business profile use companies.enrich. Find companies by description, name, industry, technology used or domain; optional country. For filters resolved by a filter lookup, with a count of every match, use companies.natural-language.search.
 - `companies.search-bulk`: Run one company filter search as an asynchronous job and get the whole match set as rows, up to 10000 companies (the page search returns one page at a time). The job stops at maxRows and is limited to it upstream, so the worst case is maxRows results, and the job refuses to start unless your credit covers that worst case (the technology filter costs the most per company). Runs as a job: start it, then poll.
@@ -414,8 +431,13 @@ See the technologies, website traffic and infrastructure behind a company.
 
 - `companies.footprint.growth`: Read quarterly company infrastructure growth; these are not revenue or headcount growth. Estimated maximum $0.1835.
 - `companies.footprint.score`: Read a company infrastructure footprint score and its certificate-based components. Estimated maximum $0.1835.
+- `companies.software-in-use.check`: Check whether a company uses named software products, with when each use was first and last seen.
+- `companies.software-in-use.list`: List the software products a company is seen using, with their categories and when each use was first and last seen.
 - `companies.technologies.search`: Search the catalogue of website technologies (analytics, payments, hosting and the like) by name, with what each is, its vendor's site, its categories and what it typically costs. Billed per technology returned.
+- `companies.technology-changes.list`: List companies that recently adopted or dropped a named technology vendor, with what changed and when.
+- `companies.technology-customers.list`: List companies that currently use a named technology vendor, with their size, industry and country.
 - `companies.traffic`: Read dated monthly visitor estimates and traffic channel percentages for company domains. No visitor identities. At most 25 domains and 100 observations per list, with truncation flags. Maximum source cost $0.20 at the provisional credit rate.
+- `tech.vendors.list`: List the technology vendors and products whose customers can be looked up, with their category and website. Free.
 
 ## Construction projects
 
@@ -498,6 +520,9 @@ Draft sales emails and campaigns from company signals; nothing is sent.
 
 Turn a name, email or profile link into a full professional profile.
 
+- `people.cached-profile.check`: Probe cached person coverage without retrieving a full profile. Returns profile availability and last-updated information. Supports person LinkedIn URLs or person IDs. Returns personal data: names, job titles, employers, education and locations from professional profiles.
+- `people.cached-profile.get`: Read a cached professional identity. Returns current position, work history, education, skills, languages and location. Supports public LinkedIn URLs and person IDs. Returns personal data: names, job titles, employers, education and locations from professional profiles.
+- `people.company-investments.list`: List the companies a person has invested in, with the date and amount. Returns personal data: the investments of the person the caller names.
 - `people.contact.social-profiles`: Read the public social profile links of a contact selected from company contact search. Returns personal data: the contact's social profile links.
 - `people.contacts.enrich`: Enrich one person in the background and read their contact details back: their profile (name, title, employer, location, profile URL) plus their email addresses — professional by default, personal too on request, and their mobile numbers when includePhones is set. Personal data: the result carries private mailbox addresses, and mobile numbers when asked. Runs as a job: start it, then poll for the result.
 - `people.contacts.enrich-bulk`: Enrich up to 2500 people in one background run and read their contact details back, every row keyed by your own row id: found true with the person's profile and their email addresses (and mobile numbers for the rows that asked), found false where the source had nothing. The run looks for numbers only when at least one row sets includePhones. Personal data: the rows carry private mailbox addresses, and mobile numbers where they were asked for. The run is held for its worst case before it starts, and a row that asks for phones is the dearest; ask for an estimate to see the most a run can cost.
@@ -506,10 +531,13 @@ Turn a name, email or profile link into a full professional profile.
 - `people.enrich-availability`: Preview a person from private or professional identity hints. Returns real name, title, employer and profile link, with flags for private contact, residential and history data; no private values or scores.
 - `people.enrich-bulk`: Enrich up to 500 people in one run: the professional profile (name, title, employer, location, profile URL) of each row, keyed by your own row ids, with found false where the source had nothing. No contact details are returned. Billed per row submitted whether or not the row matches, so the run costs the same if half the rows miss.
 - `people.enrich-with-company`: Look up one work email and return the person's professional profile alongside their company's profile, in one call. Personal data: returns the person's name, title, employer, location and profile links behind the address.
+- `people.founded-companies.list`: List the companies a person has founded, with what each does, when it was founded and its size. Returns personal data: the companies founded by the person the caller names.
+- `people.fund-investments.list`: List the investment funds a person has put money into, with the size and date of each. Returns personal data: the fund investments of the person the caller names.
 - `people.gender.check`: Guess a person's gender from their full name: a statistical guess from the first name within the supplied full name, returned for the one name sent. Personal data: a demographic attribute inferred about a person. The answer is a guess about the name, never a fact about the person. We do not keep the name or the answer beyond a one-way hash in the call record, and nothing ranks or filters people by it.
 - `people.identify`: Find candidate people from personal identity hints: name, public profile identifier, work or private email, email hash, private phone, employer, school, residential address or birth date. Returns names and professional profiles in alphabetical order, without contacts or match scores.
 - `people.identity.resolve`: Use when a work email must become a name and LinkedIn page; for a full professional profile use people.enrich. Resolve a work email to the person's LinkedIn profile URL and name.
 - `people.identity.resolve-bulk`: Resolve up to 100 email addresses to the people behind them in one asynchronous job — their LinkedIn profile URL and name, keyed by your row id. Work and personal addresses both resolve. Runs as a job: start it, then poll for the rows; an email that resolves to nobody costs nothing.
+- `people.linkedin-url.find`: Find a person's LinkedIn page from their work or personal email address. Returns personal data: the email address the caller names and the person's LinkedIn page.
 - `people.linkedin.find`: Find a person's LinkedIn profile URL from their full name (or first and last name) and their company's domain.
 - `people.name.normalize`: Clean up a person's name: emojis, special characters, professional and academic suffixes, generational suffixes, honorifics, pronouns and bracketed text removed, spaces trimmed, accents folded.
 - `people.name.parse`: Split a full name into prefix, first, middle and last names, suffix and nickname. Returns personal data: the name the caller sends, split into its parts.
@@ -537,6 +565,10 @@ Find and count people by role, company and description, and export lists.
 - `people.lists.upsert`: Create an exclusion list of people or companies on the data source's account, or add to one: up to 10 members per call, each given as a LinkedIn profile URL (people) or a website domain (companies) and resolved to a record before it enters the list — resolving costs credits per matched record, so the call is not free even though the list itself is. A second call with the returned ref appends or replaces. Lists expire after 24 hours at the source, hold at most 10,000 members. No other capability here takes a list yet. This is per-caller state on a shared account: every list belongs to the caller that created it.
 - `people.lookalike.search`: Find people whose role, seniority and employer resemble a set of example people you give by their LinkedIn profiles. No contact details. For similar profiles from job facts, with profile links only, use candidate.lookalikes.find. Returns personal data: names, job titles, departments, employers, city and country, and LinkedIn URLs of the people found.
 - `people.profile.search`: Search people with typed filters and dataset slices, up to 50 per page. Professional data by default; explicit groups add work email, personal emails, phones, residential addresses, demographics and inferred compensation. No scores; histories capped at 50 and text at 5000 characters.
+- `people.prospects.count`: Size a prospect audience without purchasing profiles. Returns the matching record count. Supports the same professional, employment, education and location filters as structured people search.
+- `people.prospects.lookalike`: Expand a prospect list from a seed professional identity. Returns similar profiles and an opaque nextCursor. Supports a person LinkedIn URL or person ID and up to 100 profiles per page. Returns personal data: names, job titles, employers, education and locations from professional profiles.
+- `people.prospects.search`: Build a prospect list with structured filters. Returns professional profiles and an opaque nextCursor. Supports title, function, seniority, contract type, current and past employers, schools, skills, languages and location, with up to 100 profiles per page. Returns personal data: names, job titles, employers, education and locations from professional profiles.
+- `people.prospects.search-prompt`: Turn a plain-language audience description into a profile search. Returns full professional profiles and an opaque nextCursor. Supports natural-language prompts and up to 100 profiles per page. Returns personal data: names, job titles, employers, education and locations from professional profiles.
 - `people.role.find`: Find the one person who holds a named role at a company, for example its chief financial officer, and return their LinkedIn profile. To list many people at a company by job title, use people.search. Returns personal data: the LinkedIn profile URL of the person in that role.
 - `people.search`: Find people by description, company domain, job title or name; optional country, location and keywords. No contact details.
 - `people.search-availability`: Preview people matching typed filters and explicit dataset slices, up to 50 per page. Returns real personal names and professional profiles with private contact, residential and history availability flags, never their private values or scores.
@@ -622,6 +654,7 @@ Find importers, exporters and shipments, and see country trade figures.
 - `trade.statistics.history`: Read a country's trade totals by period.
 - `trade.statistics.services-codes.list`: List services codes for international goods and services trade statistics.
 - `trade.statistics.services-observations.search`: Search services observations for international goods and services trade statistics.
+- `trade.us-flows.search`: Read monthly United States goods imports or exports by HS commodity, ranked by trading partner; for example soybean exports in January 2024. Values are US dollars for the month. Official US Census data.
 - `trade.volume.history`: Trade value and volume over time (by month, quarter or year) for the shipments matching a trade search.
 
 ## Trade shows and exhibitors

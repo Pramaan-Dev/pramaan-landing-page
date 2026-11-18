@@ -30,6 +30,7 @@ Check, complete and split addresses and turn them into map points and back.
 - `geo.destinations.search`: Find destinations and navigation points from an address or coordinate. Returns personal location data.
 - `geo.locate`: Estimate device location from radio observations. Returns personal precise location; server IP fallback is disabled.
 - `geo.location.clean`: Normalize place text into geographic location facts and coordinates when known.
+- `geo.locations.search`: Look up places (cities, regions, countries) by name, with their coordinates and population.
 - `geo.place.geocode`: Expand a place handle into postal address components and coordinates. Returns personal address data.
 
 ## Air quality
@@ -358,6 +359,7 @@ Find electric-car chargers and see whether they are free right now.
 
 Search and price flights, seats and hotel rooms.
 
+- `airbnb.stays.search`: Search Airbnb stays by destination and dates.
 - `aviation.flight-status.get`: Read the status of a flight by number and date.
 - `aviation.flight.get`: Read a tracked flight's schedule and live data by its tracker id.
 - `aviation.flights.nearby`: List live aircraft positions inside a geographic bounding box.
@@ -474,8 +476,10 @@ Find events happening near you, with time and place.
 Find places on Google Maps and read their reviews, photos and posts.
 
 - `google.maps.contributor-reviews`: List the public Google Maps reviews one contributor has written, with the places reviewed. Returns personal data: one reviewer's public review history, namely the review text, ratings, dates and places reviewed.
+- `google.maps.menu`: Get a restaurant's menu, prices, booking links, and opening hours.
 - `google.maps.photo-metadata`: Say where and when a Google Maps photo was taken and who posted it. Returns personal data: the display name and profile link of the person who posted the photo.
 - `google.maps.posts`: The posts a business has published on its Google Maps listing, with their text, date and links.
+- `google.maps.rank`: Use when you need to know where one business ranks in Google Maps for a search phrase as seen from one spot; for the list of places a search shows use google.serp.maps. Find the position of a business in Google Maps results for a search phrase, as seen from one latitude and longitude.
 - `google.maps.reviews`: List the Google Maps reviews of a place, by its Google place id. Returns personal data: the reviewer's display name, with the review text.
 - `google.serp.local`: Google local-pack businesses for a query: name, address, rating, reviews, website.
 - `google.serp.maps`: Google Maps places for a query: name, address, rating, reviews, website, location.
@@ -484,6 +488,7 @@ Find places on Google Maps and read their reviews, photos and posts.
 
 Search homes and property for sale by location, type and price.
 
+- `homes.listings.search`: Search real-estate listings from a search page URL on the homes listing site. Not for other real-estate sites or a general property lookup. Returns personal data: listing seller or broker names as published.
 - `housing.amenities.list`: List amenities advertised for a property on rent.com.
 - `housing.amenity-counts.get`: Read listing counts grouped by advertised amenity on zapimoveis.com.br.
 - `housing.amenity-filters.list`: List amenity names accepted by a housing data source on terracaribbean.com.
@@ -541,6 +546,10 @@ Search homes and property for sale by location, type and price.
 - `real-estate.search-results.read`: Read search results on centris.ca.
 - `real-estate.similar-listings.search`: Search similar listings on auction.com.
 - `real-estate.text-olly-link.get`: Read text olly link on server.olly.bot. Returns personal data: personal details as published.
+- `realtor.listings.search`: Search Realtor.com listings from a search URL.
+- `redfin.listings.search`: Search Redfin homes for sale or recently sold.
+- `zillow.listings.search`: Search Zillow homes for sale, for rent or recently sold.
+- `zillow.locations.search`: Get Zillow region and address suggestions.
 
 ## Local businesses
 
@@ -626,6 +635,8 @@ Search places, get their details and photos, and count places in an area.
 - `places.directory-regions.list`: List region names in a public local business directory.
 - `places.featured.list`: List featured UAE local business directory places.
 - `places.home-stores.list`: List public home-goods retail locations by state on homegoods.com.
+- `places.intent.get`: Get everything known about one place found with places.intent.search, including its opening hours, its scores for each thing people care about and the reasons behind them.
+- `places.intent.search`: Find places that suit what you want, such as work friendly, gluten free or great coffee, near a city or a point on the map. Each place comes with a score for the things you asked about and the reasons behind it.
 - `places.internet-coverage.get`: Read published broadband coverage at an address on altroconsumo.it.
 - `places.internet-offers.search`: Compare published broadband offers available at an address on altroconsumo.it.
 - `places.parking-cities.list`: List cities covered by the public parking directory on bestparking.com.
@@ -642,6 +653,7 @@ Search places, get their details and photos, and count places in an area.
 
 Read a property listing in full: price, photos, features and contact.
 
+- `homes.property.detail`: Get one home-for-sale property from a listing page URL on the homes listing site. Not for other real-estate sites or a general property lookup. Returns personal data: listing agents' names and phone numbers as published.
 - `housing.home-listing.get`: Read listing on home.ss.ge. Returns personal data: personal details as published.
 - `housing.listing-contact.get`: Read listing contact on padmapper.com. Returns personal data: personal details as published.
 - `housing.listing-detail-residence.get`: Read listing detail residence on studapart.com. Returns personal data: personal details as published.
@@ -669,6 +681,7 @@ Read a property listing in full: price, photos, features and contact.
 - `real-estate.property-pricing.get`: Read property pricing on cbre.com.
 - `real-estate.property-reviews.get`: Read property reviews on amberstudent.com. Returns personal data: personal details as published.
 - `real-estate.realtor-details.get`: Read realtor details on immobilienscout24.de. Returns personal data: personal details as published.
+- `realtor.property.detail`: Get a Realtor.com property by URL.
 
 ## Property prices and trends
 
@@ -796,6 +809,8 @@ Find real estate agents, agencies, brokers and landlords.
 
 Search rentals, shared flats, student housing and coworking spaces.
 
+- `apartments.listings.search`: Search Apartments.com listings from a search URL.
+- `apartments.property.detail`: Get an Apartments.com property by URL.
 - `housing.coworking-location.get`: Read the location, facilities and opening hours of a coworking space on wework.com.
 - `housing.coworking-locations.search`: Find coworking buildings by city or area on wework.com.
 - `housing.flats-listings.get`: Read flats listings on housing.com. Returns personal data: personal details as published.
@@ -1107,7 +1122,7 @@ Check visa requirements, passport rankings, immigration rules and eSIM plans.
 Get official warnings, fire risk and weather events for a place.
 
 - `weather.alert.get`: Read a weather warning through the handle returned by weather.alerts.list.
-- `weather.alerts.list`: Official government weather warnings at geographic coordinates, with optional handles for reading their details. Up to 10 warnings; estimated maximum $0.0198.
+- `weather.alerts.list`: Official government weather warnings at geographic coordinates. Up to 10 warnings. A row carries a handle for reading its details only when its source offers one; empty answers are free.
 - `weather.events.search`: Search active-fire detections or modeled weather event feeds at geographic coordinates or an explicit area, with supported filters. Government-only warning lists use weather.alerts.list.
 - `weather.fire-index.get`: Fire weather index at geographic coordinates on an explicitly selected scientific model; at most 50 records.
 

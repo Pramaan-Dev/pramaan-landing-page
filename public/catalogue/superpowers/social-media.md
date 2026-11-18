@@ -23,6 +23,7 @@ Read creative portfolios and blogs on Behance, ArtStation, DeviantArt and Tumblr
 - `social.projects.list`: List projects on artstation.com. Returns personal data: personal details as published.
 - `social.user-artworks.get`: Read user artworks on deviantart.com. Returns personal data: personal details as published.
 - `social.userspage.get`: Read userspage on straw.page. Returns personal data: personal details as published.
+- `substack.publication.posts`: Page through public publication archives with titles, dates, and engagement counts. Returns personal data: public account names and published content.
 
 ## Bilibili
 
@@ -55,6 +56,7 @@ Search Bilibili videos, comments, live rooms and trending topics.
 
 Read public Bluesky profiles and posts.
 
+- `bluesky.user.followers`: List the public followers of a Bluesky account. Returns personal data: public account names and published content.
 - `bluesky.user.posts`: Read the first page of public posts for a Bluesky handle, omitting author profiles.
 - `bluesky.user.profile`: Read a Bluesky account's public profile, with its display name, description, avatar and follower counts. Returns personal data: the account's public handle, display name, description and photo.
 
@@ -150,6 +152,7 @@ Find creators on Instagram, TikTok and YouTube and compare their audiences and r
 - `creators.search-image`: Find public creators by an uploaded PNG or JPEG image, up to 5 MB; returns unscored matches. Estimated maximum: 1.25 USD.
 - `creators.socials.find`: Find a creator's accounts on other social platforms from one handle, with the evidence for each match. Returns personal data: links to the creator's accounts on other platforms.
 - `creators.suggest`: Autocomplete public creator handles and descriptive profile details. Estimated maximum: 0.05 USD.
+- `instagram.search.creator-lists`: Find web pages that list Instagram creators in a niche, such as directories, rankings and articles, with the passages that name them. Use it to build a shortlist of creators to look up with instagram.user.profile. Returns personal data: the public names and handles of creators that the pages list.
 - `social.creator-details.get`: Read creator details on patreon.com. Returns personal data: personal details as published.
 - `social.creator-engagement.get`: Read creator engagement on tiktok.com. Returns personal data: personal details as published.
 - `social.creator.search`: Search creator. Returns personal data: personal details as published.
@@ -256,10 +259,12 @@ Read public Facebook pages, groups, posts, comments and events.
 - `facebook.events.search`: Search public Facebook events by name, with when and where each happens and how many are going.
 - `facebook.group.posts`: List recent posts in a public Facebook group, with their text, authors, reactions and comment counts. Returns personal data: the public Facebook names of the people who posted.
 - `facebook.group.profile`: Get a public Facebook group by its address, with its description, privacy and member count.
+- `facebook.hashtag.posts`: Get public Facebook posts for a hashtag. Returns personal data: public account names and published content.
 - `facebook.page.contact`: Get the contact details a Facebook page publishes (email, phone, address, website) with its category and followers. Returns personal data: the email address and phone number a page publishes, which can be a person's own.
 - `facebook.page.events`: List the public events a Facebook page has created, with when and where each happens.
 - `facebook.page.followers`: List the people and pages that follow a public Facebook page, with their names and profile addresses. Returns personal data: the names and profile addresses of a page's followers.
 - `facebook.page.photos`: List the photos a public Facebook page or profile has posted, with their captions and pixel sizes. Returns personal data: the photos and captions a person posted, when the address is a person's profile.
+- `facebook.page.posts`: Get recent public posts from a Facebook Page. Returns personal data: public account names and published content.
 - `facebook.page.reels`: List the reels a public Facebook page has posted, with their descriptions and views.
 - `facebook.page.reviews`: List public reviews of a Facebook business page, without reviewer profiles or contact details.
 - `facebook.pages.search`: Search Facebook pages of businesses and organisations by keyword, with their categories and audience.
@@ -267,6 +272,8 @@ Read public Facebook pages, groups, posts, comments and events.
 - `facebook.post.detail`: Get one public Facebook post by its address, with its text and its likes, comments, shares and views.
 - `facebook.post.transcript`: Get the spoken words of a Facebook video post as text, by the post's address. Returns personal data: what the people in the video say.
 - `facebook.posts.search`: Search public Facebook posts by keyword, with their text, authors and reactions. Returns personal data: the public Facebook names of the people who posted.
+- `facebook.profiles.search`: Search public Facebook profiles by name. Returns personal data: public account names and published content.
+- `facebook.reel.detail`: Get a public Facebook reel by its URL. Returns personal data: public account names and published content.
 - `facebook.user.posts`: List recent public posts from a Facebook profile or page.
 - `facebook.user.profile`: Get a public Facebook profile or page: name, link and public details.
 
@@ -306,8 +313,10 @@ Read forum threads, community posts and stories.
 
 Search Hacker News stories.
 
+- `hackernews.item.detail`: Get a Hacker News story, comment, job, or poll by ID. Returns personal data: public account names and published content.
 - `hackernews.stories.search`: Hackernews.
 - `hackernews.story.comments`: List the public comments on one discussion story. Returns personal data: public commenter handles and comment text.
+- `hackernews.user.profile`: Get a public Hacker News profile and recent submitted item IDs. Returns personal data: public account names and published content.
 
 ## IMDb
 
@@ -367,6 +376,7 @@ Read profiles, posts, reels, stories, comments, hashtags and places on Instagram
 - `instagram.user.tagged`: List Instagram posts an account is tagged in, with their captions, authors and engagement. Returns personal data: the public Instagram handles and names of the people involved.
 - `instagram.user.username`: Get an Instagram account's username from its numeric user id.
 - `social.instagram.live.list`: List live broadcasts in progress for a connected Instagram account.
+- `social.instagram.stories.list`: List the live stories of a connected Instagram account, and with includeExpired the ones archived after they expired, with their numbers.
 - `social.instagram.tags.list`: List posts tagging a connected Instagram account.
 
 ## Kick
@@ -455,6 +465,7 @@ Read LinkedIn profiles, companies, posts and comments, and message or post from 
 - `linkedin.post.react`: React to a LinkedIn post as an end user: like, celebrate, support, love, insightful or funny. (needs approval)
 - `linkedin.post.reactions`: List who reacted to a LinkedIn post (by URN or id) and with which reaction.
 - `linkedin.post.repost`: Repost a LinkedIn post as an end user, with optional commentary; empty text reposts it as-is. (needs approval)
+- `linkedin.post.reshares.list`: List the posts that reshared a LinkedIn post, with who reshared it, what they added and the reaction count. Returns personal data: names and LinkedIn pages of the people who reshared the post the caller names.
 - `linkedin.post.transcript`: Get the spoken words of a LinkedIn video post as text, by the post's address. Returns personal data: what the people in the video say.
 - `linkedin.posts.monitor.create`: Watch a saved social-post search on a schedule; each run delivers the posts that newly match, with their authors' public profile fields. Standing spend: rented monthly at the worst case of the request: runs a month (744 divided by everyHours, rounded up) times maxResultsPerRun times 2 credits per post, so the defaults (every 24 hours, 25 posts) are 1,550 credits a month. The dearest option is isRealtime, 150 credits per delivered post (116,250 a month at the defaults); it is never the default. No notifications are sent; read deliveries with data.monitor.runs and data.monitor.run.read. Returns a ref for data.monitor.update and data.monitor.delete.
 - `linkedin.relation.get`: Check where an end user stands with one LinkedIn member: connected, an invitation waiting either way, or none.
@@ -477,6 +488,7 @@ Browse Pinterest boards and pins, and see how often a page is saved.
 - `pinterest.pins.count`: Count how many times each of up to 20 web pages has been saved as a pin on Pinterest.
 - `pinterest.search.pins`: List published Pinterest pin titles from the first result page.
 - `pinterest.user.boards`: List a Pinterest account's public boards, with each board's name, description, link and counts. Returns personal data: the board owner's public name and username, as the boards show them.
+- `pinterest.user.profile`: Get a public Pinterest profile, biography, and follower counts. Returns personal data: public account names and published content.
 
 ## Pipixia
 
@@ -587,6 +599,7 @@ Look up Spotify albums, artists, tracks and podcasts.
 
 - `spotify.album.detail`: Read a Spotify album title, release date, label and public page.
 - `spotify.artist.detail`: Read a Spotify artist's public profile, with their name, biography, follower count and monthly listeners. Returns personal data: the artist's public name and biography.
+- `spotify.item.detail`: Read public track, album, artist, and playlist metadata and available track lists.
 - `spotify.podcast.detail`: Read a Spotify podcast title, description, publisher and public page.
 - `spotify.podcast.episodes`: Read the first page of Spotify podcast episodes and their public catalogue links.
 - `spotify.search`: Search public album and track titles. Results omit user and artist profiles.
@@ -618,6 +631,7 @@ Search Threads posts and read public profiles.
 
 Search TikTok videos, creators, hashtags, sounds and live streams.
 
+- `tiktok.collection.videos`: Page through posts saved in a public TikTok collection. Returns personal data: public account names and published content.
 - `tiktok.comment.replies`: List the replies to a comment on a TikTok video.
 - `tiktok.creators.popular`: List creator accounts the platform currently features as popular, with their public follower and like counts. Returns personal data: the public names, handles and links of featured creator accounts.
 - `tiktok.feed.home`: TikTok explore feed by category. Returns personal data: public names, profile details and published content.
@@ -647,7 +661,9 @@ Search TikTok videos, creators, hashtags, sounds and live streams.
 - `tiktok.search.users`: Search TikTok accounts by keyword; returns handles, names, bios and follower counts.
 - `tiktok.search.videos`: Search TikTok videos by keyword; returns captions, authors, counts and thumbnails.
 - `tiktok.share.short-link`: Get TikTok's own short share link for a TikTok address.
+- `tiktok.song.detail`: Get a TikTok sound's details and usage count.
 - `tiktok.text.translate`: Translate text for TikTok content. Returns personal data: public names, profile details and published content.
+- `tiktok.trending.videos`: List the videos TikTok currently shows in its trending feed, with captions, authors and engagement. Returns personal data: the public TikTok handles of the authors.
 - `tiktok.trends.hashtags`: List the hashtags trending on TikTok, with how many posts and views each has.
 - `tiktok.trends.searches`: The searches trending on TikTok today.
 - `tiktok.user.app-link`: Get a TikTok link that opens an account's profile in the TikTok app, by the account's numeric user id (tiktok.user.resolve gives it).

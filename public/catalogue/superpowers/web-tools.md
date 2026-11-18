@@ -179,8 +179,8 @@ List a site's pages from its sitemap or by mapping its links.
 
 Download a public video as a file and list its available formats.
 
-- `media.video.download`: Fetch a video by its public URL and put it on platform storage as a file, at most 25 MB (bigger videos are refused). Returns the video's title, the delivered format's details, and the file. The video's own hosting links are never returned. Needs platform file storage.
-- `media.video.formats.list`: List the downloadable formats of a video by its public URL: resolution, frame rate, container and whether each carries audio or video. Pass a format's formatId to media.video.download to get that format as a file. Works on TikTok video pages.
+- `media.video.download`: Fetch a video by its public URL and put it on platform storage as a file, at most 25 MB (bigger videos are refused). Returns the file and the video's length, plus its title and format details when the source gives them. The video's own hosting links are never returned. Works on TikTok video pages; a formatId is not supported there yet, so omit it; format says which copy came back ("no-watermark" or "watermarked"). Needs platform file storage.
+- `media.video.formats.list`: List the downloadable formats of a video by its public URL: resolution, frame rate, bitrate, codec, size and container, as the source offers them. Works on full TikTok video links (tiktok.com/@user/video/<id>); short links are refused with the fix, and other sites end with nothing charged. A link with no formats (a photo post) ends as not found, with nothing charged. Listing a format does not yet mean it can be fetched: media.video.download takes no formatId on TikTok, so call it without one.
 
 ## Web scraping
 
@@ -206,10 +206,13 @@ Search the web and get titles, links, snippets and page text.
 
 - `web.broad.search`: Search the web from several angles at once: the question is rewritten into a few searches and the results come back grouped by search.
 - `web.deep.search`: Search the web with several rewritten queries for hard questions; returns titles and links.
+- `web.page-excerpts`: Pulls the passages relevant to an objective out of URLs you already have. Not for reading a whole document, use `web.read`. Returns the parts relevant to an objective or keyword queries. Returns each page's URL, title, publish date and markdown excerpts, optionally the whole page as markdown, and a separate list of URLs that could not be read with the error type and HTTP status. Supports cached or live fetch with a freshness bound, excerpt and full-content size limits, and...
 - `web.search`: Search the web; returns titles, URLs, snippets and dates.
 - `web.search-context`: Search and extract relevant public page text for a model, with explicit URL, snippet and token budgets. Public content can include names.
+- `web.search-excerpts`: Agent-tuned search that returns long markdown excerpts for each hit, from an objective plus keyword queries. Not for a plain list of links, use `web.search`. Returns ranked results with URL, title, publish date and LLM-ready markdown excerpts, plus the search id. Supports four modes (turbo ~0.2 s, fast ~0.7 s, basic with longer excerpts, advanced multi-hop), domain and domain/path allow and block lists, a published-after date, country targeting, cached-vs-live...
 - `web.search-feedback`: Submit explicit feedback about search usefulness, for an owned search or session. Scores describe results, not people. Comments and delivered answers may include personal data you submit. Submission is irreversible; uncertain delivery is never repeated. No source charge. (needs approval)
 - `web.search-options`: Search public pages with date, domain, language and content options; optional sourced answers and images. Returned page text may contain personal data. At most 20 results, 20 images per list, 100,000 content characters per page and two MB overall. Worst case $0.016 with advanced or automatic depth.
+- `web.serp.independent`: Get web search results from one independent search index. Not for everyday web search, use `web.search`.
 - `web.similar`: Find web pages similar to a given URL; returns titles, URLs, snippets and dates.
 
 ## Website directories
@@ -236,6 +239,7 @@ See which technologies a website uses and who else uses them.
 - `web.tech.detect-bulk`: Run web.tech.detect for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 1.98 before the platform fee; the platform quotes the billed maximum before submission.
 - `web.tech.domains`: Find websites that use given technologies, with each site's country, language and rank.
 - `web.tech.scan`: Scan several pages of a website as a background job. Cached scans take up to 15 minutes; forceFresh explicitly requests a new crawl at up to five times the ordinary cost. Cancellation stops waiting and cannot stop an upstream crawl. No contact details are requested.
+- `web.tech.sites.list`: List websites that currently use a named web technology, with when each was first and last seen using it. Free.
 - `web.tech.summary`: How many websites use given technologies, by country, language and category.
 
 ## Wikipedia page views

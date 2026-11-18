@@ -538,6 +538,8 @@ Search and read encyclopedia and wiki articles, how-to guides and FAQs.
 - `howto.guide.search`: Search guide — step-by-step guides.
 - `howto.random.get`: Read random — step-by-step guides.
 - `wiki.article-wikitext.get`: Read editable wikitext for an encyclopedia article, with its latest revision date.
+- `wikipedia.article.detail`: Get the text of a Wikipedia article in a selected language.
+- `wikipedia.articles.search`: Search Wikipedia articles in a selected language.
 - `wikis.category-pages.list`: List one fan wiki category's pages.
 - `wikis.guide.get`: Read one fan wiki page summarised as a guide.
 - `wikis.page.get`: Read one fan wiki page's text and structure.

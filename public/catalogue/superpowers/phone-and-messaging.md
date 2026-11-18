@@ -227,6 +227,7 @@ Check a phone number, its line type and its carrier.
 - `news.phone-number-report.get`: Read phone number report on 800notes.com. Returns personal data: personal details as published.
 - `news.phone-number.search`: Search phone number on 800notes.com. Returns personal data: personal details as published.
 - `people.phone.carrier`: Find the mobile network that serves a phone number now, the network it was first issued on, and whether it was ported between them. Nothing about who holds the number is returned.
+- `people.phone.owner.check`: Check whether a phone number belongs to a named person. Returns whether the number is valid and matches the name, a contact grade from A to F, and the same checks for an email sent with it. Returns personal data: whether a phone number, and optionally an email, belongs to the person the caller names.
 - `people.phone.verify`: Check that a phone number is valid and say what kind of line it is, with its country and standard formats. Nothing about who holds the number is returned.
 - `phone.number.parse`: Parse a phone number written in any style into international (E.164) form, with its country and line type.
 - `phone.number.type`: Classify a phone number as mobile, landline, VoIP or toll-free from its numbering pattern.

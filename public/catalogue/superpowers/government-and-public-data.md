@@ -28,6 +28,7 @@ Read government notices, press releases, regulator records and public broadcasts
 - `government.in-ifsca.publications.list`: List IFSCA reports and publications, newest first.
 - `government.press-releases.list`: List a central bank's press releases for a month.
 - `government.public-demonstrations.events.list`: List events for public demonstration events.
+- `government.regulations.search`: Search newly published government rules, proposed rules and notices (United States federal register) by words, newest first. Empty answers are free.
 - `government.us-civic-feeds.state.get`: Read live government feed information for a US state identified by its 2-letter abbreviation.
 - `government.us-hud-exchange.facets.get`: Read all available filter options for the Resource Library, including content types and programs/topics with document counts.
 - `government.us-hud-exchange.resource.get`: Read detailed information for a specific resource page including title, date, breadcrumb navigation, description, related topics, and related links.
@@ -87,6 +88,7 @@ Read crop production, produce prices, fertilisers, crop diseases and farm statis
 - `agriculture.us-cdl.stats.get`: Read cropland statistics (acreage by crop category) for a given year and FIPS area.
 - `agriculture.us-cdl.stats.timeseries`: Read cropland statistics for a range of years for a given FIPS area.
 - `agriculture.us-cdl.value.get`: Read the CDL crop category value at a specific geographic point for a given year.
+- `agriculture.us-nass-stats.search`: Read official US Department of Agriculture statistics for a commodity and year: crop production, yield, acres planted and harvested, prices received and livestock inventory, nationally or for one state. For example corn production in Iowa in 2023. Values are as published; withheld figures have no value.
 - `agriculture.videos.list`: List the published videos of a plant-health library.
 
 ## City and county services
@@ -308,6 +310,7 @@ Read inflation, GDP, prices, employment and other economic indicators and releas
 
 Read election results, electoral rolls and opinion polls.
 
+- `government.candidates.search`: Search United States federal election candidates by name: party, office, state and election years. Up to 20 candidates; empty answers are free.
 - `government.electoral-parts.list`: List electoral parts in India.
 - `government.electoral-roll-types.list`: List electoral roll types in India.
 - `government.il-elections.localities.search`: Search localities for Israeli aggregate election results.
@@ -330,6 +333,10 @@ Check power grid demand, prices, outages, load shedding and tariffs.
 - `economy.se-svk.exchange-rates.get`: Fetch daily exchange rates (SEK/EUR) used for support services settlement calculations. Returns a record per day with the exchange rate value.
 - `economy.se-svk.fcr.get`: Fetch Frequency Containment Reserve (FCR) ancillary service data including FCR-N, FCR-D Up, and FCR-D Down prices (EUR/MW) and volumes by bidding zone (SE1-SE4,
 - `economy.se-svk.production.get`: Fetch hourly production statistics (kWh) by power type. Only SN0 (whole Sweden) reliably returns non-zero data; individual price areas (SN1-SN4) may return zero
+- `energy.grid.carbon-intensity.list`: Read the carbon intensity of the Great Britain electricity grid per half hour, now or over a window of up to 14 days. At most 50 periods.
+- `energy.grid.europe-series.list`: Read European electricity data for a bidding zone: actual total load, day-ahead prices in EUR per MWh, or actual generation by production type such as wind, solar and gas. For example German day-ahead prices for the last two days. Official ENTSO-E transparency data; hourly or quarter-hourly intervals, newest first.
+- `energy.grid.generation-mix.list`: Read instantaneous electricity generation by fuel type on the Great Britain grid, in five-minute readings over a window of up to 1 hour. At most 50 rows.
+- `energy.grid.zone-carbon-intensity.get`: Read the latest carbon intensity of the electricity grid in one zone (a country or grid region), in gCO2eq per kWh.
 - `government.in-electricity-reports.all-excel-files.list`: List all excel files for Indian electricity reports.
 - `government.in-electricity-reports.excel-files-by-month-range.search`: Search excel files by month range for Indian electricity reports.
 - `government.in-electricity-reports.monthly-report-files.get`: Read monthly report files for Indian electricity reports.
@@ -401,6 +408,7 @@ Compare energy plans and offers, and read gas storage, nuclear and energy market
 
 Read earthquakes, fires, groundwater, drinking water and environmental data.
 
+- `climate.tree-cover-loss.history`: Read yearly tree cover loss for a country from satellite data (University of Maryland): hectares lost each year since 2001, and the part caused by fire. For example deforestation in Brazil or Indonesia over the last ten years. Choose the canopy density that counts as forest.
 - `earth.fires.search`: Find satellite-detected active fire hotspots and wildfires by bounding box or country over up to five days; a detection is not a confirmed wildfire perimeter.
 - `earth.imagery.search`: Find satellite imagery observations intersecting a bounding box and date range; returns capture metadata without downloading imagery or starting processing jobs.
 - `earth.in-groundwater.district.get`: Read block-level groundwater data for a specific district.
@@ -425,6 +433,7 @@ Read earthquakes, fires, groundwater, drinking water and environmental data.
 - `hydrology.stations.list`: River-gauge monitoring stations with current water level, flow and status, optionally filtered by name, river or region.
 - `places.recycling-center.get`: Read public recycling-centre opening hours and accepted materials on earth911.com.
 - `places.recycling-centers.search`: Find public recycling centres accepting a material near a location on earth911.com.
+- `water.gauges.current`: Read the latest water level and flow of one river-gauge station by its published station number (US, Canadian and English networks). Returns one row per measured quantity; a station with no current reading returns an empty page at no cost.
 - `web.recycling-resources.search`: Search published recycling guidance articles on earth911.com.
 
 ## Food banks and assistance
@@ -491,6 +500,7 @@ Look up land records, cadastral parcels, property tax and planning permits.
 
 Read official statistics on population, labour, environment and displacement.
 
+- `economy.sidra.values.list`: Read published values from a Brazilian statistics table (SIDRA) by table and variable number, for the latest periods, at country, region or state level. Newest periods first; a table with no figures for the periods returns an empty page at no cost.
 - `government.de-open-data.categories.list`: List categories for German open-data catalogue.
 - `government.de-open-data.dataset-names.list`: List dataset names for German open-data catalogue.
 - `government.de-open-data.datasets.get`: Read datasets for German open-data catalogue.
@@ -592,6 +602,7 @@ Find public grants, research funding and development finance opportunities.
 - `government.us-grants.grant.get`: Read full details for a specific grant by its ID.
 - `government.us-grants.latest.list`: List the most recently added or updated grants on the site.
 - `government.us-grants.search`: Full-text search over grant listings with optional recipient-type filter. Returns paginated results with title, description, deadline, and amount. Pagination vi
+- `research.awards.search`: Search public research grant awards by title words: title, funder, receiving organisation, amount and dates. Up to 25 awards a page; empty answers are free.
 
 ## Public tenders: Americas
 

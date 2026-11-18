@@ -332,6 +332,7 @@ Search eBay listings and read price, condition and seller details.
 
 - `ebay.product.detail`: An eBay listing by its id, with its price, condition, seller and shipping.
 - `ebay.search.products`: Search eBay listings by keyword, with each listing's price, condition and shipping.
+- `ebay.seller.profile`: Get an eBay seller's profile and listings. Returns personal data: public account names and published content.
 
 ## Electronics and devices
 
@@ -385,6 +386,7 @@ Look up phones, laptops and devices, refurbished prices, specs and repair guides
 Search Facebook Marketplace listings near a place and read their details.
 
 - `facebook.marketplace.listing.detail`: Get one Facebook Marketplace listing by its address, with its price, description, place and whether it is sold.
+- `facebook.marketplace.listings.browse`: Browse or search Facebook Marketplace listings by city.
 - `facebook.marketplace.listings.search`: Search Facebook Marketplace listings near a point by keyword, with their prices and places.
 - `facebook.marketplace.locations.search`: Find Facebook Marketplace places by city name, with their coordinates for a listings search.
 
@@ -585,9 +587,15 @@ Browse grocery products, stores and supermarket prices.
 - `grocery.search-suggestions.list`: Read a grocery retailer's search-as-you-type suggestions.
 - `grocery.store.get`: Read a grocery store's or retailer's public profile.
 - `grocery.stores.search`: Find a grocery retailer's store locations near a place.
+- `kroger.product.detail`: Get a Kroger product's details, price and availability.
+- `kroger.products.search`: Search Kroger products with prices and availability.
 - `marketplace.grocery-products.list`: List grocery products on mercadolivre.com.br.
 - `samsclub.clubs.get`: Read one club's details on samsclub.com.
 - `shoprite.stores.list`: Find shoprite.co.za's store locations near a place.
+- `sprouts.product.detail`: Get a Sprouts product's details, price and availability.
+- `sprouts.products.search`: Search Sprouts products with prices and availability.
+- `wholefoods.product.detail`: Get a Whole Foods product's details, price and availability.
+- `wholefoods.products.search`: Search Whole Foods products with prices and availability.
 
 ## Home Depot
 
@@ -596,6 +604,8 @@ Search Home Depot products with brand, price and rating.
 - `home-depot.product.detail`: Read one Home Depot product listing by its public product id.
 - `home-depot.product.reviews`: List public customer reviews of one Home Depot product. Returns personal data: public author names, affiliations or review text.
 - `home-depot.products.search`: Search Home Depot products by keyword, with each product's brand, price and rating.
+- `homedepot.product.detail`: Get a Home Depot product's details, price and availability.
+- `homedepot.products.search`: Search Home Depot products with prices and availability.
 
 ## JD.com
 
@@ -631,6 +641,10 @@ Read mystery pack odds and openings, collectible coins and banknotes.
 
 Search marketplace listings, categories, offers and sellers.
 
+- `aliexpress.product.detail`: Get an AliExpress product's details and price.
+- `aliexpress.products.search`: Search AliExpress products with prices.
+- `etsy.product.detail`: Get an Etsy listing's details and price.
+- `etsy.products.search`: Search Etsy listings with prices.
 - `marketplace.all-tags.get`: List public all tags on itch.io.
 - `marketplace.antique-category-listings.list`: List antique category listings on ruby-lane.com.
 - `marketplace.best-sellers.list`: List best sellers on mercadolivre.com.br.
@@ -757,6 +771,7 @@ Read products, categories and stores from online store platforms.
 - `marketplace.zid-store.stores.featured`: List featured stores on zid store on zid.store.
 - `marketplace.zid-store.stores.search`: Search stores on zid store on zid.store.
 - `shop-app.merchants.get`: Read one merchant's details from a marketplace on shop.app.
+- `shopify.store.products`: Page through published product catalogs with variants, prices, and availability.
 
 ## Pets and horses
 
@@ -826,6 +841,26 @@ Read product and service reviews and complaints.
 - `reviews.reviews.get`: Read reviews on ambitionbox.com. Returns personal data: personal details as published.
 - `reviews.reviews.search`: Search reviews on trustradius.com. Returns personal data: personal details as published.
 - `reviews.vocalremover-reviews.get`: Read reviews on vocalremover.org. Returns personal data: personal details as published.
+
+## Retail product catalog
+
+Search a catalog of products, brands, categories and retailer websites, with offers across retailers.
+
+- `retail.brand.detail`: One brand by its the source brand ID. Returns each brand's ID, name, logo URL and description. Suited for showing brand context next to products.
+- `retail.brands.list`: A page of the top 5,000 brands, best first, optionally limited to brands selling given categories. Returns each brand's ID, name, logo URL and description. Paged with next_cursor.
+- `retail.brands.search`: Brands matching a name or free-text query, ordered by relevance, optionally limited to brands selling given categories. Returns each brand's ID, name, logo URL and description. Suited for turning a brand name into the brand ID that product search, browse and similar filter on.
+- `retail.categories.list`: A page of the full product category tree, or only its roots. Returns each category's slug, title and hierarchy path, with page, page_size and total for paging. Suited for building category navigation and mapping a catalog's taxonomy.
+- `retail.categories.search`: Product categories matching a keyword or a semantically similar phrase. Returns each category's slug, title and hierarchy path. Suited for turning a product type into the category slug that product search, browse, brand and retailer lookups filter on.
+- `retail.category.detail`: One product category by slug. Returns its title, description, hierarchy path, child categories and the structured attributes its products carry. Suited for drilling into a category and finding the attribute handles that product search filters on.
+- `retail.product.offers`: Full record for a product ID returned by search or URL lookup. Returns the bare product: title, description, brands, images, category, gender, age, materials, key features, colors, retailer offers (buy URL, price, availability, condition, dimensions), variants, structured attributes and ratings. Supports retailer selection for the buy URL, language, country, currency and length/weight units.
+- `retail.product.resolve`: Structured product data from a retailer product page. Returns { product } with its canonical product ID, title, description, brands, images, category, materials, key features, colors, retailer offers (buy URL, price, availability, condition), variants, structured attributes and ratings. Supports a live page fetch or catalog-only mode with a maximum data age.
+- `retail.products.browse`: One page of products for a brand, retailer or category filter, with no search query: a grid view of what a brand makes, a store sells or a category holds. Returns products with title, brands, images, category, retailer offers (buy URL, price, availability), variants, structured attributes and a next_page_token. Takes the same filters as product search plus locale and unit options.
+- `retail.products.image-search`: One page of products that visually match a product image at a public URL per call, with canonical product IDs. Returns products with title, brands, images, category, retailer offers (buy URL, price, availability, condition), variants, structured attributes, ratings and a next_page_token. Optional segmentation crops the main product or a named object first.
+- `retail.products.search`: One page of products matching a text query and/or a product image URL per call, with canonical product IDs. Returns products with title, description, brands, images, category, gender, age, materials, key features, colors, retailer offers (buy URL, price, availability, condition), variants, structured attributes, ratings and a next_page_token. Supports default, keyword and agentic search modes, ...
+- `retail.products.similar`: One page of products similar to a seed product, kept in the seed's category. Returns products with title, brands, images, category, retailer offers (buy URL, price, availability), variants, structured attributes and a next_page_token. Takes the same filters as product search (brand, price, gender and more) plus locale and unit options.
+- `retail.retailer.detail`: One retailer website by its the source website ID or its domain. Returns each retailer's website ID, name, URL, logo URL and description. Suited for resolving a domain to a website ID and showing store context next to offers.
+- `retail.retailers.list`: A page of the top 5,000 retailer websites, best first, optionally limited to those selling given categories. Returns each retailer's website ID, name, URL, logo URL and description. Paged with next_cursor.
+- `retail.retailers.search`: Retailer websites matching a name or domain, optionally limited to those selling given categories. Returns each retailer's website ID, name, URL, logo URL and description. Suited for turning a store name into the website ID that product search, browse and detail filter on.
 
 ## Shipping
 
@@ -995,6 +1030,8 @@ Check store opening hours and Sunday openings.
 
 Read a store's products, prices, variants, deals and search suggestions.
 
+- `bestbuy.product.detail`: Get a Best Buy product's details, price and availability.
+- `bestbuy.products.search`: Search Best Buy products with prices and availability.
 - `commerce.allegro-search-suggestions.get`: Read allegro search suggestions on allegro.pl.
 - `commerce.ankandet-products.list`: List ankandet products on ankandet.com.
 - `commerce.asset-detail.get`: Read asset detail on blenderkit.com. Returns personal data: personal details as published.
@@ -1034,6 +1071,8 @@ Read a store's products, prices, variants, deals and search suggestions.
 - `hardware.key-blanks.search`: Find physical key-blank compatibility references by manufacturer name on lockcodes.com.
 - `hardware.key-combinations.count`: Count possible key combinations using spacing and adjacent-cut constraints on lockcodes.com.
 - `hardware.key-cylinders.list`: List mechanical key-cylinder types and pinning chart templates on lockcodes.com.
+- `ikea.product.detail`: Get an IKEA product's details, price and availability.
+- `ikea.products.search`: Search IKEA products with prices and availability.
 - `shopping.article.get`: Read an editorial article from a store by its link.
 - `shopping.articles.list`: List a store's editorial articles and blog posts.
 - `shopping.bestsellers.list`: List a store's best-selling or top-ranked products.
@@ -1063,6 +1102,10 @@ Read a store's products, prices, variants, deals and search suggestions.
 - `shopping.similar-products.list`: List products similar to one product. Returns personal data: personal details as published.
 - `shopping.trending-products.list`: List a retailer's trending products. Returns personal data: personal details as published.
 - `shopping.workshop-services.list`: List a workshop's services with their prices.
+- `target.product.detail`: Get a product sold by the US retailer Target, with its details, price and availability.
+- `target.products.search`: Search products sold by the US retailer Target, with prices and availability.
+- `wayfair.product.detail`: Get a Wayfair product's details, price and availability.
+- `wayfair.products.search`: Search Wayfair products with prices and availability.
 
 ## Taobao
 
@@ -1173,6 +1216,7 @@ Find car, tyre and aircraft parts, diagrams and fitment.
 
 Search Walmart products with prices, ratings and sellers.
 
+- `walmart.product.detail`: Get one Walmart product from its page address, with price, rating and availability.
 - `walmart.search.products`: Search Walmart products by keyword, with each product's price, rating and seller.
 
 ## Watches
@@ -1290,3 +1334,4 @@ Read customer reviews of a business on Yelp.
 - `yelp.business-reviews.get`: Read business reviews on yelp.com.au. Returns personal data: personal details as published.
 - `yelp.business.get`: Read an Australian directory listing's rating, review total, categories and city on yelp.com.au.
 - `yelp.business.reviews`: Reviews of a business on Yelp, by its Yelp id, with each reviewer's name, stars, text and date. Returns personal data: the reviewers' display names.
+- `yelp.place.detail`: Get a Yelp business's details and menu.

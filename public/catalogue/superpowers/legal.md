@@ -45,6 +45,7 @@ Search US court cases, dockets, filings, judges, opinions and oral arguments.
 - `law.in-nclat.judgments.list`: List NCLAT judgments and final orders from the last 14 days, newest first.
 - `law.judge.get`: Read one public judge records with judicial names and biography. Estimated call budget is 0.001112 USD using a provisional allocation.
 - `law.judges.search`: Search public judge records with judicial names and biography. Estimated call budget is 0.001112 USD using a provisional allocation.
+- `law.judgments.search`: Search published judgments of the courts of England and Wales and the UK tribunals by words, optionally for one court, newest first. Empty answers are free.
 - `law.nz-lii.case.get`: Read a New Zealand court decision: title, neutral citation, court, year and decision date.
 - `law.nz-lii.cases.search`: Search New Zealand case-law databases by case name.
 - `law.nz-lii.citation.search`: Find New Zealand case-law decisions matching a citation such as '[2019] NZCA 219'.

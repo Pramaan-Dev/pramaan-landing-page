@@ -33,6 +33,7 @@ Connect or disconnect a person's own email account.
 - `email.account.protocol-diagnose`: Read connection health and documented mailbox API features without credentials or raw protocol probes. Unknown limits remain unknown; connection health is not delivery or authentication proof.
 - `email.accounts.list`: List your connected email account addresses and handles, optionally for one end user. The accounts also serve calendar and contacts.
 - `email.directory.tenant.resolve`: Resolve an organisation domain through public directory discovery to an opaque tenant reference. Does not grant access, connect mailboxes or prove domain ownership.
+- `outreach.contact-groups.list`: List the address book groups (labels, folders, categories) of a connected Google or Microsoft account, read live.
 
 ## Email deliverability
 

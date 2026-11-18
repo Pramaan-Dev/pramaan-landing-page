@@ -6,12 +6,15 @@ Jobs, pay, candidates and proctored tests.
 
 See a company's open jobs and what its employees say about it.
 
+- `ashby.jobs.search`: Search jobs on a company's Ashby job board. Returns personal data: public hiring contacts and employer details as published.
 - `companies.employee-reviews.list`: Reviews that a company's employees and former employees posted, with their ratings, pros and cons.
 - `companies.jobs.filters.list`: The filter value lists behind job-listings search: countries, regions, employment types, company types and industries, each entry with the exact id to filter by. Cache them; they change rarely. Free.
 - `companies.jobs.monitor.create`: Watch a saved job search on a schedule; each run delivers the jobs newly posted against the filters. Standing spend: rented monthly at the worst case of the request: runs a month (744 divided by everyHours, rounded up) times maxResultsPerRun times 0.5 credits per job, so the defaults (every 24 hours, 25 jobs) are 387.5 credits a month. The dearest option is isRealtime, 150 credits per delivered job (116,250 a month at the defaults); it is never the default. No notifications are sent; read deliveries with data.monitor.runs and data.monitor.run.read. Returns a ref for data.monitor.update and data.monitor.delete.
 - `companies.jobs.search`: Open job listings at a company; send its name (best coverage) and/or domain. An empty list means none found.
 - `companies.jobs.search-bulk`: Run companies.jobs.search for up to 100 rows as a background job. Each row returns the same fields as one lookup, keyed by your own row id; failed rows are free. Searches keep each row's requested result limit. For native batch processing, the 100-row maximum is USD 99.00 before the platform fee; the platform quotes the billed maximum before submission.
 - `companies.jobs.search-suggest`: The exact values a job search filter accepts, for one field: job titles, categories and the technologies a posting names. Free; use it before companies.jobs.search so a filter matches.
+- `greenhouse.job.detail`: Get a Greenhouse job's description, departments, pay ranges, and application questions. Returns personal data: public hiring contacts and employer details as published.
+- `greenhouse.jobs.list`: List public employer jobs and filter by title or location. Returns personal data: public hiring contacts and employer details as published.
 - `job.board-company-profile.get`: Read company profile on the chosen site. Returns personal data: personal details as published.
 - `job.boards.companies.list`: Browse a recruitment directory's company names and public page addresses on the chosen site.
 - `job.companies.search`: Search companies — Dutch internship employers.
@@ -29,6 +32,10 @@ See a company's open jobs and what its employees say about it.
 - `job.ph-company-profile.get`: Read company profile on ph.jobstreet.com. Returns personal data: personal details as published.
 - `job.startup-company-profile.get`: Read a startup's public company profile on a startup job board. Returns personal data: personal details as published.
 - `job.startup-details.get`: Read startup details on angel.co. Returns personal data: personal details as published.
+- `lever.jobs.list`: Page through an employer's public jobs, descriptions, and application links. Returns personal data: public hiring contacts and employer details as published.
+- `smartrecruiters.jobs.list`: List the open jobs on an employer's SmartRecruiters job board, with title, place, type and release date.
+- `workable.jobs.list`: List the open jobs on an employer's Workable careers page, with title, place, type and apply link.
+- `workday.jobs.list`: Search an employer's Workday career board with result totals and pagination. Returns personal data: public hiring contacts and employer details as published.
 
 ## Crypto jobs
 
@@ -85,6 +92,7 @@ Read the questions and fields of public job application forms.
 Search job boards, job ads, internships and occupation profiles.
 
 - `commerce.clasificadosonline-jobs.search`: Search clasificadosonline jobs on clasificadosonline.com.
+- `indeed.jobs.search`: Search Indeed jobs by keyword and location, with salary, experience and remote filters. Returns personal data: public hiring contacts and employer details as published.
 - `job.apprenticeship.categories.list`: List apprenticeship occupation categories and their public directory paths on getmyfirstjob.co.uk.
 - `job.apprenticeship.count.get`: Read the published count of apprenticeship listings on findapprenticeship.service.gov.uk.
 - `job.apprenticeship.locations.list`: List apprenticeship location filters and their public directory paths on getmyfirstjob.co.uk.
@@ -142,6 +150,7 @@ Search job boards, job ads, internships and occupation profiles.
 - `job.projects.search`: Search public freelance projects by keyword on a selected board.
 - `job.search-facets.get`: Read available job-search filter values and matching counts on timesjobs.com.
 - `job.seeking-work-listings.list`: List job-seeker adverts on m.ss.com. Returns personal data: personal details as published.
+- `remoteok.jobs.list`: Find remote jobs by keywords and tags. Returns personal data: public hiring contacts and employer details as published.
 
 ## Job market stats
 
@@ -164,6 +173,7 @@ Search open job postings, analyze an ad and normalize job titles.
 - `job.postings.dataset.stats`: How big and how fresh the job-postings search index is: total postings indexed and days behind now, to size expectations before a broad search or export. Free.
 - `job.postings.filters.resolve`: Turn friendly job-search filters (company names and domains, country and city names, skill tags, occupation names, title phrases) into the exact filter ids a job-postings search accepts, before you search. Values that could not be resolved come back in warnings. Free.
 - `job.postings.locations.list`: Autocomplete for job-search location filters: match a partial country, region, state or city name and get the exact ids to search with. Free.
+- `job.postings.match`: Rank open jobs against a candidate's profile or resume text and return the best matches.
 - `job.postings.occupation.taxonomy`: Autocomplete over the occupation taxonomy behind job-postings search: match a partial occupation name and get the canonical ids and labels at each level, broad family to specific occupation. Free.
 - `job.postings.roles.list`: Autocomplete for job-search role filters: match a partial role name and get the canonical roles with their occupation-taxonomy placement, to narrow a search by occupation. Free.
 - `job.postings.search`: Search open job postings across companies: titles (keyword or meaning), companies, places, salary in US dollars, seniority, skills, posting date and remote flag.
@@ -255,6 +265,8 @@ Look up salaries, H-1B pay, internship pay and company benefits.
 - `job.salaries.salary-data`: Get salary data.
 - `job.salaries.salary-summary-md`: Get salary summary.
 - `job.salary-data.get`: Read salary data. Returns personal data: personal details as published.
+- `job.salary.percentiles`: Posted-pay percentiles for a job title, from the pay employers publish in open job listings.
+- `levels.salaries.search`: Search tech salary and compensation data by company, location, level and pay. Not for job openings or general web search.
 
 ## Startup jobs
 
