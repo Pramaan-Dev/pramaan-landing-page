@@ -10,10 +10,10 @@ const usd = (micro) => {
   return '$' + (v >= 1 ? v.toFixed(2) : String(+v.toPrecision(2)));
 };
 const EFFECT = {
-  read_only: 'Read-only',
-  external_reversible: 'Acts outside, can be undone',
-  external_irreversible: "Acts outside, can't be undone",
-  external_unknown_effect: 'Acts outside',
+  read_only: 'View only',
+  external_reversible: 'Can undo',
+  external_irreversible: "Can't undo",
+  external_unknown_effect: 'Takes action',
 };
 const pills = (x) =>
   [

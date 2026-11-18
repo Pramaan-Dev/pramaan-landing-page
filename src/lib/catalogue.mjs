@@ -44,7 +44,7 @@ export const linkList = (title, list) =>
 // ---------- Markdown copies of the detail pages (same data as the HTML), served at <page url>.md ----------
 const SITE = 'https://www.pramaan.dev';
 const SETUP = `Set up Pramaan once: ${SITE}/skill.md`;
-const EFF = { read_only: 'read-only', external_reversible: 'acts outside, can be undone', external_irreversible: "acts outside, can't be undone", external_unknown_effect: 'acts outside' };
+const EFF = { read_only: 'view only', external_reversible: 'can undo', external_irreversible: "can't undo", external_unknown_effect: 'takes action' };
 const facts = (x) =>
   [x.mode === 'async' ? 'background job' : 'instant', EFF[x.effect], x.requiresApproval && 'needs approval', x.needsConnection && "uses the user's account", x.personalData && 'personal data'].filter(Boolean).join(', ');
 const mdList = (title, rows) => (rows.length ? `\n## ${title}\n\n${rows.join('\n')}\n` : '');
