@@ -47334,6 +47334,42 @@
   "zillow.locations.search": {
    "c": "Travel & places",
    "f": "Homes for sale"
+  },
+  "company.engineering.size": {
+   "c": "Data"
+  },
+  "counterparty.screen": {
+   "c": "Identity & security"
+  },
+  "credit.consent.request": {
+   "c": "Finance"
+  },
+  "credit.report.collect": {
+   "c": "Finance"
+  },
+  "drug.interactions.check": {
+   "c": "Health"
+  },
+  "grants.find": {
+   "c": "Government & public data"
+  },
+  "sports.match.brief": {
+   "c": "Sports"
+  },
+  "tenders.find": {
+   "c": "Government & public data"
+  },
+  "trademark.clearance": {
+   "c": "Legal"
+  },
+  "tradeshow.leads": {
+   "c": "Data"
+  },
+  "vehicle.history.check": {
+   "c": "Travel & places"
+  },
+  "visa.requirements.check": {
+   "c": "Travel & places"
   }
  }
 }

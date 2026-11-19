@@ -633,7 +633,7 @@ Connect bank accounts with consent and read balances, holders and transactions.
 - `banking.account.owners.get`: Read bank-supplied account-holder names and only the contact fields you request. No person is scored or ranked.
 - `banking.accounts.list`: List accounts within an owned bank consent; account numbers stay masked.
 - `banking.connection.start`: Start a bank consent for an end user. The monthly connection rental begins only after authorization.
-- `banking.connection.status`: Read a bank connection state and complete its one-time account claim.
+- `banking.connection.status`: Read a bank connection state, complete its one-time account claim, and return an opaque builder-scoped tag of the person whose connection it is.
 - `banking.institution.get`: Read a bank directory entry.
 - `banking.institutions.search`: Find banks available in a country.
 - `banking.transactions.list`: Read up to 100 transactions from an owned bank account within an explicit date range.
@@ -643,7 +643,7 @@ Connect bank accounts with consent and read balances, holders and transactions.
 - `banking.user.get`: Read your end-user banking record and only the requested consented name, birth date, email, phone, address or government identity numbers. Identity facts are omitted by default. (needs a connected account)
 - `finance.account-availability.check`: Check whether a person’s mobile has financial accounts and return opaque consent choices; requires their permission.
 - `finance.consent-collection.create`: Combine an existing mandatory financial consent with one newly created consent for the same person. Returns a protected approval link. Maximum estimate USD 0.20. (needs approval)
-- `finance.consent-collection.get`: Read the two member consent states. Returns owned row handles usable for consent reads and financial data sessions; includes no financial record content.
+- `finance.consent-collection.get`: Read the two member consent states. Returns owned row handles usable for consent reads and financial data sessions, plus an opaque builder-scoped tag of the person whose consent it is; includes no financial record content.
 - `finance.consent-status.get`: Read the last financial data fetch time and range without starting or restarting a fetch.
 - `finance.consent.create`: Create a person-approved financial consent covering explicit record types, dates, use, frequency and retention. Returns a protected consent link. (needs approval)
 - `finance.consent.get`: Read a financial consent’s state and authorized scope; no account locators or route identifiers are returned.

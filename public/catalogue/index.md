@@ -28,23 +28,26 @@ Every superpower (single action) and mission (multi-step job), one file per cate
 - [Identity & security](https://www.pramaan.dev/catalogue/superpowers/identity-and-security.md): 191
 - [Developer tools](https://www.pramaan.dev/catalogue/superpowers/developer-tools.md): 797
 
-## Missions (891)
+## Missions (903)
 
-- [Data](https://www.pramaan.dev/catalogue/missions/data.md): 98
+- [Data](https://www.pramaan.dev/catalogue/missions/data.md): 100
 - [Social media](https://www.pramaan.dev/catalogue/missions/social-media.md): 81
 - [AI search and SEO](https://www.pramaan.dev/catalogue/missions/ai-search-and-seo.md): 64
 - [Advertising](https://www.pramaan.dev/catalogue/missions/advertising.md): 22
 - [News](https://www.pramaan.dev/catalogue/missions/news.md): 4
 - [Research](https://www.pramaan.dev/catalogue/missions/research.md): 26
-- [Legal](https://www.pramaan.dev/catalogue/missions/legal.md): 9
+- [Legal](https://www.pramaan.dev/catalogue/missions/legal.md): 10
 - [Web tools](https://www.pramaan.dev/catalogue/missions/web-tools.md): 40
 - [E-commerce](https://www.pramaan.dev/catalogue/missions/e-commerce.md): 53
-- [Travel & places](https://www.pramaan.dev/catalogue/missions/travel-and-places.md): 50
-- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 105
+- [Travel & places](https://www.pramaan.dev/catalogue/missions/travel-and-places.md): 52
+- [Government & public data](https://www.pramaan.dev/catalogue/missions/government-and-public-data.md): 2
+- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 107
 - [Crypto & DeFi](https://www.pramaan.dev/catalogue/missions/crypto-and-defi.md): 27
 - [Gen AI](https://www.pramaan.dev/catalogue/missions/gen-ai.md): 81
+- [Sports](https://www.pramaan.dev/catalogue/missions/sports.md): 1
 - [Email & calendar](https://www.pramaan.dev/catalogue/missions/email-and-calendar.md): 35
 - [Phone & messaging](https://www.pramaan.dev/catalogue/missions/phone-and-messaging.md): 49
 - [Hiring & assessments](https://www.pramaan.dev/catalogue/missions/hiring-and-assessments.md): 32
-- [Identity & security](https://www.pramaan.dev/catalogue/missions/identity-and-security.md): 50
+- [Health](https://www.pramaan.dev/catalogue/missions/health.md): 1
+- [Identity & security](https://www.pramaan.dev/catalogue/missions/identity-and-security.md): 51
 - [Developer tools](https://www.pramaan.dev/catalogue/missions/developer-tools.md): 65

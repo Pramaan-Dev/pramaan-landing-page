@@ -890,5 +890,17 @@
 "xiaohongshu.note.research":"Research a keyword on Xiaohongshu",
 "yield.opportunities.screen":"Screen crypto yield opportunities",
 "youtube.channel.digest":"Summarise a YouTube channel",
-"zhihu.author.digest":"Summarise a Zhihu author"
+"zhihu.author.digest":"Summarise a Zhihu author",
+"company.engineering.size":"See a company's headcount by team",
+"counterparty.screen":"Screen a person or company for sanctions",
+"credit.consent.request":"Ask a person to consent to a credit check",
+"credit.report.collect":"Get a consented credit report",
+"drug.interactions.check":"Check how medicines interact",
+"grants.find":"Find grants you can apply for",
+"sports.match.brief":"Get a brief before a match",
+"tenders.find":"Find open government tenders",
+"trademark.clearance":"Check if a brand name is free to trademark",
+"tradeshow.leads":"Get leads from a trade show's exhibitors",
+"vehicle.history.check":"Check a vehicle's history before you buy",
+"visa.requirements.check":"Check visa rules for a trip"
 }
