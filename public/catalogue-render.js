@@ -120,7 +120,7 @@ export const toCards = (kind, data) =>
         name: m.name,
         category: m.category,
         summary: m.description,
-        foot: [m.priceMaxMicro > 0 && `<span class="pill pill--dark">Up to ${usd(m.priceMaxMicro)}</span>`, m.requiresApproval && '<span class="pill pill--warn">Needs approval</span>']
+        foot: [m.priceMinMicro > 0 && `<span class="pill pill--dark">Starts at ${usd(m.priceMinMicro)}</span>`, m.requiresApproval && '<span class="pill pill--warn">Needs approval</span>']
           .filter(Boolean)
           .join(''),
         search: [m.id, m.name, m.description, ...m.steps.map((s) => s.id)].join(' ').toLowerCase(),
@@ -128,7 +128,7 @@ export const toCards = (kind, data) =>
           <span class="eyebrow">${esc(m.category)}</span>
           <h2>${esc(m.name)}</h2>
           <p class="panel__lead">${esc(m.description)}</p>
-          <div class="panel__facts">${m.priceMaxMicro > 0 ? `<span class="pill pill--dark">Up to ${usd(m.priceMaxMicro)} a run</span>` : ''}${pills(m)}</div>
+          <div class="panel__facts">${m.priceMinMicro > 0 ? `<span class="pill pill--dark">Starts at ${usd(m.priceMinMicro)} a run</span>` : ''}${pills(m)}</div>
           <div class="panel__id"><code>${esc(m.id)}</code><button type="button" data-copy-id="${esc(m.id)}">Copy id</button></div>
           <a class="panel__docs" href="${esc(missionDocsUrl(m))}" target="_blank" rel="noopener">API docs &rarr;</a>
           <div>

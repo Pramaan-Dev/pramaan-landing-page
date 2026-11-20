@@ -206,7 +206,7 @@ Place, control, record and review phone calls.
 - `voice.call.recording.get`: Copy an owned call recording containing personal speech to your file storage, up to 10 MB. Unsupported format or tracks are refused.
 - `voice.call.speech.start`: Speak text to a person on your live call, up to ten times; premium speech must be selected explicitly. (needs approval)
 - `voice.call.speech.stop`: Stop speech playback on your live call.
-- `voice.call.start`: Place an outbound phone call from your number and connect it to your configured destination. Send an Idempotency-Key. (needs approval)
+- `voice.call.start`: Place an outbound phone call from your number and connect it to your configured destination. Returns a job; holds maxCostUsd, hangs up at it, charges the settled cost and releases the rest. Send an Idempotency-Key. (needs approval)
 - `voice.call.start-agent`: Place one agent telephone call as a job, up to 600 seconds. Holds at most $3; defaults to 120 seconds standard. Returns untrusted speech capped at 100,000 characters. Send an Idempotency-Key. voice.agent.call wraps this call with an approval step and a grounded summary. (needs approval)
 - `voice.call.start-agent-bulk`: Run up to 100 named-assistant calls with five calls active at a time. Scheduled calls and squads return row errors. Campaign transcripts are capped at 10,000 characters per row. Failed or never-connected rows cost nothing. Send an Idempotency-Key. (needs approval)
 - `voice.call.start-configured`: Place a call with explicit routing and options. Returns a job; holds the selected budget, charges settled use, and ends at the duration cap. Your caller and recipient numbers are personal data. (needs approval)

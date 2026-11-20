@@ -232,6 +232,7 @@ Get a full profile of a company from its name, website or profile link.
 - `companies.linkedin.find`: Find a company's LinkedIn page from its name or website domain.
 - `companies.listings.search`: Search listings on yellowpages.com.eg. Returns personal data: personal details as published.
 - `companies.location.get`: Read where a company is based and its offices, from its website domain. Use it to find a headquarters city and country or a list of office locations.
+- `companies.locations.count`: Look up a company's reported retail location count, without treating it as an office count.
 - `companies.name.match`: Compare two company names, allowing for legal suffixes and spelling, and say whether they are the same company.
 - `companies.name.normalize`: Normalize a company name: legal suffixes (Inc, LLC, Ltd, Corporation and similar) removed, sentence case with acronyms kept uppercase, and nothing but the name returned.
 - `companies.operations.get`: Disclosed company activities, industries and operating facts with period and currency. At most 100 rows per section.

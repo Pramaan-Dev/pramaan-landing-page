@@ -58,7 +58,7 @@ export const familyMd = (f) =>
   mdList('Skills that use it', skillsUsing(f).map((s) => `- [${s.title}](${SITE}/skills/gtm/${s.name}.md)`));
 
 export const missionMd = (m) =>
-  `# ${m.name}\n\n> ${flat(m.description)}\n\nMission id: \`${m.id}\`. Category: ${m.category}. ${facts(m)}.${m.priceMaxMicro > 0 ? ` Costs at most $${(m.priceMaxMicro / 1e6).toFixed(3)} a run.` : ''}\n\n${SETUP}\nRun it with the MCP tool \`run_outcome\` (id \`${m.id}\`) or \`POST https://api.pramaan.dev/v1/outcomes/${m.id}\`.\nFull reference: ${missionDocsUrl(m)}.md\n\n## Steps, in order\n\n${m.steps.map((s, i) => `${i + 1}. \`${s.id}\`${s.description ? `: ${flat(s.description)}` : ''}`).join('\n')}\n`;
+  `# ${m.name}\n\n> ${flat(m.description)}\n\nMission id: \`${m.id}\`. Category: ${m.category}. ${facts(m)}.${m.priceMinMicro > 0 ? ` Starts at $${(m.priceMinMicro / 1e6).toFixed(3)} a run.` : ''}\n\n${SETUP}\nRun it with the MCP tool \`run_outcome\` (id \`${m.id}\`) or \`POST https://api.pramaan.dev/v1/outcomes/${m.id}\`.\nFull reference: ${missionDocsUrl(m)}.md\n\n## Steps, in order\n\n${m.steps.map((s, i) => `${i + 1}. \`${s.id}\`${s.description ? `: ${flat(s.description)}` : ''}`).join('\n')}\n`;
 
 export const skillMd = (s) =>
   `# ${s.title}\n\n> ${flat(s.description)}\n\nInstall: \`npx skills add Pramaan-OSS/skills --skill ${s.name}\`\nThen tell your agent: "Run the ${s.name} skill with Pramaan."\n\n${readFileSync(`${process.cwd()}/public/skills/gtm/${s.name}/pramaan.md`, 'utf8').replace(/^---[\s\S]*?---\n/, '')}`;

@@ -163,6 +163,8 @@ Check a site's speed, accessibility, uptime and crawl rules.
 
 List a site's pages from its sitemap or by mapping its links.
 
+- `web.archive.snapshot.get`: Read the sanitized text of an exact archived page capture; refuses redirects to a different capture.
+- `web.archive.snapshots.list`: List successful archived HTML captures of one exact page in a time window; capture timestamps can be read with web.archive.snapshot.get.
 - `web.map`: Discover the URLs on a website, optionally ranked by a search term.
 - `web.map-options`: Discover website URLs as a background job with depth, path and domain controls. At most 500 pages and two MB of output; some sources currently support waits up to 24 seconds. Worst case $0.80 with instructions.
 - `web.page-links.list`: List the hyperlinks published on one page path of a website.

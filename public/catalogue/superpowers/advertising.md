@@ -16,6 +16,9 @@ Connect your ad accounts and read campaigns, ads, audiences, spend and results.
 - `ads.ad.creatives.review.get`: Read each creative review verdict in a TikTok Smart+ ad, including Spark posts and rejection reasons.
 - `ads.ad.review.get`: Read an ad's review verdict: approved or rejected, why, and where it may not run (read-only).
 - `ads.ads.list`: List ads with delivery and review status and impressions, clicks, conversions (read-only).
+- `ads.audience.create`: Create a contact-match audience in your own connected advertising account. Requires approval. The returned platform reference pins subsequent member uploads to this account and audience. (needs approval)
+- `ads.audience.members.add`: Submit prepared email match keys to an audience you created in your own connected account. Requires approval; approving accepts the advertising platform's customer match terms for this upload. Acceptance does not mean matched rows; uncertain actions are not automatically sent again. (needs approval)
+- `ads.audience.status`: Read the membership status of an audience you created, using its private platform reference on the same connected account. Does not infer matching or upload completion.
 - `ads.audiences.list`: List the custom and lookalike audiences in an ad account, with size (read-only).
 - `ads.campaigns.list`: List ad campaigns with status, budget and spend, impressions, clicks, conversions (read-only).
 - `ads.catalog-ad.create`: Create a catalog-template ad, paused, in an existing ad set, choosing its image or carousel format. Preview by default (checks the ad set and inputs, sends nothing); send an Idempotency-Key when creating. (needs approval)

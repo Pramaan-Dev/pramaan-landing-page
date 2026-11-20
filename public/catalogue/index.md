@@ -2,16 +2,16 @@
 
 Every superpower (single action) and mission (multi-step job), one file per category. Ids are what you pass to the API, SDK or MCP server. Setup: https://www.pramaan.dev/skill.md
 
-## Superpowers (10621)
+## Superpowers (10632)
 
-- [Data](https://www.pramaan.dev/catalogue/superpowers/data.md): 553
+- [Data](https://www.pramaan.dev/catalogue/superpowers/data.md): 554
 - [Social media](https://www.pramaan.dev/catalogue/superpowers/social-media.md): 682
 - [AI search and SEO](https://www.pramaan.dev/catalogue/superpowers/ai-search-and-seo.md): 213
-- [Advertising](https://www.pramaan.dev/catalogue/superpowers/advertising.md): 125
+- [Advertising](https://www.pramaan.dev/catalogue/superpowers/advertising.md): 128
 - [News](https://www.pramaan.dev/catalogue/superpowers/news.md): 70
 - [Research](https://www.pramaan.dev/catalogue/superpowers/research.md): 178
-- [Legal](https://www.pramaan.dev/catalogue/superpowers/legal.md): 187
-- [Web tools](https://www.pramaan.dev/catalogue/superpowers/web-tools.md): 185
+- [Legal](https://www.pramaan.dev/catalogue/superpowers/legal.md): 192
+- [Web tools](https://www.pramaan.dev/catalogue/superpowers/web-tools.md): 187
 - [E-commerce](https://www.pramaan.dev/catalogue/superpowers/e-commerce.md): 1094
 - [Travel & places](https://www.pramaan.dev/catalogue/superpowers/travel-and-places.md): 918
 - [Government & public data](https://www.pramaan.dev/catalogue/superpowers/government-and-public-data.md): 664
@@ -28,26 +28,26 @@ Every superpower (single action) and mission (multi-step job), one file per cate
 - [Identity & security](https://www.pramaan.dev/catalogue/superpowers/identity-and-security.md): 191
 - [Developer tools](https://www.pramaan.dev/catalogue/superpowers/developer-tools.md): 797
 
-## Missions (903)
+## Missions (931)
 
-- [Data](https://www.pramaan.dev/catalogue/missions/data.md): 100
-- [Social media](https://www.pramaan.dev/catalogue/missions/social-media.md): 81
+- [Data](https://www.pramaan.dev/catalogue/missions/data.md): 108
+- [Social media](https://www.pramaan.dev/catalogue/missions/social-media.md): 82
 - [AI search and SEO](https://www.pramaan.dev/catalogue/missions/ai-search-and-seo.md): 64
-- [Advertising](https://www.pramaan.dev/catalogue/missions/advertising.md): 22
+- [Advertising](https://www.pramaan.dev/catalogue/missions/advertising.md): 24
 - [News](https://www.pramaan.dev/catalogue/missions/news.md): 4
-- [Research](https://www.pramaan.dev/catalogue/missions/research.md): 26
+- [Research](https://www.pramaan.dev/catalogue/missions/research.md): 27
 - [Legal](https://www.pramaan.dev/catalogue/missions/legal.md): 10
-- [Web tools](https://www.pramaan.dev/catalogue/missions/web-tools.md): 40
-- [E-commerce](https://www.pramaan.dev/catalogue/missions/e-commerce.md): 53
+- [Web tools](https://www.pramaan.dev/catalogue/missions/web-tools.md): 41
+- [E-commerce](https://www.pramaan.dev/catalogue/missions/e-commerce.md): 56
 - [Travel & places](https://www.pramaan.dev/catalogue/missions/travel-and-places.md): 52
-- [Government & public data](https://www.pramaan.dev/catalogue/missions/government-and-public-data.md): 2
-- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 107
+- [Government & public data](https://www.pramaan.dev/catalogue/missions/government-and-public-data.md): 3
+- [Finance](https://www.pramaan.dev/catalogue/missions/finance.md): 109
 - [Crypto & DeFi](https://www.pramaan.dev/catalogue/missions/crypto-and-defi.md): 27
 - [Gen AI](https://www.pramaan.dev/catalogue/missions/gen-ai.md): 81
 - [Sports](https://www.pramaan.dev/catalogue/missions/sports.md): 1
-- [Email & calendar](https://www.pramaan.dev/catalogue/missions/email-and-calendar.md): 35
+- [Email & calendar](https://www.pramaan.dev/catalogue/missions/email-and-calendar.md): 36
 - [Phone & messaging](https://www.pramaan.dev/catalogue/missions/phone-and-messaging.md): 49
-- [Hiring & assessments](https://www.pramaan.dev/catalogue/missions/hiring-and-assessments.md): 32
+- [Hiring & assessments](https://www.pramaan.dev/catalogue/missions/hiring-and-assessments.md): 35
 - [Health](https://www.pramaan.dev/catalogue/missions/health.md): 1
-- [Identity & security](https://www.pramaan.dev/catalogue/missions/identity-and-security.md): 51
-- [Developer tools](https://www.pramaan.dev/catalogue/missions/developer-tools.md): 65
+- [Identity & security](https://www.pramaan.dev/catalogue/missions/identity-and-security.md): 52
+- [Developer tools](https://www.pramaan.dev/catalogue/missions/developer-tools.md): 69

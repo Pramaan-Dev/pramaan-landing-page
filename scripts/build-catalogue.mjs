@@ -93,6 +93,7 @@ const missions = visible.map((o) => ({
   mode: o.mode,
   effect: o.effectClass,
   priceMaxMicro: o.priceMaxMicro,
+  priceMinMicro: o.priceMinMicro, // cheapest run; left out when a step has no published price
   personalData: !!o.personalData,
   requiresApproval: !!o.requiresApproval,
   steps: (steps[o.id] ?? []).map((id) => ({

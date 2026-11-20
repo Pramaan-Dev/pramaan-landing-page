@@ -47370,6 +47370,78 @@
   },
   "visa.requirements.check": {
    "c": "Travel & places"
-  }
+  },
+  "ads.audience.create": {
+   "c": "Advertising",
+   "f": "Ad accounts"
+  },
+  "ads.audience.members.add": {
+   "c": "Advertising",
+   "f": "Ad accounts"
+  },
+  "ads.audience.status": {
+   "c": "Advertising",
+   "f": "Ad accounts"
+  },
+  "companies.locations.count": {
+   "c": "Data",
+   "f": "Company profiles"
+  },
+  "trademarks.eu.search": {
+   "c": "Legal",
+   "f": "Patents and trademarks"
+  },
+  "trademarks.gb.search": {
+   "c": "Legal",
+   "f": "Patents and trademarks"
+  },
+  "trademarks.id.search": {
+   "c": "Legal",
+   "f": "Patents and trademarks"
+  },
+  "trademarks.us.search": {
+   "c": "Legal",
+   "f": "Patents and trademarks"
+  },
+  "trademarks.wipo.search": {
+   "c": "Legal",
+   "f": "Patents and trademarks"
+  },
+  "web.archive.snapshot.get": {
+   "c": "Web tools",
+   "f": "Site mapping"
+  },
+  "web.archive.snapshots.list": {
+   "c": "Web tools",
+   "f": "Site mapping"
+  },
+  "ads.audience.build": { "c": "Advertising" },
+  "ads.campaigns.pause-poor": { "c": "Advertising" },
+  "calendar.focus.block": { "c": "Email & calendar" },
+  "candidate.brief": { "c": "Hiring & assessments" },
+  "cart.recovery.flow": { "c": "E-commerce" },
+  "company.customers.find": { "c": "Data" },
+  "company.locations.find": { "c": "Data" },
+  "competitor.followers.find": { "c": "Social media" },
+  "compliance.evidence.pack": { "c": "Identity & security" },
+  "design.spec.tickets": { "c": "Developer tools" },
+  "ecommerce.stores.find": { "c": "E-commerce" },
+  "errors.triage.issues": { "c": "Developer tools" },
+  "finance.close.memo": { "c": "Finance" },
+  "funnel.digest": { "c": "Data" },
+  "interview.panel.schedule": { "c": "Hiring & assessments" },
+  "interviews.synthesize": { "c": "Research" },
+  "inventory.low-stock.alert": { "c": "E-commerce" },
+  "lead.phone.find": { "c": "Data" },
+  "lead.work-email.find": { "c": "Data" },
+  "offer.send": { "c": "Hiring & assessments" },
+  "page.history.capture": { "c": "Web tools" },
+  "person.linkedin.resolve": { "c": "Data" },
+  "professional.find": { "c": "Government & public data" },
+  "purchase.order.route": { "c": "Finance" },
+  "smb.owner.find": { "c": "Data" },
+  "sprint.brief": { "c": "Developer tools" },
+  "ticket.escalate": { "c": "Developer tools" },
+  "warm.intro.find": { "c": "Data" }
  }
 }

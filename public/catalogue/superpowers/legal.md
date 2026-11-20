@@ -212,6 +212,11 @@ Search patents and trademarks, trademark journals and IP registers.
 - `patents.document.get`: Read the title, abstract, claims and public filing dates of a published patent.
 - `patents.in-ipindia.application-status.get`: Read the official application status metadata from the InPASS portal for a given Indian patent application number.
 - `patents.us-ptos.patent.get`: Read an US patent or pre-grant publication by document number, with its abstract and claims.
+- `trademarks.eu.search`: Search the European Union's published trademark register by name.
+- `trademarks.gb.search`: Search the United Kingdom's published trademark register by name.
+- `trademarks.id.search`: Search Indonesia's published trademark register by name.
+- `trademarks.us.search`: Search published United States trademark records by name.
+- `trademarks.wipo.search`: Search published international trademark registrations by name.
 
 ## US laws
 
